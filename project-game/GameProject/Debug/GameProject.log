@@ -1,0 +1,116 @@
+﻿FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\suganuma.yutaka.THS50179.001\Documents\city-project\project-game\GameProject\data\SHADER\BillboardShader.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\suganuma.yutaka.THS50179.001\Documents\city-project\project-game\GameProject\data\SHADER\DefaultShader.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\suganuma.yutaka.THS50179.001\Documents\city-project\project-game\GameProject\data\SHADER\DepthShader.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\suganuma.yutaka.THS50179.001\Documents\city-project\project-game\GameProject\data\SHADER\ParticleShader.cso
+C:\Users\suganuma.yutaka.THS50179.001\Documents\city-project\project-game\GameProject\PerPixelLightingShader.hlsl(71,55-84): warning X3206: 'dot': implicit truncation of vector type
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\suganuma.yutaka.THS50179.001\Documents\city-project\project-game\GameProject\data\SHADER\PerPixelLightingShader.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\suganuma.yutaka.THS50179.001\Documents\city-project\project-game\GameProject\data\SHADER\ShadowVLShader.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\suganuma.yutaka.THS50179.001\Documents\city-project\project-game\GameProject\data\SHADER\SkinMeshShader.cso
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\suganuma.yutaka.THS50179.001\Documents\city-project\project-game\GameProject\data\SHADER\SpriteShader.cso
+C:\Users\suganuma.yutaka.THS50179.001\Documents\city-project\project-game\GameProject\VertexLightingShader.hlsl(62,55-84): warning X3206: 'dot': implicit truncation of vector type
+FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\suganuma.yutaka.THS50179.001\Documents\city-project\project-game\GameProject\data\SHADER\VertexLightingShader.cso
+  XModelRenderer.cpp
+  XModelManager.cpp
+  XModelData.cpp
+  VertexLightingShader.cpp
+  Vector3.cpp
+  Vector2.cpp
+  Transform.cpp
+  TitleController.cpp
+  TextureUV.cpp
+c:\users\suganuma.yutaka.ths50179.001\documents\city-project\project-game\gameproject\textureuv.cpp(149): warning C4244: '引数': 'int' から 'const float' への変換です。データが失われる可能性があります。
+  TextureManager.cpp
+  Texture.cpp
+  Sun.cpp
+  SpriteShader.cpp
+  SpriteRenderer.cpp
+  SoundManager.cpp
+  SoundData.cpp
+  Slider.cpp
+  SkinMeshShader.cpp
+  SkinMeshRenderer.cpp
+c:\users\suganuma.yutaka.ths50179.001\documents\city-project\project-game\gameproject\skinmeshrenderer.cpp(210): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\suganuma.yutaka.ths50179.001\documents\city-project\project-game\gameproject\skinmeshrenderer.cpp(238): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\suganuma.yutaka.ths50179.001\documents\city-project\project-game\gameproject\skinmeshrenderer.cpp(283): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  SkinMeshModel.cpp
+c:\users\suganuma.yutaka.ths50179.001\documents\city-project\project-game\gameproject\skinmeshmodel.cpp(70): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  コードを生成中...
+  コンパイル中...
+  ShadowVLShader.cpp
+  ShaderManager.cpp
+c:\users\suganuma.yutaka.ths50179.001\documents\city-project\project-game\gameproject\shadermanager.cpp(79): warning C4018: '>=': signed と unsigned の数値を比較しようとしました。
+  Shader.cpp
+  ResultController.cpp
+  RenderTexture.cpp
+  RenderManager.cpp
+  Renderer.cpp
+  Polygon3DRenderer.cpp
+  PerPixelLightingShader.cpp
+  PartsAnimator.cpp
+c:\users\suganuma.yutaka.ths50179.001\documents\city-project\project-game\gameproject\partsanimator.cpp(77): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\suganuma.yutaka.ths50179.001\documents\city-project\project-game\gameproject\partsanimator.cpp(80): warning C4244: '引数': 'int' から 'const float' への変換です。データが失われる可能性があります。
+c:\users\suganuma.yutaka.ths50179.001\documents\city-project\project-game\gameproject\partsanimator.cpp(511): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  ParticleShader.cpp
+c:\users\suganuma.yutaka.ths50179.001\documents\city-project\project-game\gameproject\particleshader.cpp(81): warning C4244: '初期化中': 'DWORD' から 'float' への変換です。データが失われる可能性があります。
+  ParticleRenderer.cpp
+  ModeTitle.cpp
+  ModeResult.cpp
+  ModeGame.cpp
+  MeshPlaneRenderer.cpp
+  MeshFieldRenderer.cpp
+  MeshFieldCollider.cpp
+  MeshField.cpp
+  MeshDomeRenderer.cpp
+  コードを生成中...
+  コンパイル中...
+  MeshBoxRenderer.cpp
+  Material.cpp
+  Manager.cpp
+  main.cpp
+  Light.cpp
+  InputMouse.cpp
+  InputKeyboard.cpp
+  InputHandler.cpp
+  Input.cpp
+  GameObjectManager.cpp
+  GameObject.cpp
+  Game.cpp
+  DepthShader.cpp
+  DefaultShader.cpp
+  DebugRenderer.cpp
+  Component.cpp
+  CollisionManager.cpp
+  Collider.cpp
+  CameraController.cpp
+  Camera.cpp
+  コードを生成中...
+c:\users\suganuma.yutaka.ths50179.001\documents\city-project\project-game\gameproject\light.cpp(62): warning C4172: ローカル変数またはテンポラリのアドレスを返します
+c:\users\suganuma.yutaka.ths50179.001\documents\city-project\project-game\gameproject\light.cpp(71): warning C4172: ローカル変数またはテンポラリのアドレスを返します
+  コンパイル中...
+  BoxCollider.cpp
+  BillboardShader.cpp
+  BillboardRenderer.cpp
+  AudioSource.cpp
+c:\users\suganuma.yutaka.ths50179.001\documents\city-project\project-game\gameproject\audiosource.cpp(56): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\users\suganuma.yutaka.ths50179.001\documents\city-project\project-game\gameproject\audiosource.cpp(67): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  コードを生成中...
+  GameProject.vcxproj -> C:\Users\suganuma.yutaka.THS50179.001\Documents\city-project\project-game\Debug\GameProject.exe
+  GameProject.vcxproj -> C:\Users\suganuma.yutaka.THS50179.001\Documents\city-project\project-game\Debug\GameProject.pdb (Partial PDB)
