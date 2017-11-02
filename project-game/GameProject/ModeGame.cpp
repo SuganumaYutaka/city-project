@@ -61,6 +61,11 @@ void ModeGame::Init()
 	meshDome->LoadTexture( "data/TEXTURE/sky00.jpg");
 	meshDome->SetSize( 1000.0f, 1000.0f);
 
+	//フィールド
+	auto pField = new GameObject( m_pRoot);
+	auto meshField = pField->AddComponent<MeshField>();
+	meshField->LoadTexture( "data/TEXTURE/field01.png");
+	meshField->SetSize( 1500.0f, 1500.0f);
 }
 
 /*------------------------------------------------------------------------------
