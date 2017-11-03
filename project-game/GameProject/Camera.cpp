@@ -176,3 +176,26 @@ void Camera::SetFar(float Far)
 	m_fFar = Far;
 	D3DXMatrixPerspectiveFovLH( &m_mtxProj, m_fFovY, m_fAspect, m_fNear, m_fFar);
 }
+
+/*------------------------------------------------------------------------------
+	プロジェクション行列の設定（Perspective）
+------------------------------------------------------------------------------*/
+void Camera::SetPerspective( float FovY, float Aspect, float Near, float Far)
+{
+	m_fFovY = FovY;
+	m_fAspect = Aspect;
+	m_fNear = Near;
+	m_fFar = Far;
+
+	D3DXMatrixPerspectiveFovLH( &m_mtxProj, m_fFovY, m_fAspect, m_fNear, m_fFar);
+}
+
+/*------------------------------------------------------------------------------
+	プロジェクション行列の設定（Perspective）
+------------------------------------------------------------------------------*/
+void Camera::SetOrtho( float Width, float Height, float Near, float Far)
+{
+	m_fNear = Near;
+	m_fFar = Far;
+	D3DXMatrixOrthoLH( &m_mtxProj, Width, Height, Near, Far);
+}
