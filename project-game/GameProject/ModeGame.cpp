@@ -46,7 +46,7 @@ void ModeGame::Init()
 	auto cameraComponent = pCamera->AddComponent<Camera>();
 	pCamera->m_pTransform->SetLocalPosition( Vector3( 0.0f, 1.0f, -2.5f));
 	Manager::GetRenderManager()->SetMainCamera( pCamera->GetComponent<Camera>());	//ƒƒCƒ“ƒJƒƒ‰‚ÉÝ’è
-	cameraComponent->SetFar( 1200.0f);
+	cameraComponent->SetFar( 2000.0f);
 	pCamera->AddComponent<CameraController>();
 
 	//‘¾—z
@@ -104,7 +104,10 @@ void ModeGame::Init()
 			pBill->m_pTransform->SetLocalScale(size);
 		}
 	}
-	
+
+	auto pPlayer = new GameObject( m_pRoot);
+	auto playerModel = pPlayer->AddComponent<PartsAnimator>();
+	playerModel->Load( "data/MOTION/player.txt");
 }
 
 /*------------------------------------------------------------------------------

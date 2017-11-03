@@ -75,6 +75,9 @@ public:
 	void SetNear( float Near);
 	void SetFar( float Far);
 
+	void SetPerspective( float FovY, float Aspect, float Near, float Far);
+	void SetOrtho( float Width, float Height, float Near, float Far);
+
 private:
 	Vector3 m_PosAt;					//注視点（ワールド座標）
 	Vector3 m_VecUp;					//カメラの上方向

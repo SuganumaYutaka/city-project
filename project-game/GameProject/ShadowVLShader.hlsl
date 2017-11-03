@@ -94,7 +94,7 @@ OM_INPUT ps(PS_INPUT input)
 	output.col = color;
 
 	//影
-	float bias = 0.0023f;		//バイアス値（調整が必要）
+	float bias = 0.0053f;		//バイアス値（調整が必要）
 	float ZValue = input.posL.z / input.posL.w;	//Z値
 	
 	//XY座標をテクスチャ座標に変換
@@ -110,25 +110,6 @@ OM_INPUT ps(PS_INPUT input)
 	{
 		output.col = color * 0.5f;
 	}
-
-	//影
-	//float bias = 0.005f;		//バイアス値（調整が必要）
-	//float shadowZ = tex2D(ShadowBufSampler, input.posL.xy);
-	//float shadow = shadowZ > input.posL.z - bias;
-	//output.col = color * lerp( 1, 0.7, shadow);
-
-	//影
-	//float bias = 0.005f;		//バイアス値（調整が必要）
-	//float2 shadowUV = 0.5 * input.posL.xy / input.posL.w + float2( 0.5, 0.5);
-	//shadowUV.y = 1.0f - shadowUV.y;
-	//shadowUV.x = shadowUV.x + 0.5f / 1024;
-	//shadowUV.y = shadowUV.x + 0.5f / 1024;
-	//float depth = input.posL.z / input.posL.w;
-	//float shadowValue = tex2D(ShadowBufSampler, shadowUV);
-	//if (depth - shadowValue > bias)
-	//{
-	//	output.col = color * 0.5;
-	//}
 
 	return output;
 }
