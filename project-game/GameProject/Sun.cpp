@@ -51,8 +51,7 @@ void Sun::Uninit( void)
 ------------------------------------------------------------------------------*/
 void Sun::Update()
 {
-	//‰ñ“]Ž²
-	Vector3 Axis = Vector3( 0.5f, 0.3f, 0.0f);
-
+	//‰ñ“]
+	//Vector3 Axis = Vector3( 0.5f, 0.3f, 0.0f);
 	//m_pTransform->RotateAxis( Axis, 0.01f);
 }

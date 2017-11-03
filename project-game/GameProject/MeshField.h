@@ -39,6 +39,8 @@ public:
 	void SetBlockSize( float Width, float Height);
 	void SetSize( float Width, float Height);
 
+	void LoadTexture(std::string FileName);
+
 private:
 	MeshFieldRenderer *m_pMeshFieldRenderer;		//メッシュフィールド描画クラス
 	MeshFieldCollider *m_pMeshFieldCollider;		//メッシュフィールドコライダー

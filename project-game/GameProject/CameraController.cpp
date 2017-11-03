@@ -19,7 +19,7 @@
 /*------------------------------------------------------------------------------
 	マクロ定義
 ------------------------------------------------------------------------------*/
-#define MOVE_SPEED ( 0.01f)		//カメラ平行移動速度
+#define MOVE_SPEED ( 0.10f)		//カメラ平行移動速度
 #define ROT_SPEED ( 0.03f)		//カメラ回転速度
 
 /*------------------------------------------------------------------------------
@@ -167,7 +167,7 @@ void CameraController::Update()
 	}
 
 	//ズームインアウト・Z軸移動
-	float fZoom = Manager::GetInputMouse()->GetWheel() * 0.01f;
+	float fZoom = Manager::GetInputMouse()->GetWheel() * MOVE_SPEED;
 
 	if (fZoom != 0.0f)
 	{

@@ -106,3 +106,11 @@ void MeshField::SetSize( float Width, float Height)
 	m_pMeshFieldRenderer->SetSize( Width, Height);
 	m_pMeshFieldCollider->SetSize( Width, Height);
 }
+
+/*------------------------------------------------------------------------------
+	テクスチャ設定
+------------------------------------------------------------------------------*/
+void MeshField::LoadTexture(std::string FileName)
+{
+	m_pMeshFieldRenderer->LoadTexture( FileName);
+}
