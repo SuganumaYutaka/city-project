@@ -36,6 +36,25 @@ ModeGame::~ModeGame()
 ------------------------------------------------------------------------------*/
 void ModeGame::Init()
 {
+	//ファイル保存テスト
+	File file;
+	file += "test test\n";
+	file += "hoge\nok";
+	file.Save("data/SCRIPT/test.txt");
+
+	//ファイル読み込みテスト
+	file.ClearTextStrage();
+	file.Load("data/SCRIPT/test.txt");
+	std::string test;
+	test += file.GetWord();
+	file.ForwardPositionToNextSentence();
+	test += file.GetWord();
+	file.ForwardPositionToNextSentence();
+	test += file.GetWord();
+	file.BackPositionToPrevSentence();
+	file.BackPositionToPrevSentence();
+	test += file.GetWord();
+
 	//ノードの先頭
 	m_pRoot = new GameObject(NULL);
 	

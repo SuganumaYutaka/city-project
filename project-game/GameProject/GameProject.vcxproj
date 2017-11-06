@@ -171,6 +171,7 @@
     <ClCompile Include="DebugRenderer.cpp" />
     <ClCompile Include="DefaultShader.cpp" />
     <ClCompile Include="DepthShader.cpp" />
+    <ClCompile Include="File.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
@@ -286,6 +287,7 @@
     <ClInclude Include="DefaultShader.h" />
     <ClInclude Include="DepthShader.h" />
     <ClInclude Include="Factory.h" />
+    <ClInclude Include="File.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />

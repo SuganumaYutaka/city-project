@@ -32,6 +32,7 @@
 //”Ä—pƒNƒ‰ƒX
 #include "Vector2.h"
 #include "Vector3.h"
+#include "File.h"
 #include "TextureUV.h"
 #include "Game.h"
 
