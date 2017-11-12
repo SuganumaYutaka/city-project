@@ -12,6 +12,7 @@
 #include "CollisionManager.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "MeshBoxRenderer.h"
 
 /*------------------------------------------------------------------------------
 	コンストラクタ

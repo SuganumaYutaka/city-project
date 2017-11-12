@@ -14,6 +14,26 @@
 #include "DebugRenderer.h"
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Transform* Transform::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<Transform>();
+}
+
+/*------------------------------------------------------------------------------
+	コンストラクタ
+------------------------------------------------------------------------------*/
+Transform::Transform()
+{
+	m_pGameObject = NULL;
+	m_pTransform = this;
+	D3DXQuaternionIdentity( &m_Rotation);
+	m_Scale = Vector3( 1.0f, 1.0f, 1.0f);
+	m_pParent = NULL;
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 Transform::Transform( GameObject *pGameObject)
@@ -882,4 +902,79 @@ void Transform::UnParent( void)
 	m_Scale.z = Vector3( m_LocalMatrix._31, m_LocalMatrix._32, m_LocalMatrix._33).Length();
 
 	m_bLocalMatrixUpdate = true;
+}
+
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void Transform::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "Position")
+		{
+			text.ForwardPositionToNextWord();
+			
+			m_Position.x = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Position.y = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Position.z = std::stof(text.GetWord());
+		}
+
+		else if (text.GetWord() == "Scale")
+		{
+			text.ForwardPositionToNextWord();
+			
+			m_Scale.x = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Scale.y = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Scale.z = std::stof(text.GetWord());
+		}
+
+		else if (text.GetWord() == "Rotation")
+		{
+			text.ForwardPositionToNextWord();
+			
+			m_Rotation.x = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Rotation.y = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Rotation.z = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Rotation.w = std::stof(text.GetWord());
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void Transform::Save(Text& text)
+{
+	StartSave(text);
+
+	text += "Position " + m_Position.ConvertToString() + '\n';
+	text += "Scale " + m_Scale.ConvertToString() + '\n';
+	text += "Rotation " 
+		+ std::to_string(m_Rotation.x) + ' '
+		+ std::to_string(m_Rotation.y) + ' '
+		+ std::to_string(m_Rotation.z) + ' '
+		+ std::to_string(m_Rotation.w) + '\n';
+
+	EndSave( text);
 }

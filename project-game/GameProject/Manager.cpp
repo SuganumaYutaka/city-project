@@ -19,7 +19,10 @@
 #include "SoundManager.h"
 #include "ShaderManager.h"
 #include "Mode.h"
-
+#include "Component.h"
+#include "Transform.h"
+#include "GameObject.h"
+#include "ComponentFactory.h"
 #include "ModeGame.h"
 #include "ModeTitle.h"
 
@@ -34,6 +37,7 @@ InputMouse *Manager::m_pInputMouse = NULL;
 CollisionManager *Manager::m_pCollisionManager = NULL;
 SoundManager *Manager::m_pSoundManager = NULL;
 ShaderManager *Manager::m_pShaderManager = NULL;
+ComponentFactory *Manager::m_pComponentFactory = NULL;
 std::stack<Mode*> Manager::m_stackMode;
 Mode *Manager::m_pNextMode = NULL;
 
@@ -72,6 +76,9 @@ Manager::Manager( HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 
 	//シェーダーマネージャー
 	m_pShaderManager = new ShaderManager();
+
+	//コンポーネントファクトリー
+	m_pComponentFactory = new ComponentFactory();
 
 	//モード
 	ChangeMode( new ModeGame());
@@ -149,6 +156,13 @@ Manager::~Manager()
 		delete m_pInputMouse;
 		m_pInputMouse = NULL;
 	}
+
+	//コンポーネント生成ファクトリーの破棄
+	if (m_pComponentFactory != NULL)
+	{
+		delete m_pComponentFactory;
+		m_pComponentFactory = NULL;
+	}
 }
 
 /*------------------------------------------------------------------------------
@@ -190,6 +204,7 @@ LPDIRECT3DDEVICE9 Manager::GetDevice( void)
 		return m_pRenderManager->GetDevice();
 	}
 
+	MessageBox(NULL, "ManagerにDeviceが登録されていません", "エラー", NULL);
 	return NULL;
 }
 
@@ -205,6 +220,7 @@ RenderManager *Manager::GetRenderManager( void)
 		return m_pRenderManager;
 	}
 
+	MessageBox(NULL, "ManagerにRenderManagerが登録されていません", "エラー", NULL);
 	return NULL;
 }
 
@@ -220,13 +236,14 @@ TextureManager *Manager::GetTextureManager( void)
 		return m_pTextureManager;
 	}
 
+	MessageBox(NULL, "ManagerにTextureManagerが登録されていません", "エラー", NULL);
 	return NULL;
 }
 
 /*------------------------------------------------------------------------------
 	Xモデルマネージャーポインタの取得(static)
 	戻り値
-		TextureManager *
+		XModelManager *
 ------------------------------------------------------------------------------*/
 XModelManager *Manager::GetXModelManager( void)
 {
@@ -235,6 +252,7 @@ XModelManager *Manager::GetXModelManager( void)
 		return m_pXModelManager;
 	}
 
+	MessageBox(NULL, "ManagerにXModelManagerが登録されていません", "エラー", NULL);
 	return NULL;
 }
 
@@ -250,6 +268,7 @@ InputKeyboard *Manager::GetInputKeyboard( void)
 		return m_pInputKeyboard;
 	}
 
+	MessageBox(NULL, "ManagerにInputKeyboardが登録されていません", "エラー", NULL);
 	return NULL;
 }
 
@@ -265,6 +284,7 @@ InputMouse *Manager::GetInputMouse( void)
 		return m_pInputMouse;
 	}
 
+	MessageBox(NULL, "ManagerにInputMouseが登録されていません", "エラー", NULL);
 	return NULL;
 }
 
@@ -280,6 +300,7 @@ CollisionManager *Manager::GetCollisionManager( void)
 		return m_pCollisionManager;
 	}
 
+	MessageBox(NULL, "ManagerにCollisionManagerが登録されていません", "エラー", NULL);
 	return NULL;
 }
 
@@ -295,6 +316,7 @@ SoundManager *Manager::GetSoundManager( void)
 		return m_pSoundManager;
 	}
 
+	MessageBox(NULL, "ManagerにSoundManagerが登録されていません", "エラー", NULL);
 	return NULL;
 }
 
@@ -310,6 +332,23 @@ ShaderManager *Manager::GetShaderManager( void)
 		return m_pShaderManager;
 	}
 
+	MessageBox(NULL, "ManagerにShaderManagerが登録されていません", "エラー", NULL);
+	return NULL;
+}
+
+/*------------------------------------------------------------------------------
+	コンポーネント生成ファクトリーポインタの取得(static)
+	戻り値
+		ComponentFactory *
+------------------------------------------------------------------------------*/
+ComponentFactory *Manager::GetComponentFactory( void)
+{
+	if( m_pComponentFactory != NULL)
+	{
+		return m_pComponentFactory;
+	}
+
+	MessageBox(NULL, "ManagerにComponentFactoryが登録されていません", "エラー", NULL);
 	return NULL;
 }
 

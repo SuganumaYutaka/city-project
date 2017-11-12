@@ -1,0 +1,17 @@
+GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 0.000000 0.000000 0.000000
+ Scale 1.000000 1.000000 1.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 1.000000 2.000000 3.000000
+ Scale 1.000000 2.000000 3.000000
+ Rotation 0.754934 -0.206149 0.444435 0.435953
+ EndComponent
+ EndGameObject
+ EndGameObject
+ 

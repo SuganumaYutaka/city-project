@@ -12,12 +12,13 @@
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
 
-#include "ComponentInclude.h"
+#include "Component.h"
+#include "Transform.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-
+class Transform;
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -43,9 +44,12 @@ public:
 	static void ReleaseList( void);
 
 	void ReleaseComponent( Component* pComp);
+
+	void Save( Text& text);
+	void Load( Text& text);
 	
 private:
-	GameObject() {}
+	GameObject();
 	~GameObject() {}
 
 	GameObject* m_pParent;							//親ノード
@@ -117,22 +121,13 @@ public:
 
 	template< class T> T* AddComponent(void)	//コンポーネント追加
 	{
-		//コンポーネントの検索
-		//for (Component* pComp : m_listComponent)
-		//{
-		//	if( typeid(*pComp) == typeid(T))
-		//	{
-		//		//assert( false);
-		//		return (T *)pComp;
-		//	}
-		//}
-
 		//コンポーネント追加
 		T* pComp = new T( this);
 		m_listComponent.push_back( pComp);
 		return pComp;
 	}
 };
+
 
 
 #endif

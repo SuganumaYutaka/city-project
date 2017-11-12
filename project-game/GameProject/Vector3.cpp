@@ -145,6 +145,20 @@ float Vector3::Distance( const Vector3 &V1, const Vector3 &V2)
 	return ( V1 - V2).Length( V1);
 }
 
+/*------------------------------------------------------------------------------
+	std::stringに変換
+------------------------------------------------------------------------------*/
+std::string Vector3::ConvertToString()
+{
+	std::string str;
+	str += std::to_string(x);
+	str += ' ';
+	str += std::to_string(y);
+	str += ' ';
+	str += std::to_string(z);
+	return str;
+}
+
 
 //演算子オーバーロード
 Vector3 &Vector3::operator += ( const Vector3 &V1)

@@ -34,6 +34,8 @@ typedef enum
 class Camera : public Component
 {
 public:
+	static Camera* Create( GameObject* gameObject);
+
 	Camera( GameObject *pGameObject);
 	void Uninit( void);
 

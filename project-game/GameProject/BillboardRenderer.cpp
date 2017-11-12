@@ -13,6 +13,7 @@
 #include "Transform.h"
 #include "RenderManager.h"
 #include "Material.h"
+#include "Camera.h"
 
 /*------------------------------------------------------------------------------
 	コンストラクタ

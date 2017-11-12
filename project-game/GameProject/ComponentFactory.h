@@ -1,44 +1,43 @@
 /*==============================================================================
 
-    Mode.h - 画面遷移（インターフェイス）
+    ComponentFactory.h - コンポーネント生成ファクトリー
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/6/8
+                                                       Date   : 2017/11/11
 ==============================================================================*/
-#ifndef _MODE_H_
-#define _MODE_H_
+#ifndef _COMPONENT_FACTORY_H_
+#define _COMPONENT_FACTORY_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include <string>
+#include "Manager.h"
+#include <functional>
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
+class Component;
 class GameObject;
 
 /*------------------------------------------------------------------------------
-	マクロ定義
+	列挙型定義
 ------------------------------------------------------------------------------*/
 
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class Mode
+class ComponentFactory
 {
 public:
-	virtual ~Mode() {}
-	
-	virtual void Init( void) = 0;
-	virtual void Update( void) = 0;
+	ComponentFactory();
+	Component* Create( std::string componentName, GameObject* gameObject);
 
-	void Uninit(void);
-
-protected:
-	GameObject *m_pRoot;			//ゲームオブジェクトノードの先頭
+private:
+	std::unordered_map< std::string, std::function<Component*(GameObject*)>> CreateMethods;
 
 };
+
 
 #endif
 

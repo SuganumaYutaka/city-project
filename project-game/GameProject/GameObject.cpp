@@ -10,11 +10,21 @@
 ------------------------------------------------------------------------------*/
 #include "GameObject.h"
 #include "Component.h"
+#include "ComponentFactory.h"
 
 /*------------------------------------------------------------------------------
 	静的メンバ変数宣言
 ------------------------------------------------------------------------------*/
 std::list<GameObject*> GameObject::m_listReleaseObject;
+
+/*------------------------------------------------------------------------------
+	デフォルトコンストラクタ
+	シリアライズ用
+------------------------------------------------------------------------------*/
+GameObject::GameObject( )
+{
+	m_bRelease = false;
+}
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -283,6 +293,77 @@ void GameObject::OnCollision(Collider *pCollider)
 	{
 		pComp->OnCollision( pCollider);
 	}
+}
+
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void GameObject::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndGameObject")
+	{
+		// GameObject
+		if (text.GetWord() == "Tag")
+		{
+			text.ForwardPositionToNextWord();
+			m_Tag = text.GetWord();
+		}
+
+		// Component
+		else if (text.GetWord() == "Component")
+		{
+			text.ForwardPositionToNextWord();
+			text.ForwardPositionToNextWord();
+
+			// transformだけ別の処理
+			if (text.GetWord() == "Transform")
+			{
+				m_pTransform->Load(text);
+				continue;
+			}
+
+			auto pComponent = Manager::GetComponentFactory()->Create( text.GetWord(), this);
+			pComponent->Load( text);
+			m_listComponent.push_back( pComponent);
+		}
+
+		// 子のゲームオブジェクト
+		else if (text.GetWord() == "GameObject")
+		{
+			auto pGameObject = new GameObject(this);
+			pGameObject->Load(text);
+		}
+
+		// textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void GameObject::Save(Text& text)
+{
+	// GameObject
+	text += "GameObject\n";
+	text += "Tag " + m_Tag + "\n";
+
+	// Component
+	std::for_each( m_listComponent.begin(), m_listComponent.end(), [&](Component* pComponent){ pComponent->Save(text);});
+
+	// 子のゲームオブジェクト
+	std::for_each( m_listChild.begin(), m_listChild.end(), [&](GameObject* pGameObject){ pGameObject->Save(text);});
+
+	text += "EndGameObject\n";
 }
 
 

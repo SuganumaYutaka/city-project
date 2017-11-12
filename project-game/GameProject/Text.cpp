@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    File.cpp - ファイル操作
+    Text.cpp - テキスト操作
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/11/5
 ==============================================================================*/
@@ -8,7 +8,7 @@
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "File.h"
+#include "Text.h"
 #include <fstream>
 
 /*------------------------------------------------------------------------------
@@ -20,12 +20,12 @@
 	静的メンバ変数
 ------------------------------------------------------------------------------*/
 //ファイルの末尾
-int File::EoF = -1;
+int Text::EoF = -1;
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
-File::File()
+Text::Text()
 {
 	TextStrage.clear();
 	CurrentPosition = 0;
@@ -34,7 +34,7 @@ File::File()
 /*------------------------------------------------------------------------------
 	ストレージを初期化する
 ------------------------------------------------------------------------------*/
-void File::ClearTextStrage()
+void Text::ClearTextStrage()
 {
 	TextStrage.clear();
 	CurrentPosition = 0;
@@ -44,7 +44,7 @@ void File::ClearTextStrage()
 	ファイル読み込み
 	戻り値 : true 成功	false 失敗
 ------------------------------------------------------------------------------*/
-bool File::Load(const std::string& fileName)
+bool Text::Load(const std::string& fileName)
 {
 	//ファイルオープン
 	std::ifstream ifs( fileName);
@@ -67,7 +67,7 @@ bool File::Load(const std::string& fileName)
 	ファイル書き込み
 	戻り値:	true 成功	false 失敗
 ------------------------------------------------------------------------------*/
-bool File::Save(const std::string& fileName)
+bool Text::Save(const std::string& fileName)
 {
 	//ファイルオープン
 	std::ofstream ofs( fileName);
@@ -86,9 +86,9 @@ bool File::Save(const std::string& fileName)
 
 /*------------------------------------------------------------------------------
 	現在位置から指定文字列を検索
-	戻り値:	int 見つけた位置	-1 存在しない
+	戻り値:	int 見つけた位置	EoF 存在しない
 ------------------------------------------------------------------------------*/
-int File::FindWord(std::string targetWord)
+int Text::FindWord(std::string targetWord)
 {
 	auto position = TextStrage.find( targetWord, CurrentPosition);
 	if (position == std::string::npos)
@@ -102,9 +102,9 @@ int File::FindWord(std::string targetWord)
 
 /*------------------------------------------------------------------------------
 	指定位置から指定文字列を検索
-	戻り値:	int 見つけた位置	-1 存在しない
+	戻り値:	int 見つけた位置	EoF 存在しない
 ------------------------------------------------------------------------------*/
-int File::FindWord(std::string targetWord, int startPosition)
+int Text::FindWord(std::string targetWord, int startPosition)
 {
 	auto position = TextStrage.find( targetWord, startPosition);
 	if (position == std::string::npos)
@@ -121,7 +121,7 @@ int File::FindWord(std::string targetWord, int startPosition)
 /*------------------------------------------------------------------------------
 	現在位置からの文字列を取得
 ------------------------------------------------------------------------------*/
-std::string File::GetWord()
+std::string Text::GetWord()
 {
 	auto endPosition = TextStrage.find_first_of( SEPARATORS, CurrentPosition);
 
@@ -137,7 +137,7 @@ std::string File::GetWord()
 /*------------------------------------------------------------------------------
 	指定位置からの文字列を取得
 ------------------------------------------------------------------------------*/
-std::string File::GetWord( int startPosition)
+std::string Text::GetWord( int startPosition)
 {
 	auto endPosition = TextStrage.find_first_of( SEPARATORS, startPosition);
 
@@ -153,7 +153,7 @@ std::string File::GetWord( int startPosition)
 /*------------------------------------------------------------------------------
 	現在位置からの文字列を取得（指定文字で区切る）
 ------------------------------------------------------------------------------*/
-std::string File::GetWordSeparatedByArg(const std::string separators)
+std::string Text::GetWordSeparatedByArg(const std::string separators)
 {
 	auto endPosition = TextStrage.find_first_of( separators, CurrentPosition);
 
@@ -169,7 +169,7 @@ std::string File::GetWordSeparatedByArg(const std::string separators)
 /*------------------------------------------------------------------------------
 	指定位置からの文字列を取得（指定文字で区切る）
 ------------------------------------------------------------------------------*/
-std::string File::GetWordSeparatedByArg(const std::string separators, int startPosition)
+std::string Text::GetWordSeparatedByArg(const std::string separators, int startPosition)
 {
 	auto endPosition = TextStrage.find_first_of( separators, startPosition);
 
@@ -185,7 +185,7 @@ std::string File::GetWordSeparatedByArg(const std::string separators, int startP
 /*------------------------------------------------------------------------------
 	CurrentPositionを1単語分進める
 ------------------------------------------------------------------------------*/
-int File::ForwardPositionToNextWord()
+int Text::ForwardPositionToNextWord()
 {
 	auto position = TextStrage.find_first_of( SEPARATORS, CurrentPosition);
 	if (position == std::string::npos)
@@ -205,7 +205,7 @@ int File::ForwardPositionToNextWord()
 /*------------------------------------------------------------------------------
 	CurrentPositionを1単語分戻す
 ------------------------------------------------------------------------------*/
-int File::BackPositionToPrevWord()
+int Text::BackPositionToPrevWord()
 {
 	auto position = TextStrage.find_last_not_of( SEPARATORS, CurrentPosition - 1);
 	if (position == std::string::npos)
@@ -227,14 +227,20 @@ int File::BackPositionToPrevWord()
 /*------------------------------------------------------------------------------
 	CurrentPositionを1行分進める
 ------------------------------------------------------------------------------*/
-int File::ForwardPositionToNextSentence()
+int Text::ForwardPositionToNextSentence()
 {
 	auto position = TextStrage.find_first_of( '\n', CurrentPosition);
 	if (position == std::string::npos)
 	{
 		return EoF;
 	}
-	CurrentPosition = position + 1;
+	position = TextStrage.find_first_not_of( SEPARATORS, position);
+	if (position == std::string::npos)
+	{
+		return EoF;
+	}
+
+	CurrentPosition = position;
 
 	return CurrentPosition;
 }
@@ -242,7 +248,7 @@ int File::ForwardPositionToNextSentence()
 /*------------------------------------------------------------------------------
 	CurrentPositionを1行分戻す
 ------------------------------------------------------------------------------*/
-int File::BackPositionToPrevSentence()
+int Text::BackPositionToPrevSentence()
 {
 	auto position = TextStrage.find_last_of( '\n', CurrentPosition);
 	if (position == std::string::npos)
@@ -264,9 +270,9 @@ int File::BackPositionToPrevSentence()
 /*------------------------------------------------------------------------------
 	Stringを追加
 ------------------------------------------------------------------------------*/
-int File::AddString(const std::string& str)
+int Text::AddString(const std::string& str)
 {
-	TextStrage += str+ '\n';
+	TextStrage += str + ' ';
 	CurrentPosition += str.size() + 1;
 	return CurrentPosition;
 }
@@ -274,15 +280,15 @@ int File::AddString(const std::string& str)
 /*------------------------------------------------------------------------------
 	オペレーター
 ------------------------------------------------------------------------------*/
-File& File::operator << (const std::string& str)
+Text& Text::operator << (const std::string& str)
 {
-	TextStrage += str + '\n';
+	TextStrage += str + ' ';
 	CurrentPosition += str.size() + 1;
 	return *this;
 }
-File& File::operator += (const std::string& str)
+Text& Text::operator += (const std::string& str)
 {
-	TextStrage += str + '\n';
+	TextStrage += str + ' ';
 	CurrentPosition += str.size() + 1;
 	return *this;
 }
