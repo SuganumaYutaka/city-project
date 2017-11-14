@@ -28,7 +28,7 @@ public:
 private:
 	LPDIRECT3DSURFACE9 m_pTexSurface;				//テクスチャサーフェス
 	LPDIRECT3DSURFACE9 m_pTexZ;						//深度バッファ
-	bool m_bBuckBuffer;									//バックバッファかどうか
+	bool m_bBuckBuffer;								//バックバッファかどうか
 };
 
 

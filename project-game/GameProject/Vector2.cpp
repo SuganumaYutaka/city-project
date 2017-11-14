@@ -145,6 +145,42 @@ float Vector2::Distance( const Vector2 &V1, const Vector2 &V2)
 	return ( V1 - V2).Length( V1);
 }
 
+/*------------------------------------------------------------------------------
+	std::stringに変換
+------------------------------------------------------------------------------*/
+std::string Vector2::ConvertToString()
+{
+	std::string str;
+	str += std::to_string(x);
+	str += ' ';
+	str += std::to_string(y);
+	return str;
+}
+
+/*------------------------------------------------------------------------------
+	std::stringから変換
+------------------------------------------------------------------------------*/
+int Vector2::ConvertFromString(std::string& str, int current)
+{
+	int end = current;
+	end = str.find_first_of( " ", current);
+	if (end == std::string::npos)
+	{
+		return -1;
+	}
+	x = std::stof(str.substr( current, end - current));
+	current = end + 1;
+
+	end = str.find_first_of( " ", current);
+	if (end == std::string::npos)
+	{
+		return -1;
+	}
+	y = std::stof(str.substr( current, end - current));
+	
+	return end;
+}
+
 
 //演算子オーバーロード
 Vector2 &Vector2::operator += ( const Vector2 &V1)

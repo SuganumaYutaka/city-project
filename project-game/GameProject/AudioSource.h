@@ -29,6 +29,8 @@ class SoundData;
 class AudioSource : public Component
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	AudioSource( GameObject *pGameObject);
 	void Uninit( void);
 
@@ -36,6 +38,9 @@ public:
 	void Stop( int nSoundIdx);
 
 	int LoadSound( std::string FileName, int nCntLoop);
+
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
 
 private:
 	std::vector<SoundData*> m_vecData;		//サウンドデータ

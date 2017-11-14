@@ -18,15 +18,17 @@
 class Texture
 {
 public:
-	Texture( std::string FileName);
+	Texture( std::string fileName);
 	virtual ~Texture();
 
 	void Set( void);
 	LPDIRECT3DTEXTURE9 GetTexture( void) { return m_pTexture;}
+	const std::string& GetFileName( void) { return FileName;}
 
 protected:
 	Texture(){}
 	LPDIRECT3DTEXTURE9 m_pTexture;		//DirectXテクスチャ
+	std::string FileName;
 
 };
 

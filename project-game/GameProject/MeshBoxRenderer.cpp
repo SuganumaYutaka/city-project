@@ -22,6 +22,14 @@
 #define NUM_INDEX (36)		//インデックス数
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* MeshBoxRenderer::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<MeshBoxRenderer>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 MeshBoxRenderer::MeshBoxRenderer( GameObject *pGameObject)
@@ -400,3 +408,80 @@ void MeshBoxRenderer::SetShader(EShaderType Type)
 {
 	m_pMaterial->SetShader( Type);
 }
+
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void MeshBoxRenderer::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "Pass")
+		{
+			text.ForwardPositionToNextWord();
+			m_nPass = std::stoi( text.GetWord());
+		}
+
+		else if (text.GetWord() == "Material")
+		{
+			text.ForwardPositionToNextWord();
+			m_pMaterial->Load(text);
+		}
+		else if (text.GetWord() == "Color")
+		{
+			text.ForwardPositionToNextWord();
+		
+			m_Color.r = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.g = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.b = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.a = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "Center")
+		{
+			text.ForwardPositionToNextWord();
+			text.SetPosition( m_Center.ConvertFromString(text.GetAllText(), text.GetPosition()));
+		}
+		else if (text.GetWord() == "Size")
+		{
+			text.ForwardPositionToNextWord();
+			text.SetPosition( m_Size.ConvertFromString(text.GetAllText(), text.GetPosition()));
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+	SetVtxBuffer();
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void MeshBoxRenderer::Save(Text& text)
+{
+	StartSave(text);
+
+	text += "Pass " + std::to_string(m_nPass) + '\n';
+	m_pMaterial->Save(text);
+	text += "Color " 
+		+ std::to_string(m_Color.r) + ' '
+		+ std::to_string(m_Color.g) + ' '
+		+ std::to_string(m_Color.b) + ' '
+		+ std::to_string(m_Color.a) + '\n';
+	text += "Center " + m_Center.ConvertToString() + '\n';
+	text += "Size " + m_Size.ConvertToString() + '\n';
+
+	EndSave( text);
+}
+

@@ -15,6 +15,14 @@
 #include "Material.h"
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* ParticleRenderer::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<ParticleRenderer>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 ParticleRenderer::ParticleRenderer( GameObject *pGameObject)
@@ -197,4 +205,140 @@ void ParticleRenderer::LoadTexture(std::string FileName)
 void ParticleRenderer::SetShader(EShaderType Type)
 {
 	m_pMaterial->SetShader( Type);
+}
+
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void ParticleRenderer::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "Pass")
+		{
+			text.ForwardPositionToNextWord();
+			m_nPass = std::stoi( text.GetWord());
+		}
+
+		else if (text.GetWord() == "Material")
+		{
+			text.ForwardPositionToNextWord();
+			m_pMaterial->Load(text);
+		}
+		else if (text.GetWord() == "Color")
+		{
+			text.ForwardPositionToNextWord();
+		
+			m_Color.r = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.g = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.b = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.a = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "AlphaRange")
+		{
+			text.ForwardPositionToNextWord();
+			m_AlphaRange = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "PosRange")
+		{
+			text.ForwardPositionToNextWord();
+			text.SetPosition( m_PosRange.ConvertFromString(text.GetAllText(), text.GetPosition()));
+		}
+		else if (text.GetWord() == "SizeCenter")
+		{
+			text.ForwardPositionToNextWord();
+			m_SizeCenter = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "SizeRange")
+		{
+			text.ForwardPositionToNextWord();
+			m_SizeRange = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "DirCenter")
+		{
+			text.ForwardPositionToNextWord();
+			text.SetPosition( m_DirCenter.ConvertFromString(text.GetAllText(), text.GetPosition()));
+		}
+		else if (text.GetWord() == "DirRange")
+		{
+			text.ForwardPositionToNextWord();
+			text.SetPosition( m_DirRange.ConvertFromString(text.GetAllText(), text.GetPosition()));
+		}
+		else if (text.GetWord() == "SpeedCenter")
+		{
+			text.ForwardPositionToNextWord();
+			m_SpeedCenter = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "SpeedRange")
+		{
+			text.ForwardPositionToNextWord();
+			m_SpeedRange = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "LifeCenter")
+		{
+			text.ForwardPositionToNextWord();
+			m_LifeCenter = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "LifeRange")
+		{
+			text.ForwardPositionToNextWord();
+			m_LifeRenge = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "StartRange")
+		{
+			text.ForwardPositionToNextWord();
+			m_StartRange = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "NumParticle")
+		{
+			text.ForwardPositionToNextWord();
+			m_nNumParticle = std::stoi(text.GetWord());
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void ParticleRenderer::Save(Text& text)
+{
+	StartSave(text);
+
+	text += "Pass " + std::to_string(m_nPass) + '\n';
+	m_pMaterial->Save(text);
+	text += "Color " 
+		+ std::to_string(m_Color.r) + ' '
+		+ std::to_string(m_Color.g) + ' '
+		+ std::to_string(m_Color.b) + ' '
+		+ std::to_string(m_Color.a) + '\n';
+	text += "AlphaRange " + std::to_string(m_AlphaRange) + "\n";
+	text += "PosRange " + m_PosRange.ConvertToString() + "\n";
+	text += "SizeCenter " + std::to_string( m_SizeCenter) + "\n";
+	text += "SizeRange " + std::to_string( m_SizeRange) + "\n";
+	text += "DirCenter " + m_DirCenter.ConvertToString() + "\n";
+	text += "DirRange " + m_DirRange.ConvertToString() + "\n";
+	text += "SpeedCenter " + std::to_string( m_SpeedCenter) + "\n";
+	text += "SpeedRange " + std::to_string( m_SpeedRange) + "\n";
+	text += "LifeCenter " + std::to_string( m_LifeCenter) + "\n";
+	text += "LifeRange " + std::to_string( m_LifeRenge) + "\n";
+	text += "StartRange " + std::to_string( m_StartRange) + "\n";
+	text += "NumParticle " + std::to_string( m_nNumParticle) + "\n";
+	
+	EndSave( text);
 }

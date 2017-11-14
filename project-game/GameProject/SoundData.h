@@ -23,11 +23,14 @@
 class SoundData
 {
 public:
-	SoundData( std::string FileName, int nCntLoop, IXAudio2 *pXAudio2);
+	SoundData( std::string fileName, int nCntLoop, IXAudio2 *pXAudio2);
 	~SoundData();
 
 	void Play( void);
 	void Stop(void);
+
+	std::string GetFileName() {return FileName;}
+	int GetCntLoop(){ return m_nCntLoop;}
 	
 private:
 	int m_nCntLoop;							//ループカウント（-1で無限ループ　0で一回　1以上で指定回）IXAudio2SourceVoice *g_apSourceVoice;		//ソースボイス
@@ -37,6 +40,8 @@ private:
 	
 	HRESULT CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWORD *pChunkDataPosition);
 	HRESULT ReadChunkData(HANDLE hFile, void *pBuffer, DWORD dwBuffersize, DWORD dwBufferoffset);
+
+	std::string FileName;
 };
 
 

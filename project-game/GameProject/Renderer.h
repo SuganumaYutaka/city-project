@@ -37,6 +37,9 @@ public:
 	virtual void SetActive( bool bEnable);
 	void SetPass( int Pass) { m_nPass = Pass;}
 
+	virtual void Save( Text& text) {Component::Save(text);}
+	virtual void Load( Text& text) {Component::Load(text);}
+
 protected:
 	Renderer();
 	LPDIRECT3DVERTEXBUFFER9 m_pVtxBuff;			//頂点バッファ

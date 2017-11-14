@@ -28,6 +28,8 @@ struct POLYGON
 class MeshFieldCollider : public Collider
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	MeshFieldCollider( GameObject *pGameObject);
 	void Uninit( void);
 
@@ -40,6 +42,8 @@ public:
 
 	float GetHeight( const Vector3& Pos);
 	
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
 
 private:
 	int m_nNumBlockX;			//‰¡‚Ì•ªŠ„”

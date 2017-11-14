@@ -54,14 +54,24 @@ public:
 	virtual void SetActive( bool bEnable) { m_bEnable = bEnable;}
 	bool GetActive( void) const { return m_bEnable;}
 
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
+
+	bool IsCreatedByOtherComponent;
+
 protected:
 	Component();
 	bool m_bEnable;					//実行可能か
+
+	void StartSave( Text& text);
+	void EndSave( Text& text);
 	
 private:
 	static std::list<Component*> m_listReleaseComponent;	//消去リスト
 	bool m_bRelease;										//消去予約済みか
+
 };
+
 
 #endif
 

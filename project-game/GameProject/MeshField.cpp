@@ -22,6 +22,14 @@
 #define P_HEIGHT( ALL_HEIGHT, NUM_FIELD_Z)			( ALL_HEIGHT / NUM_FIELD_Z)				//ポリゴン一枚あたりの高さ
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* MeshField::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<MeshField>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 MeshField::MeshField( GameObject *pGameObject)
@@ -32,9 +40,11 @@ MeshField::MeshField( GameObject *pGameObject)
 
 	//レンダラー追加
 	m_pMeshFieldRenderer = pGameObject->AddComponent<MeshFieldRenderer>();
+	m_pMeshFieldRenderer->IsCreatedByOtherComponent = true;
 	
 	//コライダー追加
 	m_pMeshFieldCollider = pGameObject->AddComponent<MeshFieldCollider>();
+	m_pMeshFieldCollider->IsCreatedByOtherComponent = true;
 
 	//メッシュフィールドの設定
 	m_nNumBlockX = MESH_FIELD_NUM_VERTEX_X;
@@ -85,6 +95,13 @@ void MeshField::Draw( void)
 ------------------------------------------------------------------------------*/
 void MeshField::SetField( int X, int Z, float BlockWidth, float BlockHeight, float *pVertexHeight)
 {
+	m_nNumBlockX = X;
+	m_nNumBlockZ = Z;
+	m_fBlockWidth = BlockWidth;
+	m_fBlockHeight = BlockHeight;
+	m_fWidth = m_nNumBlockX * m_fBlockWidth;
+	m_fHeight = m_nNumBlockZ * m_fBlockHeight;
+
 	m_pMeshFieldRenderer->SetField( X, Z, BlockWidth, BlockHeight, pVertexHeight);
 	m_pMeshFieldCollider->SetField( X, Z, BlockWidth, BlockHeight, pVertexHeight);
 }
@@ -94,6 +111,11 @@ void MeshField::SetField( int X, int Z, float BlockWidth, float BlockHeight, flo
 ------------------------------------------------------------------------------*/
 void MeshField::SetBlockSize( float Width, float Height)
 {
+	m_fBlockWidth = Width;
+	m_fBlockHeight = Height;
+	m_fWidth = m_nNumBlockX * m_fBlockWidth;
+	m_fHeight = m_nNumBlockZ * m_fBlockHeight;
+
 	m_pMeshFieldRenderer->SetBlockSize( Width, Height);
 	m_pMeshFieldCollider->SetBlockSize( Width, Height);
 }
@@ -103,6 +125,11 @@ void MeshField::SetBlockSize( float Width, float Height)
 ------------------------------------------------------------------------------*/
 void MeshField::SetSize( float Width, float Height)
 {
+	m_fWidth = Width;
+	m_fHeight = Height;
+	m_fBlockWidth = P_WIDTH(m_fWidth, m_nNumBlockX);
+	m_fBlockHeight = P_WIDTH(m_fHeight, m_nNumBlockZ);
+
 	m_pMeshFieldRenderer->SetSize( Width, Height);
 	m_pMeshFieldCollider->SetSize( Width, Height);
 }
@@ -110,7 +137,113 @@ void MeshField::SetSize( float Width, float Height)
 /*------------------------------------------------------------------------------
 	テクスチャ設定
 ------------------------------------------------------------------------------*/
-void MeshField::LoadTexture(std::string FileName)
+void MeshField::LoadTexture(std::string fileName)
 {
-	m_pMeshFieldRenderer->LoadTexture( FileName);
+	m_pMeshFieldRenderer->LoadTexture( fileName);
+}
+
+/*------------------------------------------------------------------------------
+	テクスチャ名取得
+------------------------------------------------------------------------------*/
+std::string MeshField::GetTextureName()
+{
+	return m_pMeshFieldRenderer->GetTextureName();
+}
+
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void MeshField::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "NumBlockX")
+		{
+			text.ForwardPositionToNextWord();
+			m_nNumBlockX = std::stoi(text.GetWord());
+		}
+		else if (text.GetWord() == "NumBlockZ")
+		{
+			text.ForwardPositionToNextWord();
+			m_nNumBlockZ = std::stoi(text.GetWord());
+		}
+		else if (text.GetWord() == "Width")
+		{
+			text.ForwardPositionToNextWord();
+			m_fWidth = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "Height")
+		{
+			text.ForwardPositionToNextWord();
+			m_fHeight = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "BlockWidth")
+		{
+			text.ForwardPositionToNextWord();
+			m_fBlockWidth = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "BlockHeight")
+		{
+			text.ForwardPositionToNextWord();
+			m_fBlockHeight = std::stof(text.GetWord());
+		}
+
+		else if (text.GetWord() == "VertexHeight")
+		{
+			delete[] m_pVertexHeight;
+			m_pVertexHeight = NULL;
+			m_pVertexHeight = new float[( m_nNumBlockZ + 1) * ( m_nNumBlockX + 1)];
+			for (int nCnt = 0; nCnt < ( m_nNumBlockZ + 1) * ( m_nNumBlockX + 1); nCnt++)
+			{
+				text.ForwardPositionToNextWord();
+				m_pVertexHeight[ nCnt] = std::stof(text.GetWord());
+			}
+		}
+
+		else if (text.GetWord() == "TextureFileName")
+		{
+			text.ForwardPositionToNextWord();
+			LoadTexture(text.GetWord());
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+
+	//他のコンポーネントに設定情報を伝える
+	m_pMeshFieldCollider->SetField( m_nNumBlockX, m_nNumBlockZ, m_fBlockWidth, m_fBlockHeight, m_pVertexHeight);
+	m_pMeshFieldRenderer->SetField( m_nNumBlockX, m_nNumBlockZ, m_fBlockWidth, m_fBlockHeight, m_pVertexHeight);
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void MeshField::Save(Text& text)
+{
+	StartSave(text);
+
+	text += "NumBlockX " + std::to_string(m_nNumBlockX) + ' ';
+	text += "NumBlockZ " + std::to_string(m_nNumBlockZ) + ' ';
+	text += "Width " + std::to_string(m_fWidth) + ' ';
+	text += "Height " + std::to_string(m_fHeight) + ' ';
+	text += "BlockWidth " + std::to_string(m_fBlockWidth) + ' ';
+	text += "BlockHeight " + std::to_string(m_fBlockHeight) + '\n';
+	text += "VertexHeight ";
+	for (int nCnt = 0; nCnt < ( m_nNumBlockZ + 1) * ( m_nNumBlockX + 1); nCnt++)
+	{
+		text += std::to_string(m_pVertexHeight[ nCnt]) + ' ';
+	}
+	text += "\n";
+	text += "TextureFileName " + GetTextureName() + '\n';
+
+	EndSave( text);
 }

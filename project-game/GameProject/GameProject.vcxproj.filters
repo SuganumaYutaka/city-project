@@ -332,6 +332,18 @@
     <ClCompile Include="SkinMeshShader.cpp">
       <Filter>ソース ファイル\Engine\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="File.cpp">
+      <Filter>ソース ファイル\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Mode.cpp">
+      <Filter>ソース ファイル\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>ソース ファイル\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentFactory.cpp">
+      <Filter>ソース ファイル\Engine\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioSource.h">
@@ -537,6 +549,18 @@
     </ClInclude>
     <ClInclude Include="SkinMeshShader.h">
       <Filter>ヘッダー ファイル\Engine\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="File.h">
+      <Filter>ヘッダー ファイル\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>ヘッダー ファイル\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="SerializeNoDefault.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentFactory.h">
+      <Filter>ヘッダー ファイル\Engine\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

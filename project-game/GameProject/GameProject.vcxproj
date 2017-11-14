@@ -168,9 +168,11 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="DebugRenderer.cpp" />
     <ClCompile Include="DefaultShader.cpp" />
     <ClCompile Include="DepthShader.cpp" />
+    <ClCompile Include="File.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
@@ -188,6 +190,7 @@
     <ClCompile Include="MeshFieldCollider.cpp" />
     <ClCompile Include="MeshFieldRenderer.cpp" />
     <ClCompile Include="MeshPlaneRenderer.cpp" />
+    <ClCompile Include="Mode.cpp" />
     <ClCompile Include="ModeGame.cpp" />
     <ClCompile Include="ModeResult.cpp" />
     <ClCompile Include="ModeTitle.cpp" />
@@ -212,6 +215,7 @@
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="SpriteShader.cpp" />
     <ClCompile Include="Sun.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TextureUV.cpp" />
@@ -281,11 +285,13 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="ComponentInclude.h" />
     <ClInclude Include="DebugRenderer.h" />
     <ClInclude Include="DefaultShader.h" />
     <ClInclude Include="DepthShader.h" />
     <ClInclude Include="Factory.h" />
+    <ClInclude Include="File.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
@@ -316,6 +322,7 @@
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="RenderTexture.h" />
     <ClInclude Include="ResultController.h" />
+    <ClInclude Include="SerializeNoDefault.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="ShadowVLShader.h" />
@@ -329,6 +336,7 @@
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="SpriteShader.h" />
     <ClInclude Include="Sun.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TextureUV.h" />

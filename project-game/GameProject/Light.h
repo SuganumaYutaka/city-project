@@ -35,6 +35,8 @@ typedef enum
 class Light : public Component
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	Light( GameObject *pGameObject);
 	void Uninit( void);
 
@@ -45,6 +47,9 @@ public:
 	ELightType GetType( void){ return m_Type;}
 
 	static std::list<Light*> GetList( void) { return m_listLight;}
+
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
 
 protected:
 	

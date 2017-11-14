@@ -26,6 +26,7 @@ Component::Component()
 	m_nLayer = eLayerDefault;
 	m_bEnable = true;
 	m_bRelease = false;
+	IsCreatedByOtherComponent = false;
 }
 
 /*------------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Component::Component( GameObject *pGameObject)
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 	m_bEnable = true;
 	m_bRelease = false;
+	IsCreatedByOtherComponent = false;
 }
 
 /*------------------------------------------------------------------------------
@@ -81,5 +83,57 @@ void Component::ReleaseList(void)
 	m_listReleaseComponent.clear();
 }
 
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void Component::Load(Text& text)
+{
+	do
+	{
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}while ( text.GetWord() != "EndComponent");
+}
 
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void Component::Save(Text& text)
+{
+	StartSave(text);
+	EndSave(text);
+}
 
+/*------------------------------------------------------------------------------
+	セーブ開始
+------------------------------------------------------------------------------*/
+void Component::StartSave(Text& text)
+{
+	// 他のコンポーネントから生成された場合保存しない
+	if (IsCreatedByOtherComponent == true)
+	{
+		return;
+	}
+
+	// クラス名
+	text += "Component ";
+	text += typeid(*this).name();
+	text += "\n";
+}
+
+/*------------------------------------------------------------------------------
+	セーブ終了
+------------------------------------------------------------------------------*/
+void Component::EndSave(Text& text)
+{
+	// 他のコンポーネントから生成された場合保存しない
+	if (IsCreatedByOtherComponent == true)
+	{
+		return;
+	}
+
+	text += "EndComponent\n";
+}

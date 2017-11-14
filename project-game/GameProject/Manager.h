@@ -22,6 +22,7 @@
 #include <iostream>
 #include <algorithm>
 #include <assert.h>
+#include <fstream>
 
 //DirectX9
 #include <d3dx9.h>	//<d3d9.h>も含まれる
@@ -29,9 +30,23 @@
 #include <dinput.h>	//入力
 #include <XAudio2.h>	//サウンド
 
+//boost
+//serialization
+//#include <boost/serialization/export.hpp>
+//#include <boost/serialization/string.hpp>
+//#include <boost/serialization/vector.hpp>
+//#include <boost/serialization/list.hpp>
+//#include <boost/serialization/map.hpp>
+//#include <boost/serialization/unordered_map.hpp>
+//#include <boost/archive/xml_oarchive.hpp>
+//#include <boost/archive/xml_iarchive.hpp>
+//#include <boost/serialization/nvp.hpp>
+//#include <boost/serialization/base_object.hpp>
+
 //汎用クラス
 #include "Vector2.h"
 #include "Vector3.h"
+#include "Text.h"
 #include "TextureUV.h"
 #include "Game.h"
 
@@ -62,6 +77,7 @@ class CollisionManager;
 class SoundManager;
 class ShaderManager;
 class Mode;
+class ComponentFactory;
 
 /*------------------------------------------------------------------------------
 	列挙型定義
@@ -130,6 +146,7 @@ public:
 	static CollisionManager *GetCollisionManager( void);
 	static SoundManager *GetSoundManager( void);
 	static ShaderManager *GetShaderManager( void);
+	static ComponentFactory *GetComponentFactory( void);
 	static void SetMode( Mode *pNextMode);
 	static void PushMode( Mode *pPushMode);
 	static void PopMode( void);
@@ -146,6 +163,7 @@ private:
 	static CollisionManager *m_pCollisionManager;	//衝突判定マネージャーポインタ
 	static SoundManager *m_pSoundManager;			//サウンドマネージャー
 	static ShaderManager *m_pShaderManager;			//シェーダーマネージャー
+	static ComponentFactory *m_pComponentFactory;	//コンポーネント生成ファクトリー
 	//static Mode *m_pMode;							//モード
 	static std::stack<Mode*> m_stackMode;			//モード（スタック）
 

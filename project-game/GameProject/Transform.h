@@ -39,6 +39,8 @@ typedef struct
 class Transform : public Component
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	Transform( GameObject *pGameObject);
 	void Uninit( void);
 
@@ -107,7 +109,11 @@ public:
 	void UnParent( void);
 	Transform* GetParent( void) const { return m_pParent;}
 
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
+
 private:
+	Transform();
 	void Update( void);
 	void UpdateLocalMatrix( void);
 
@@ -119,7 +125,6 @@ private:
 	Vector3 m_Position;					//位置
 	Vector3 m_Scale;					//スケール
 	D3DXQUATERNION m_Rotation;			//回転量（クォータニオン）
-
 };
 
 #endif

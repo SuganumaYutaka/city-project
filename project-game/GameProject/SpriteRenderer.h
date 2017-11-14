@@ -30,6 +30,8 @@ class Material;
 class SpriteRenderer : public Renderer
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	SpriteRenderer( GameObject *pGameObject);
 	void Uninit( void);
 
@@ -51,6 +53,9 @@ public:
 	int UVGetMaxPart( void) { return m_TextureUV.GetMaxPart(); }
 
 	void SetShader( EShaderType Type);
+
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
 	
 private:
 	void SetVtxBuffer( void);

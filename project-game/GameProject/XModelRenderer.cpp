@@ -17,6 +17,14 @@
 #include "XModelData.h"
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* XModelRenderer::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<XModelRenderer>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 XModelRenderer::XModelRenderer( GameObject *pGameObject)
@@ -113,4 +121,45 @@ void XModelRenderer::Draw( Camera* pCamera)
 std::vector<Material>& XModelRenderer::GetAllMaterial()
 {
 	return m_vecMaterial;
+}
+
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void XModelRenderer::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "FileName")
+		{
+			text.ForwardPositionToNextWord();
+			
+			LoadXModel( text.GetWord());
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void XModelRenderer::Save(Text& text)
+{
+	StartSave(text);
+
+	text += "FileName " + m_pData->FileName + '\n';
+
+	EndSave( text);
 }

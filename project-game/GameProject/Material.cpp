@@ -97,6 +97,14 @@ void Material::SetTexture(std::string FileName)
 }
 
 /*------------------------------------------------------------------------------
+	テクスチャ名引き渡し
+------------------------------------------------------------------------------*/
+std::string Material::GetTextureName(void)
+{
+	return m_pTexture->GetFileName();
+}
+
+/*------------------------------------------------------------------------------
 	シェーダー設定
 ------------------------------------------------------------------------------*/
 void Material::SetShader(EShaderType Type)
@@ -120,3 +128,119 @@ void Material::End(void)
 	Manager::GetShaderManager()->Load( m_ShaderType)->End();
 }
 
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void Material::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndMaterial")
+	{
+		if (text.GetWord() == "Ambient")
+		{
+			text.ForwardPositionToNextWord();
+			
+			m_Ambient.x = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Ambient.y = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Ambient.z = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Ambient.w = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "Diffuse")
+		{
+			text.ForwardPositionToNextWord();
+			
+			m_Diffuse.x = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Diffuse.y = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Diffuse.z = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Diffuse.w = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "Specular")
+		{
+			text.ForwardPositionToNextWord();
+			
+			m_Specular.x = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Specular.y = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Specular.z = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Specular.w = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "Emissive")
+		{
+			text.ForwardPositionToNextWord();
+			
+			m_Emissive.x = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Emissive.y = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Emissive.z = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Emissive.w = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "Texture")
+		{
+			text.ForwardPositionToNextWord();
+			
+			SetTexture( text.GetWord());
+		}
+
+		else if (text.GetWord() == "ShaderType")
+		{
+			text.ForwardPositionToNextWord();
+			
+			m_ShaderType = (EShaderType)std::stoi( text.GetWord());
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void Material::Save(Text& text)
+{
+	text += "Material\n";
+
+	text += "Ambient "
+		+ std::to_string(m_Ambient.x) + ' '
+		+ std::to_string(m_Ambient.y) + ' '
+		+ std::to_string(m_Ambient.z) + ' '
+		+ std::to_string(m_Ambient.w) + '\n';
+	text += "Diffuse "
+		+ std::to_string(m_Diffuse.x) + ' '
+		+ std::to_string(m_Diffuse.y) + ' '
+		+ std::to_string(m_Diffuse.z) + ' '
+		+ std::to_string(m_Diffuse.w) + '\n';
+	text += "Specular "
+		+ std::to_string(m_Specular.x) + ' '
+		+ std::to_string(m_Specular.y) + ' '
+		+ std::to_string(m_Specular.z) + ' '
+		+ std::to_string(m_Specular.w) + '\n';
+	text += "Emissive "
+		+ std::to_string(m_Emissive.x) + ' '
+		+ std::to_string(m_Emissive.y) + ' '
+		+ std::to_string(m_Emissive.z) + ' '
+		+ std::to_string(m_Emissive.w) + '\n';
+	text += "Texture " + m_pTexture->GetFileName() + '\n';
+	text += "ShaderType " + std::to_string((int)m_ShaderType) + '\n';
+
+	text += "EndMaterial\n";
+}

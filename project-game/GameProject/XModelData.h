@@ -23,12 +23,13 @@ class Material;
 class XModelData
 {
 public:
-	XModelData( std::string FileName);
+	XModelData( std::string fileName);
 	~XModelData();
 
 	LPD3DXMESH m_pMeshModel;						//メッシュ情報
 	DWORD m_nNumMaterial;							//マテリアル情報の数
 	std::vector<Material*> m_vecMaterial;			//マテリアル
+	std::string FileName;
 
 private:
 

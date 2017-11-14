@@ -34,6 +34,8 @@ typedef enum
 class Camera : public Component
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	Camera( GameObject *pGameObject);
 	void Uninit( void);
 
@@ -77,6 +79,9 @@ public:
 
 	void SetPerspective( float FovY, float Aspect, float Near, float Far);
 	void SetOrtho( float Width, float Height, float Near, float Far);
+
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
 
 private:
 	Vector3 m_PosAt;					//注視点（ワールド座標）

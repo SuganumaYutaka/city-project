@@ -30,6 +30,8 @@ class Material;
 class SkinMeshModel : public Component
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	SkinMeshModel( GameObject *pGameObject);
 	void Uninit( void);
 
@@ -41,6 +43,9 @@ public:
 
 	void SetScale( float rate);
 
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
+
 private:
 	std::string m_FileName;
 	std::vector<AnimationClip> vecAnimationClip;
@@ -48,6 +53,8 @@ private:
 	
 	int m_CntFrame;			//現在のフレーム
 	int m_AnimationState;	//現在のアニメーション
+
+	float ScaleRate;
 };
 
 #endif

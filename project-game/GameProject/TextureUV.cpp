@@ -157,3 +157,87 @@ void TextureUV::SetPart( int NumPartX, int NumPartY, int nPart)
 	UV[ 3] = Vector2( ( m_nPart % (int)m_NumPart.x + 1) * m_Size.x, ( m_nPart / (int)m_NumPart.x + 1) * m_Size.y);
 }
 
+/*------------------------------------------------------------------------------
+	std::string‚É•ÏŠ·
+------------------------------------------------------------------------------*/
+std::string TextureUV::ConvertToString()
+{
+	std::string str;
+	str += UV[0].ConvertToString();
+	str += ' ';
+	str += UV[1].ConvertToString();
+	str += ' ';
+	str += UV[2].ConvertToString();
+	str += ' ';
+	str += UV[3].ConvertToString();
+	str += ' ';
+	str += m_Pos.ConvertToString();
+	str += ' ';
+	str += m_Size.ConvertToString();
+	str += ' ';
+	str += m_NumPart.ConvertToString();
+	str += ' ';
+	str += std::to_string(m_nPart);
+	return str;
+}
+
+/*------------------------------------------------------------------------------
+	std::string‚©‚ç•ÏŠ·
+------------------------------------------------------------------------------*/
+int TextureUV::ConvertFromString(std::string& str, int current)
+{
+	int end = current;
+	end = UV[0].ConvertFromString(str, current);
+	if (end == -1)
+	{
+		return -1;
+	}
+	current = end + 1;
+	end = UV[1].ConvertFromString(str, current);
+	if (end == -1)
+	{
+		return -1;
+	}
+	current = end + 1;
+	end = UV[2].ConvertFromString(str, current);
+	if (end == -1)
+	{
+		return -1;
+	}
+	current = end + 1;
+	end = UV[3].ConvertFromString(str, current);
+	if (end == -1)
+	{
+		return -1;
+	}
+	current = end + 1;
+	end = m_Pos.ConvertFromString(str, current);
+	if (end == -1)
+	{
+		return -1;
+	}
+	current = end + 1;
+
+	end = m_Size.ConvertFromString(str, current);
+	if (end == -1)
+	{
+		return -1;
+	}
+	current = end + 1;
+
+	end = m_NumPart.ConvertFromString(str, current);
+	if (end == -1)
+	{
+		return -1;
+	}
+	current = end + 1;
+
+	end = str.find_first_of( " ", current);
+	if (end == std::string::npos)
+	{
+		return -1;
+	}
+	m_nPart = std::stof(str.substr( current, end - current));
+	
+	return end;
+}

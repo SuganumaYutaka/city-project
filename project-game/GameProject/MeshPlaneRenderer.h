@@ -30,6 +30,8 @@ class Material;
 class MeshPlaneRenderer : public Renderer
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	MeshPlaneRenderer( GameObject *pGameObject);
 	void Uninit( void);
 
@@ -47,6 +49,9 @@ public:
 
 	void SetShader( EShaderType Type);
 	
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
+
 private:
 	void SetVtxBuffer( void);
 	LPDIRECT3DINDEXBUFFER9 m_pIdxBuff;		//インデックスバッファ

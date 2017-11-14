@@ -23,6 +23,14 @@
 #define P_HEIGHT( ALL_HEIGHT, NUM_FIELD_Z)			( ALL_HEIGHT / NUM_FIELD_Z)		//ポリゴン一枚あたりの高さ
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* MeshFieldCollider::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<MeshFieldCollider>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 MeshFieldCollider::MeshFieldCollider( GameObject *pGameObject)
@@ -335,4 +343,93 @@ Vector3 MeshFieldCollider::GetPolygonNormal( int nIndex)
 	Vector3 Vec2 = m_pVtxPos[ m_pPolygon[ nIndex].nVtxIndex[2]] - m_pVtxPos[ m_pPolygon[ nIndex].nVtxIndex[0]];
 	
 	return Vector3::Cross( Vec1, Vec2);
+}
+
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void MeshFieldCollider::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	float* pVertexHeight = NULL;
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "NumBlockX")
+		{
+			text.ForwardPositionToNextWord();
+			m_nNumBlockX = std::stoi(text.GetWord());
+		}
+		else if (text.GetWord() == "NumBlockZ")
+		{
+			text.ForwardPositionToNextWord();
+			m_nNumBlockZ = std::stoi(text.GetWord());
+		}
+		else if (text.GetWord() == "Width")
+		{
+			text.ForwardPositionToNextWord();
+			m_fWidth = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "Height")
+		{
+			text.ForwardPositionToNextWord();
+			m_fHeight = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "BlockWidth")
+		{
+			text.ForwardPositionToNextWord();
+			m_fBlockWidth = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "BlockHeight")
+		{
+			text.ForwardPositionToNextWord();
+			m_fBlockHeight = std::stof(text.GetWord());
+		}
+
+		else if (text.GetWord() == "VertexHeight")
+		{
+			pVertexHeight = new float[ ( m_nNumBlockZ + 1) * ( m_nNumBlockX + 1)];
+			for (int nCnt = 0; nCnt < ( m_nNumBlockZ + 1) * ( m_nNumBlockX + 1); nCnt++)
+			{
+				text.ForwardPositionToNextWord();
+				pVertexHeight[ nCnt] = std::stof(text.GetWord());
+			}
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+
+	SetField( m_nNumBlockX, m_nNumBlockZ, m_fBlockWidth, m_fBlockHeight, pVertexHeight);
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void MeshFieldCollider::Save(Text& text)
+{
+	StartSave(text);
+
+	text += "NumBlockX " + std::to_string(m_nNumBlockX) + ' ';
+	text += "NumBlockZ " + std::to_string(m_nNumBlockZ) + ' ';
+	text += "Width " + std::to_string(m_fWidth) + ' ';
+	text += "Height " + std::to_string(m_fHeight) + ' ';
+	text += "BlockWidth " + std::to_string(m_fBlockWidth) + ' ';
+	text += "BlockHeight " + std::to_string(m_fBlockHeight) + '\n';
+	text += "VertexHeight ";
+	for (int nCnt = 0; nCnt < ( m_nNumBlockZ + 1) * ( m_nNumBlockX + 1); nCnt++)
+	{
+		text += std::to_string(m_pVtxPos[ nCnt].y) + ' ';
+	}
+	text += "\n";
+
+	EndSave( text);
 }

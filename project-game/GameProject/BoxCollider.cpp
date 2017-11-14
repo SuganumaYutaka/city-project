@@ -12,6 +12,15 @@
 #include "CollisionManager.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "MeshBoxRenderer.h"
+
+/*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* BoxCollider::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<BoxCollider>();
+}
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -26,9 +35,10 @@ BoxCollider::BoxCollider( GameObject *pGameObject)
 	//デバッグ表示
 #ifdef _DEBUG
 	auto obj = new GameObject( m_pGameObject->GetRoot());
+	obj->IsCreatedByOtherComponent = true;
 	m_pRenderer = obj->AddComponent<MeshBoxRenderer>();
 	m_pRenderer->SetWireFrame();
-
+	obj->IsCreatedByOtherComponent = true;
 #endif // _DEBUG
 
 }
@@ -124,4 +134,50 @@ void BoxCollider::SetActive(bool bEnable)
 
 #endif // _DEBUG
 
+}
+
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void BoxCollider::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "Center")
+		{
+			text.ForwardPositionToNextWord();
+			text.SetPosition( m_Center.ConvertFromString(text.GetAllText(), text.GetPosition()));
+		}
+		if (text.GetWord() == "Size")
+		{
+			text.ForwardPositionToNextWord();
+			text.SetPosition( m_Size.ConvertFromString(text.GetAllText(), text.GetPosition()));
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void BoxCollider::Save(Text& text)
+{
+	StartSave(text);
+
+	text += "Center " + m_Center.ConvertToString() + '\n';
+	text += "Size " + m_Size.ConvertToString() + '\n';
+
+	EndSave( text);
 }

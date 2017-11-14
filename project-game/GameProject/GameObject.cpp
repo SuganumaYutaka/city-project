@@ -10,11 +10,22 @@
 ------------------------------------------------------------------------------*/
 #include "GameObject.h"
 #include "Component.h"
+#include "ComponentFactory.h"
 
 /*------------------------------------------------------------------------------
 	静的メンバ変数宣言
 ------------------------------------------------------------------------------*/
 std::list<GameObject*> GameObject::m_listReleaseObject;
+
+/*------------------------------------------------------------------------------
+	デフォルトコンストラクタ
+	シリアライズ用
+------------------------------------------------------------------------------*/
+GameObject::GameObject( )
+{
+	m_bRelease = false;
+	IsCreatedByOtherComponent = false;
+}
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -50,6 +61,7 @@ void GameObject::InitGameObject( GameObject* pParent)
 	m_listComponent.clear();
 	m_pTransform = AddComponent<Transform>();
 	m_bRelease = false;
+	IsCreatedByOtherComponent = false;
 }
 
 /*------------------------------------------------------------------------------
@@ -283,6 +295,95 @@ void GameObject::OnCollision(Collider *pCollider)
 	{
 		pComp->OnCollision( pCollider);
 	}
+}
+
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void GameObject::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndGameObject")
+	{
+		// GameObject
+		if (text.GetWord() == "Tag")
+		{
+			text.ForwardPositionToNextWord();
+			m_Tag = text.GetWord();
+		}
+
+		// Component
+		else if (text.GetWord() == "Component")
+		{
+			text.ForwardPositionToNextWord();
+			text.ForwardPositionToNextWord();
+
+			// transformだけ別の処理
+			if (text.GetWord() == "Transform")
+			{
+				m_pTransform->Load(text);
+			}
+			else
+			{
+				auto pComponent = Manager::GetComponentFactory()->Create( text.GetWord(), this);
+				pComponent->Load( text);
+			}
+		}
+
+		// 子のゲームオブジェクト
+		else if (text.GetWord() == "GameObject")
+		{
+			auto pGameObject = new GameObject(this);
+			pGameObject->Load(text);
+		}
+
+		// textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void GameObject::Save(Text& text)
+{
+	// 他のコンポーネントから生成された場合保存しない
+	if (IsCreatedByOtherComponent == true)
+	{
+		return;
+	}
+
+	// GameObject
+	text += "GameObject\n";
+	text += "Tag " + m_Tag + "\n";
+
+	// Component
+	for (auto *pComponent : m_listComponent)
+	{
+		if (pComponent->IsCreatedByOtherComponent == false)
+		{
+			pComponent->Save(text);
+		}
+	}
+
+	// 子のゲームオブジェクト
+	for (auto *pGameObject : m_listChild)
+	{
+		if (pGameObject->IsCreatedByOtherComponent == false)
+		{
+			pGameObject->Save(text);
+		}
+	}
+
+	text += "EndGameObject\n";
 }
 
 

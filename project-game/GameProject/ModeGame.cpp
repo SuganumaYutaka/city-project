@@ -38,14 +38,22 @@ void ModeGame::Init()
 {
 	//ノードの先頭
 	m_pRoot = new GameObject(NULL);
+
+	////ロード
+	//Text loadText;
+	//loadText.Load("data/SCRIPT/ModeGame.txt");
+	//m_pRoot->Load(loadText);
 	
 	//オブジェクト生成
+	GameObject* pTest = new GameObject( m_pRoot);
+	pTest->m_pTransform->SetLocalPosition(1.0f, 2.0f, 3.0f);
+	pTest->m_pTransform->SetLocalScale(1.0f, 2.0f, 3.0f);
+	pTest->m_pTransform->SetLocalRotationEuler(1.0f, 2.0f, 3.0f);
 
 	//カメラ
 	GameObject *pCamera = new GameObject( m_pRoot);
 	auto cameraComponent = pCamera->AddComponent<Camera>();
 	pCamera->m_pTransform->SetLocalPosition( Vector3( 0.0f, 1.0f, -2.5f));
-	Manager::GetRenderManager()->SetMainCamera( pCamera->GetComponent<Camera>());	//メインカメラに設定
 	cameraComponent->SetFar( 2000.0f);
 	pCamera->AddComponent<CameraController>();
 
@@ -107,7 +115,12 @@ void ModeGame::Init()
 
 	auto pPlayer = new GameObject( m_pRoot);
 	auto playerModel = pPlayer->AddComponent<PartsAnimator>();
-	playerModel->Load( "data/MOTION/player.txt");
+	playerModel->LoadAnimator( "data/MOTION/player.txt");
+
+	//セーブ
+	Text saveText;
+	m_pRoot->Save( saveText);
+	saveText.Save("data/SCRIPT/ModeGame.txt");
 }
 
 /*------------------------------------------------------------------------------

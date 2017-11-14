@@ -30,6 +30,8 @@ class Material;
 class Polygon3DRenderer : public Renderer
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	Polygon3DRenderer( GameObject *pGameObject);
 	void Uninit( void);
 
@@ -52,6 +54,9 @@ public:
 
 	void SetShader( EShaderType Type);
 	
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
+
 private:
 	void SetVtxBuffer( void);
 

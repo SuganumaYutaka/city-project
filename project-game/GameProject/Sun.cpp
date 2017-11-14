@@ -16,6 +16,14 @@
 #include "InputKeyboard.h"
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* Sun::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<Sun>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 Sun::Sun( GameObject* pGameObject)
@@ -25,11 +33,14 @@ Sun::Sun( GameObject* pGameObject)
 
 	//ライト
 	GameObject *pLight = new GameObject( pGameObject);
+	pLight->IsCreatedByOtherComponent = true;
 	m_pLight = pLight->AddComponent<Light>();
+	m_pLight->IsCreatedByOtherComponent = true;
 	pLight->m_pTransform->SetLocalPosition( Vector3( 0.0f, 0.0f, 0.0f));
 	
 	//ライトのカメラ
 	m_pCamera = pLight->AddComponent<Camera>();
+	m_pCamera->IsCreatedByOtherComponent = true;
 	m_pCamera->SetRenderTarget( "shadow", false);
 	m_pCamera->SetRenderLayer( eLayerBack);
 	m_pCamera->SetRenderLayer( eLayerDefault);
@@ -82,3 +93,36 @@ void Sun::Update()
 	m_pTransform->Move(move);*/
 }
 
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void Sun::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void Sun::Save(Text& text)
+{
+	StartSave(text);
+
+	
+
+	EndSave( text);
+}

@@ -30,6 +30,8 @@ class Material;
 class MeshDomeRenderer : public Renderer
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	MeshDomeRenderer( GameObject *pGameObject);
 	void Uninit( void);
 
@@ -44,6 +46,9 @@ public:
 	void SetDome( int X, int Y, float Radius, float Height);
 	void SetBlockSize( float BlockAngle, float BlockHeight);
 	void SetSize( float Radius, float Height);
+
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
 	
 private:
 	void SetVtxBuffer( void);

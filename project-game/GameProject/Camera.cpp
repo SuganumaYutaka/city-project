@@ -23,6 +23,14 @@
 #define TEXTURE_HEIGHT (1024)
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* Camera::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<Camera>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 Camera::Camera( GameObject *pGameObject)
@@ -198,4 +206,102 @@ void Camera::SetOrtho( float Width, float Height, float Near, float Far)
 	m_fNear = Near;
 	m_fFar = Far;
 	D3DXMatrixOrthoLH( &m_mtxProj, Width, Height, Near, Far);
+}
+
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void Camera::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "PosAt")
+		{
+			text.ForwardPositionToNextWord();
+			text.SetPosition( m_PosAt.ConvertFromString(text.GetAllText(), text.GetPosition()));
+		}
+		else if (text.GetWord() == "VecUp")
+		{
+			text.ForwardPositionToNextWord();
+			text.SetPosition( m_VecUp.ConvertFromString(text.GetAllText(), text.GetPosition()));
+		}
+		else if (text.GetWord() == "FovY")
+		{
+			text.ForwardPositionToNextWord();
+			m_fFovY = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "Aspect")
+		{
+			text.ForwardPositionToNextWord();
+			m_fAspect = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "Near")
+		{
+			text.ForwardPositionToNextWord();
+			m_fNear = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "Far")
+		{
+			text.ForwardPositionToNextWord();
+			m_fFar = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "RenderLayer")
+		{
+			text.ForwardPositionToNextWord();
+			int size = std::stoi(text.GetWord());
+			for( int nCnt = 0; nCnt < size; nCnt++)
+			{
+				text.ForwardPositionToNextWord();
+				m_listRenderLayer.push_back(std::stoi(text.GetWord()));
+			}
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+
+	//ビュー座標変換行列作成
+	D3DXVECTOR3 PosEye = m_pTransform->GetWorldPosition().ConvertToDX();
+	D3DXVECTOR3 PosAt = m_PosAt.ConvertToDX();
+	D3DXVECTOR3 VecUp = m_VecUp.ConvertToDX();
+	D3DXMatrixLookAtLH( &m_mtxView, &PosEye, &PosAt, &VecUp);
+
+	//プロジェクション座標変換行列作成
+	SetPerspective( m_fFovY, m_fAspect, m_fNear, m_fFar);
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void Camera::Save(Text& text)
+{
+	StartSave(text);
+
+	text += "PosAt " + m_PosAt.ConvertToString() + '\n';
+	text += "VecUp " + m_VecUp.ConvertToString() + '\n';
+	text += "FovY " + std::to_string(m_fFovY) + '\n';
+	text += "Aspect " + std::to_string(m_fAspect) + '\n';
+	text += "Near " + std::to_string(m_fNear) + '\n';
+	text += "Far " + std::to_string(m_fFar) + '\n';
+
+	int size = m_listRenderLayer.size();
+	if( size > 0)
+	{
+		text += "RenderLayer " + std::to_string(size) + '\n';
+		for( auto ite = m_listRenderLayer.begin(); ite != m_listRenderLayer.end(); ++ite)
+		{
+			text += std::to_string(*ite) + '\n';
+		}
+	}
+
+	EndSave( text);
 }

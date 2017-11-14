@@ -15,14 +15,15 @@
 	引数
 		const char* pFileName
 ------------------------------------------------------------------------------*/
-Texture::Texture( std::string FileName)
+Texture::Texture( std::string fileName)
 {
-	if( FAILED( D3DXCreateTextureFromFile( Manager::GetDevice(), FileName.c_str(), &m_pTexture)))
+	if( FAILED( D3DXCreateTextureFromFile( Manager::GetDevice(), fileName.c_str(), &m_pTexture)))
 	{
 		//エラー
 		MessageBox( NULL, "テクスチャを読み込めません\n", "エラー", MB_OK);
 		return;
 	}
+	FileName = fileName;
 }
 
 /*------------------------------------------------------------------------------

@@ -16,7 +16,7 @@
 	引数
 		const char* pFileName
 ------------------------------------------------------------------------------*/
-XModelData::XModelData( std::string FileName)
+XModelData::XModelData( std::string fileName)
 {
 	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//デバイス取得
 
@@ -24,7 +24,7 @@ XModelData::XModelData( std::string FileName)
 	LPD3DXBUFFER pBuffMaterial = NULL;		//マテリアル情報格納
 	HRESULT hr;
 	hr = D3DXLoadMeshFromX( 
-		FileName.c_str(), 
+		fileName.c_str(), 
 		D3DXMESH_MANAGED,
 		pDevice,
 		NULL,
@@ -37,6 +37,7 @@ XModelData::XModelData( std::string FileName)
 		MessageBox( NULL, "Xモデルの読み込みに失敗しました", "エラー", MB_OK);
 		return;
 	}
+	FileName = fileName;
 
 	//マテリアル情報設定
 	m_vecMaterial.resize( m_nNumMaterial);		//要素数をマテリアル数分に変更
