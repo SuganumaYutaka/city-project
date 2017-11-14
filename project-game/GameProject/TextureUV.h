@@ -11,6 +11,7 @@
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Vector2.h"
+#include <string>
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -34,6 +35,9 @@ public:
 	void SetPart( int NumPartX, int NumPartY, int nPart);
 
 	int GetMaxPart() { return (int)m_NumPart.x * (int)m_NumPart.y; }
+
+	std::string ConvertToString();
+	int ConvertFromString(std::string& str, int current);
 
 private:
 	

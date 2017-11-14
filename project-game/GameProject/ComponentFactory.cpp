@@ -14,7 +14,7 @@
 /*------------------------------------------------------------------------------
 	マクロ定義
 ------------------------------------------------------------------------------*/
-#define REGISTER(className) CreateMethods["className"] = className::Create
+#define REGISTER(className) CreateMethods[#className] = className::Create
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -26,8 +26,27 @@ ComponentFactory::ComponentFactory()
 	//CreateMethods["Transform"] = Transform::Create;
 	
 	REGISTER(Transform);
+	REGISTER(BillboardRenderer);
+	REGISTER(MeshBoxRenderer);
+	REGISTER(MeshDomeRenderer);
+	REGISTER(MeshFieldRenderer);
+	REGISTER(MeshPlaneRenderer);
+	REGISTER(ParticleRenderer);
+	REGISTER(Polygon3DRenderer);
+	REGISTER(SkinMeshRenderer);
+	REGISTER(SpriteRenderer);
+	REGISTER(XModelRenderer);
+	REGISTER(AudioSource);
+	REGISTER(BoxCollider);
 	REGISTER(Camera);
-
+	REGISTER(CameraController);
+	REGISTER(Light);
+	REGISTER(MeshField);
+	REGISTER(MeshFieldCollider);
+	REGISTER(PartsAnimator);
+	REGISTER(SkinMeshModel);
+	REGISTER(Slider);
+	REGISTER(Sun);
 }
 
 /*------------------------------------------------------------------------------

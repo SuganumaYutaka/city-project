@@ -24,6 +24,8 @@ class MeshBoxRenderer;
 class BoxCollider : public Collider
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	BoxCollider( GameObject *pGameObject);
 	void Uninit( void);
 
@@ -36,6 +38,9 @@ public:
 
 	void SetCenter( const Vector3& Center);
 	void SetSize( const Vector3& Size);
+
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
 
 private:
 	Vector3 m_Center;				//中心位置（Transformの位置からの相対的な位置）

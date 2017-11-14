@@ -30,13 +30,18 @@ class Material;
 class XModelRenderer : public Renderer
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	XModelRenderer( GameObject *pGameObject);
 	void Uninit( void);
 
 	void LoadXModel( std::string FileName);
 	void Update( void);
 	void Draw( Camera* pCamera);
-	std::vector<Material>& GetAllMaterial( );
+	std::vector<Material>& GetAllMaterial();
+
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
 
 private:
 	XModelData* m_pData;							//Xモデルデータ

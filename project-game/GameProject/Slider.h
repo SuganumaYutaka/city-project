@@ -24,6 +24,8 @@ class SpriteRenderer;
 class Slider : public Component
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	Slider( GameObject* pGameObject);
 	void Uninit( void);
 
@@ -34,6 +36,9 @@ public:
 	
 	SpriteRenderer* m_pBack;		//描画部分（背景・フレーム）
 	SpriteRenderer* m_pSlider;		//描画部分（バリュー）
+
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
 
 private:
 	float m_fMaxValue;

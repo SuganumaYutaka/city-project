@@ -13,7 +13,7 @@
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
-SoundData::SoundData(std::string FileName, int nCntLoop, IXAudio2 *pXAudio2)
+SoundData::SoundData(std::string fileName, int nCntLoop, IXAudio2 *pXAudio2)
 {
 	HRESULT hr;
 	HANDLE hFile;
@@ -110,6 +110,8 @@ SoundData::SoundData(std::string FileName, int nCntLoop, IXAudio2 *pXAudio2)
 
 	//ループ回数設定
 	m_nCntLoop = nCntLoop;
+
+	FileName = fileName;
 }
 
 

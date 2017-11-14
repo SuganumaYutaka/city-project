@@ -25,8 +25,13 @@ class Light;
 class Sun : public Component
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	Sun( GameObject* pGameObject);
 	void Uninit( void);
+
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
 	
 private:
 	void Update();

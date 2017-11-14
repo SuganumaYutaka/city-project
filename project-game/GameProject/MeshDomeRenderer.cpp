@@ -24,6 +24,14 @@
 #define NUM_INDEX( NUM_DOME_X, NUM_DOME_Y) ( ( (NUM_DOME_X + 1) * 2 + 2) * NUM_DOME_Y - 2)				//インデックス数
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* MeshDomeRenderer::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<MeshDomeRenderer>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 MeshDomeRenderer::MeshDomeRenderer( GameObject *pGameObject)
@@ -343,4 +351,104 @@ void MeshDomeRenderer::SetSize(float Radius, float Height)
 
 	//頂点バッファ設定
 	SetVtxBuffer();
+}
+
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void MeshDomeRenderer::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "Pass")
+		{
+			text.ForwardPositionToNextWord();
+			m_nPass = std::stoi( text.GetWord());
+		}
+
+		else if (text.GetWord() == "Material")
+		{
+			text.ForwardPositionToNextWord();
+			m_pMaterial->Load(text);
+		}
+		else if (text.GetWord() == "Color")
+		{
+			text.ForwardPositionToNextWord();
+		
+			m_Color.r = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.g = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.b = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.a = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "NumBlockX")
+		{
+			text.ForwardPositionToNextWord();
+			m_nNumBlockX = std::stoi(text.GetWord());
+		}
+		else if (text.GetWord() == "NumBlockY")
+		{
+			text.ForwardPositionToNextWord();
+			m_nNumBlockY = std::stoi(text.GetWord());
+		}
+		else if (text.GetWord() == "Radius")
+		{
+			text.ForwardPositionToNextWord();
+			m_fRadius = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "Height")
+		{
+			text.ForwardPositionToNextWord();
+			m_fHeight = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "BlockAngle")
+		{
+			text.ForwardPositionToNextWord();
+			m_fBlockAngle = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "BlockHeight")
+		{
+			text.ForwardPositionToNextWord();
+			m_fBlockHeight = std::stof(text.GetWord());
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+	SetVtxBuffer();
+	SetIdxBuffer();
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void MeshDomeRenderer::Save(Text& text)
+{
+	StartSave(text);
+
+	text += "Pass " + std::to_string(m_nPass) + '\n';
+	m_pMaterial->Save(text);
+	text += "Color " 
+		+ std::to_string(m_Color.r) + ' '
+		+ std::to_string(m_Color.g) + ' '
+		+ std::to_string(m_Color.b) + ' '
+		+ std::to_string(m_Color.a) + '\n';
+	text += "NumBlockX " + std::to_string(m_nNumBlockX) + ' ';
+	text += "NumBlockY " + std::to_string(m_nNumBlockY) + ' ';
+	text += "Radius " + std::to_string(m_fRadius) + ' ';
+	text += "Height " + std::to_string(m_fHeight) + ' ';
+	text += "BlockAngle " + std::to_string(m_fBlockAngle) + ' ';
+	text += "BlockHeight " + std::to_string(m_fBlockHeight) + '\n';
+	EndSave( text);
 }

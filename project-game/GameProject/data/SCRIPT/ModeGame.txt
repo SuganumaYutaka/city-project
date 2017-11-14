@@ -13,5 +13,5710 @@ GameObject
  Rotation 0.754934 -0.206149 0.444435 0.435953
  EndComponent
  EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 0.000000 1.000000 -2.500000
+ Scale 1.000000 1.000000 1.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class Camera 
+ PosAt 0.000000 0.000000 0.000000
+ VecUp 0.000000 1.000000 0.000000
+ FovY 1.047198
+ Aspect 1.777778
+ Near 0.100000
+ Far 2000.000000
+ EndComponent
+ Component  class CameraController 
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -750.000000 600.000000 -300.000000
+ Scale 1.000000 1.000000 1.000000
+ Rotation 0.177152 0.442880 -0.000000 0.878905
+ EndComponent
+ Component  class Sun 
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 0.000000 0.000000 0.000000
+ Scale 1.000000 1.000000 1.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshDomeRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/sky00.jpg
+ ShaderType 5
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ NumBlockX 8  NumBlockY 8  Radius 1000.000000  Height 1000.000000  BlockAngle 0.785398  BlockHeight 125.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 0.000000 0.000000 0.000000
+ Scale 1.000000 1.000000 1.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshField 
+ NumBlockX 4  NumBlockZ 4  Width 1500.000000  Height 1500.000000  BlockWidth 375.000000  BlockHeight 375.000000
+ VertexHeight  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  
+ TextureFileName data/TEXTURE/field01.png
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 50.000000 -680.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 57.500000 -635.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 80.000000 -680.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 65.000000 -630.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 50.000000 -680.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 57.500000 -635.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 80.000000 -680.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 65.000000 -630.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 50.000000 -680.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 57.500000 -635.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 80.000000 -680.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 65.000000 -630.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 50.000000 -680.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 57.500000 -635.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 80.000000 -680.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 65.000000 -630.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 50.000000 -680.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 57.500000 -635.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 80.000000 -680.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 65.000000 -630.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 50.000000 -680.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 57.500000 -635.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 80.000000 -680.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 65.000000 -630.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 50.000000 -680.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 57.500000 -635.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 80.000000 -680.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 65.000000 -630.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 50.000000 -680.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 57.500000 -635.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 80.000000 -680.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 65.000000 -630.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 50.000000 -493.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 57.500000 -448.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 80.000000 -493.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 65.000000 -443.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 50.000000 -493.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 57.500000 -448.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 80.000000 -493.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 65.000000 -443.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 50.000000 -493.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 57.500000 -448.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 80.000000 -493.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 65.000000 -443.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 50.000000 -493.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 57.500000 -448.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 80.000000 -493.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 65.000000 -443.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 50.000000 -493.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 57.500000 -448.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 80.000000 -493.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 65.000000 -443.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 50.000000 -493.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 57.500000 -448.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 80.000000 -493.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 65.000000 -443.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 50.000000 -493.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 57.500000 -448.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 80.000000 -493.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 65.000000 -443.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 50.000000 -493.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 57.500000 -448.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 80.000000 -493.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 65.000000 -443.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 50.000000 -306.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 57.500000 -261.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 80.000000 -306.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 65.000000 -256.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 50.000000 -306.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 57.500000 -261.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 80.000000 -306.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 65.000000 -256.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 50.000000 -306.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 57.500000 -261.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 80.000000 -306.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 65.000000 -256.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 50.000000 -306.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 57.500000 -261.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 80.000000 -306.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 65.000000 -256.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 50.000000 -306.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 57.500000 -261.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 80.000000 -306.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 65.000000 -256.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 50.000000 -306.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 57.500000 -261.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 80.000000 -306.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 65.000000 -256.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 50.000000 -306.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 57.500000 -261.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 80.000000 -306.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 65.000000 -256.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 50.000000 -306.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 57.500000 -261.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 80.000000 -306.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 65.000000 -256.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 50.000000 -119.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 57.500000 -74.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 80.000000 -119.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 65.000000 -69.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 50.000000 -119.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 57.500000 -74.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 80.000000 -119.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 65.000000 -69.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 50.000000 -119.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 57.500000 -74.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 80.000000 -119.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 65.000000 -69.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 50.000000 -119.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 57.500000 -74.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 80.000000 -119.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 65.000000 -69.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 50.000000 -119.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 57.500000 -74.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 80.000000 -119.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 65.000000 -69.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 50.000000 -119.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 57.500000 -74.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 80.000000 -119.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 65.000000 -69.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 50.000000 -119.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 57.500000 -74.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 80.000000 -119.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 65.000000 -69.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 50.000000 -119.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 57.500000 -74.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 80.000000 -119.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 65.000000 -69.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 50.000000 68.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 57.500000 113.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 80.000000 68.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 65.000000 118.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 50.000000 68.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 57.500000 113.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 80.000000 68.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 65.000000 118.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 50.000000 68.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 57.500000 113.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 80.000000 68.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 65.000000 118.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 50.000000 68.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 57.500000 113.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 80.000000 68.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 65.000000 118.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 50.000000 68.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 57.500000 113.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 80.000000 68.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 65.000000 118.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 50.000000 68.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 57.500000 113.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 80.000000 68.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 65.000000 118.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 50.000000 68.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 57.500000 113.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 80.000000 68.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 65.000000 118.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 50.000000 68.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 57.500000 113.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 80.000000 68.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 65.000000 118.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 50.000000 255.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 57.500000 300.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 80.000000 255.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 65.000000 305.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 50.000000 255.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 57.500000 300.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 80.000000 255.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 65.000000 305.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 50.000000 255.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 57.500000 300.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 80.000000 255.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 65.000000 305.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 50.000000 255.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 57.500000 300.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 80.000000 255.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 65.000000 305.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 50.000000 255.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 57.500000 300.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 80.000000 255.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 65.000000 305.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 50.000000 255.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 57.500000 300.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 80.000000 255.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 65.000000 305.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 50.000000 255.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 57.500000 300.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 80.000000 255.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 65.000000 305.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 50.000000 255.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 57.500000 300.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 80.000000 255.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 65.000000 305.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 50.000000 442.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 57.500000 487.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 80.000000 442.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 65.000000 492.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 50.000000 442.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 57.500000 487.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 80.000000 442.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 65.000000 492.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 50.000000 442.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 57.500000 487.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 80.000000 442.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 65.000000 492.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 50.000000 442.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 57.500000 487.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 80.000000 442.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 65.000000 492.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 50.000000 442.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 57.500000 487.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 80.000000 442.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 65.000000 492.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 50.000000 442.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 57.500000 487.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 80.000000 442.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 65.000000 492.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 50.000000 442.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 57.500000 487.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 80.000000 442.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 65.000000 492.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 50.000000 442.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 57.500000 487.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 80.000000 442.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 65.000000 492.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 50.000000 629.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -680.000000 57.500000 674.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 80.000000 629.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -635.000000 65.000000 679.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 50.000000 629.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -493.000000 57.500000 674.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 80.000000 629.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -448.000000 65.000000 679.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 50.000000 629.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -306.000000 57.500000 674.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 80.000000 629.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -261.000000 65.000000 679.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 50.000000 629.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -119.000000 57.500000 674.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 80.000000 629.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position -74.000000 65.000000 679.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 50.000000 629.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 68.000000 57.500000 674.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 80.000000 629.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 113.000000 65.000000 679.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 50.000000 629.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 255.000000 57.500000 674.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 80.000000 629.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 300.000000 65.000000 679.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 50.000000 629.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 442.000000 57.500000 674.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 80.000000 629.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 487.000000 65.000000 679.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 50.000000 629.000000
+ Scale 40.000000 100.000000 40.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 629.000000 57.500000 674.000000
+ Scale 37.000000 115.000000 37.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 80.000000 629.000000
+ Scale 50.000000 160.000000 50.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 674.000000 65.000000 679.000000
+ Scale 45.000000 130.000000 45.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class MeshBoxRenderer 
+ Pass 0
+ Material
+ Ambient 0.300000 0.300000 0.300000 1.000000
+ Diffuse 1.000000 1.000000 1.000000 1.000000
+ Specular 1.000000 1.000000 1.000000 1.000000
+ Emissive 0.500000 0.500000 0.500000 0.500000
+ Texture data/TEXTURE/bill02.png
+ ShaderType 0
+ EndMaterial
+ Color 1.000000 1.000000 1.000000 1.000000
+ Center 0.000000 0.000000 0.000000
+ Size 1.000000 1.000000 1.000000
+ EndComponent
+ EndGameObject
+ GameObject
+ Tag UnTag
+ Component  class Transform 
+ Position 0.000000 0.000000 0.000000
+ Scale 1.000000 1.000000 1.000000
+ Rotation 0.000000 0.000000 0.000000 1.000000
+ EndComponent
+ Component  class PartsAnimator 
+ FileName data/MOTION/player.txt
+ EndComponent
+ EndGameObject
  EndGameObject
  

@@ -16,7 +16,7 @@
 /*------------------------------------------------------------------------------
 	コンポーネント生成
 ------------------------------------------------------------------------------*/
-Transform* Transform::Create(GameObject* gameObject)
+Component* Transform::Create(GameObject* gameObject)
 {
 	return gameObject->AddComponent<Transform>();
 }
@@ -921,22 +921,14 @@ void Transform::Load(Text& text)
 		{
 			text.ForwardPositionToNextWord();
 			
-			m_Position.x = std::stof(text.GetWord());
-			text.ForwardPositionToNextWord();
-			m_Position.y = std::stof(text.GetWord());
-			text.ForwardPositionToNextWord();
-			m_Position.z = std::stof(text.GetWord());
+			text.SetPosition( m_Position.ConvertFromString(text.GetAllText(), text.GetPosition()));
 		}
 
 		else if (text.GetWord() == "Scale")
 		{
 			text.ForwardPositionToNextWord();
 			
-			m_Scale.x = std::stof(text.GetWord());
-			text.ForwardPositionToNextWord();
-			m_Scale.y = std::stof(text.GetWord());
-			text.ForwardPositionToNextWord();
-			m_Scale.z = std::stof(text.GetWord());
+			text.SetPosition( m_Scale.ConvertFromString(text.GetAllText(), text.GetPosition()));
 		}
 
 		else if (text.GetWord() == "Rotation")

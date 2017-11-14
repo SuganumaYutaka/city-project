@@ -57,6 +57,8 @@ public:
 	virtual void Save( Text& text);
 	virtual void Load( Text& text);
 
+	bool IsCreatedByOtherComponent;
+
 protected:
 	Component();
 	bool m_bEnable;					//é¿çsâ¬î\Ç©

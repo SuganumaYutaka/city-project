@@ -47,6 +47,8 @@ public:
 
 	void Save( Text& text);
 	void Load( Text& text);
+
+	bool IsCreatedByOtherComponent;
 	
 private:
 	GameObject();

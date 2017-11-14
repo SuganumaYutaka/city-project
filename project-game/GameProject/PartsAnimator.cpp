@@ -20,6 +20,14 @@
 #define TIME_CHANGE (5)					//モーション切り替えにかかるフレーム
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* PartsAnimator::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<PartsAnimator>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 PartsAnimator::PartsAnimator( GameObject *pGameObject)
@@ -113,7 +121,7 @@ void PartsAnimator::Update(void)
 /*------------------------------------------------------------------------------
 	アニメーションデータをロード
 ------------------------------------------------------------------------------*/
-void PartsAnimator::Load(const char *pFileName)
+void PartsAnimator::LoadAnimator( std::string fileName)
 {
 	//スクリプト読み込み
 	FILE *fp;			//ファイルポインタ
@@ -124,7 +132,7 @@ void PartsAnimator::Load(const char *pFileName)
 	int nNumParts = 0;
 	
 	//ファイルオープン
-	fp =fopen( pFileName, "r");
+	fp =fopen( fileName.c_str(), "r");
 	if( fp == NULL)
 	{
 		MessageBox( NULL, "model.cpp\nスクリプトの読み込みに失敗しました\n", "エラー", MB_OK);
@@ -249,7 +257,9 @@ void PartsAnimator::Load(const char *pFileName)
 			for (int i = 0; i < nNumParts; i++)
 			{
 				GameObject* pObj = new GameObject( m_pGameObject);
-				pObj->AddComponent<XModelRenderer>();
+				pObj->IsCreatedByOtherComponent = true;
+				auto renderer = pObj->AddComponent<XModelRenderer>();
+				renderer->IsCreatedByOtherComponent = true;
 				vecParts.push_back( pObj);
 			}
 
@@ -500,6 +510,8 @@ void PartsAnimator::Load(const char *pFileName)
 
 	//角度修正
 	vecOfsetRot[0].y += D3DX_PI;
+
+	FileName = fileName;
 }
 
 /*------------------------------------------------------------------------------
@@ -564,3 +576,42 @@ bool PartsAnimator::IsEndMotion(void)
 	return true;
 }
 
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void PartsAnimator::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "FileName")
+		{
+			text.ForwardPositionToNextWord();
+			LoadAnimator( text.GetWord());
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void PartsAnimator::Save(Text& text)
+{
+	StartSave(text);
+
+	text += "FileName " + FileName + '\n';
+
+	EndSave( text);
+}

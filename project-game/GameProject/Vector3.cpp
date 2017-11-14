@@ -159,6 +159,38 @@ std::string Vector3::ConvertToString()
 	return str;
 }
 
+/*------------------------------------------------------------------------------
+	std::stringから変換
+------------------------------------------------------------------------------*/
+int Vector3::ConvertFromString(std::string& str, int current)
+{
+	int end = current;
+	end = str.find_first_of( " ", current);
+	if (end == std::string::npos)
+	{
+		return -1;
+	}
+	x = std::stof(str.substr( current, end - current));
+	current = end + 1;
+
+	end = str.find_first_of( " ", current);
+	if (end == std::string::npos)
+	{
+		return -1;
+	}
+	y = std::stof(str.substr( current, end - current));
+	current = end + 1;
+
+	end = str.find_first_of( " ", current);
+	if (end == std::string::npos)
+	{
+		return -1;
+	}
+	z = std::stof(str.substr( current, end - current));
+	
+	return end;
+}
+
 
 //演算子オーバーロード
 Vector3 &Vector3::operator += ( const Vector3 &V1)

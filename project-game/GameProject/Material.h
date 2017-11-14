@@ -35,6 +35,7 @@ public:
 
 	LPDIRECT3DTEXTURE9 GetTexture( void);
 	void SetTexture( std::string FileName);
+	std::string GetTextureName();
 
 	void SetShader( EShaderType Type);
 	void Begin(int nPass);
@@ -49,6 +50,9 @@ public:
 	void SetDiffuse( float r, float g, float b, float a) { m_Diffuse = D3DXVECTOR4( r, g, b, a);}
 	void SetSpecular( float r, float g, float b, float a) { m_Specular = D3DXVECTOR4( r, g, b, a);}
 	void SetEmissive( float r, float g, float b, float a) { m_Emissive = D3DXVECTOR4( r, g, b, a);}
+
+	void Save( Text& text);
+	void Load( Text& text);
 
 private:
 	D3DXVECTOR4 m_Ambient;

@@ -43,6 +43,7 @@ public:
 		return Vector3(Vec.x, Vec.y, Vec.z);
 	}
 	std::string ConvertToString();
+	int ConvertFromString(std::string& str, int current);
 	
 	//演算子オーバーロード
 	Vector3 &operator = ( const Vector3 &V1);

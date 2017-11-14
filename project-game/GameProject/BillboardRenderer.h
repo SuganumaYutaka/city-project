@@ -29,6 +29,8 @@ class Material;
 class BillboardRenderer : public Renderer
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	BillboardRenderer( GameObject *pGameObject);
 	void Uninit( void);
 
@@ -49,6 +51,8 @@ public:
 	void UVSetPart( int NumPartX, int NumPartY, int nPart = 0) { m_TextureUV.SetPart( NumPartX, NumPartY, nPart); SetVtxBuffer();}
 	int UVGetMaxPart( void) { return m_TextureUV.GetMaxPart(); }
 	
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
 	
 private:
 	void SetVtxBuffer( void);

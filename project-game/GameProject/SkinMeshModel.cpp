@@ -21,6 +21,14 @@
 
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* SkinMeshModel::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<SkinMeshModel>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 SkinMeshModel::SkinMeshModel( GameObject *pGameObject)
@@ -33,6 +41,7 @@ SkinMeshModel::SkinMeshModel( GameObject *pGameObject)
 	m_CntFrame = 0;
 	m_AnimationState = -1;
 	m_bLoad = false;
+	ScaleRate = 1.0f;
 }
 
 /*------------------------------------------------------------------------------
@@ -48,8 +57,6 @@ void SkinMeshModel::Uninit( void)
 ------------------------------------------------------------------------------*/
 void SkinMeshModel::LoadModel( std::string FileName, float scaleRate)
 {
-	m_FileName = FileName;
-
 	//ファイルオープン
 	FILE* pFile;
 	pFile = fopen( FileName.c_str(), "rb");
@@ -58,6 +65,7 @@ void SkinMeshModel::LoadModel( std::string FileName, float scaleRate)
 		MessageBox(NULL, "SkinMeshModel.cpp ファイルオープンに失敗しました", "エラー", MB_OK);
 		return;
 	}
+	m_FileName = FileName;
 
 	//モデルデータを読み込み
 	//アニメーションクリップ
@@ -87,8 +95,9 @@ void SkinMeshModel::LoadModel( std::string FileName, float scaleRate)
 	for( int nCnt = 0; nCnt < NumMesh; nCnt++)
 	{
 		pObject = new GameObject( m_pGameObject);
+		pObject->IsCreatedByOtherComponent = true;
 		auto mesh = pObject->AddComponent<SkinMeshRenderer>();
-
+		mesh->IsCreatedByOtherComponent = true;
 		mesh->LoadMeshData(pFile, this);
 	}
 
@@ -102,6 +111,7 @@ void SkinMeshModel::LoadModel( std::string FileName, float scaleRate)
 	{
 		SetScale(scaleRate);
 	}
+	ScaleRate = scaleRate;
 }
 
 /*------------------------------------------------------------------------------
@@ -130,4 +140,55 @@ void SkinMeshModel::SetScale( float rate)
 	{
 		mesh->SetScale(rate);
 	}
+}
+
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void SkinMeshModel::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "FileName")
+		{
+			text.ForwardPositionToNextWord();
+			m_FileName = text.GetWord();
+		}
+		else if (text.GetWord() == "ScaleRate")
+		{
+			text.ForwardPositionToNextWord();
+			ScaleRate = std::stof(text.GetWord());
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+	LoadModel( m_FileName, ScaleRate);
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void SkinMeshModel::Save(Text& text)
+{
+	if (m_bLoad == false)
+	{
+		return;
+	}
+
+	StartSave(text);
+
+	text += "FileName " + m_FileName + '\n';
+	text += "ScaleRate " + std::to_string(ScaleRate) + '\n';
+
+	EndSave( text);
 }

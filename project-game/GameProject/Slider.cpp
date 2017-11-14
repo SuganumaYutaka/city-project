@@ -15,6 +15,14 @@
 #include "SpriteRenderer.h"
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* Slider::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<Slider>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 Slider::Slider( GameObject* pGameObject)
@@ -29,9 +37,13 @@ Slider::Slider( GameObject* pGameObject)
 
 	//レンダラー追加
 	GameObject* obj = new GameObject( pGameObject);
+	obj->IsCreatedByOtherComponent = true;
 	m_pBack = obj->AddComponent<SpriteRenderer>();
+	m_pBack->IsCreatedByOtherComponent = true;
 	obj = new GameObject( pGameObject);
+	obj->IsCreatedByOtherComponent = true;
 	m_pSlider = obj->AddComponent<SpriteRenderer>();
+	m_pSlider->IsCreatedByOtherComponent = true;
 
 	//更新
 	UpdateSprite();
@@ -59,4 +71,56 @@ void Slider::UpdateSprite( void)
 	Pos.x += ( -m_Size.x + Size.x) * 0.5f;
 	m_pSlider->m_pTransform->SetLocalPosition( Pos);
 	m_pSlider->m_pTransform->SetLocalScale( Size);
+}
+
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void Slider::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "MaxValue")
+		{
+			text.ForwardPositionToNextWord();
+			m_fMaxValue = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "Value")
+		{
+			text.ForwardPositionToNextWord();
+			m_fValue = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "Size")
+		{
+			text.ForwardPositionToNextWord();
+			text.SetPosition( m_Size.ConvertFromString(text.GetAllText(), text.GetPosition()));
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void Slider::Save(Text& text)
+{
+	StartSave(text);
+
+	text += "MaxValue " + std::to_string(m_fMaxValue) + '\n';
+	text += "Value " + std::to_string(m_fValue) + '\n';
+	text += "Size " + m_Size.ConvertToString() + '\n';
+
+	EndSave( text);
 }

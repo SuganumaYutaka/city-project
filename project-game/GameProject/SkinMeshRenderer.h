@@ -31,6 +31,8 @@ class SkinMeshModel;
 class SkinMeshRenderer : public Renderer
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	SkinMeshRenderer( GameObject *pGameObject);
 	void Uninit( void);
 

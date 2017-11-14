@@ -30,15 +30,20 @@
 class PartsAnimator : public Component
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	PartsAnimator( GameObject *pGameObject);
 	void Uninit( void);
 
-	void Load( const char *pFileName);
+	void LoadAnimator( std::string fileName);
 	void Update( void);
 
 	void SetNextMotion( int nNextMotion, int nNextKey);
 	int GetNowMotion( void) { return m_nNowMotion;}
 	bool IsEndMotion(void);
+
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
 
 private:
 	typedef struct
@@ -73,6 +78,8 @@ private:
 	
 	void SetFirstMotion();
 	void ChangeMotion(int nNextMotion, int nNextKey);
+
+	std::string FileName;
 };
 
 #endif

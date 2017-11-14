@@ -24,6 +24,7 @@ std::list<GameObject*> GameObject::m_listReleaseObject;
 GameObject::GameObject( )
 {
 	m_bRelease = false;
+	IsCreatedByOtherComponent = false;
 }
 
 /*------------------------------------------------------------------------------
@@ -60,6 +61,7 @@ void GameObject::InitGameObject( GameObject* pParent)
 	m_listComponent.clear();
 	m_pTransform = AddComponent<Transform>();
 	m_bRelease = false;
+	IsCreatedByOtherComponent = false;
 }
 
 /*------------------------------------------------------------------------------
@@ -325,12 +327,12 @@ void GameObject::Load(Text& text)
 			if (text.GetWord() == "Transform")
 			{
 				m_pTransform->Load(text);
-				continue;
 			}
-
-			auto pComponent = Manager::GetComponentFactory()->Create( text.GetWord(), this);
-			pComponent->Load( text);
-			m_listComponent.push_back( pComponent);
+			else
+			{
+				auto pComponent = Manager::GetComponentFactory()->Create( text.GetWord(), this);
+				pComponent->Load( text);
+			}
 		}
 
 		// 子のゲームオブジェクト
@@ -353,15 +355,33 @@ void GameObject::Load(Text& text)
 ------------------------------------------------------------------------------*/
 void GameObject::Save(Text& text)
 {
+	// 他のコンポーネントから生成された場合保存しない
+	if (IsCreatedByOtherComponent == true)
+	{
+		return;
+	}
+
 	// GameObject
 	text += "GameObject\n";
 	text += "Tag " + m_Tag + "\n";
 
 	// Component
-	std::for_each( m_listComponent.begin(), m_listComponent.end(), [&](Component* pComponent){ pComponent->Save(text);});
+	for (auto *pComponent : m_listComponent)
+	{
+		if (pComponent->IsCreatedByOtherComponent == false)
+		{
+			pComponent->Save(text);
+		}
+	}
 
 	// 子のゲームオブジェクト
-	std::for_each( m_listChild.begin(), m_listChild.end(), [&](GameObject* pGameObject){ pGameObject->Save(text);});
+	for (auto *pGameObject : m_listChild)
+	{
+		if (pGameObject->IsCreatedByOtherComponent == false)
+		{
+			pGameObject->Save(text);
+		}
+	}
 
 	text += "EndGameObject\n";
 }

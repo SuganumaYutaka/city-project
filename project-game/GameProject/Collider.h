@@ -46,6 +46,9 @@ public:
 	bool m_IsTrigger;			//トリガー用か
 	Vector3 m_OldPos;			//前の位置
 
+	virtual void Save( Text& text) {Component::Save(text);}
+	virtual void Load( Text& text) {Component::Load(text);}
+
 protected:
 	Collider();
 	E_COLTYPE m_ColType;		//コライダーの種類

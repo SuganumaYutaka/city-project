@@ -39,6 +39,7 @@ public:
 	int AddString( const std::string& str);
 	void SetPosition( int position) { CurrentPosition = position;}
 	int GetPosition() const { return CurrentPosition;}
+	std::string& GetAllText() { return TextStrage;}
 
 	Text& operator << ( const std::string& str);
 	Text& operator += ( const std::string& str);

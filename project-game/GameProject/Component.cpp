@@ -26,6 +26,7 @@ Component::Component()
 	m_nLayer = eLayerDefault;
 	m_bEnable = true;
 	m_bRelease = false;
+	IsCreatedByOtherComponent = false;
 }
 
 /*------------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Component::Component( GameObject *pGameObject)
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 	m_bEnable = true;
 	m_bRelease = false;
+	IsCreatedByOtherComponent = false;
 }
 
 /*------------------------------------------------------------------------------
@@ -110,6 +112,12 @@ void Component::Save(Text& text)
 ------------------------------------------------------------------------------*/
 void Component::StartSave(Text& text)
 {
+	// 他のコンポーネントから生成された場合保存しない
+	if (IsCreatedByOtherComponent == true)
+	{
+		return;
+	}
+
 	// クラス名
 	text += "Component ";
 	text += typeid(*this).name();
@@ -121,5 +129,11 @@ void Component::StartSave(Text& text)
 ------------------------------------------------------------------------------*/
 void Component::EndSave(Text& text)
 {
+	// 他のコンポーネントから生成された場合保存しない
+	if (IsCreatedByOtherComponent == true)
+	{
+		return;
+	}
+
 	text += "EndComponent\n";
 }

@@ -29,6 +29,8 @@ class MeshFieldCollider;
 class MeshField : public Component
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	MeshField( GameObject *pGameObject);
 	void Uninit( void);
 
@@ -39,7 +41,11 @@ public:
 	void SetBlockSize( float Width, float Height);
 	void SetSize( float Width, float Height);
 
-	void LoadTexture(std::string FileName);
+	void LoadTexture(std::string fileName);
+	std::string GetTextureName();
+
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
 
 private:
 	MeshFieldRenderer *m_pMeshFieldRenderer;		//メッシュフィールド描画クラス

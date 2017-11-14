@@ -157,6 +157,30 @@ std::string Vector2::ConvertToString()
 	return str;
 }
 
+/*------------------------------------------------------------------------------
+	std::stringから変換
+------------------------------------------------------------------------------*/
+int Vector2::ConvertFromString(std::string& str, int current)
+{
+	int end = current;
+	end = str.find_first_of( " ", current);
+	if (end == std::string::npos)
+	{
+		return -1;
+	}
+	x = std::stof(str.substr( current, end - current));
+	current = end + 1;
+
+	end = str.find_first_of( " ", current);
+	if (end == std::string::npos)
+	{
+		return -1;
+	}
+	y = std::stof(str.substr( current, end - current));
+	
+	return end;
+}
+
 
 //演算子オーバーロード
 Vector2 &Vector2::operator += ( const Vector2 &V1)

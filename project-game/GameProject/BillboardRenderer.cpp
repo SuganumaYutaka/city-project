@@ -16,6 +16,14 @@
 #include "Camera.h"
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* BillboardRenderer::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<BillboardRenderer>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 BillboardRenderer::BillboardRenderer( GameObject *pGameObject)
@@ -165,8 +173,75 @@ void BillboardRenderer::SetBillboard(D3DXMATRIX mtxView)
 	mtxView._14 = 0.0f;
 	mtxView._24 = 0.0f;
 	mtxView._34 = 0.0f;
-
-
 }
 
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void BillboardRenderer::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
 
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "Pass")
+		{
+			text.ForwardPositionToNextWord();
+			m_nPass = std::stoi( text.GetWord());
+		}
+
+		else if (text.GetWord() == "Material")
+		{
+			text.ForwardPositionToNextWord();
+			m_pMaterial->Load(text);
+		}
+		else if (text.GetWord() == "Color")
+		{
+			text.ForwardPositionToNextWord();
+		
+			m_Color.r = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.g = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.b = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.a = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "TextureUV")
+		{
+			text.ForwardPositionToNextWord();
+		
+			m_TextureUV.ConvertFromString( text.GetAllText(), text.GetPosition());
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+	SetVtxBuffer();
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void BillboardRenderer::Save(Text& text)
+{
+	StartSave(text);
+
+	text += "Pass " + std::to_string(m_nPass) + '\n';
+	m_pMaterial->Save(text);
+	text += "Color " 
+		+ std::to_string(m_Color.r) + ' '
+		+ std::to_string(m_Color.g) + ' '
+		+ std::to_string(m_Color.b) + ' '
+		+ std::to_string(m_Color.a) + '\n';
+	text += "TextureUV " + m_TextureUV.ConvertToString() + '\n';
+
+	EndSave( text);
+}

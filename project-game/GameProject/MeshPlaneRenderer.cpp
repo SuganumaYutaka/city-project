@@ -27,6 +27,14 @@
 #define NUM_INDEX( NUM_FIELD_X, NUM_FIELD_Z)		( ( (NUM_FIELD_X + 1) * 2 + 2) * NUM_FIELD_Z - 2)				//インデックス数
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* MeshPlaneRenderer::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<MeshPlaneRenderer>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 MeshPlaneRenderer::MeshPlaneRenderer( GameObject *pGameObject)
@@ -413,4 +421,105 @@ void MeshPlaneRenderer::LoadTexture(std::string FileName)
 void MeshPlaneRenderer::SetShader(EShaderType Type)
 {
 	m_pMaterial->SetShader( Type);
+}
+
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void MeshPlaneRenderer::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "Pass")
+		{
+			text.ForwardPositionToNextWord();
+			m_nPass = std::stoi( text.GetWord());
+		}
+
+		else if (text.GetWord() == "Material")
+		{
+			text.ForwardPositionToNextWord();
+			m_pMaterial->Load(text);
+		}
+		else if (text.GetWord() == "Color")
+		{
+			text.ForwardPositionToNextWord();
+		
+			m_Color.r = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.g = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.b = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.a = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "NumBlockX")
+		{
+			text.ForwardPositionToNextWord();
+			m_nNumBlockX = std::stoi(text.GetWord());
+		}
+		else if (text.GetWord() == "NumBlockZ")
+		{
+			text.ForwardPositionToNextWord();
+			m_nNumBlockZ = std::stoi(text.GetWord());
+		}
+		else if (text.GetWord() == "Width")
+		{
+			text.ForwardPositionToNextWord();
+			m_fWidth = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "Height")
+		{
+			text.ForwardPositionToNextWord();
+			m_fHeight = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "BlockWidth")
+		{
+			text.ForwardPositionToNextWord();
+			m_fBlockWidth = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "BlockHeight")
+		{
+			text.ForwardPositionToNextWord();
+			m_fBlockHeight = std::stof(text.GetWord());
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+	SetVtxBuffer();
+	SetIdxBuffer();
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void MeshPlaneRenderer::Save(Text& text)
+{
+	StartSave(text);
+
+	text += "Pass " + std::to_string(m_nPass) + '\n';
+	m_pMaterial->Save(text);
+	text += "Color " 
+		+ std::to_string(m_Color.r) + ' '
+		+ std::to_string(m_Color.g) + ' '
+		+ std::to_string(m_Color.b) + ' '
+		+ std::to_string(m_Color.a) + '\n';
+	text += "NumBlockX " + std::to_string(m_nNumBlockX) + ' ';
+	text += "NumBlockZ " + std::to_string(m_nNumBlockZ) + ' ';
+	text += "Width " + std::to_string(m_fWidth) + ' ';
+	text += "Height " + std::to_string(m_fHeight) + ' ';
+	text += "BlockWidth " + std::to_string(m_fBlockWidth) + ' ';
+	text += "BlockHeight " + std::to_string(m_fBlockHeight) + '\n';
+
+	EndSave( text);
 }

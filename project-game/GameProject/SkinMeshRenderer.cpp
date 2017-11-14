@@ -20,6 +20,14 @@
 #define MAX_CLUSTER (58)		//クラスターの最大数（シェーダーに渡すため固定長）
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* SkinMeshRenderer::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<SkinMeshRenderer>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 SkinMeshRenderer::SkinMeshRenderer( GameObject *pGameObject)
@@ -291,4 +299,3 @@ void SkinMeshRenderer::SetScale(float rate)
 		}
 	}
 }
-

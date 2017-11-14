@@ -18,6 +18,14 @@
 std::list<Light*> Light::m_listLight;		//ライトリスト
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* Light::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<Light>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 Light::Light( GameObject *pGameObject)
@@ -69,4 +77,44 @@ D3DXVECTOR4* Light::GetDirection( void)
 {
 	Vector3 Dir = m_pTransform->GetForward();
 	return &D3DXVECTOR4( Dir.x, Dir.y, Dir.z, 0.0f);
+}
+
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void Light::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "Type")
+		{
+			text.ForwardPositionToNextWord();
+			m_Type = (ELightType)std::stoi(text.GetWord());
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void Light::Save(Text& text)
+{
+	StartSave(text);
+
+	text += "Type " + std::to_string((int)m_Type) + '\n';
+
+	EndSave( text);
 }

@@ -15,6 +15,14 @@
 #include "Material.h"
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* SpriteRenderer::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<SpriteRenderer>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 SpriteRenderer::SpriteRenderer( GameObject *pGameObject)
@@ -170,3 +178,80 @@ void SpriteRenderer::SetShader(EShaderType Type)
 	m_pMaterial->SetShader( Type);
 }
 
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void SpriteRenderer::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "Pass")
+		{
+			text.ForwardPositionToNextWord();
+			m_nPass = std::stoi( text.GetWord());
+		}
+
+		else if (text.GetWord() == "Material")
+		{
+			text.ForwardPositionToNextWord();
+			m_pMaterial->Load(text);
+		}
+		else if (text.GetWord() == "Color")
+		{
+			text.ForwardPositionToNextWord();
+		
+			m_Color.r = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.g = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.b = std::stof(text.GetWord());
+			text.ForwardPositionToNextWord();
+			m_Color.a = std::stof(text.GetWord());
+		}
+		else if (text.GetWord() == "TextureUV")
+		{
+			text.ForwardPositionToNextWord();
+		
+			m_TextureUV.ConvertFromString( text.GetAllText(), text.GetPosition());
+		}
+		else if (text.GetWord() == "Rotation")
+		{
+			text.ForwardPositionToNextWord();
+		
+			m_fRotation = std::stof( text.GetWord());
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void SpriteRenderer::Save(Text& text)
+{
+	StartSave(text);
+
+	text += "Pass " + std::to_string(m_nPass) + '\n';
+	m_pMaterial->Save(text);
+	text += "Color " 
+		+ std::to_string(m_Color.r) + ' '
+		+ std::to_string(m_Color.g) + ' '
+		+ std::to_string(m_Color.b) + ' '
+		+ std::to_string(m_Color.a) + '\n';
+	text += "TextureUV " + m_TextureUV.ConvertToString() + '\n';
+	text += "Rotation " + std::to_string( m_fRotation) + '\n';
+
+	EndSave( text);
+}

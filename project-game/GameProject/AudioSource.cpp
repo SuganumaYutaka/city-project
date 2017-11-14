@@ -16,6 +16,14 @@
 #include "SoundData.h"
 
 /*------------------------------------------------------------------------------
+	コンポーネント生成
+------------------------------------------------------------------------------*/
+Component* AudioSource::Create(GameObject* gameObject)
+{
+	return gameObject->AddComponent<AudioSource>();
+}
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 AudioSource::AudioSource( GameObject* pGameObject)
@@ -70,3 +78,56 @@ void AudioSource::Stop(int nSoundIdx)
 	}
 }
 
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void AudioSource::Load(Text& text)
+{
+	//textを読み進める
+	if (text.ForwardPositionToNextWord() == Text::EoF)
+	{
+		return;
+	}
+
+	while ( text.GetWord() != "EndComponent")
+	{
+		if (text.GetWord() == "SoundData")
+		{
+			text.ForwardPositionToNextWord();
+			int size = std::stoi( text.GetWord());
+			for (int nCnt = 0; nCnt < size; nCnt++)
+			{
+				text.ForwardPositionToNextWord();
+				std::string fileName = text.GetWord();
+				text.ForwardPositionToNextWord();
+				int nCntLoop = std::stoi(text.GetWord());
+				LoadSound( fileName, nCntLoop);
+			}
+		}
+
+		//textを読み進める
+		if (text.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+
+}
+
+/*------------------------------------------------------------------------------
+	セーブ
+------------------------------------------------------------------------------*/
+void AudioSource::Save(Text& text)
+{
+	StartSave(text);
+
+	int size = m_vecData.size();
+	text += "SoundData " + std::to_string(size) + '\n';
+	for (int nCnt = 0; nCnt < size; nCnt++)
+	{
+		text += m_vecData[nCnt]->GetFileName() + ' ';
+		text += std::to_string(m_vecData[nCnt]->GetCntLoop()) + '\n';
+	}
+	
+	EndSave( text);
+}

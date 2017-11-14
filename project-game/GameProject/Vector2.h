@@ -42,6 +42,7 @@ public:
 		return Vector2(Vec.x, Vec.y);
 	}
 	std::string ConvertToString();
+	int ConvertFromString(std::string& str, int current);
 	
 	//演算子オーバーロード
 	Vector2 &operator = ( const Vector2 &V1);

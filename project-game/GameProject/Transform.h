@@ -39,7 +39,7 @@ typedef struct
 class Transform : public Component
 {
 public:
-	static Transform* Create( GameObject* gameObject);
+	static Component* Create( GameObject* gameObject);
 
 	Transform( GameObject *pGameObject);
 	void Uninit( void);

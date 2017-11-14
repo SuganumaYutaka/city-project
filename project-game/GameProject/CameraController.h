@@ -24,6 +24,8 @@ class Camera;
 class CameraController : public Component
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	CameraController( GameObject* pGameObject);
 	void Uninit( void);
 	

@@ -39,6 +39,8 @@ typedef struct
 class ParticleRenderer : public Renderer
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	ParticleRenderer( GameObject *pGameObject);
 	void Uninit( void);
 
@@ -58,6 +60,9 @@ public:
 	void SetStartRange( float Range) { m_StartRange = Range; m_bNeedUpdateVtx = true;}
 
 	void SetNumParticle( int NumParticle);
+
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
 	
 private:
 	void SetVtxBuffer( void);

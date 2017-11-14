@@ -30,6 +30,8 @@ class Material;
 class MeshBoxRenderer : public Renderer
 {
 public:
+	static Component* Create( GameObject* gameObject);
+
 	MeshBoxRenderer( GameObject *pGameObject);
 	void Uninit( void);
 
@@ -45,6 +47,9 @@ public:
 	void SetAlpha( float A) { m_Color.a = A; SetVtxBuffer();}
 
 	void SetShader( EShaderType Type);
+
+	virtual void Save( Text& text);
+	virtual void Load( Text& text);
 	
 private:
 	void SetVtxBuffer( void);
