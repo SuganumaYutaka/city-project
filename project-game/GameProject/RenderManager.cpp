@@ -13,6 +13,9 @@
 #include "Camera.h"
 #include "DebugRenderer.h"
 
+#include "imgui.h"
+#include "imgui_impl_dx9.h"
+
 /*------------------------------------------------------------------------------
 	コンストラクタ
 	引数
@@ -265,6 +268,8 @@ void RenderManager::Draw()
 		m_pDebugRenderer->DrawText();
 		DebugRenderer::ClearText();
 #endif // _DEBUG
+
+		ImGui::Render();
 
 		//描画の終了
 		m_pDevice->EndScene();	//１フレームに１回まで

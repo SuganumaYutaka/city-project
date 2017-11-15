@@ -13,6 +13,9 @@
 #include <assert.h>
 #include "Manager.h"
 
+#include "imgui.h"
+#include "imgui_impl_dx9.h"
+
 /*------------------------------------------------------------------------------
 	マクロ定義
 ------------------------------------------------------------------------------*/
@@ -29,6 +32,7 @@ bool Game::m_bRan = false;
 	プロトタイプ宣言
 ------------------------------------------------------------------------------*/
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -145,12 +149,31 @@ Game::~Game()
 	戻り値
 		DefWindowProc( hWnd, uMsg, wParam, lParam)
 ------------------------------------------------------------------------------*/
-LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
+{
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
+        return true;
+	
 	//メッセージ
 	switch (uMsg)
 	{
 	case WM_DESTROY:
 		PostQuitMessage(0);
+		break;
+
+	case WM_CLOSE:
+		//終了メッセージ
+			UINT nID;
+			nID = MessageBox(NULL, "終了しますか？", "終了メッセージ", MB_YESNO | MB_ICONEXCLAMATION | MB_DEFBUTTON2);
+			if (nID == IDYES)
+			{
+				Game::Finish();
+				//DestroyWindow( hWnd);
+			}
+			else
+			{
+				return 0;
+			}
 		break;
 
 	case WM_KEYDOWN:
@@ -173,7 +196,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		}
 		break;
 
-		//メニュー処理
+	//メニュー処理
 	case WM_COMMAND:
 		break;
 
@@ -296,6 +319,8 @@ void Game::Init(void)
 {
 	//マネージャー生成
 	m_pManager = new Manager( m_hInstance, m_hWnd, m_bWindow);
+
+	ImGui_ImplDX9_Init(m_hWnd, m_pManager->GetDevice());
 }
 
 /*------------------------------------------------------------------------------
@@ -309,6 +334,8 @@ void Game::Uninit(void)
 		delete m_pManager;
 		m_pManager = NULL;
 	}
+
+	ImGui_ImplDX9_Shutdown();
 }
 
 /*------------------------------------------------------------------------------
@@ -317,6 +344,44 @@ void Game::Uninit(void)
 void Game::Update(void)
 {
 	m_pManager->Update();
+
+
+
+	//imguiテスト
+	ImGui_ImplDX9_NewFrame();
+
+	static bool show_test_window = true;
+    static bool show_another_window = true;
+	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+	// 1. Show a simple window
+    // Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets appears in a window automatically called "Debug"
+    {
+        static float f = 0.0f;
+		static float pos[3] = {0,0,0};
+        ImGui::Text("Hello, world!");
+        ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
+        ImGui::ColorEdit3("clear color", (float*)&clear_color);
+        if (ImGui::Button("Test Window")) show_test_window ^= 1;
+        if (ImGui::Button("Another Window")) show_another_window ^= 1;
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+		ImGui::DragFloat3( "Position", pos);
+    }
+
+    // 2. Show another simple window, this time using an explicit Begin/End pair
+    if (show_another_window)
+    {
+        ImGui::Begin("Another Window", &show_another_window);
+        ImGui::Text("Hello from another window!");
+        ImGui::End();
+    }
+
+    // 3. Show the ImGui test window. Most of the sample code is in ImGui::ShowTestWindow()
+    if (show_test_window)
+    {
+        ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
+        ImGui::ShowTestWindow(&show_test_window);
+    }
 }
 
 /*------------------------------------------------------------------------------
