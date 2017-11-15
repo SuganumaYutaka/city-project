@@ -169,6 +169,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
+    <ClCompile Include="DebugLog.cpp" />
     <ClCompile Include="DebugRenderer.cpp" />
     <ClCompile Include="DefaultShader.cpp" />
     <ClCompile Include="DepthShader.cpp" />
@@ -291,6 +292,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="ComponentInclude.h" />
+    <ClInclude Include="DebugLog.h" />
     <ClInclude Include="DebugRenderer.h" />
     <ClInclude Include="DefaultShader.h" />
     <ClInclude Include="DepthShader.h" />

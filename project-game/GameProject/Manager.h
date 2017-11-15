@@ -53,6 +53,7 @@
 #include "Text.h"
 #include "TextureUV.h"
 #include "Game.h"
+#include "DebugLog.h"
 
 /*------------------------------------------------------------------------------
 	ƒ‰ƒCƒuƒ‰ƒŠ‚ÌƒŠƒ“ƒN

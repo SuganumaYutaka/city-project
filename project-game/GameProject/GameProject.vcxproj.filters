@@ -359,6 +359,9 @@
     <ClCompile Include="imgui_demo.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
+    <ClCompile Include="DebugLog.cpp">
+      <Filter>ソース ファイル\Engine\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioSource.h">
@@ -597,6 +600,9 @@
     </ClInclude>
     <ClInclude Include="imconfig.h">
       <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugLog.h">
+      <Filter>ヘッダー ファイル\Engine\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

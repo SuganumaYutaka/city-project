@@ -163,6 +163,9 @@ Manager::~Manager()
 		delete m_pComponentFactory;
 		m_pComponentFactory = NULL;
 	}
+
+	//デバッグログ保存
+	DebugLog::Save();
 }
 
 /*------------------------------------------------------------------------------
@@ -176,6 +179,7 @@ void Manager::Update(void)
 	m_pCollisionManager->Collision();		//衝突判定
 	Component::ReleaseList();				//コンポーネントの消去
 	GameObject::ReleaseList();				//オブジェクトの消去
+	DebugLog::SetImGuiView();				//デバッグログ出力
 
 	if (m_pNextMode != NULL)
 	{
