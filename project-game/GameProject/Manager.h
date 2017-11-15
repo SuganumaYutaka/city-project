@@ -43,6 +43,10 @@
 //#include <boost/serialization/nvp.hpp>
 //#include <boost/serialization/base_object.hpp>
 
+//imgui
+#include "imgui.h"
+#include "imgui_impl_dx9.h"
+
 //”Ä—pƒNƒ‰ƒX
 #include "Vector2.h"
 #include "Vector3.h"

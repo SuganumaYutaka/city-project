@@ -112,6 +112,8 @@ public:
 	virtual void Save( Text& text);
 	virtual void Load( Text& text);
 
+	virtual void SetImGuiView( void);
+
 private:
 	Transform();
 	void Update( void);

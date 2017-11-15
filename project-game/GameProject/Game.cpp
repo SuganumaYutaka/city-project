@@ -320,6 +320,7 @@ void Game::Init(void)
 	//マネージャー生成
 	m_pManager = new Manager( m_hInstance, m_hWnd, m_bWindow);
 
+	//imgui
 	ImGui_ImplDX9_Init(m_hWnd, m_pManager->GetDevice());
 }
 
@@ -328,14 +329,15 @@ void Game::Init(void)
 ------------------------------------------------------------------------------*/
 void Game::Uninit(void)
 {
+	//imgui
+	ImGui_ImplDX9_Shutdown();
+
 	//マネージャーの破棄
 	if( m_pManager != NULL)
 	{
 		delete m_pManager;
 		m_pManager = NULL;
 	}
-
-	ImGui_ImplDX9_Shutdown();
 }
 
 /*------------------------------------------------------------------------------
@@ -343,45 +345,45 @@ void Game::Uninit(void)
 ------------------------------------------------------------------------------*/
 void Game::Update(void)
 {
-	m_pManager->Update();
-
-
-
-	//imguiテスト
+	//imgui
 	ImGui_ImplDX9_NewFrame();
 
-	static bool show_test_window = true;
-    static bool show_another_window = true;
-	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	m_pManager->Update();
 
-	// 1. Show a simple window
-    // Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets appears in a window automatically called "Debug"
-    {
-        static float f = 0.0f;
-		static float pos[3] = {0,0,0};
-        ImGui::Text("Hello, world!");
-        ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
-        ImGui::ColorEdit3("clear color", (float*)&clear_color);
-        if (ImGui::Button("Test Window")) show_test_window ^= 1;
-        if (ImGui::Button("Another Window")) show_another_window ^= 1;
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-		ImGui::DragFloat3( "Position", pos);
-    }
+	//static bool show_test_window = true;
+ //   static bool show_another_window = true;
+	//ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-    // 2. Show another simple window, this time using an explicit Begin/End pair
-    if (show_another_window)
-    {
-        ImGui::Begin("Another Window", &show_another_window);
-        ImGui::Text("Hello from another window!");
-        ImGui::End();
-    }
+	//// 1. Show a simple window
+ //   // Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets appears in a window automatically called "Debug"
+ //   {
+ //       static float f = 0.0f;
+	//	static Vector3 vec;
+	//	vec.y = 3.0f;
+	//	static float pos[3] = {0,0,0};
+ //       ImGui::Text("Hello, world!");
+ //       ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
+ //       ImGui::ColorEdit3("clear color", (float*)&clear_color);
+ //       if (ImGui::Button("Test Window")) show_test_window ^= 1;
+ //       if (ImGui::Button("Another Window")) show_another_window ^= 1;
+ //       ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	//	ImGui::DragFloat3( "Position", &vec.x);
+ //   }
 
-    // 3. Show the ImGui test window. Most of the sample code is in ImGui::ShowTestWindow()
-    if (show_test_window)
-    {
-        ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
-        ImGui::ShowTestWindow(&show_test_window);
-    }
+ //   // 2. Show another simple window, this time using an explicit Begin/End pair
+ //   if (show_another_window)
+ //   {
+ //       ImGui::Begin("Another Window", &show_another_window);
+ //       ImGui::Text("Hello from another window!");
+ //       ImGui::End();
+ //   }
+
+ //   // 3. Show the ImGui test window. Most of the sample code is in ImGui::ShowTestWindow()
+ //   if (show_test_window)
+ //   {
+ //       ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
+ //       ImGui::ShowTestWindow(&show_test_window);
+ //   }
 }
 
 /*------------------------------------------------------------------------------

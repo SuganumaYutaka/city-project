@@ -28,7 +28,7 @@ ModeGame::ModeGame()
 ------------------------------------------------------------------------------*/
 ModeGame::~ModeGame()
 {
-
+	
 }
 
 /*------------------------------------------------------------------------------
@@ -116,6 +116,7 @@ void ModeGame::Init()
 	auto pPlayer = new GameObject( m_pRoot);
 	auto playerModel = pPlayer->AddComponent<PartsAnimator>();
 	playerModel->LoadAnimator( "data/MOTION/player.txt");
+	pPlayer->IsSelected = true;
 
 	//ÉZÅ[Éu
 	Text saveText;

@@ -13,9 +13,6 @@
 #include "Camera.h"
 #include "DebugRenderer.h"
 
-#include "imgui.h"
-#include "imgui_impl_dx9.h"
-
 /*------------------------------------------------------------------------------
 	コンストラクタ
 	引数
@@ -269,6 +266,7 @@ void RenderManager::Draw()
 		DebugRenderer::ClearText();
 #endif // _DEBUG
 
+		//imgui
 		ImGui::Render();
 
 		//描画の終了

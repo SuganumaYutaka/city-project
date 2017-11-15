@@ -1,5 +1,6 @@
 GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 0.000000 0.000000 0.000000
  Scale 1.000000 1.000000 1.000000
@@ -7,6 +8,7 @@ GameObject
  EndComponent
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 1.000000 2.000000 3.000000
  Scale 1.000000 2.000000 3.000000
@@ -15,6 +17,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 0.000000 1.000000 -2.500000
  Scale 1.000000 1.000000 1.000000
@@ -33,6 +36,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -750.000000 600.000000 -300.000000
  Scale 1.000000 1.000000 1.000000
@@ -43,6 +47,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 0.000000 0.000000 0.000000
  Scale 1.000000 1.000000 1.000000
@@ -64,6 +69,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 0.000000 0.000000 0.000000
  Scale 1.000000 1.000000 1.000000
@@ -77,6 +83,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 50.000000 -680.000000
  Scale 40.000000 100.000000 40.000000
@@ -99,6 +106,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 57.500000 -635.000000
  Scale 37.000000 115.000000 37.000000
@@ -121,6 +129,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 80.000000 -680.000000
  Scale 50.000000 160.000000 50.000000
@@ -143,6 +152,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 65.000000 -630.000000
  Scale 45.000000 130.000000 45.000000
@@ -165,6 +175,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 50.000000 -680.000000
  Scale 40.000000 100.000000 40.000000
@@ -187,6 +198,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 57.500000 -635.000000
  Scale 37.000000 115.000000 37.000000
@@ -209,6 +221,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 80.000000 -680.000000
  Scale 50.000000 160.000000 50.000000
@@ -231,6 +244,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 65.000000 -630.000000
  Scale 45.000000 130.000000 45.000000
@@ -253,6 +267,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 50.000000 -680.000000
  Scale 40.000000 100.000000 40.000000
@@ -275,6 +290,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 57.500000 -635.000000
  Scale 37.000000 115.000000 37.000000
@@ -297,6 +313,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 80.000000 -680.000000
  Scale 50.000000 160.000000 50.000000
@@ -319,6 +336,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 65.000000 -630.000000
  Scale 45.000000 130.000000 45.000000
@@ -341,6 +359,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 50.000000 -680.000000
  Scale 40.000000 100.000000 40.000000
@@ -363,6 +382,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 57.500000 -635.000000
  Scale 37.000000 115.000000 37.000000
@@ -385,6 +405,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 80.000000 -680.000000
  Scale 50.000000 160.000000 50.000000
@@ -407,6 +428,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 65.000000 -630.000000
  Scale 45.000000 130.000000 45.000000
@@ -429,6 +451,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 50.000000 -680.000000
  Scale 40.000000 100.000000 40.000000
@@ -451,6 +474,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 57.500000 -635.000000
  Scale 37.000000 115.000000 37.000000
@@ -473,6 +497,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 80.000000 -680.000000
  Scale 50.000000 160.000000 50.000000
@@ -495,6 +520,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 65.000000 -630.000000
  Scale 45.000000 130.000000 45.000000
@@ -517,6 +543,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 50.000000 -680.000000
  Scale 40.000000 100.000000 40.000000
@@ -539,6 +566,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 57.500000 -635.000000
  Scale 37.000000 115.000000 37.000000
@@ -561,6 +589,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 80.000000 -680.000000
  Scale 50.000000 160.000000 50.000000
@@ -583,6 +612,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 65.000000 -630.000000
  Scale 45.000000 130.000000 45.000000
@@ -605,6 +635,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 50.000000 -680.000000
  Scale 40.000000 100.000000 40.000000
@@ -627,6 +658,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 57.500000 -635.000000
  Scale 37.000000 115.000000 37.000000
@@ -649,6 +681,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 80.000000 -680.000000
  Scale 50.000000 160.000000 50.000000
@@ -671,6 +704,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 65.000000 -630.000000
  Scale 45.000000 130.000000 45.000000
@@ -693,6 +727,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 50.000000 -680.000000
  Scale 40.000000 100.000000 40.000000
@@ -715,6 +750,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 57.500000 -635.000000
  Scale 37.000000 115.000000 37.000000
@@ -737,6 +773,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 80.000000 -680.000000
  Scale 50.000000 160.000000 50.000000
@@ -759,6 +796,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 65.000000 -630.000000
  Scale 45.000000 130.000000 45.000000
@@ -781,6 +819,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 50.000000 -493.000000
  Scale 40.000000 100.000000 40.000000
@@ -803,6 +842,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 57.500000 -448.000000
  Scale 37.000000 115.000000 37.000000
@@ -825,6 +865,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 80.000000 -493.000000
  Scale 50.000000 160.000000 50.000000
@@ -847,6 +888,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 65.000000 -443.000000
  Scale 45.000000 130.000000 45.000000
@@ -869,6 +911,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 50.000000 -493.000000
  Scale 40.000000 100.000000 40.000000
@@ -891,6 +934,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 57.500000 -448.000000
  Scale 37.000000 115.000000 37.000000
@@ -913,6 +957,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 80.000000 -493.000000
  Scale 50.000000 160.000000 50.000000
@@ -935,6 +980,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 65.000000 -443.000000
  Scale 45.000000 130.000000 45.000000
@@ -957,6 +1003,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 50.000000 -493.000000
  Scale 40.000000 100.000000 40.000000
@@ -979,6 +1026,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 57.500000 -448.000000
  Scale 37.000000 115.000000 37.000000
@@ -1001,6 +1049,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 80.000000 -493.000000
  Scale 50.000000 160.000000 50.000000
@@ -1023,6 +1072,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 65.000000 -443.000000
  Scale 45.000000 130.000000 45.000000
@@ -1045,6 +1095,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 50.000000 -493.000000
  Scale 40.000000 100.000000 40.000000
@@ -1067,6 +1118,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 57.500000 -448.000000
  Scale 37.000000 115.000000 37.000000
@@ -1089,6 +1141,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 80.000000 -493.000000
  Scale 50.000000 160.000000 50.000000
@@ -1111,6 +1164,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 65.000000 -443.000000
  Scale 45.000000 130.000000 45.000000
@@ -1133,6 +1187,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 50.000000 -493.000000
  Scale 40.000000 100.000000 40.000000
@@ -1155,6 +1210,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 57.500000 -448.000000
  Scale 37.000000 115.000000 37.000000
@@ -1177,6 +1233,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 80.000000 -493.000000
  Scale 50.000000 160.000000 50.000000
@@ -1199,6 +1256,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 65.000000 -443.000000
  Scale 45.000000 130.000000 45.000000
@@ -1221,6 +1279,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 50.000000 -493.000000
  Scale 40.000000 100.000000 40.000000
@@ -1243,6 +1302,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 57.500000 -448.000000
  Scale 37.000000 115.000000 37.000000
@@ -1265,6 +1325,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 80.000000 -493.000000
  Scale 50.000000 160.000000 50.000000
@@ -1287,6 +1348,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 65.000000 -443.000000
  Scale 45.000000 130.000000 45.000000
@@ -1309,6 +1371,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 50.000000 -493.000000
  Scale 40.000000 100.000000 40.000000
@@ -1331,6 +1394,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 57.500000 -448.000000
  Scale 37.000000 115.000000 37.000000
@@ -1353,6 +1417,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 80.000000 -493.000000
  Scale 50.000000 160.000000 50.000000
@@ -1375,6 +1440,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 65.000000 -443.000000
  Scale 45.000000 130.000000 45.000000
@@ -1397,6 +1463,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 50.000000 -493.000000
  Scale 40.000000 100.000000 40.000000
@@ -1419,6 +1486,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 57.500000 -448.000000
  Scale 37.000000 115.000000 37.000000
@@ -1441,6 +1509,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 80.000000 -493.000000
  Scale 50.000000 160.000000 50.000000
@@ -1463,6 +1532,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 65.000000 -443.000000
  Scale 45.000000 130.000000 45.000000
@@ -1485,6 +1555,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 50.000000 -306.000000
  Scale 40.000000 100.000000 40.000000
@@ -1507,6 +1578,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 57.500000 -261.000000
  Scale 37.000000 115.000000 37.000000
@@ -1529,6 +1601,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 80.000000 -306.000000
  Scale 50.000000 160.000000 50.000000
@@ -1551,6 +1624,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 65.000000 -256.000000
  Scale 45.000000 130.000000 45.000000
@@ -1573,6 +1647,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 50.000000 -306.000000
  Scale 40.000000 100.000000 40.000000
@@ -1595,6 +1670,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 57.500000 -261.000000
  Scale 37.000000 115.000000 37.000000
@@ -1617,6 +1693,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 80.000000 -306.000000
  Scale 50.000000 160.000000 50.000000
@@ -1639,6 +1716,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 65.000000 -256.000000
  Scale 45.000000 130.000000 45.000000
@@ -1661,6 +1739,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 50.000000 -306.000000
  Scale 40.000000 100.000000 40.000000
@@ -1683,6 +1762,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 57.500000 -261.000000
  Scale 37.000000 115.000000 37.000000
@@ -1705,6 +1785,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 80.000000 -306.000000
  Scale 50.000000 160.000000 50.000000
@@ -1727,6 +1808,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 65.000000 -256.000000
  Scale 45.000000 130.000000 45.000000
@@ -1749,6 +1831,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 50.000000 -306.000000
  Scale 40.000000 100.000000 40.000000
@@ -1771,6 +1854,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 57.500000 -261.000000
  Scale 37.000000 115.000000 37.000000
@@ -1793,6 +1877,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 80.000000 -306.000000
  Scale 50.000000 160.000000 50.000000
@@ -1815,6 +1900,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 65.000000 -256.000000
  Scale 45.000000 130.000000 45.000000
@@ -1837,6 +1923,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 50.000000 -306.000000
  Scale 40.000000 100.000000 40.000000
@@ -1859,6 +1946,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 57.500000 -261.000000
  Scale 37.000000 115.000000 37.000000
@@ -1881,6 +1969,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 80.000000 -306.000000
  Scale 50.000000 160.000000 50.000000
@@ -1903,6 +1992,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 65.000000 -256.000000
  Scale 45.000000 130.000000 45.000000
@@ -1925,6 +2015,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 50.000000 -306.000000
  Scale 40.000000 100.000000 40.000000
@@ -1947,6 +2038,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 57.500000 -261.000000
  Scale 37.000000 115.000000 37.000000
@@ -1969,6 +2061,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 80.000000 -306.000000
  Scale 50.000000 160.000000 50.000000
@@ -1991,6 +2084,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 65.000000 -256.000000
  Scale 45.000000 130.000000 45.000000
@@ -2013,6 +2107,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 50.000000 -306.000000
  Scale 40.000000 100.000000 40.000000
@@ -2035,6 +2130,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 57.500000 -261.000000
  Scale 37.000000 115.000000 37.000000
@@ -2057,6 +2153,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 80.000000 -306.000000
  Scale 50.000000 160.000000 50.000000
@@ -2079,6 +2176,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 65.000000 -256.000000
  Scale 45.000000 130.000000 45.000000
@@ -2101,6 +2199,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 50.000000 -306.000000
  Scale 40.000000 100.000000 40.000000
@@ -2123,6 +2222,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 57.500000 -261.000000
  Scale 37.000000 115.000000 37.000000
@@ -2145,6 +2245,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 80.000000 -306.000000
  Scale 50.000000 160.000000 50.000000
@@ -2167,6 +2268,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 65.000000 -256.000000
  Scale 45.000000 130.000000 45.000000
@@ -2189,6 +2291,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 50.000000 -119.000000
  Scale 40.000000 100.000000 40.000000
@@ -2211,6 +2314,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 57.500000 -74.000000
  Scale 37.000000 115.000000 37.000000
@@ -2233,6 +2337,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 80.000000 -119.000000
  Scale 50.000000 160.000000 50.000000
@@ -2255,6 +2360,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 65.000000 -69.000000
  Scale 45.000000 130.000000 45.000000
@@ -2277,6 +2383,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 50.000000 -119.000000
  Scale 40.000000 100.000000 40.000000
@@ -2299,6 +2406,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 57.500000 -74.000000
  Scale 37.000000 115.000000 37.000000
@@ -2321,6 +2429,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 80.000000 -119.000000
  Scale 50.000000 160.000000 50.000000
@@ -2343,6 +2452,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 65.000000 -69.000000
  Scale 45.000000 130.000000 45.000000
@@ -2365,6 +2475,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 50.000000 -119.000000
  Scale 40.000000 100.000000 40.000000
@@ -2387,6 +2498,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 57.500000 -74.000000
  Scale 37.000000 115.000000 37.000000
@@ -2409,6 +2521,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 80.000000 -119.000000
  Scale 50.000000 160.000000 50.000000
@@ -2431,6 +2544,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 65.000000 -69.000000
  Scale 45.000000 130.000000 45.000000
@@ -2453,6 +2567,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 50.000000 -119.000000
  Scale 40.000000 100.000000 40.000000
@@ -2475,6 +2590,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 57.500000 -74.000000
  Scale 37.000000 115.000000 37.000000
@@ -2497,6 +2613,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 80.000000 -119.000000
  Scale 50.000000 160.000000 50.000000
@@ -2519,6 +2636,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 65.000000 -69.000000
  Scale 45.000000 130.000000 45.000000
@@ -2541,6 +2659,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 50.000000 -119.000000
  Scale 40.000000 100.000000 40.000000
@@ -2563,6 +2682,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 57.500000 -74.000000
  Scale 37.000000 115.000000 37.000000
@@ -2585,6 +2705,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 80.000000 -119.000000
  Scale 50.000000 160.000000 50.000000
@@ -2607,6 +2728,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 65.000000 -69.000000
  Scale 45.000000 130.000000 45.000000
@@ -2629,6 +2751,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 50.000000 -119.000000
  Scale 40.000000 100.000000 40.000000
@@ -2651,6 +2774,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 57.500000 -74.000000
  Scale 37.000000 115.000000 37.000000
@@ -2673,6 +2797,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 80.000000 -119.000000
  Scale 50.000000 160.000000 50.000000
@@ -2695,6 +2820,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 65.000000 -69.000000
  Scale 45.000000 130.000000 45.000000
@@ -2717,6 +2843,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 50.000000 -119.000000
  Scale 40.000000 100.000000 40.000000
@@ -2739,6 +2866,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 57.500000 -74.000000
  Scale 37.000000 115.000000 37.000000
@@ -2761,6 +2889,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 80.000000 -119.000000
  Scale 50.000000 160.000000 50.000000
@@ -2783,6 +2912,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 65.000000 -69.000000
  Scale 45.000000 130.000000 45.000000
@@ -2805,6 +2935,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 50.000000 -119.000000
  Scale 40.000000 100.000000 40.000000
@@ -2827,6 +2958,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 57.500000 -74.000000
  Scale 37.000000 115.000000 37.000000
@@ -2849,6 +2981,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 80.000000 -119.000000
  Scale 50.000000 160.000000 50.000000
@@ -2871,6 +3004,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 65.000000 -69.000000
  Scale 45.000000 130.000000 45.000000
@@ -2893,6 +3027,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 50.000000 68.000000
  Scale 40.000000 100.000000 40.000000
@@ -2915,6 +3050,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 57.500000 113.000000
  Scale 37.000000 115.000000 37.000000
@@ -2937,6 +3073,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 80.000000 68.000000
  Scale 50.000000 160.000000 50.000000
@@ -2959,6 +3096,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 65.000000 118.000000
  Scale 45.000000 130.000000 45.000000
@@ -2981,6 +3119,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 50.000000 68.000000
  Scale 40.000000 100.000000 40.000000
@@ -3003,6 +3142,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 57.500000 113.000000
  Scale 37.000000 115.000000 37.000000
@@ -3025,6 +3165,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 80.000000 68.000000
  Scale 50.000000 160.000000 50.000000
@@ -3047,6 +3188,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 65.000000 118.000000
  Scale 45.000000 130.000000 45.000000
@@ -3069,6 +3211,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 50.000000 68.000000
  Scale 40.000000 100.000000 40.000000
@@ -3091,6 +3234,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 57.500000 113.000000
  Scale 37.000000 115.000000 37.000000
@@ -3113,6 +3257,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 80.000000 68.000000
  Scale 50.000000 160.000000 50.000000
@@ -3135,6 +3280,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 65.000000 118.000000
  Scale 45.000000 130.000000 45.000000
@@ -3157,6 +3303,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 50.000000 68.000000
  Scale 40.000000 100.000000 40.000000
@@ -3179,6 +3326,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 57.500000 113.000000
  Scale 37.000000 115.000000 37.000000
@@ -3201,6 +3349,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 80.000000 68.000000
  Scale 50.000000 160.000000 50.000000
@@ -3223,6 +3372,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 65.000000 118.000000
  Scale 45.000000 130.000000 45.000000
@@ -3245,6 +3395,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 50.000000 68.000000
  Scale 40.000000 100.000000 40.000000
@@ -3267,6 +3418,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 57.500000 113.000000
  Scale 37.000000 115.000000 37.000000
@@ -3289,6 +3441,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 80.000000 68.000000
  Scale 50.000000 160.000000 50.000000
@@ -3311,6 +3464,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 65.000000 118.000000
  Scale 45.000000 130.000000 45.000000
@@ -3333,6 +3487,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 50.000000 68.000000
  Scale 40.000000 100.000000 40.000000
@@ -3355,6 +3510,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 57.500000 113.000000
  Scale 37.000000 115.000000 37.000000
@@ -3377,6 +3533,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 80.000000 68.000000
  Scale 50.000000 160.000000 50.000000
@@ -3399,6 +3556,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 65.000000 118.000000
  Scale 45.000000 130.000000 45.000000
@@ -3421,6 +3579,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 50.000000 68.000000
  Scale 40.000000 100.000000 40.000000
@@ -3443,6 +3602,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 57.500000 113.000000
  Scale 37.000000 115.000000 37.000000
@@ -3465,6 +3625,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 80.000000 68.000000
  Scale 50.000000 160.000000 50.000000
@@ -3487,6 +3648,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 65.000000 118.000000
  Scale 45.000000 130.000000 45.000000
@@ -3509,6 +3671,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 50.000000 68.000000
  Scale 40.000000 100.000000 40.000000
@@ -3531,6 +3694,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 57.500000 113.000000
  Scale 37.000000 115.000000 37.000000
@@ -3553,6 +3717,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 80.000000 68.000000
  Scale 50.000000 160.000000 50.000000
@@ -3575,6 +3740,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 65.000000 118.000000
  Scale 45.000000 130.000000 45.000000
@@ -3597,6 +3763,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 50.000000 255.000000
  Scale 40.000000 100.000000 40.000000
@@ -3619,6 +3786,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 57.500000 300.000000
  Scale 37.000000 115.000000 37.000000
@@ -3641,6 +3809,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 80.000000 255.000000
  Scale 50.000000 160.000000 50.000000
@@ -3663,6 +3832,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 65.000000 305.000000
  Scale 45.000000 130.000000 45.000000
@@ -3685,6 +3855,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 50.000000 255.000000
  Scale 40.000000 100.000000 40.000000
@@ -3707,6 +3878,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 57.500000 300.000000
  Scale 37.000000 115.000000 37.000000
@@ -3729,6 +3901,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 80.000000 255.000000
  Scale 50.000000 160.000000 50.000000
@@ -3751,6 +3924,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 65.000000 305.000000
  Scale 45.000000 130.000000 45.000000
@@ -3773,6 +3947,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 50.000000 255.000000
  Scale 40.000000 100.000000 40.000000
@@ -3795,6 +3970,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 57.500000 300.000000
  Scale 37.000000 115.000000 37.000000
@@ -3817,6 +3993,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 80.000000 255.000000
  Scale 50.000000 160.000000 50.000000
@@ -3839,6 +4016,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 65.000000 305.000000
  Scale 45.000000 130.000000 45.000000
@@ -3861,6 +4039,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 50.000000 255.000000
  Scale 40.000000 100.000000 40.000000
@@ -3883,6 +4062,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 57.500000 300.000000
  Scale 37.000000 115.000000 37.000000
@@ -3905,6 +4085,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 80.000000 255.000000
  Scale 50.000000 160.000000 50.000000
@@ -3927,6 +4108,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 65.000000 305.000000
  Scale 45.000000 130.000000 45.000000
@@ -3949,6 +4131,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 50.000000 255.000000
  Scale 40.000000 100.000000 40.000000
@@ -3971,6 +4154,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 57.500000 300.000000
  Scale 37.000000 115.000000 37.000000
@@ -3993,6 +4177,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 80.000000 255.000000
  Scale 50.000000 160.000000 50.000000
@@ -4015,6 +4200,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 65.000000 305.000000
  Scale 45.000000 130.000000 45.000000
@@ -4037,6 +4223,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 50.000000 255.000000
  Scale 40.000000 100.000000 40.000000
@@ -4059,6 +4246,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 57.500000 300.000000
  Scale 37.000000 115.000000 37.000000
@@ -4081,6 +4269,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 80.000000 255.000000
  Scale 50.000000 160.000000 50.000000
@@ -4103,6 +4292,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 65.000000 305.000000
  Scale 45.000000 130.000000 45.000000
@@ -4125,6 +4315,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 50.000000 255.000000
  Scale 40.000000 100.000000 40.000000
@@ -4147,6 +4338,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 57.500000 300.000000
  Scale 37.000000 115.000000 37.000000
@@ -4169,6 +4361,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 80.000000 255.000000
  Scale 50.000000 160.000000 50.000000
@@ -4191,6 +4384,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 65.000000 305.000000
  Scale 45.000000 130.000000 45.000000
@@ -4213,6 +4407,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 50.000000 255.000000
  Scale 40.000000 100.000000 40.000000
@@ -4235,6 +4430,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 57.500000 300.000000
  Scale 37.000000 115.000000 37.000000
@@ -4257,6 +4453,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 80.000000 255.000000
  Scale 50.000000 160.000000 50.000000
@@ -4279,6 +4476,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 65.000000 305.000000
  Scale 45.000000 130.000000 45.000000
@@ -4301,6 +4499,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 50.000000 442.000000
  Scale 40.000000 100.000000 40.000000
@@ -4323,6 +4522,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 57.500000 487.000000
  Scale 37.000000 115.000000 37.000000
@@ -4345,6 +4545,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 80.000000 442.000000
  Scale 50.000000 160.000000 50.000000
@@ -4367,6 +4568,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 65.000000 492.000000
  Scale 45.000000 130.000000 45.000000
@@ -4389,6 +4591,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 50.000000 442.000000
  Scale 40.000000 100.000000 40.000000
@@ -4411,6 +4614,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 57.500000 487.000000
  Scale 37.000000 115.000000 37.000000
@@ -4433,6 +4637,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 80.000000 442.000000
  Scale 50.000000 160.000000 50.000000
@@ -4455,6 +4660,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 65.000000 492.000000
  Scale 45.000000 130.000000 45.000000
@@ -4477,6 +4683,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 50.000000 442.000000
  Scale 40.000000 100.000000 40.000000
@@ -4499,6 +4706,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 57.500000 487.000000
  Scale 37.000000 115.000000 37.000000
@@ -4521,6 +4729,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 80.000000 442.000000
  Scale 50.000000 160.000000 50.000000
@@ -4543,6 +4752,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 65.000000 492.000000
  Scale 45.000000 130.000000 45.000000
@@ -4565,6 +4775,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 50.000000 442.000000
  Scale 40.000000 100.000000 40.000000
@@ -4587,6 +4798,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 57.500000 487.000000
  Scale 37.000000 115.000000 37.000000
@@ -4609,6 +4821,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 80.000000 442.000000
  Scale 50.000000 160.000000 50.000000
@@ -4631,6 +4844,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 65.000000 492.000000
  Scale 45.000000 130.000000 45.000000
@@ -4653,6 +4867,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 50.000000 442.000000
  Scale 40.000000 100.000000 40.000000
@@ -4675,6 +4890,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 57.500000 487.000000
  Scale 37.000000 115.000000 37.000000
@@ -4697,6 +4913,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 80.000000 442.000000
  Scale 50.000000 160.000000 50.000000
@@ -4719,6 +4936,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 65.000000 492.000000
  Scale 45.000000 130.000000 45.000000
@@ -4741,6 +4959,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 50.000000 442.000000
  Scale 40.000000 100.000000 40.000000
@@ -4763,6 +4982,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 57.500000 487.000000
  Scale 37.000000 115.000000 37.000000
@@ -4785,6 +5005,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 80.000000 442.000000
  Scale 50.000000 160.000000 50.000000
@@ -4807,6 +5028,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 65.000000 492.000000
  Scale 45.000000 130.000000 45.000000
@@ -4829,6 +5051,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 50.000000 442.000000
  Scale 40.000000 100.000000 40.000000
@@ -4851,6 +5074,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 57.500000 487.000000
  Scale 37.000000 115.000000 37.000000
@@ -4873,6 +5097,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 80.000000 442.000000
  Scale 50.000000 160.000000 50.000000
@@ -4895,6 +5120,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 65.000000 492.000000
  Scale 45.000000 130.000000 45.000000
@@ -4917,6 +5143,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 50.000000 442.000000
  Scale 40.000000 100.000000 40.000000
@@ -4939,6 +5166,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 57.500000 487.000000
  Scale 37.000000 115.000000 37.000000
@@ -4961,6 +5189,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 80.000000 442.000000
  Scale 50.000000 160.000000 50.000000
@@ -4983,6 +5212,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 65.000000 492.000000
  Scale 45.000000 130.000000 45.000000
@@ -5005,6 +5235,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 50.000000 629.000000
  Scale 40.000000 100.000000 40.000000
@@ -5027,6 +5258,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -680.000000 57.500000 674.000000
  Scale 37.000000 115.000000 37.000000
@@ -5049,6 +5281,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 80.000000 629.000000
  Scale 50.000000 160.000000 50.000000
@@ -5071,6 +5304,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -635.000000 65.000000 679.000000
  Scale 45.000000 130.000000 45.000000
@@ -5093,6 +5327,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 50.000000 629.000000
  Scale 40.000000 100.000000 40.000000
@@ -5115,6 +5350,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -493.000000 57.500000 674.000000
  Scale 37.000000 115.000000 37.000000
@@ -5137,6 +5373,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 80.000000 629.000000
  Scale 50.000000 160.000000 50.000000
@@ -5159,6 +5396,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -448.000000 65.000000 679.000000
  Scale 45.000000 130.000000 45.000000
@@ -5181,6 +5419,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 50.000000 629.000000
  Scale 40.000000 100.000000 40.000000
@@ -5203,6 +5442,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -306.000000 57.500000 674.000000
  Scale 37.000000 115.000000 37.000000
@@ -5225,6 +5465,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 80.000000 629.000000
  Scale 50.000000 160.000000 50.000000
@@ -5247,6 +5488,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -261.000000 65.000000 679.000000
  Scale 45.000000 130.000000 45.000000
@@ -5269,6 +5511,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 50.000000 629.000000
  Scale 40.000000 100.000000 40.000000
@@ -5291,6 +5534,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -119.000000 57.500000 674.000000
  Scale 37.000000 115.000000 37.000000
@@ -5313,6 +5557,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 80.000000 629.000000
  Scale 50.000000 160.000000 50.000000
@@ -5335,6 +5580,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position -74.000000 65.000000 679.000000
  Scale 45.000000 130.000000 45.000000
@@ -5357,6 +5603,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 50.000000 629.000000
  Scale 40.000000 100.000000 40.000000
@@ -5379,6 +5626,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 68.000000 57.500000 674.000000
  Scale 37.000000 115.000000 37.000000
@@ -5401,6 +5649,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 80.000000 629.000000
  Scale 50.000000 160.000000 50.000000
@@ -5423,6 +5672,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 113.000000 65.000000 679.000000
  Scale 45.000000 130.000000 45.000000
@@ -5445,6 +5695,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 50.000000 629.000000
  Scale 40.000000 100.000000 40.000000
@@ -5467,6 +5718,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 255.000000 57.500000 674.000000
  Scale 37.000000 115.000000 37.000000
@@ -5489,6 +5741,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 80.000000 629.000000
  Scale 50.000000 160.000000 50.000000
@@ -5511,6 +5764,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 300.000000 65.000000 679.000000
  Scale 45.000000 130.000000 45.000000
@@ -5533,6 +5787,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 50.000000 629.000000
  Scale 40.000000 100.000000 40.000000
@@ -5555,6 +5810,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 442.000000 57.500000 674.000000
  Scale 37.000000 115.000000 37.000000
@@ -5577,6 +5833,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 80.000000 629.000000
  Scale 50.000000 160.000000 50.000000
@@ -5599,6 +5856,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 487.000000 65.000000 679.000000
  Scale 45.000000 130.000000 45.000000
@@ -5621,6 +5879,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 50.000000 629.000000
  Scale 40.000000 100.000000 40.000000
@@ -5643,6 +5902,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 629.000000 57.500000 674.000000
  Scale 37.000000 115.000000 37.000000
@@ -5665,6 +5925,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 80.000000 629.000000
  Scale 50.000000 160.000000 50.000000
@@ -5687,6 +5948,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 0
  Component  class Transform 
  Position 674.000000 65.000000 679.000000
  Scale 45.000000 130.000000 45.000000
@@ -5709,6 +5971,7 @@ GameObject
  EndGameObject
  GameObject
  Tag UnTag
+ IsSelected 1
  Component  class Transform 
  Position 0.000000 0.000000 0.000000
  Scale 1.000000 1.000000 1.000000

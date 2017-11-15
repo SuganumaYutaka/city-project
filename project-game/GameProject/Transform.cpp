@@ -970,3 +970,15 @@ void Transform::Save(Text& text)
 
 	EndSave( text);
 }
+
+/*------------------------------------------------------------------------------
+	ImGuiÇÃï\é¶èÓïÒê›íË
+------------------------------------------------------------------------------*/
+void Transform::SetImGuiView()
+{
+	ImGui::Text(typeid(*this).name());
+
+	ImGui::DragFloat3("Position", &m_Position.x);
+	ImGui::DragFloat4("Rotation", (float*)&m_Rotation);
+	ImGui::DragFloat3("Scale", &m_Scale.x);
+}
