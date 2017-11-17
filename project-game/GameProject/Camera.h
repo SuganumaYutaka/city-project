@@ -42,6 +42,16 @@ public:
 	void Update( void);
 	void SetCamera( void);
 
+	static Camera* GetMainCamera() { return MainCamera;}
+	bool IsMainCamera()
+	{
+		if (MainCamera == this)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	void SetPosAt( const Vector3& Pos) { m_PosAt = Pos;}
 	Vector3 GetPosAt( void) const { return m_PosAt;}
 	void SetVecUp( const Vector3& Vec) { m_VecUp = Vec;}
@@ -80,10 +90,14 @@ public:
 	void SetPerspective( float FovY, float Aspect, float Near, float Far);
 	void SetOrtho( float Width, float Height, float Near, float Far);
 
+	Ray CalcScreenPointToRay( Vector2 screenPoint);
+
 	virtual void Save( Text& text);
 	virtual void Load( Text& text);
 
 private:
+	static Camera* MainCamera;
+
 	Vector3 m_PosAt;					//注視点（ワールド座標）
 	Vector3 m_VecUp;					//カメラの上方向
 	float m_fFovY;						//画角（視野角）
@@ -98,6 +112,7 @@ private:
 	std::list<int> m_listRenderLayer;	//レンダリングするレイヤー（sizeが0ならすべて描画）
 	ECameraType m_Type;					//カメラの種類
 
+	Vector3 CalcScreenPointToWorldPosition( Vector2 screenPoint, float positionZ);
 };
 
 #endif

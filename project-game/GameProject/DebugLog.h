@@ -1,17 +1,16 @@
 /*==============================================================================
 
-    Collider.h - コライダー（基底クラス）
+    DebugLog.h - デバッグログ
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/5/7
+                                                       Date   : 2017/11/15
 ==============================================================================*/
-#ifndef _COLLIDER_H_
-#define _COLLIDER_H_
+#ifndef _DEBUG_LOG_H_
+#define _DEBUG_LOG_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "Manager.h"
-#include "Component.h"
+#include "Text.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
@@ -19,41 +18,25 @@
 
 
 /*------------------------------------------------------------------------------
-	列挙型定義
+	マクロ定義
 ------------------------------------------------------------------------------*/
-enum E_COLTYPE
-{
-	eColNone = 0,				//設定なし
-	eColBox,					//ボックス
-	eColMeshField,				//メッシュフィールド
-	eColRay,					//直線
-	eColNum						//コライダーの種類の総数
-};
+
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class Collider : public Component
+class DebugLog
 {
 public:
-	virtual void Uninit( void){}
+	static void Add(std::string Text) {Log += Text + '\n';}
+	static void Clear() { Log.ClearTextStrage(); }
 
-	virtual void Update( void) = 0;
-	virtual void Draw( void) {}
-	virtual void SetActive( bool bEnable);
+	static void Save(void);
+	static void SetImGuiView(void);
 	
-	const E_COLTYPE GetColType() const { return m_ColType;}
+private:
+	static Text Log;
 
-	bool m_IsTrigger;			//トリガー用か
-	Vector3 m_OldPos;			//前の位置
-
-	virtual void Save( Text& text) {Component::Save(text);}
-	virtual void Load( Text& text) {Component::Load(text);}
-
-protected:
-	Collider();
-	E_COLTYPE m_ColType;		//コライダーの種類
-	
 };
 
 #endif

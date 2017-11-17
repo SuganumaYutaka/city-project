@@ -23,6 +23,11 @@
 #define TEXTURE_HEIGHT (1024)
 
 /*------------------------------------------------------------------------------
+	マクロ定義
+------------------------------------------------------------------------------*/
+Camera* Camera::MainCamera = NULL;
+
+/*------------------------------------------------------------------------------
 	コンポーネント生成
 ------------------------------------------------------------------------------*/
 Component* Camera::Create(GameObject* gameObject)
@@ -72,6 +77,11 @@ Camera::Camera( GameObject *pGameObject)
 
 	//カメラをマネージャーに追加
 	Manager::GetRenderManager()->SetCamera( this);
+
+	if (MainCamera == NULL)
+	{
+		MainCamera = this;
+	}
 }
 
 /*------------------------------------------------------------------------------
@@ -81,6 +91,11 @@ void Camera::Uninit( void)
 {
 	//マネージャーから削除
 	Manager::GetRenderManager()->ReleaseCamera( this);
+
+	if (MainCamera == this)
+	{
+		MainCamera = NULL;
+	}
 }
 
 /*------------------------------------------------------------------------------
@@ -146,22 +161,14 @@ void Camera::SetCamera(void)
 	pDevice->SetDepthStencilSurface( m_RenderTarget->GetDepthBuffer());
 
 	//レンダーターゲットの初期化
-	if (m_Type == eCameraLight)
-	{
-		pDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA( 255, 255, 255, 255), 1.0f, 0);
-		//pDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA( 0, 0, 0, 255), 1.0f, 0);
-	}
-	else
-	{
-		pDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA( 255, 255, 255, 255), 1.0f, 0);
-	}
+	pDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA( 255, 255, 255, 255), 1.0f, 0);
 
 	//シェーダーの設定
 	if (m_Type == eCameraDefault)
 	{
 		Manager::GetShaderManager()->SetDefault();
 	}
-	if (m_Type == eCameraLight)
+	else if (m_Type == eCameraLight)
 	{
 		Manager::GetShaderManager()->SetDepth();
 	}
@@ -206,6 +213,57 @@ void Camera::SetOrtho( float Width, float Height, float Near, float Far)
 	m_fNear = Near;
 	m_fFar = Far;
 	D3DXMatrixOrthoLH( &m_mtxProj, Width, Height, Near, Far);
+}
+
+/*------------------------------------------------------------------------------
+	スクリーン座標からレイ（直線）を算出
+------------------------------------------------------------------------------*/
+Ray Camera::CalcScreenPointToRay(Vector2 screenPoint)
+{
+	//スクリーン座標からワールド座標に変換
+	Vector3 nearPos = CalcScreenPointToWorldPosition( screenPoint, 0.0f);		//カメラから最も近い座標
+	Vector3 farPos = CalcScreenPointToWorldPosition( screenPoint, 1.0f);		//カメラから最も遠い座標
+
+	//カーソルの線分算出
+	Ray ray;
+	ray.Direction = (farPos - nearPos).Normalize();		//カーソルの線分
+	ray.Position = m_pTransform->GetWorldPosition();
+
+	return ray;
+}
+
+/*------------------------------------------------------------------------------
+	スクリーン座標からワールド座標を算出
+------------------------------------------------------------------------------*/
+Vector3 Camera::CalcScreenPointToWorldPosition( Vector2 screenPoint, float positionZ)
+{
+	//変数宣言
+	D3DXMATRIX mtxWorld;				//ワールド座標変換行列
+	D3DXVECTOR3 worldPos;				//ワールド座標
+
+	//逆行列を設定
+	D3DXMATRIX mtxViewInv;		//ビュー座標変換行列の逆行列
+	D3DXMATRIX mtxProjInv;		//プロジェクション座標変換行列の逆行列
+	D3DXMatrixInverse( &mtxViewInv, NULL, &m_mtxView);
+	D3DXMatrixInverse( &mtxProjInv, NULL, &m_mtxProj);
+	
+	//ビューポート（拾い物）
+	D3DXMATRIX VP, InvViewport;
+	D3DXMatrixIdentity( &VP );
+	VP._11 = SCREEN_WIDTH / 2.0f;
+	VP._22 = -SCREEN_HEIGHT / 2.0f;
+	VP._41 = SCREEN_WIDTH / 2.0f;
+	VP._42 = SCREEN_HEIGHT / 2.0f;
+	D3DXMatrixInverse( &InvViewport, NULL, &VP );
+
+	//逆行列をかけていきワールド座標変換行列に変換
+	D3DXMatrixIdentity( &mtxWorld);		//単位行列化
+	mtxWorld = mtxWorld * InvViewport * mtxProjInv * mtxViewInv;
+	
+	//ワールド座標を算出
+	D3DXVec3TransformCoord( &worldPos, &D3DXVECTOR3( screenPoint.x, screenPoint.y, positionZ), &mtxWorld);
+
+	return worldPos;
 }
 
 /*------------------------------------------------------------------------------
@@ -305,3 +363,4 @@ void Camera::Save(Text& text)
 
 	EndSave( text);
 }
+

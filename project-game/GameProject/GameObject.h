@@ -49,6 +49,10 @@ public:
 	void Load( Text& text);
 
 	bool IsCreatedByOtherComponent;
+
+	void SetImGuiView();
+
+	bool IsSelected;
 	
 private:
 	GameObject();

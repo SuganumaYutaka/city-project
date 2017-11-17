@@ -12,6 +12,7 @@
 ------------------------------------------------------------------------------*/
 #include "Game.h"
 #include "Input.h"
+#include "Vector2.h"
 
 /*------------------------------------------------------------------------------
 	ëOï˚êÈåæ
@@ -40,7 +41,7 @@ public:
 	LONG GetAxisX( void);
 	LONG GetAxisY( void);
 	LONG GetWheel( void);
-	POINT *GetPosWorld(void) { return &m_posMouseWorld;}
+	Vector2 GetScreenPosition(void) { return Vector2(m_posMouseWorld.x, m_posMouseWorld.y);}
 
 	//const Vector2 Get2DDirection();
 	//const Vector3 Get3DDirection();

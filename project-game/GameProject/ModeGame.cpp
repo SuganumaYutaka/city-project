@@ -28,7 +28,7 @@ ModeGame::ModeGame()
 ------------------------------------------------------------------------------*/
 ModeGame::~ModeGame()
 {
-
+	
 }
 
 /*------------------------------------------------------------------------------
@@ -39,10 +39,15 @@ void ModeGame::Init()
 	//ノードの先頭
 	m_pRoot = new GameObject(NULL);
 
-	////ロード
-	//Text loadText;
-	//loadText.Load("data/SCRIPT/ModeGame.txt");
-	//m_pRoot->Load(loadText);
+	//ロード
+	/*Text loadText;
+	loadText.Load("data/SCRIPT/ModeGame.txt");
+	m_pRoot->Load(loadText);*/
+
+#ifdef _DEBUG
+	m_pRoot->AddComponent<EditSystem>();
+#endif // _DEBUG
+
 	
 	//オブジェクト生成
 	GameObject* pTest = new GameObject( m_pRoot);
@@ -53,10 +58,11 @@ void ModeGame::Init()
 	//カメラ
 	GameObject *pCamera = new GameObject( m_pRoot);
 	auto cameraComponent = pCamera->AddComponent<Camera>();
-	pCamera->m_pTransform->SetLocalPosition( Vector3( 0.0f, 1.0f, -2.5f));
+	pCamera->m_pTransform->SetLocalPosition( Vector3( 0.0f, 30.0f, -50.0f));
 	cameraComponent->SetFar( 2000.0f);
 	pCamera->AddComponent<CameraController>();
 
+	
 	//太陽
 	auto pSun = new GameObject( m_pRoot);
 	pSun->AddComponent<Sun>();
@@ -78,45 +84,73 @@ void ModeGame::Init()
 	//ビル
 	GameObject* pBill = NULL;
 	MeshBoxRenderer* boxRenderer = NULL;
+	BoxCollider* boxCollider = NULL;
 	Vector3 size;
 	for (int nCntZ = 0; nCntZ < 8; nCntZ++)
 	{
 		for (int nCntX = 0; nCntX < 8; nCntX++)
 		{
 			pBill = new GameObject( m_pRoot);
+			boxCollider = pBill->AddComponent<BoxCollider>();
+			boxCollider->m_IsTrigger = false;
 			boxRenderer = pBill->AddComponent<MeshBoxRenderer>();
 			boxRenderer->LoadTexture("data/TEXTURE/bill02.png");
 			size = Vector3( 40.0f, 100.0f, 40.0f);
 			pBill->m_pTransform->SetLocalPosition( -680.0f + nCntX * 187.0f, size.y * 0.5f, -680.0f + nCntZ * 187.0f);
-			pBill->m_pTransform->SetLocalScale(size);
+			boxCollider->SetSize(size);
+			boxRenderer->SetSize(size);
 
 			pBill = new GameObject( m_pRoot);
+			boxCollider = pBill->AddComponent<BoxCollider>();
+			boxCollider->m_IsTrigger = false;
 			boxRenderer = pBill->AddComponent<MeshBoxRenderer>();
 			boxRenderer->LoadTexture("data/TEXTURE/bill02.png");
 			size = Vector3( 37.0f, 115.0f, 37.0f);
 			pBill->m_pTransform->SetLocalPosition( -680.0f + nCntX * 187.0f, size.y * 0.5f, -635.0f + nCntZ * 187.0f);
-			pBill->m_pTransform->SetLocalScale(size);
+			boxCollider->SetSize(size);
+			boxRenderer->SetSize(size);
 
 			pBill = new GameObject( m_pRoot);
+			boxCollider = pBill->AddComponent<BoxCollider>();
+			boxCollider->m_IsTrigger = false;
 			boxRenderer = pBill->AddComponent<MeshBoxRenderer>();
 			boxRenderer->LoadTexture("data/TEXTURE/bill02.png");
 			size = Vector3( 50.0f, 160.0f, 50.0f);
 			pBill->m_pTransform->SetLocalPosition( -635.0f + nCntX * 187.0f, size.y * 0.5f, -680.0f + nCntZ * 187.0f);
-			pBill->m_pTransform->SetLocalScale(size);
+			boxCollider->SetSize(size);
+			boxRenderer->SetSize(size);
 
 			pBill = new GameObject( m_pRoot);
+			boxCollider = pBill->AddComponent<BoxCollider>();
+			boxCollider->m_IsTrigger = false;
 			boxRenderer = pBill->AddComponent<MeshBoxRenderer>();
 			boxRenderer->LoadTexture("data/TEXTURE/bill02.png");
 			size = Vector3( 45.0f, 130.0f, 45.0f);
 			pBill->m_pTransform->SetLocalPosition( -635.0f + nCntX * 187.0f, size.y * 0.5f, -630.0f + nCntZ * 187.0f);
-			pBill->m_pTransform->SetLocalScale(size);
+			boxCollider->SetSize(size);
+			boxRenderer->SetSize(size);
 		}
 	}
 
 	auto pPlayer = new GameObject( m_pRoot);
 	auto playerModel = pPlayer->AddComponent<PartsAnimator>();
 	playerModel->LoadAnimator( "data/MOTION/player.txt");
+	auto col = pPlayer->AddComponent<BoxCollider>();
+	size = Vector3( 30.0f, 75.0f, 30.0f);
+	col->SetSize( size);
+	col->SetCenter( Vector3(0.0f, 37.5f, 0.0f));
+	pPlayer->IsSelected = true;
 
+	////テストーレンダーターゲット
+	//auto secondCamera = new GameObject( pCamera);
+	//cameraComponent = secondCamera->AddComponent<Camera>();
+	//cameraComponent->SetRenderTarget("test", false);
+	//cameraComponent->SetFar( 2000.0f);
+	//auto pSprite = new GameObject( m_pRoot);
+	//auto sprite = pSprite->AddComponent<SpriteRenderer>();
+	//sprite->LoadTexture("test");
+	//pSprite->m_pTransform->SetLocalScale( 300.0f, 300.0f, 1.0f);
+	
 	//セーブ
 	Text saveText;
 	m_pRoot->Save( saveText);

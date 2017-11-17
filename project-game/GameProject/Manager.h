@@ -43,12 +43,18 @@
 //#include <boost/serialization/nvp.hpp>
 //#include <boost/serialization/base_object.hpp>
 
+//imgui
+#include "imgui.h"
+#include "imgui_impl_dx9.h"
+
 //汎用クラス
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Text.h"
 #include "TextureUV.h"
 #include "Game.h"
+#include "DebugLog.h"
+#include "Ray.h"
 
 /*------------------------------------------------------------------------------
 	ライブラリのリンク

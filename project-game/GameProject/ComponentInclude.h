@@ -35,6 +35,7 @@
 #include "SkinMeshModel.h"
 #include "SkinMeshRenderer.h"
 #include "Sun.h"
+#include "EditSystem.h"
 
 #endif
 

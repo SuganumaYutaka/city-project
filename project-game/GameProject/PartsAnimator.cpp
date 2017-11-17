@@ -85,8 +85,8 @@ void PartsAnimator::Update(void)
 	for( int nCntParts = 0; nCntParts < vecParts.size(); nCntParts++)
 	{
 		//ˆÊ’u
-		Pos = keysetNow.vecKey[ nCntParts].Position + ( keysetNext.vecKey[ nCntParts].Position - keysetNow.vecKey[ nCntParts].Position) * (float)m_nCntFrame / m_nChangeFrame;
-		vecParts[ nCntParts]->m_pTransform->SetLocalPosition( vecOfsetPos[ nCntParts] + Pos);
+		//Pos = keysetNow.vecKey[ nCntParts].Position + ( keysetNext.vecKey[ nCntParts].Position - keysetNow.vecKey[ nCntParts].Position) * (float)m_nCntFrame / m_nChangeFrame;
+		//vecParts[ nCntParts]->m_pTransform->SetLocalPosition( vecOfsetPos[ nCntParts] + Pos);
 
 		//Šp“x
 		D3DXQuaternionRotationYawPitchRoll( &OffsetRot, vecOfsetRot[ nCntParts].y, vecOfsetRot[ nCntParts].x, vecOfsetRot[ nCntParts].z);

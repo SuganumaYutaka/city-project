@@ -38,6 +38,8 @@ public:
 
 	virtual void Update( void) {}
 	virtual void Uninit( void) {}
+
+	virtual void SetImGuiView( void){ ImGui::Text(typeid(*this).name());};
 	
 	virtual void OnCollision( Collider *pCollider) {}
 	//virtual void OnCollisionEnter( Collider *pCollider) {}

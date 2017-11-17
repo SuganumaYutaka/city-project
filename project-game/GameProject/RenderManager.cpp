@@ -266,6 +266,9 @@ void RenderManager::Draw()
 		DebugRenderer::ClearText();
 #endif // _DEBUG
 
+		//imgui
+		ImGui::Render();
+
 		//•`‰æ‚ÌI—¹
 		m_pDevice->EndScene();	//‚PƒtƒŒ[ƒ€‚É‚P‰ñ‚Ü‚Å
 	}

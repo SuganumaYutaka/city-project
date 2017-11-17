@@ -25,6 +25,7 @@ GameObject::GameObject( )
 {
 	m_bRelease = false;
 	IsCreatedByOtherComponent = false;
+	IsSelected = false;
 }
 
 /*------------------------------------------------------------------------------
@@ -62,6 +63,7 @@ void GameObject::InitGameObject( GameObject* pParent)
 	m_pTransform = AddComponent<Transform>();
 	m_bRelease = false;
 	IsCreatedByOtherComponent = false;
+	IsSelected = false;
 }
 
 /*------------------------------------------------------------------------------
@@ -271,8 +273,10 @@ void GameObject::Update()
 		}
 	}
 
-	/*std::for_each(m_listComponent.begin(), m_listComponent.end(),
-		[]( Component* pComponent) { pComponent->Update();});*/
+	if( IsSelected)
+	{
+		SetImGuiView();
+	}
 }
 
 /*------------------------------------------------------------------------------
@@ -315,6 +319,11 @@ void GameObject::Load(Text& text)
 		{
 			text.ForwardPositionToNextWord();
 			m_Tag = text.GetWord();
+		}
+		else if (text.GetWord() == "IsSelected")
+		{
+			text.ForwardPositionToNextWord();
+			IsSelected = (bool)std::stoi(text.GetWord());
 		}
 
 		// Component
@@ -364,6 +373,7 @@ void GameObject::Save(Text& text)
 	// GameObject
 	text += "GameObject\n";
 	text += "Tag " + m_Tag + "\n";
+	text += "IsSelected " + std::to_string((int)IsSelected) + '\n';
 
 	// Component
 	for (auto *pComponent : m_listComponent)
@@ -386,4 +396,16 @@ void GameObject::Save(Text& text)
 	text += "EndGameObject\n";
 }
 
-
+/*------------------------------------------------------------------------------
+	ImGuiの表示情報設定
+------------------------------------------------------------------------------*/
+void GameObject::SetImGuiView()
+{
+	ImGui::Begin(m_Tag.c_str(), &IsSelected);
+	//コンポーネントの更新
+	for (Component *pComponent : m_listComponent)
+	{
+		pComponent->SetImGuiView();
+	}
+	ImGui::End();
+}
