@@ -159,6 +159,11 @@ void BoxCollider::Load(Text& text)
 			text.ForwardPositionToNextWord();
 			text.SetPosition( m_Size.ConvertFromString(text.GetAllText(), text.GetPosition()));
 		}
+		if (text.GetWord() == "IsTrigger")
+		{
+			text.ForwardPositionToNextWord();
+			m_IsTrigger = (bool)std::stoi(text.GetWord());
+		}
 
 		//textÇì«Ç›êiÇﬂÇÈ
 		if (text.ForwardPositionToNextWord() == Text::EoF)
@@ -178,6 +183,7 @@ void BoxCollider::Save(Text& text)
 
 	text += "Center " + m_Center.ConvertToString() + '\n';
 	text += "Size " + m_Size.ConvertToString() + '\n';
+	text += "IsTrigger" + std::to_string((int)m_IsTrigger) ; '\n';
 
 	EndSave( text);
 }

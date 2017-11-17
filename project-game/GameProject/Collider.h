@@ -26,6 +26,7 @@ enum E_COLTYPE
 	eColNone = 0,				//設定なし
 	eColBox,					//ボックス
 	eColMeshField,				//メッシュフィールド
+	eColRay,					//直線
 	eColNum						//コライダーの種類の総数
 };
 

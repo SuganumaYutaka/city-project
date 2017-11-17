@@ -47,6 +47,7 @@ ComponentFactory::ComponentFactory()
 	REGISTER(SkinMeshModel);
 	REGISTER(Slider);
 	REGISTER(Sun);
+	REGISTER(EditSystem);
 }
 
 /*------------------------------------------------------------------------------

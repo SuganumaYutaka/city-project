@@ -158,6 +158,75 @@ bool CollisionManager::IsCollision( std::list< Collider *>::iterator Source, std
 }
 
 /*------------------------------------------------------------------------------
+	レイと衝突するコライダーを判定
+	引数	RaycastHit* pOut	最も近いオブジェクトの情報
+	戻り値	true オブジェクトあり	false オブジェクトなし
+------------------------------------------------------------------------------*/
+bool CollisionManager::Raycast(const Ray& ray, float maxDistance, RaycastHit* pOut)
+{
+	auto hits = RaycastAll( ray.Position, ray.Direction, maxDistance);
+	if (hits.size() == 0)
+	{
+		return false;
+	}
+	if (pOut)
+	{
+		pOut->pGameObject = hits.begin()->pGameObject;
+		pOut->Distance = hits.begin()->Distance;
+	}
+
+	return true;
+}
+
+/*------------------------------------------------------------------------------
+	レイと衝突するコライダーを判定
+	引数	RaycastHit* pOut	最も近いオブジェクトの情報
+	戻り値	true オブジェクトあり	false オブジェクトなし
+------------------------------------------------------------------------------*/
+bool CollisionManager::Raycast(const Vector3& position, const Vector3& direction, float maxDistance, RaycastHit* pOut)
+{
+	auto hits = RaycastAll( position, direction, maxDistance);
+	if (hits.size() == 0)
+	{
+		return false;
+	}
+	if (pOut)
+	{
+		pOut->pGameObject = hits.begin()->pGameObject;
+		pOut->Distance = hits.begin()->Distance;
+	}
+
+	return true;
+}
+
+/*------------------------------------------------------------------------------
+	レイと衝突するコライダーを判定（衝突したコライダーをすべて取得）
+------------------------------------------------------------------------------*/
+std::list<RaycastHit> CollisionManager::RaycastAll(const Vector3& position, const Vector3& direction, float maxDistance)
+{
+	std::list<RaycastHit> hits;
+	RaycastHit hit;
+	for (Collider* pCollider : m_listCollider)
+	{
+		if (pCollider->GetColType() == eColBox)
+		{
+			if (RayBox(position, direction, maxDistance, (BoxCollider*)pCollider, &hit))
+			{
+				hits.push_back(hit);
+			}
+		}
+	}
+
+	//ソート
+	if( hits.size() > 0)
+	{
+		hits.sort([](RaycastHit a, RaycastHit b){ return a.Distance < b.Distance;});
+	}
+
+	return hits;
+}
+
+/*------------------------------------------------------------------------------
 	ボックスとボックス
 	引数
 		BoxCollider *pSource
@@ -339,33 +408,25 @@ bool CollisionManager::BoxMeshField(BoxCollider *pBox, MeshFieldCollider *pMeshF
 }
 
 /*------------------------------------------------------------------------------
-	直線と立方体の衝突判定処理関数
-	引数
-	D3DXVECTOR3 posWorld	直線の始点(ワールド空間)
-	D3DXVECTOR3 dirWorld	直線の方向(ワールド空間)
-	D3DXVECTOR3 size		立方体の大きさ
-	D3DXMATRIX mtxWorld		立方体のワールド座標変換行列
-	float *fDist			始点から立方体までの距離（出力）
-	D3DXVECTOR3 *colPos		衝突判定位置（出力）
-	戻り値
-	bool
+	レイとボックス
 ------------------------------------------------------------------------------*/
-bool CollisionManager::CollisionRayBox( D3DXVECTOR3 posWorld, D3DXVECTOR3 dirWorld, D3DXVECTOR3 size, D3DXMATRIX mtxWorld, float &Dist, D3DXVECTOR3 *colPos)
+bool CollisionManager::RayBox( const Vector3& position, const Vector3& direction, float maxDistance, BoxCollider* pBox, RaycastHit* pOut)
 {
 	//直線を立方体の位置へ移動
 	D3DXMATRIX mtxInv;			//ワールド座標変換行列の逆行列
-	D3DXMatrixInverse( &mtxInv, 0, &mtxWorld);
+	D3DXMatrixInverse( &mtxInv, 0, &pBox->m_pTransform->WorldMatrix());
 
 	D3DXVECTOR3 posLocal, dirLocal;		//直線のローカル座標・方向
-	D3DXVec3TransformCoord( &posLocal, &posWorld, &mtxInv);
+	D3DXVec3TransformCoord( &posLocal, &position.ConvertToDX(), &mtxInv);
 	mtxInv._41 = 0.0f;
 	mtxInv._42 = 0.0f;
 	mtxInv._43 = 0.0f;
-	D3DXVec3TransformCoord( &dirLocal, &dirWorld, &mtxInv);
+	D3DXVec3TransformCoord( &dirLocal, &direction.ConvertToDX(), &mtxInv);
 
 	//交差判定
 	//変数宣言
 	float pos[ 3 ], dir[ 3 ], min[ 3 ], max[ 3 ];		//for文で回す用
+	Vector3 size = pBox->GetSize();
 	memcpy( pos, &posLocal, sizeof( D3DXVECTOR3 ) );
 	memcpy( dir, &dirLocal, sizeof( D3DXVECTOR3 ) );
 	memcpy( min, &D3DXVECTOR3( -size.x * 0.5f, -size.y * 0.5f, -size.z * 0.5f), sizeof( D3DXVECTOR3));
@@ -416,21 +477,22 @@ bool CollisionManager::CollisionRayBox( D3DXVECTOR3 posWorld, D3DXVECTOR3 dirWor
 		}
 	}
 
-	//衝突位置出力
-	if( colPos)
+	//距離判定
+	if (maxDistance > 0.0f && fDistMin > maxDistance)
 	{
-		if( Dist != NULL)
-		{
-			Dist = fDistMin;
-		}
-		if( colPos != NULL)
-		{
-			*colPos = posWorld + fDistMin * dirWorld;
-		}
+		return false;
+	}
+
+	//衝突情報出力
+	if( pOut)
+	{
+		pOut->pGameObject = pBox->m_pGameObject;
+		pOut->Distance = fDistMin;
 	}
 	
 	//衝突あり
 	return true;
 }
+
 
 

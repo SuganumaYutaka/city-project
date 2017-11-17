@@ -362,6 +362,12 @@
     <ClCompile Include="DebugLog.cpp">
       <Filter>ソース ファイル\Engine\System</Filter>
     </ClCompile>
+    <ClCompile Include="Ray.cpp">
+      <Filter>ソース ファイル\Engine\System</Filter>
+    </ClCompile>
+    <ClCompile Include="EditSystem.cpp">
+      <Filter>ソース ファイル\Engine\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioSource.h">
@@ -603,6 +609,15 @@
     </ClInclude>
     <ClInclude Include="DebugLog.h">
       <Filter>ヘッダー ファイル\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Ray.h">
+      <Filter>ヘッダー ファイル\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="RaycastHit.h">
+      <Filter>ヘッダー ファイル\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="EditSystem.h">
+      <Filter>ヘッダー ファイル\Engine\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -54,6 +54,7 @@
 #include "TextureUV.h"
 #include "Game.h"
 #include "DebugLog.h"
+#include "Ray.h"
 
 /*------------------------------------------------------------------------------
 	ƒ‰ƒCƒuƒ‰ƒŠ‚ÌƒŠƒ“ƒN

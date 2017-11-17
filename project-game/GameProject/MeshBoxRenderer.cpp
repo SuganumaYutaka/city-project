@@ -162,10 +162,6 @@ void MeshBoxRenderer::Draw( Camera* pCamera)
 	{
 		pDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_SOLID);
 	}
-
-	//’†S‚ð–ß‚·
-	Vector3 CenterInv = m_Center * -1;
-	m_pTransform->Move( CenterInv);
 }
 
 /*------------------------------------------------------------------------------

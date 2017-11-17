@@ -173,6 +173,7 @@
     <ClCompile Include="DebugRenderer.cpp" />
     <ClCompile Include="DefaultShader.cpp" />
     <ClCompile Include="DepthShader.cpp" />
+    <ClCompile Include="EditSystem.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -204,6 +205,7 @@
     <ClCompile Include="PartsAnimator.cpp" />
     <ClCompile Include="PerPixelLightingShader.cpp" />
     <ClCompile Include="Polygon3DRenderer.cpp" />
+    <ClCompile Include="Ray.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="RenderTexture.cpp" />
@@ -296,6 +298,7 @@
     <ClInclude Include="DebugRenderer.h" />
     <ClInclude Include="DefaultShader.h" />
     <ClInclude Include="DepthShader.h" />
+    <ClInclude Include="EditSystem.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="Game.h" />
@@ -328,6 +331,8 @@
     <ClInclude Include="PerPixelLightingShader.h" />
     <ClInclude Include="Polygon3DRenderer.h" />
     <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="Ray.h" />
+    <ClInclude Include="RaycastHit.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="RenderTexture.h" />

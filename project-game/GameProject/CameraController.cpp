@@ -116,36 +116,8 @@ void CameraController::Update()
 
 	if( Manager::GetInputMouse()->GetClickPress(1))
 	{
-		//’Ž‹“_‰ñ“]
-		if (Manager::GetInputKeyboard()->GetKeyPress(DIK_LSHIFT) || Manager::GetInputKeyboard()->GetKeyPress(DIK_RSHIFT))
-		{
-			if (m_pTargetPosAt == NULL)
-			{
-				m_Rot.x -= Manager::GetInputMouse()->GetAxisY() * 0.005f;
-				m_Rot.y += Manager::GetInputMouse()->GetAxisX() * 0.005f;
-
-				D3DXMATRIX mtxRotY, mtxRotX;
-				D3DXMatrixIdentity( &mtxRotX);
-				D3DXMatrixIdentity( &mtxRotY);
-				D3DXMatrixRotationX( &mtxRotX, m_Rot.x);
-				D3DXMatrixRotationY( &mtxRotY, m_Rot.y);
-				mtxRotX *= mtxRotY;
-
-				D3DXVECTOR3 PosAt = D3DXVECTOR3( 0.0f, 0.0f, 0.0f);
-				PosAt.z -= m_fLength;
-				D3DXVec3TransformCoord( &PosAt, &PosAt, &mtxRotX);
-
-				m_pCamera->SetPosAt( Vector3::ConvertFromDX( PosAt) + m_pTransform->GetWorldPosition());
-
-				D3DXVECTOR3 VecUp( 0.0f, 1.0f, 0.0f);
-				D3DXVec3TransformCoord( &VecUp, &VecUp, &mtxRotX);
-
-				m_pCamera->SetVecUp( Vector3( VecUp.x, VecUp.y, VecUp.z));
-			}
-		}
-
 		//ƒJƒƒ‰‰ñ“]
-		else
+		if (Manager::GetInputKeyboard()->GetKeyPress(DIK_LSHIFT) || Manager::GetInputKeyboard()->GetKeyPress(DIK_RSHIFT))
 		{
 			if (m_pTargetPosAt == NULL && m_pTargetPosEye == NULL)
 			{	
@@ -165,6 +137,34 @@ void CameraController::Update()
 
 				m_pTransform->SetWorldPosition( Vector3::ConvertFromDX( PosEye));
 				m_pTransform->Move( m_pCamera->GetPosAt());
+
+				D3DXVECTOR3 VecUp( 0.0f, 1.0f, 0.0f);
+				D3DXVec3TransformCoord( &VecUp, &VecUp, &mtxRotX);
+
+				m_pCamera->SetVecUp( Vector3( VecUp.x, VecUp.y, VecUp.z));
+			}
+		}
+		
+		//’Ž‹“_‰ñ“]
+		else
+		{
+			if (m_pTargetPosAt == NULL)
+			{
+				m_Rot.x -= Manager::GetInputMouse()->GetAxisY() * 0.005f;
+				m_Rot.y += Manager::GetInputMouse()->GetAxisX() * 0.005f;
+
+				D3DXMATRIX mtxRotY, mtxRotX;
+				D3DXMatrixIdentity( &mtxRotX);
+				D3DXMatrixIdentity( &mtxRotY);
+				D3DXMatrixRotationX( &mtxRotX, m_Rot.x);
+				D3DXMatrixRotationY( &mtxRotY, m_Rot.y);
+				mtxRotX *= mtxRotY;
+
+				D3DXVECTOR3 PosAt = D3DXVECTOR3( 0.0f, 0.0f, 0.0f);
+				PosAt.z -= m_fLength;
+				D3DXVec3TransformCoord( &PosAt, &PosAt, &mtxRotX);
+
+				m_pCamera->SetPosAt( Vector3::ConvertFromDX( PosAt) + m_pTransform->GetWorldPosition());
 
 				D3DXVECTOR3 VecUp( 0.0f, 1.0f, 0.0f);
 				D3DXVec3TransformCoord( &VecUp, &VecUp, &mtxRotX);
