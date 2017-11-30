@@ -13,6 +13,7 @@
 #include "Transform.h"
 #include "RenderManager.h"
 #include "Material.h"
+#include "Camera.h"
 
 /*------------------------------------------------------------------------------
 	コンポーネント生成
@@ -33,6 +34,11 @@ Polygon3DRenderer::Polygon3DRenderer( GameObject *pGameObject)
 	m_nPass = 1;
 
 	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//デバイス取得
+
+	m_Vertices.push_back( D3DXVECTOR3( -0.5f, 0.0f, +0.5f));
+	m_Vertices.push_back( D3DXVECTOR3( +0.5f, 0.0f, +0.5f));
+	m_Vertices.push_back( D3DXVECTOR3( -0.5f, 0.0f, -0.5f));
+	m_Vertices.push_back( D3DXVECTOR3( +0.5f, 0.0f, -0.5f));
 
 	//頂点バッファ生成
 	if( FAILED( pDevice->CreateVertexBuffer(
@@ -122,10 +128,10 @@ void Polygon3DRenderer::SetVtxBuffer( void)
 
 	//頂点設定
 	//座標（Z字）
-	pVtx[ 0].Pos = D3DXVECTOR3( -0.5f, 0.0f, +0.5f);
-	pVtx[ 1].Pos = D3DXVECTOR3( +0.5f, 0.0f, +0.5f);
-	pVtx[ 2].Pos = D3DXVECTOR3( -0.5f, 0.0f, -0.5f);
-	pVtx[ 3].Pos = D3DXVECTOR3( +0.5f, 0.0f, -0.5f);
+	pVtx[ 0].Pos = m_Vertices[0];
+	pVtx[ 1].Pos = m_Vertices[1];
+	pVtx[ 2].Pos = m_Vertices[2];
+	pVtx[ 3].Pos = m_Vertices[3];
 	
 	//法線
 	pVtx[ 0].Normal = 
@@ -234,4 +240,37 @@ void Polygon3DRenderer::Save(Text& text)
 	text += "TextureUV " + m_TextureUV.ConvertToString() + '\n';
 
 	EndSave( text);
+}
+
+/*------------------------------------------------------------------------------
+	視錐台カリング判定
+------------------------------------------------------------------------------*/
+bool Polygon3DRenderer::CheckFrustumCulling(Camera* pCamera)
+{
+	D3DXMATRIX wvp = m_pTransform->WorldMatrix() * *pCamera->GetViewMatrix() * *pCamera->GetProjectionMatrix();
+	bool isLeft = false;
+	bool isRight = false;
+
+	for (D3DXVECTOR3 vertex : m_Vertices)
+	{
+		D3DXVec3TransformCoord( &vertex, &vertex, &wvp);
+		if (vertex.x >= -1.0f && vertex.x <= 1.0f)
+		{
+			if (vertex.z >= 0 && vertex.z <= 1.0f)
+			{
+				return true;
+			}
+		}
+
+		if (vertex.x < -1.0f)
+		{
+			isLeft = true;
+		}
+		else if (vertex.x > 1.0f)
+		{
+			isRight = true;
+		}
+	}
+	
+	return false;
 }

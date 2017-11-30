@@ -423,6 +423,9 @@ bool CollisionManager::RayBox( const Vector3& position, const Vector3& direction
 	mtxInv._43 = 0.0f;
 	D3DXVec3TransformCoord( &dirLocal, &direction.ConvertToDX(), &mtxInv);
 
+	//’†S‚Ì•ª‚¸‚ç‚·
+	posLocal -= pBox->GetCenter().ConvertToDX();
+
 	//Œğ·”»’è
 	//•Ï”éŒ¾
 	float pos[ 3 ], dir[ 3 ], min[ 3 ], max[ 3 ];		//for•¶‚Å‰ñ‚·—p

@@ -26,9 +26,13 @@ float4x4 g_mtxWorldInv;
 float4x4 g_mtxView;
 float4x4 g_mtxProj;
 
-float4 g_colAmb;
-float4 g_colDif;
-float4 g_colSpe;
+float4 g_LightAmb;
+float4 g_LightDif;
+float4 g_LightSpe;
+float4 g_MaterialAmb;
+float4 g_MaterialDif;
+float4 g_MaterialSpe;
+
 float4 g_PosLight;
 float4 g_DirLight;
 float4 g_PosEye;
@@ -68,7 +72,7 @@ PS_INPUT vs(VS_INPUT input)
 	//ägéUîΩéÀåı
 	float4 LocalLight = normalize( mul( g_DirLight, g_mtxWorldInv));
 	LocalLight = -LocalLight;
-	output.col = saturate( g_colAmb + g_colDif * max( 0, dot( LocalLight, input.normal)));
+	output.col = saturate( ( g_LightAmb * g_MaterialAmb) + ( g_LightDif * g_MaterialDif) * max( 0, dot( LocalLight, input.normal)));
 
 	return output;
 }
@@ -91,7 +95,7 @@ OM_INPUT ps(PS_INPUT input)
 
 	//ãæñ îΩéÀåı
 	DirHalf = normalize( DirLight + DirEye);
-	spe = g_colSpe * pow( max( 0, dot( DirHalf, input.normal.xyz)), 10);
+	spe = (g_LightSpe * g_MaterialSpe) * pow( max( 0, dot( DirHalf, input.normal.xyz)), 10);
 
 	//ÉJÉâÅ[ÇÃê›íË
 	output.col = saturate( input.col * tex2D(TextureSampler, input.tex) + spe);

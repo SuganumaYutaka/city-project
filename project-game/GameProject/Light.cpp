@@ -16,6 +16,10 @@
 	静的メンバ変数宣言
 ------------------------------------------------------------------------------*/
 std::list<Light*> Light::m_listLight;		//ライトリスト
+const D3DXVECTOR4 Light::DefAmb( 0.3f, 0.3f, 0.3f, 1.0f);
+const D3DXVECTOR4 Light::DefDif( 1.0f, 1.0f, 1.0f, 1.0f);
+const D3DXVECTOR4 Light::DefSpe( 1.0f, 1.0f, 1.0f, 1.0f);
+const D3DXVECTOR4 Light::DefEmi( 0.5f, 0.5f, 0.5f, 0.5f);
 
 /*------------------------------------------------------------------------------
 	コンポーネント生成
@@ -35,6 +39,11 @@ Light::Light( GameObject *pGameObject)
 
 	m_Type = eLightDirectional;
 	m_listLight.push_back(this);
+
+	m_Ambient = DefAmb;
+	m_Diffuse = DefDif;
+	m_Specular = DefSpe;
+	m_Emissive = DefEmi;
 }
 
 /*------------------------------------------------------------------------------

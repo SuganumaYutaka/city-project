@@ -35,6 +35,7 @@ public:
 	virtual void Update( void) = 0;
 	virtual void Draw( Camera* pCamera) = 0;
 	virtual void SetActive( bool bEnable);
+	virtual bool CheckFrustumCulling( Camera* pCamera) { return true;}
 	void SetPass( int Pass) { m_nPass = Pass;}
 
 	virtual void Save( Text& text) {Component::Save(text);}

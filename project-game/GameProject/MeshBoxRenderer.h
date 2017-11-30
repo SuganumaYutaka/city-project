@@ -50,6 +50,8 @@ public:
 
 	virtual void Save( Text& text);
 	virtual void Load( Text& text);
+
+	virtual bool CheckFrustumCulling( Camera* pCamera);
 	
 private:
 	void SetVtxBuffer( void);
@@ -62,6 +64,8 @@ private:
 	Material *m_pMaterial;							//マテリアル
 	D3DXCOLOR m_Color;								//色（ 0.0f～1.0f ）
 	
+	std::vector<D3DXVECTOR3> m_Vertices;
+	void SetVertices( void);
 };
 
 #endif
