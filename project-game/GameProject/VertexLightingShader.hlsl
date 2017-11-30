@@ -24,8 +24,10 @@ float4x4 g_mtxWorldInv;
 float4x4 g_mtxView;
 float4x4 g_mtxProj;
 
-float4 g_colAmb;
-float4 g_colDif;
+float4 g_LightAmb;
+float4 g_LightDif;
+float4 g_MaterialAmb;
+float4 g_MaterialDif;
 float4 g_DirLight;
 
 texture g_texture;
@@ -59,7 +61,7 @@ PS_INPUT vs(VS_INPUT input)
 	//ŠgŽU”½ŽËŒõ
 	float4 LocalLight = normalize( mul( g_DirLight, g_mtxWorldInv));
 	LocalLight = -LocalLight;
-	output.col = saturate( g_colAmb + g_colDif * max( 0, dot( LocalLight, input.normal)));
+	output.col = saturate( ( g_LightAmb * g_MaterialAmb) + ( g_LightDif * g_MaterialDif) * max( 0, dot( LocalLight, input.normal)));
 
 	return output;
 }

@@ -60,6 +60,11 @@ private:
 	D3DXVECTOR4 m_Specular;
 	D3DXVECTOR4 m_Emissive;
 
+	static const D3DXVECTOR4 DefAmb;
+	static const D3DXVECTOR4 DefDif;
+	static const D3DXVECTOR4 DefSpe;
+	static const D3DXVECTOR4 DefEmi;
+
 	Texture *m_pTexture;			//テクスチャクラスポインタ
 	//Shader *m_pShader;			//シェーダーポインタ
 	EShaderType m_ShaderType;		//シェーダーのタイプ

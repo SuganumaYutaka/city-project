@@ -51,9 +51,12 @@ PerPixelLightingShader::PerPixelLightingShader()
 	m_hMtxProj = m_pEffect->GetParameterByName(0, "g_mtxProj");
 	m_hTexture = m_pEffect->GetParameterByName( 0, "g_texture");
 
-	m_hColAmb = m_pEffect->GetParameterByName( 0, "g_colAmb");
-	m_hColDif = m_pEffect->GetParameterByName( 0, "g_colDif");
-	m_hColSpe = m_pEffect->GetParameterByName( 0, "g_colSpe");
+	m_hLightAmb = m_pEffect->GetParameterByName( 0, "g_LightAmb");
+	m_hLightDif = m_pEffect->GetParameterByName( 0, "g_LightDif");
+	m_hLightSpe = m_pEffect->GetParameterByName( 0, "g_LightSpe");
+	m_hMaterialAmb = m_pEffect->GetParameterByName( 0, "g_MaterialAmb");
+	m_hMaterialDif = m_pEffect->GetParameterByName( 0, "g_MaterialDif");
+	m_hMaterialSpe = m_pEffect->GetParameterByName( 0, "g_MaterialSpe");
 	m_hPosLight = m_pEffect->GetParameterByName( 0, "g_PosLight");
 	m_hDirLight = m_pEffect->GetParameterByName( 0, "g_DirLight");
 	m_hPosEye = m_pEffect->GetParameterByName( 0, "g_PosEye");
@@ -91,9 +94,9 @@ void PerPixelLightingShader::Set(Camera* pCamera, Renderer* pRenderer, Material*
 	m_pEffect->SetMatrix( m_hMtxView, pCamera->GetViewMatrix());
 	m_pEffect->SetMatrix( m_hMtxProj, pCamera->GetProjectionMatrix());
 	m_pEffect->SetTexture( m_hTexture, pMaterial->GetTexture());
-	m_pEffect->SetVector( m_hColAmb, pMaterial->GetAmbient());
-	m_pEffect->SetVector( m_hColDif, pMaterial->GetDiffuse());
-	m_pEffect->SetVector( m_hColSpe, pMaterial->GetSpecular());
+	m_pEffect->SetVector( m_hMaterialAmb, pMaterial->GetAmbient());
+	m_pEffect->SetVector( m_hMaterialDif, pMaterial->GetDiffuse());
+	m_pEffect->SetVector( m_hMaterialSpe, pMaterial->GetSpecular());
 	
 	//ƒ‰ƒCƒg‚Ìæ“¾
 	auto list = Light::GetList();
@@ -101,6 +104,13 @@ void PerPixelLightingShader::Set(Camera* pCamera, Renderer* pRenderer, Material*
 	{
 		m_pEffect->SetVector( m_hPosLight, light->GetPosition());
 		m_pEffect->SetVector( m_hDirLight, light->GetDirection());
+
+		m_pEffect->SetVector( m_hLightAmb, light->GetAmbient());
+		m_pEffect->SetVector( m_hLightDif, light->GetDiffuse());
+		m_pEffect->SetVector( m_hLightSpe, light->GetSpecular());
+		
+		//¡‚Íˆê‚Â‚¾‚¯
+		break;
 	}
 
 	//ƒJƒƒ‰‚Ìİ’è

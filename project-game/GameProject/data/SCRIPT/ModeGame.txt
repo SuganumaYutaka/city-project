@@ -58,10 +58,10 @@ GameObject
  Component  class MeshDomeRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/sky00.jpg
  ShaderType 5
  EndMaterial
@@ -98,10 +98,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -125,10 +125,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -152,10 +152,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -179,10 +179,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -206,10 +206,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -233,10 +233,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -260,10 +260,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -287,10 +287,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -314,10 +314,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -341,10 +341,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -368,10 +368,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -395,10 +395,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -422,10 +422,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -449,10 +449,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -476,10 +476,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -503,10 +503,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -530,10 +530,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -557,10 +557,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -584,10 +584,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -611,10 +611,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -638,10 +638,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -665,10 +665,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -692,10 +692,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -719,10 +719,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -746,10 +746,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -773,10 +773,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -800,10 +800,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -827,10 +827,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -854,10 +854,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -881,10 +881,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -908,10 +908,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -935,10 +935,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -962,10 +962,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -989,10 +989,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1016,10 +1016,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1043,10 +1043,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1070,10 +1070,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1097,10 +1097,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1124,10 +1124,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1151,10 +1151,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1178,10 +1178,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1205,10 +1205,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1232,10 +1232,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1259,10 +1259,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1286,10 +1286,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1313,10 +1313,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1340,10 +1340,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1367,10 +1367,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1394,10 +1394,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1421,10 +1421,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1448,10 +1448,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1475,10 +1475,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1502,10 +1502,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1529,10 +1529,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1556,10 +1556,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1583,10 +1583,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1610,10 +1610,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1637,10 +1637,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1664,10 +1664,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1691,10 +1691,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1718,10 +1718,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1745,10 +1745,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1772,10 +1772,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1799,10 +1799,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1826,10 +1826,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1853,10 +1853,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1880,10 +1880,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1907,10 +1907,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1934,10 +1934,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1961,10 +1961,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -1988,10 +1988,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2015,10 +2015,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2042,10 +2042,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2069,10 +2069,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2096,10 +2096,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2123,10 +2123,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2150,10 +2150,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2177,10 +2177,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2204,10 +2204,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2231,10 +2231,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2258,10 +2258,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2285,10 +2285,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2312,10 +2312,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2339,10 +2339,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2366,10 +2366,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2393,10 +2393,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2420,10 +2420,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2447,10 +2447,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2474,10 +2474,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2501,10 +2501,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2528,10 +2528,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2555,10 +2555,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2582,10 +2582,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2609,10 +2609,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2636,10 +2636,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2663,10 +2663,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2690,10 +2690,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2717,10 +2717,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2744,10 +2744,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial
@@ -2771,10 +2771,10 @@ GameObject
  Component  class MeshBoxRenderer 
  Pass 0
  Material
- Ambient 0.300000 0.300000 0.300000 1.000000
+ Ambient 1.000000 1.000000 1.000000 1.000000
  Diffuse 1.000000 1.000000 1.000000 1.000000
  Specular 1.000000 1.000000 1.000000 1.000000
- Emissive 0.500000 0.500000 0.500000 0.500000
+ Emissive 1.000000 1.000000 1.000000 1.000000
  Texture data/TEXTURE/bill02.png
  ShaderType 0
  EndMaterial

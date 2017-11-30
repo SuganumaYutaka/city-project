@@ -56,8 +56,10 @@ SkinMeshShader::SkinMeshShader()
 	m_hMtxView = m_pEffect->GetParameterByName(0, "g_mtxView");
 	m_hMtxProj = m_pEffect->GetParameterByName(0, "g_mtxProj");
 	m_hTexture = m_pEffect->GetParameterByName( 0, "g_texture");
-	m_hColAmb = m_pEffect->GetParameterByName( 0, "g_colAmb");
-	m_hColDif = m_pEffect->GetParameterByName( 0, "g_colDif");
+	m_hLightAmb = m_pEffect->GetParameterByName( 0, "g_LightAmb");
+	m_hLightDif = m_pEffect->GetParameterByName( 0, "g_LightDif");
+	m_hMaterialAmb = m_pEffect->GetParameterByName( 0, "g_MaterialAmb");
+	m_hMaterialDif = m_pEffect->GetParameterByName( 0, "g_MaterialDif");
 	m_hDirLight = m_pEffect->GetParameterByName( 0, "g_DirLight");
 	m_hClusters = m_pEffect->GetParameterByName( 0, "g_mtxClusters");
 }
@@ -94,14 +96,16 @@ void SkinMeshShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMateri
 	m_pEffect->SetMatrix( m_hMtxView, pCamera->GetViewMatrix());
 	m_pEffect->SetMatrix( m_hMtxProj, pCamera->GetProjectionMatrix());
 	m_pEffect->SetTexture( m_hTexture, pMaterial->GetTexture());
-	m_pEffect->SetVector( m_hColAmb, pMaterial->GetAmbient());
-	m_pEffect->SetVector( m_hColDif, pMaterial->GetDiffuse());
+	m_pEffect->SetVector( m_hMaterialAmb, pMaterial->GetAmbient());
+	m_pEffect->SetVector( m_hMaterialDif, pMaterial->GetDiffuse());
 	
 	//ライトの取得
 	auto list = Light::GetList();
 	for (auto light : list)
 	{
 		m_pEffect->SetVector( m_hDirLight, light->GetDirection());
+		m_pEffect->SetVector( m_hLightAmb, light->GetAmbient());
+		m_pEffect->SetVector( m_hLightDif, light->GetDiffuse());
 	}
 
 	//クラスター情報を送る

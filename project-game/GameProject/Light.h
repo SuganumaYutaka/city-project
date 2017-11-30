@@ -51,8 +51,26 @@ public:
 	virtual void Save( Text& text);
 	virtual void Load( Text& text);
 
-protected:
+	D3DXVECTOR4* GetAmbient( void) { return &m_Ambient;}
+	D3DXVECTOR4* GetDiffuse( void) { return &m_Diffuse;}
+	D3DXVECTOR4* GetSpecular( void) { return &m_Specular;}
+	D3DXVECTOR4* GetEmissive( void) { return &m_Emissive;}
 	
+	void SetAmbient( float r, float g, float b, float a) { m_Ambient = D3DXVECTOR4( r, g, b, a);}
+	void SetDiffuse( float r, float g, float b, float a) { m_Diffuse = D3DXVECTOR4( r, g, b, a);}
+	void SetSpecular( float r, float g, float b, float a) { m_Specular = D3DXVECTOR4( r, g, b, a);}
+	void SetEmissive( float r, float g, float b, float a) { m_Emissive = D3DXVECTOR4( r, g, b, a);}
+
+protected:
+	D3DXVECTOR4 m_Ambient;
+	D3DXVECTOR4 m_Diffuse;
+	D3DXVECTOR4 m_Specular;
+	D3DXVECTOR4 m_Emissive;
+
+	static const D3DXVECTOR4 DefAmb;
+	static const D3DXVECTOR4 DefDif;
+	static const D3DXVECTOR4 DefSpe;
+	static const D3DXVECTOR4 DefEmi;
 	
 	ELightType m_Type;			//タイプ
 	static std::list<Light*> m_listLight;		//ライトリスト

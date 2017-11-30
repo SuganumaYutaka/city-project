@@ -14,12 +14,12 @@
 #include "Shader.h"
 
 /*------------------------------------------------------------------------------
-	グローバル変数
+	静的メンバ変数宣言
 ------------------------------------------------------------------------------*/
-const D3DXVECTOR4 DefAmb( 0.3f, 0.3f, 0.3f, 1.0f);
-const D3DXVECTOR4 DefDif( 1.0f, 1.0f, 1.0f, 1.0f);
-const D3DXVECTOR4 DefSpe( 1.0f, 1.0f, 1.0f, 1.0f);
-const D3DXVECTOR4 DefEmi( 0.5f, 0.5f, 0.5f, 0.5f);
+const D3DXVECTOR4 Material::DefAmb( 1.0f, 1.0f, 1.0f, 1.0f);
+const D3DXVECTOR4 Material::DefDif( 1.0f, 1.0f, 1.0f, 1.0f);
+const D3DXVECTOR4 Material::DefSpe( 1.0f, 1.0f, 1.0f, 1.0f);
+const D3DXVECTOR4 Material::DefEmi( 1.0f, 1.0f, 1.0f, 1.0f);
 
 /*------------------------------------------------------------------------------
 	コンストラクタ

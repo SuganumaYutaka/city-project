@@ -152,15 +152,11 @@ void ModeGame::Init()
 	col->SetSize( size);
 	col->SetCenter( Vector3(0.0f, 37.5f, 0.0f));
 
-	////テストーレンダーターゲット
-	//auto secondCamera = new GameObject( pCamera);
-	//cameraComponent = secondCamera->AddComponent<Camera>();
-	//cameraComponent->SetRenderTarget("test", false);
-	//cameraComponent->SetFar( 2000.0f);
-	//auto pSprite = new GameObject( m_pRoot);
-	//auto sprite = pSprite->AddComponent<SpriteRenderer>();
-	//sprite->LoadTexture("test");
-	//pSprite->m_pTransform->SetLocalScale( 300.0f, 300.0f, 1.0f);
+	//テストーレンダーターゲット
+	/*auto pSprite = new GameObject( m_pRoot);
+	auto sprite = pSprite->AddComponent<SpriteRenderer>();
+	sprite->LoadTexture("shadow");
+	pSprite->m_pTransform->SetLocalScale( 300.0f, 300.0f, 1.0f);*/
 	
 	//セーブ
 	Text saveText;

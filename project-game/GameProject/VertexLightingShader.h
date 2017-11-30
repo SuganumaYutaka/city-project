@@ -29,8 +29,10 @@ private:
 	D3DXHANDLE m_hMtxView;
 	D3DXHANDLE m_hMtxProj;
 	D3DXHANDLE m_hTexture;
-	D3DXHANDLE m_hColAmb;
-	D3DXHANDLE m_hColDif;
+	D3DXHANDLE m_hLightAmb;
+	D3DXHANDLE m_hLightDif;
+	D3DXHANDLE m_hMaterialAmb;
+	D3DXHANDLE m_hMaterialDif;
 	D3DXHANDLE m_hDirLight;
 };
 
