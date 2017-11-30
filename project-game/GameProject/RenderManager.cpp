@@ -202,7 +202,10 @@ void RenderManager::Draw()
 						{
 							if( pRenderer->GetActive() == true)
 							{
-								pRenderer->Draw( pCamera);
+								if( pRenderer->CheckFrustumCulling( pCamera))
+								{
+									pRenderer->Draw( pCamera);
+								}
 							}
 						}
 					}
@@ -222,7 +225,10 @@ void RenderManager::Draw()
 						{
 							if( pRenderer->GetActive() == true)
 							{
-								pRenderer->Draw( pCamera);
+								if( pRenderer->CheckFrustumCulling( pCamera))
+								{
+									pRenderer->Draw( pCamera);
+								}
 							}
 						}
 					}
@@ -254,7 +260,10 @@ void RenderManager::Draw()
 				{
 					if( pRenderer->GetActive() == true)
 					{
-						pRenderer->Draw( m_pMainCamera);
+						if( pRenderer->CheckFrustumCulling(m_pMainCamera))
+						{
+							pRenderer->Draw( m_pMainCamera);
+						}
 					}
 				}
 			}
@@ -276,5 +285,4 @@ void RenderManager::Draw()
 	//フリップ（バックバッファとフロントバッファを入れ替え）
 	m_pDevice->Present( NULL, NULL, NULL, NULL);
 }
-
 

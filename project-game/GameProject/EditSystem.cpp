@@ -60,7 +60,7 @@ void EditSystem::Uninit( void)
 ------------------------------------------------------------------------------*/
 void EditSystem::Update()
 {
-	if (ImGui::IsAnyItemHovered())
+	if (ImGui::IsAnyWindowHovered())
 	{
 		return;
 	}

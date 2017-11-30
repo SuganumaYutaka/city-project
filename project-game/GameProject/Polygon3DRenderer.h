@@ -57,6 +57,8 @@ public:
 	virtual void Save( Text& text);
 	virtual void Load( Text& text);
 
+	virtual bool CheckFrustumCulling( Camera* pCamera);
+
 private:
 	void SetVtxBuffer( void);
 
@@ -64,6 +66,7 @@ private:
 	D3DXCOLOR m_Color;								//色（ 0.0f～1.0f ）
 	TextureUV m_TextureUV;							//UV座標
 	
+	std::vector<D3DXVECTOR3> m_Vertices;
 };
 
 #endif

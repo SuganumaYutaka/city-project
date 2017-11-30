@@ -13,6 +13,7 @@
 #include "Transform.h"
 #include "RenderManager.h"
 #include "Material.h"
+#include "Camera.h"
 
 /*------------------------------------------------------------------------------
 	マクロ定義
@@ -47,6 +48,9 @@ MeshBoxRenderer::MeshBoxRenderer( GameObject *pGameObject)
 	//中心位置・大きさの設定
 	m_Center = Vector3( 0.0f, 0.0f, 0.0f);
 	m_Size = Vector3( 1.0f, 1.0f, 1.0f);
+
+	m_Vertices.resize(8);
+	SetVertices();
 	
 	//頂点バッファ生成
 	if( FAILED( pDevice->CreateVertexBuffer(
@@ -177,10 +181,10 @@ void MeshBoxRenderer::SetVtxBuffer( void)
 
 	//手前
 	//座標（Z字）
-	pVtx[ 0].Pos = D3DXVECTOR3( -Size.x,	+Size.y,	-Size.z);
-	pVtx[ 1].Pos = D3DXVECTOR3( +Size.x,	+Size.y,	-Size.z);
-	pVtx[ 2].Pos = D3DXVECTOR3( -Size.x,	-Size.y,	-Size.z);
-	pVtx[ 3].Pos = D3DXVECTOR3( +Size.x,	-Size.y,	-Size.z);
+	pVtx[ 0].Pos = m_Vertices[2];
+	pVtx[ 1].Pos = m_Vertices[3];
+	pVtx[ 2].Pos = m_Vertices[6];
+	pVtx[ 3].Pos = m_Vertices[7];
 	
 	//法線
 	pVtx[ 0].Normal = 
@@ -204,10 +208,10 @@ void MeshBoxRenderer::SetVtxBuffer( void)
 
 	//奥
 	//座標（Z字）
-	pVtx[ 0].Pos = D3DXVECTOR3( +Size.x,	+Size.y,	Size.z);
-	pVtx[ 1].Pos = D3DXVECTOR3( -Size.x,	+Size.y,	Size.z);
-	pVtx[ 2].Pos = D3DXVECTOR3( +Size.x,	-Size.y,	Size.z);
-	pVtx[ 3].Pos = D3DXVECTOR3( -Size.x,	-Size.y,	Size.z);
+	pVtx[ 0].Pos = m_Vertices[1];
+	pVtx[ 1].Pos = m_Vertices[0];
+	pVtx[ 2].Pos = m_Vertices[5];
+	pVtx[ 3].Pos = m_Vertices[4];
 	
 	//法線
 	pVtx[ 0].Normal = 
@@ -231,10 +235,10 @@ void MeshBoxRenderer::SetVtxBuffer( void)
 
 	//左
 	//座標（Z字）
-	pVtx[ 0].Pos = D3DXVECTOR3( -Size.x,	+Size.y,	+Size.z);
-	pVtx[ 1].Pos = D3DXVECTOR3( -Size.x,	+Size.y,	-Size.z);
-	pVtx[ 2].Pos = D3DXVECTOR3( -Size.x,	-Size.y,	+Size.z);
-	pVtx[ 3].Pos = D3DXVECTOR3( -Size.x,	-Size.y,	-Size.z);
+	pVtx[ 0].Pos = m_Vertices[0];
+	pVtx[ 1].Pos = m_Vertices[2];
+	pVtx[ 2].Pos = m_Vertices[4];
+	pVtx[ 3].Pos = m_Vertices[6];
 	
 	//法線
 	pVtx[ 0].Normal = 
@@ -258,10 +262,10 @@ void MeshBoxRenderer::SetVtxBuffer( void)
 
 	//右
 	//座標（Z字）
-	pVtx[ 0].Pos = D3DXVECTOR3( +Size.x,	+Size.y,	-Size.z);
-	pVtx[ 1].Pos = D3DXVECTOR3( +Size.x,	+Size.y,	+Size.z);
-	pVtx[ 2].Pos = D3DXVECTOR3( +Size.x,	-Size.y,	-Size.z);
-	pVtx[ 3].Pos = D3DXVECTOR3( +Size.x,	-Size.y,	+Size.z);
+	pVtx[ 0].Pos = m_Vertices[3];
+	pVtx[ 1].Pos = m_Vertices[1];
+	pVtx[ 2].Pos = m_Vertices[7];
+	pVtx[ 3].Pos = m_Vertices[5];
 	
 	//法線
 	pVtx[ 0].Normal = 
@@ -285,10 +289,10 @@ void MeshBoxRenderer::SetVtxBuffer( void)
 
 	//上
 	//座標（Z字）
-	pVtx[ 0].Pos = D3DXVECTOR3( -Size.x,	+Size.y,	+Size.z);
-	pVtx[ 1].Pos = D3DXVECTOR3( +Size.x,	+Size.y,	+Size.z);
-	pVtx[ 2].Pos = D3DXVECTOR3( -Size.x,	+Size.y,	-Size.z);
-	pVtx[ 3].Pos = D3DXVECTOR3( +Size.x,	+Size.y,	-Size.z);
+	pVtx[ 0].Pos = m_Vertices[0];
+	pVtx[ 1].Pos = m_Vertices[1];
+	pVtx[ 2].Pos = m_Vertices[2];
+	pVtx[ 3].Pos = m_Vertices[3];
 	
 	//法線
 	pVtx[ 0].Normal = 
@@ -312,10 +316,10 @@ void MeshBoxRenderer::SetVtxBuffer( void)
 
 	//下
 	//座標（Z字）
-	pVtx[ 0].Pos = D3DXVECTOR3( +Size.x,	-Size.y,	+Size.z);
-	pVtx[ 1].Pos = D3DXVECTOR3( -Size.x,	-Size.y,	+Size.z);
-	pVtx[ 2].Pos = D3DXVECTOR3( +Size.x,	-Size.y,	-Size.z);
-	pVtx[ 3].Pos = D3DXVECTOR3( -Size.x,	-Size.y,	-Size.z);
+	pVtx[ 0].Pos = m_Vertices[4];
+	pVtx[ 1].Pos = m_Vertices[5];
+	pVtx[ 2].Pos = m_Vertices[6];
+	pVtx[ 3].Pos = m_Vertices[7];
 	
 	//法線
 	pVtx[ 0].Normal = 
@@ -376,6 +380,10 @@ void MeshBoxRenderer::SetIdxBuffer(void)
 void MeshBoxRenderer::SetCenter(const Vector3& Center)
 {
 	m_Center = Center;
+	SetVertices();
+
+	//頂点バッファ設定
+	SetVtxBuffer();
 }
 
 /*------------------------------------------------------------------------------
@@ -384,9 +392,43 @@ void MeshBoxRenderer::SetCenter(const Vector3& Center)
 void MeshBoxRenderer::SetSize(const Vector3& Size)
 {
 	m_Size = Size;
+	SetVertices();
 
 	//頂点バッファ設定
 	SetVtxBuffer();
+}
+
+/*------------------------------------------------------------------------------
+	頂点を設定
+------------------------------------------------------------------------------*/
+void MeshBoxRenderer::SetVertices(void)
+{
+	m_Vertices.clear();
+	Vector3 size = m_Size * 0.5f;
+
+	//上奥左
+	m_Vertices.push_back( D3DXVECTOR3( m_Center.x - size.x, m_Center.y + size.y, m_Center.z + size.z));
+
+	//上奥右
+	m_Vertices.push_back( D3DXVECTOR3( m_Center.x + size.x, m_Center.y + size.y, m_Center.z + size.z));
+
+	//上手前左
+	m_Vertices.push_back( D3DXVECTOR3( m_Center.x - size.x, m_Center.y + size.y, m_Center.z - size.z));
+
+	//上手前右
+	m_Vertices.push_back( D3DXVECTOR3( m_Center.x + size.x, m_Center.y + size.y, m_Center.z - size.z));
+
+	//下奥左
+	m_Vertices.push_back( D3DXVECTOR3( m_Center.x - size.x, m_Center.y - size.y, m_Center.z + size.z));
+
+	//下奥右
+	m_Vertices.push_back( D3DXVECTOR3( m_Center.x + size.x, m_Center.y - size.y, m_Center.z + size.z));
+
+	//下手前左
+	m_Vertices.push_back( D3DXVECTOR3( m_Center.x - size.x, m_Center.y - size.y, m_Center.z - size.z));
+
+	//下手前右
+	m_Vertices.push_back( D3DXVECTOR3( m_Center.x + size.x, m_Center.y - size.y, m_Center.z - size.z));
 }
 
 /*------------------------------------------------------------------------------
@@ -481,3 +523,35 @@ void MeshBoxRenderer::Save(Text& text)
 	EndSave( text);
 }
 
+/*------------------------------------------------------------------------------
+	視錐台カリング判定
+------------------------------------------------------------------------------*/
+bool MeshBoxRenderer::CheckFrustumCulling(Camera* pCamera)
+{
+	D3DXMATRIX wvp = m_pTransform->WorldMatrix() * *pCamera->GetViewMatrix() * *pCamera->GetProjectionMatrix();
+	bool isLeft = false;
+	bool isRight = false;
+
+	for (D3DXVECTOR3 vertex : m_Vertices)
+	{
+		D3DXVec3TransformCoord( &vertex, &vertex, &wvp);
+		if (vertex.x >= -1.0f && vertex.x <= 1.0f)
+		{
+			if (vertex.z >= 0 && vertex.z <= 1.0f)
+			{
+				return true;
+			}
+		}
+
+		if (vertex.x < -1.0f)
+		{
+			isLeft = true;
+		}
+		else if (vertex.x > 1.0f)
+		{
+			isRight = true;
+		}
+	}
+	
+	return false;
+}

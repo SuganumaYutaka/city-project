@@ -86,9 +86,9 @@ void ModeGame::Init()
 	MeshBoxRenderer* boxRenderer = NULL;
 	BoxCollider* boxCollider = NULL;
 	Vector3 size;
-	for (int nCntZ = 0; nCntZ < 8; nCntZ++)
+	for (int nCntZ = 0; nCntZ < 5; nCntZ++)
 	{
-		for (int nCntX = 0; nCntX < 8; nCntX++)
+		for (int nCntX = 0; nCntX < 5; nCntX++)
 		{
 			pBill = new GameObject( m_pRoot);
 			boxCollider = pBill->AddComponent<BoxCollider>();
@@ -96,7 +96,10 @@ void ModeGame::Init()
 			boxRenderer = pBill->AddComponent<MeshBoxRenderer>();
 			boxRenderer->LoadTexture("data/TEXTURE/bill02.png");
 			size = Vector3( 40.0f, 100.0f, 40.0f);
-			pBill->m_pTransform->SetLocalPosition( -680.0f + nCntX * 187.0f, size.y * 0.5f, -680.0f + nCntZ * 187.0f);
+			//pBill->m_pTransform->SetLocalPosition( -680.0f + nCntX * 187.0f, size.y * 0.5f, -680.0f + nCntZ * 187.0f);
+			pBill->m_pTransform->SetLocalPosition( -680.0f + nCntX * 187.0f, 0.0f, -680.0f + nCntZ * 187.0f);
+			boxCollider->SetCenter( Vector3( 0.0f, size.y * 0.5f, 0.0f));
+			boxRenderer->SetCenter( Vector3( 0.0f, size.y * 0.5f, 0.0f));
 			boxCollider->SetSize(size);
 			boxRenderer->SetSize(size);
 
@@ -106,7 +109,10 @@ void ModeGame::Init()
 			boxRenderer = pBill->AddComponent<MeshBoxRenderer>();
 			boxRenderer->LoadTexture("data/TEXTURE/bill02.png");
 			size = Vector3( 37.0f, 115.0f, 37.0f);
-			pBill->m_pTransform->SetLocalPosition( -680.0f + nCntX * 187.0f, size.y * 0.5f, -635.0f + nCntZ * 187.0f);
+			//pBill->m_pTransform->SetLocalPosition( -680.0f + nCntX * 187.0f, size.y * 0.5f, -635.0f + nCntZ * 187.0f);
+			pBill->m_pTransform->SetLocalPosition( -680.0f + nCntX * 187.0f, 0.0f, -635.0f + nCntZ * 187.0f);
+			boxCollider->SetCenter( Vector3( 0.0f, size.y * 0.5f, 0.0f));
+			boxRenderer->SetCenter( Vector3( 0.0f, size.y * 0.5f, 0.0f));
 			boxCollider->SetSize(size);
 			boxRenderer->SetSize(size);
 
@@ -116,7 +122,10 @@ void ModeGame::Init()
 			boxRenderer = pBill->AddComponent<MeshBoxRenderer>();
 			boxRenderer->LoadTexture("data/TEXTURE/bill02.png");
 			size = Vector3( 50.0f, 160.0f, 50.0f);
-			pBill->m_pTransform->SetLocalPosition( -635.0f + nCntX * 187.0f, size.y * 0.5f, -680.0f + nCntZ * 187.0f);
+			//pBill->m_pTransform->SetLocalPosition( -635.0f + nCntX * 187.0f, size.y * 0.5f, -680.0f + nCntZ * 187.0f);
+			pBill->m_pTransform->SetLocalPosition( -635.0f + nCntX * 187.0f, 0.0f, -680.0f + nCntZ * 187.0f);
+			boxCollider->SetCenter( Vector3( 0.0f, size.y * 0.5f, 0.0f));
+			boxRenderer->SetCenter( Vector3( 0.0f, size.y * 0.5f, 0.0f));
 			boxCollider->SetSize(size);
 			boxRenderer->SetSize(size);
 
@@ -126,7 +135,10 @@ void ModeGame::Init()
 			boxRenderer = pBill->AddComponent<MeshBoxRenderer>();
 			boxRenderer->LoadTexture("data/TEXTURE/bill02.png");
 			size = Vector3( 45.0f, 130.0f, 45.0f);
-			pBill->m_pTransform->SetLocalPosition( -635.0f + nCntX * 187.0f, size.y * 0.5f, -630.0f + nCntZ * 187.0f);
+			//pBill->m_pTransform->SetLocalPosition( -635.0f + nCntX * 187.0f, size.y * 0.5f, -630.0f + nCntZ * 187.0f);
+			pBill->m_pTransform->SetLocalPosition( -635.0f + nCntX * 187.0f, 0.0f, -630.0f + nCntZ * 187.0f);
+			boxCollider->SetCenter( Vector3( 0.0f, size.y * 0.5f, 0.0f));
+			boxRenderer->SetCenter( Vector3( 0.0f, size.y * 0.5f, 0.0f));
 			boxCollider->SetSize(size);
 			boxRenderer->SetSize(size);
 		}
@@ -139,7 +151,6 @@ void ModeGame::Init()
 	size = Vector3( 30.0f, 75.0f, 30.0f);
 	col->SetSize( size);
 	col->SetCenter( Vector3(0.0f, 37.5f, 0.0f));
-	pPlayer->IsSelected = true;
 
 	////テストーレンダーターゲット
 	//auto secondCamera = new GameObject( pCamera);

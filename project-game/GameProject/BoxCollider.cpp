@@ -62,14 +62,6 @@ void BoxCollider::Update()
 {
 #ifdef _DEBUG
 	m_pRenderer->m_pTransform->SetWorldPosition( m_pTransform->GetWorldPosition());
-
-	//’†SˆÊ’u‚ð‚¸‚ç‚·
-	D3DXVECTOR3 center = m_Center.ConvertToDX();
-	D3DXMATRIX mtxRot;
-	D3DXMatrixRotationQuaternion( &mtxRot, &m_pTransform->GetWorldRotation());
-	D3DXVec3TransformCoord( &center, &center, &mtxRot);
-	m_pRenderer->m_pTransform->Move( Vector3::ConvertFromDX(center));
-
 #endif // _DEBUG
 }
 
