@@ -40,17 +40,6 @@ GameObject
  Tag UnTag
  IsSelected 0
  Component  class Transform 
- Position -750.000000 600.000000 -300.000000
- Scale 1.000000 1.000000 1.000000
- Rotation 0.177152 0.442880 -0.000000 0.878905
- EndComponent
- Component  class Sun 
- EndComponent
- EndGameObject
- GameObject
- Tag UnTag
- IsSelected 0
- Component  class Transform 
  Position 0.000000 0.000000 0.000000
  Scale 1.000000 1.000000 1.000000
  Rotation 0.000000 0.000000 0.000000 1.000000

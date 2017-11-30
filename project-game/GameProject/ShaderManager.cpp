@@ -97,10 +97,10 @@ Shader *ShaderManager::Load( EShaderType Type)
 ------------------------------------------------------------------------------*/
 void ShaderManager::SetDefault(void)
 {
-	//m_vecShaderSet[ eShaderDefault]		= m_mapShaderLoad[ "def_Default"];
-	m_vecShaderSet[ eShaderDefault]		= m_mapShaderLoad[ "shadowVL"];
-	//m_vecShaderSet[ eShaderXModel]		= m_mapShaderLoad[ "def_XModel"];
-	m_vecShaderSet[ eShaderXModel]		= m_mapShaderLoad[ "shadowVL"];
+	m_vecShaderSet[ eShaderDefault]		= m_mapShaderLoad[ "def_Default"];
+	m_vecShaderSet[ eShaderXModel]		= m_mapShaderLoad[ "def_XModel"];
+	//m_vecShaderSet[ eShaderDefault]		= m_mapShaderLoad[ "shadowVL"];
+	//m_vecShaderSet[ eShaderXModel]		= m_mapShaderLoad[ "shadowVL"];
 	
 	m_vecShaderSet[ eShaderBillboard]	= m_mapShaderLoad[ "def_Billboard"];
 	m_vecShaderSet[ eShaderSprite]		= m_mapShaderLoad[ "def_Sprite"];
