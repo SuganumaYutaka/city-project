@@ -162,6 +162,7 @@
     <ClCompile Include="AudioSource.cpp" />
     <ClCompile Include="BillboardRenderer.cpp" />
     <ClCompile Include="BillboardShader.cpp" />
+    <ClCompile Include="BlockView.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraController.cpp" />
@@ -192,7 +193,6 @@
     <ClCompile Include="InputKeyboard.cpp" />
     <ClCompile Include="InputMouse.cpp" />
     <ClCompile Include="JunctionView.cpp" />
-    <ClCompile Include="LandView.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
@@ -296,6 +296,7 @@
     <ClInclude Include="AudioSource.h" />
     <ClInclude Include="BillboardRenderer.h" />
     <ClInclude Include="BillboardShader.h" />
+    <ClInclude Include="BlockView.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraController.h" />
@@ -328,7 +329,6 @@
     <ClInclude Include="InputKeyboard.h" />
     <ClInclude Include="InputMouse.h" />
     <ClInclude Include="JunctionView.h" />
-    <ClInclude Include="LandView.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Material.h" />

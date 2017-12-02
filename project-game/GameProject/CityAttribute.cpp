@@ -16,7 +16,7 @@
 #include "HalfEdge.h"
 #include "JunctionView.h"
 #include "RoadView.h"
-#include "LandView.h"
+#include "BlockView.h"
 
 using namespace HalfEdgeDataStructure;
 
@@ -137,17 +137,17 @@ Vector3 RoadAttribute::GetVector( void)
 /*------------------------------------------------------------------------------
 	区画ーコンストラクタ
 ------------------------------------------------------------------------------*/
-LandAttribute::LandAttribute( GameObject* parent)
+BlockAttribute::BlockAttribute( GameObject* parent)
 {
 	auto gameObject = new GameObject( parent);
 	gameObject->IsCreatedByOtherComponent = true;
-	m_View = gameObject->AddComponent<LandView>();
+	m_View = gameObject->AddComponent<BlockView>();
 }
 
 /*------------------------------------------------------------------------------
 	区画ーデストラクタ
 ------------------------------------------------------------------------------*/
-LandAttribute::~LandAttribute()
+BlockAttribute::~BlockAttribute()
 {
 	if( m_View)
 	{
@@ -158,7 +158,7 @@ LandAttribute::~LandAttribute()
 /*------------------------------------------------------------------------------
 	区画ー初期化
 ------------------------------------------------------------------------------*/
-void LandAttribute::Init(void)
+void BlockAttribute::Init(void)
 {
 	m_View->SetAttribute( this);
 }
@@ -166,7 +166,7 @@ void LandAttribute::Init(void)
 /*------------------------------------------------------------------------------
 	区画ー更新
 ------------------------------------------------------------------------------*/
-void LandAttribute::Update(void)
+void BlockAttribute::Update(void)
 {
 	m_View->UpdateAttribute();
 }

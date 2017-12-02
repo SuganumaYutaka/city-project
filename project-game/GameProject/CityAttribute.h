@@ -18,7 +18,7 @@
 ------------------------------------------------------------------------------*/
 class JunctionView;
 class RoadView;
-class LandView;
+class BlockView;
 class GameObject;
 
 /*------------------------------------------------------------------------------
@@ -63,14 +63,14 @@ public:
 };
 
 //ñ ÅiãÊâÊÅj
-class LandAttribute : public HalfEdgeDataStructure::FaceAttribute
+class BlockAttribute : public HalfEdgeDataStructure::FaceAttribute
 {
 private:
-	LandView* m_View;
+	BlockView* m_View;
 
 public:
-	LandAttribute( GameObject* parent);
-	~LandAttribute();
+	BlockAttribute( GameObject* parent);
+	~BlockAttribute();
 	void Init( void) override;
 	void Update( void) override;
 	void UnregisterView( void){ m_View = NULL;}
@@ -88,7 +88,7 @@ public:
 
 	virtual HalfEdgeDataStructure::VertexAttribute* CreateVertexAttribute( void) { return new JunctionAttribute( m_Parent); }
 	virtual HalfEdgeDataStructure::EdgeAttribute* CreateEdgeAttribute( void) { return new RoadAttribute( m_Parent); }
-	virtual HalfEdgeDataStructure::FaceAttribute* CreateFaceAttribute( void){ return new LandAttribute( m_Parent); }
+	virtual HalfEdgeDataStructure::FaceAttribute* CreateFaceAttribute( void){ return new BlockAttribute( m_Parent); }
 };
 
 #endif

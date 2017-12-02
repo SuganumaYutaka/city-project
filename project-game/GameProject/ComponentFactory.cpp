@@ -51,7 +51,7 @@ ComponentFactory::ComponentFactory()
 	REGISTER(CityController);
 	REGISTER(JunctionView);
 	REGISTER(RoadView);
-	REGISTER(LandView);
+	REGISTER(BlockView);
 }
 
 /*------------------------------------------------------------------------------

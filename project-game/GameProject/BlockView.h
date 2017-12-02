@@ -1,11 +1,11 @@
 /*==============================================================================
 
-    LandView.h - 町の自動生成ー区画ビュー
+    BlockView.h - 町の自動生成ー区画ビュー
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/12/1
 ==============================================================================*/
-#ifndef _LAND_VIEW_H_
-#define _LAND_VIEW_H_
+#ifndef _BLOCK_VIEW_H_
+#define _BLOCK_VIEW_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -16,29 +16,29 @@
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class LandAttribute;
+class BlockAttribute;
 class Polygon3DRenderer;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
 //点（交差点）
-class LandView : public Component
+class BlockView : public Component
 {
 public:
 	static Component* Create( GameObject* gameObject);
 
-	LandView( GameObject* pGameObject);
+	BlockView( GameObject* pGameObject);
 	void Uninit( void);
 
-	void SetAttribute( LandAttribute* attribute);
+	void SetAttribute( BlockAttribute* attribute);
 
 	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
 
 private:
 	void Update(void);
 
-	LandAttribute* m_Attribute;
+	BlockAttribute* m_Attribute;
 
 	bool m_IsUpdatedAttribute;
 };

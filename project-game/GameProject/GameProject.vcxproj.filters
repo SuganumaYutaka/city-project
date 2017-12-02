@@ -354,10 +354,10 @@
     <ClCompile Include="JunctionView.cpp">
       <Filter>CityEngine\City</Filter>
     </ClCompile>
-    <ClCompile Include="LandView.cpp">
+    <ClCompile Include="RoadView.cpp">
       <Filter>CityEngine\City</Filter>
     </ClCompile>
-    <ClCompile Include="RoadView.cpp">
+    <ClCompile Include="BlockView.cpp">
       <Filter>CityEngine\City</Filter>
     </ClCompile>
   </ItemGroup>
@@ -632,10 +632,10 @@
     <ClInclude Include="JunctionView.h">
       <Filter>CityEngine\City</Filter>
     </ClInclude>
-    <ClInclude Include="LandView.h">
+    <ClInclude Include="RoadView.h">
       <Filter>CityEngine\City</Filter>
     </ClInclude>
-    <ClInclude Include="RoadView.h">
+    <ClInclude Include="BlockView.h">
       <Filter>CityEngine\City</Filter>
     </ClInclude>
   </ItemGroup>
