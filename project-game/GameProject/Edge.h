@@ -45,15 +45,14 @@ namespace HalfEdgeDataStructure
 		EdgeAttribute* m_Attribute;
 
 	public:
-		Edge( HalfEdgeDataStructure::Model* model, Vertex* start, Vertex* end, EdgeAttribute* attribute)
-			: m_Model(model), m_Start(start), m_End(end), m_Left(NULL), m_Right(NULL), m_Attribute(attribute) { model->RegisterEdge(this); }
+		Edge( HalfEdgeDataStructure::Model* model, Vertex* start, Vertex* end, EdgeAttribute* attribute);
 		~Edge(){ if( m_Attribute) delete m_Attribute; }
 
 		Vertex* GetStart( void) const{ return m_Start;}
-		void SetStart( Vertex* vertex) { m_Start = vertex;}
+		void SetStart( Vertex* vertex) { m_Start = vertex; m_Attribute->Update();}
 
 		Vertex* GetEnd( void) const{ return m_End;}
-		void SetEnd( Vertex* vertex) { m_End = vertex;}
+		void SetEnd( Vertex* vertex) { m_End = vertex; m_Attribute->Update();}
 
 		HalfEdge* GetLeft( void) const { return m_Left;}
 		void SetLeft( HalfEdge* he) { m_Left = he;}
@@ -66,6 +65,8 @@ namespace HalfEdgeDataStructure
 		bool Divide( float rateFromStart, Vertex** ppOut = NULL);
 
 		EdgeAttribute* GetAttribute( void) { return m_Attribute;}
+
+		void UpdateByMove( void);
 	};
 }
 

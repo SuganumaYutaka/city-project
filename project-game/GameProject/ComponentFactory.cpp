@@ -48,6 +48,10 @@ ComponentFactory::ComponentFactory()
 	REGISTER(Slider);
 	REGISTER(Sun);
 	REGISTER(EditSystem);
+	REGISTER(CityController);
+	REGISTER(JunctionView);
+	REGISTER(RoadView);
+	REGISTER(LandView);
 }
 
 /*------------------------------------------------------------------------------

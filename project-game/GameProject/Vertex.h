@@ -43,14 +43,14 @@ namespace HalfEdgeDataStructure
 		std::list<Edge*> m_Edges;
 		HalfEdgeDataStructure::Model* m_Model;
 		VertexAttribute* m_Attribute;
+		void UpdateByMove( void);
 
 	public:
-		Vertex( HalfEdgeDataStructure::Model* model, const Vector3& position, VertexAttribute* attribute)
-			: m_Model( model), m_Position(position), m_Attribute( attribute){ model->RegisterVertex(this); }
+		Vertex( HalfEdgeDataStructure::Model* model, const Vector3& position, VertexAttribute* attribute);
 		~Vertex() { if( m_Attribute) delete m_Attribute; }
 
 		const Vector3& GetPosition( void) const { return m_Position;}
-		void SetPosition( Vector3 position) { m_Position = position;}
+		void SetPosition( Vector3 position) { m_Position = position; UpdateByMove();}
 
 		const std::list<Edge*>& GetEdges( void){ return m_Edges;}
 		bool RegisterEdge( Edge* edge);

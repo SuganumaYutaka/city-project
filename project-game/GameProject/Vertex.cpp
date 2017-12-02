@@ -16,6 +16,17 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
+	コンストラクタ
+------------------------------------------------------------------------------*/
+Vertex::Vertex( HalfEdgeDataStructure::Model* model, const Vector3& position, VertexAttribute* attribute)
+	: m_Model( model), m_Position(position), m_Attribute( attribute)
+{ 
+	model->RegisterVertex(this); 
+	m_Attribute->SetVertex(this);
+	m_Attribute->Init();
+}
+
+/*------------------------------------------------------------------------------
 	辺を登録
 ------------------------------------------------------------------------------*/
 bool Vertex::RegisterEdge(Edge* edge)
@@ -29,6 +40,9 @@ bool Vertex::RegisterEdge(Edge* edge)
 	}
 
 	m_Edges.push_back( edge);
+
+	m_Attribute->Update();
+
 	return true;
 }
 
@@ -42,6 +56,7 @@ bool Vertex::UnregisterEdge(Edge* edge)
 		if (*ite == edge)
 		{
 			m_Edges.erase( ite);
+			m_Attribute->Update();
 			return true;
 		}
 	}
@@ -96,3 +111,16 @@ HalfEdge* Vertex::SearchHalfEdgeOnFace(Face* face)
 	return NULL;
 }
 
+/*------------------------------------------------------------------------------
+	移動による更新
+------------------------------------------------------------------------------*/
+void Vertex::UpdateByMove(void)
+{
+	m_Attribute->Update();
+
+	//隣接する辺に知らせる
+	for (auto edge : m_Edges)
+	{
+		edge->UpdateByMove();
+	}
+}

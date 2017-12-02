@@ -53,12 +53,20 @@ bool CityRule::DivideFace(Face* face)
 	//0.0f～1.0fのランダム値
 	float random = m_rand() % 10000 * 0.0001f;
 
+	//分割しない
 	if (random <= rateNotDivide)
 	{
 		return false;
 	}
 	random -= rateNotDivide;
 
+	//長すぎる辺を優先的に分割
+	if (m_RulesDivideFace[1](face))
+	{
+		return true;
+	}
+
+	//メインの分割ルール
 	return m_RulesDivideFace[0](face);
 }
 
@@ -130,82 +138,59 @@ bool CityRule::DivideFaceFunc1(Face* face)
 	return true;
 }
 
+#define BOARDER_RATE (2.5f)
+#define BOARDER_PARALLEL (0.7f)
 /*------------------------------------------------------------------------------
-	面を少しずらした比率で分割する（正方形、長方形のみ確実に有効）
+	長い辺を優先して分割
 ------------------------------------------------------------------------------*/
 bool CityRule::DivideFaceFunc2(Face* face)
 {
-	//分割量を決める
-	const float rateCenter = 0.5f;
-	const float rateRange = 0.5f;
-	const float rate = rateCenter + rateRange * ( m_rand() % 1000 * 0.001f - 0.5f);
-
-	//２つで一直線になるハーフエッジがあるときその中点を始点にする
 	HalfEdge* targetHalfEdge = NULL;
 	Vertex* start = NULL;
 	Vertex* end = NULL;
-	targetHalfEdge = face->SeachStraightLine( face->GetHalfEdge());
-	if (targetHalfEdge)
-	{
-		start = targetHalfEdge->GetEnd();
-	}
-
-	else
-	{
-		//一番長いハーフエッジを取得する
-		targetHalfEdge = face->SearchLongestHalfEdge();
-		if (!targetHalfEdge)
-		{
-			return false;
-		}
-
-		//長いハーフエッジを分割する
-		if( targetHalfEdge->GetEnd() == targetHalfEdge->GetEdge()->GetEnd())
-		{
-			if (!targetHalfEdge->GetEdge()->Divide( rate, &start))
-			{
-				return false;
-			}
-		}
-		else
-		{
-			if (!targetHalfEdge->GetEdge()->Divide( 1 - rate, &start))
-			{
-				return false;
-			}
-		}
-	}
-
-	//ターゲットと平行な反対側のハーフエッジを取得
-	HalfEdge* parallelHalfEdge = targetHalfEdge->SearchParallelHalfEdge();
-	if (!parallelHalfEdge)
+	
+	//一番長いハーフエッジを取得する
+	targetHalfEdge = face->SearchLongestHalfEdge();
+	if (!targetHalfEdge)
 	{
 		return false;
 	}
 
-	//平行ハーフエッジと一直線になるハーフエッジがあるときその中点を終点にする
-	if ( parallelHalfEdge->IsStraightLine(parallelHalfEdge->GetNext()))
+	//一番長い辺と次の辺を比較して四角形が崩れすぎていないかチェック
+	float rateToCheckTooLonger = targetHalfEdge->GetVector().Length() / targetHalfEdge->GetNext()->GetVector().Length();
+	if (rateToCheckTooLonger < BOARDER_RATE)
 	{
-		end = parallelHalfEdge->GetEnd();
+		return false;
 	}
 
-	else
+	//ターゲットとある程度平行な反対側のハーフエッジを探す
+	HalfEdge* otherSideHalfEdge = NULL;
+	otherSideHalfEdge = targetHalfEdge->GetNext();
+	for (;;)
 	{
-		//平行ハーフエッジを分割
-		if( parallelHalfEdge->GetEnd() == parallelHalfEdge->GetEdge()->GetEnd())
+		float dot = Vector3::Dot( targetHalfEdge->GetVector().Normalize(), otherSideHalfEdge->GetVector().Normalize());
+		if (dot < -BOARDER_PARALLEL)
 		{
-			if (!parallelHalfEdge->GetEdge()->Divide( 1 - rate, &end))
-			{
-				return false;
-			}
+			break;
 		}
-		else
+
+		otherSideHalfEdge = otherSideHalfEdge->GetNext();
+		if (otherSideHalfEdge == targetHalfEdge)
 		{
-			if (!parallelHalfEdge->GetEdge()->Divide( rate, &end))
-			{
-				return false;
-			}
+			return false;
 		}
+	}
+
+	//長いハーフエッジを分割する
+	if (!targetHalfEdge->GetEdge()->Divide(0.5f, &start))
+	{
+		return false;
+	}
+
+	//反対側のハーフエッジを分割
+	if (!otherSideHalfEdge->GetEdge()->Divide(0.5f, &end))
+	{
+		return false;
 	}
 
 	//面を分割する

@@ -37,5 +37,11 @@
 #include "Sun.h"
 #include "EditSystem.h"
 
+//City
+#include "CityController.h"
+#include "JunctionView.h"
+#include "RoadView.h"
+#include "LandView.h"
+
 #endif
 

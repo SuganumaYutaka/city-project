@@ -142,7 +142,7 @@ float Vector3::Distance( const Vector3 &V1) const
 ------------------------------------------------------------------------------*/
 float Vector3::Distance( const Vector3 &V1, const Vector3 &V2)
 {
-	return ( V1 - V2).Length( V1);
+	return ( V1 - V2).Length();
 }
 
 /*------------------------------------------------------------------------------

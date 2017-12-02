@@ -1,51 +1,47 @@
 /*==============================================================================
 
-    CityRule.h - 町の自動生成ールール
+    RoadView.h - 町の自動生成ー道路ビュー
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/11/28
+                                                       Date   : 2017/12/1
 ==============================================================================*/
-#ifndef _CITY_RULE_H_
-#define _CITY_RULE_H_
+#ifndef _ROAD_VIEW_H_
+#define _ROAD_VIEW_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "Rule.h"
-#include <vector>
-#include <functional>
-#include <random>
+#include "Manager.h"
+#include "Component.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-namespace HalfEdgeDataStructure
-{
-	class Vertex;
-	class Edge;
-	class Face;
-	class HalfEdge;
-	class Model;
-}
-
+class RoadAttribute;
+class Polygon3DRenderer;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class CityRule : public HalfEdgeDataStructure::Rule
+//点（交差点）
+class RoadView : public Component
 {
-private:
-	std::vector< std::function<bool(HalfEdgeDataStructure::Face*)>> m_RulesDivideFace;
-
-	//面を分割するルール	戻り値　bool　引数　Face*
-	static bool DivideFaceFunc1( HalfEdgeDataStructure::Face* face);
-	static bool DivideFaceFunc2( HalfEdgeDataStructure::Face* face);
-
-	static std::mt19937  m_rand;
-
 public:
-	CityRule();
+	static Component* Create( GameObject* gameObject);
 
-	virtual bool DivideFace( HalfEdgeDataStructure::Face* face);
+	RoadView( GameObject* pGameObject);
+	void Uninit( void);
+
+	void SetAttribute( RoadAttribute* attribute);
+
+	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
+
+private:
+	void Update(void);
+
+	RoadAttribute* m_Attribute;
+	Polygon3DRenderer* m_Renderer;
+
+	bool m_IsUpdatedAttribute;
 };
 
 #endif

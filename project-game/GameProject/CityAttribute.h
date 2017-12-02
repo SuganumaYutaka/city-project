@@ -11,51 +11,85 @@
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Attribute.h"
+#include "Manager.h"
 
 /*------------------------------------------------------------------------------
-	マクロ定義
+	前方宣言
 ------------------------------------------------------------------------------*/
-
+class JunctionView;
+class RoadView;
+class LandView;
+class GameObject;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-namespace HalfEdgeDataStructure
+//点（交差点）
+class JunctionAttribute : public HalfEdgeDataStructure::VertexAttribute
 {
-	//点（交差点）
-	class JunctionAttribute : public VertexAttribute
-	{
-	public:
-		
-	};
+private:
+	JunctionView* m_View;
 
-	//辺（道路）
-	class RoadAttribute : public EdgeAttribute
-	{
-	private:
-		float Width;
-	public:
-		RoadAttribute() : Width( 0.0f) {}
-		float GetWidth( void) const{ return Width;}
-		void SetWidth( float width){ Width = width;}
-	};
+public:
+	JunctionAttribute( GameObject* parent);
+	~JunctionAttribute();
+	void Init( void) override;
+	void Update( void) override;
+	void UnregisterView( void){ m_View = NULL;}
 
-	//面（区画）
-	class LandAttribute : public FaceAttribute
-	{
-	public:
-		
-	};
+	const Vector3& GetPosition(void);
+};
 
-	//ファクトリー
-	class CityAttributeFactory : public AttributeFactory
-	{
-	public:
-		virtual VertexAttribute* CreateVertexAttribute( void) { return new JunctionAttribute(); }
-		virtual EdgeAttribute* CreateEdgeAttribute( void) { return new RoadAttribute(); }
-		virtual FaceAttribute* CreateFaceAttribute( void){ return new LandAttribute(); }
-	};
-}
+//辺（道路）
+class RoadAttribute : public HalfEdgeDataStructure::EdgeAttribute
+{
+private:
+	RoadView* m_View;
+	float Width;
+
+public:
+	RoadAttribute( GameObject* parent);
+	~RoadAttribute();
+	void Init( void) override;
+	void Update( void) override;
+	void UnregisterView( void){ m_View = NULL;}
+
+	float GetWidth( void) const{ return Width;}
+	void SetWidth( float width){ Width = width; Update();}
+
+	float GetLength( void);
+	Vector3 GetCenterPosition( void);
+	Vector3 GetVector( void);
+};
+
+//面（区画）
+class LandAttribute : public HalfEdgeDataStructure::FaceAttribute
+{
+private:
+	LandView* m_View;
+
+public:
+	LandAttribute( GameObject* parent);
+	~LandAttribute();
+	void Init( void) override;
+	void Update( void) override;
+	void UnregisterView( void){ m_View = NULL;}
+
+};
+
+//ファクトリー
+class CityAttributeFactory : public HalfEdgeDataStructure::AttributeFactory
+{
+private:
+	GameObject* m_Parent;
+
+public:
+	CityAttributeFactory( GameObject* parent) : m_Parent( parent) {}
+
+	virtual HalfEdgeDataStructure::VertexAttribute* CreateVertexAttribute( void) { return new JunctionAttribute( m_Parent); }
+	virtual HalfEdgeDataStructure::EdgeAttribute* CreateEdgeAttribute( void) { return new RoadAttribute( m_Parent); }
+	virtual HalfEdgeDataStructure::FaceAttribute* CreateFaceAttribute( void){ return new LandAttribute( m_Parent); }
+};
 
 #endif
 

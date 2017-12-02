@@ -74,6 +74,9 @@
     <Filter Include="Engine\Generic">
       <UniqueIdentifier>{a96b1a79-ec6e-4b6d-9735-0670973c18db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CityEngine\City">
+      <UniqueIdentifier>{063b2a41-6428-49d6-939c-ff34a666df1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ParticleShader.hlsl">
@@ -273,12 +276,6 @@
     <ClCompile Include="ModeTitle.cpp">
       <Filter>ModeTitle</Filter>
     </ClCompile>
-    <ClCompile Include="HalfEdgeModel.cpp">
-      <Filter>CityEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="CityRule.cpp">
-      <Filter>CityEngine</Filter>
-    </ClCompile>
     <ClCompile Include="Edge.cpp">
       <Filter>CityEngine\HalfEdge</Filter>
     </ClCompile>
@@ -341,6 +338,27 @@
     </ClCompile>
     <ClCompile Include="Ray.cpp">
       <Filter>Engine\Generic</Filter>
+    </ClCompile>
+    <ClCompile Include="HalfEdgeModel.cpp">
+      <Filter>CityEngine\HalfEdge</Filter>
+    </ClCompile>
+    <ClCompile Include="CityAttribute.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="CityController.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="CityRule.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="JunctionView.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="LandView.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="RoadView.cpp">
+      <Filter>CityEngine\City</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -530,15 +548,6 @@
     <ClInclude Include="ModeResult.h">
       <Filter>ModeResult</Filter>
     </ClInclude>
-    <ClInclude Include="CityRule.h">
-      <Filter>CityEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="CityAttribute.h">
-      <Filter>CityEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="HalfEdgeModel.h">
-      <Filter>CityEngine</Filter>
-    </ClInclude>
     <ClInclude Include="Attribute.h">
       <Filter>CityEngine\HalfEdge</Filter>
     </ClInclude>
@@ -607,6 +616,27 @@
     </ClInclude>
     <ClInclude Include="Ray.h">
       <Filter>Engine\Generic</Filter>
+    </ClInclude>
+    <ClInclude Include="HalfEdgeModel.h">
+      <Filter>CityEngine\HalfEdge</Filter>
+    </ClInclude>
+    <ClInclude Include="CityAttribute.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="CityController.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="CityRule.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="JunctionView.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="LandView.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="RoadView.h">
+      <Filter>CityEngine\City</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -17,6 +17,17 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
+	コンストラクタ
+------------------------------------------------------------------------------*/
+Face::Face( HalfEdgeDataStructure::Model* model, HalfEdge* he, FaceAttribute* attribute)
+	: m_Model(model), m_HalfEdge(he), m_Attribute( attribute)
+{ 
+	model->RegisterFace(this);
+	m_Attribute->SetFace(this);
+	m_Attribute->Init();
+}
+
+/*------------------------------------------------------------------------------
 	分割する
 ------------------------------------------------------------------------------*/
 bool Face::Divide(Vertex* start, Vertex* end, Edge** ppOut)
@@ -102,6 +113,9 @@ bool Face::Divide(Vertex* start, Vertex* end, Edge** ppOut)
 		he = he->GetNext();
 	}
 
+	this->m_Attribute->Update();
+	face->m_Attribute->Update();
+
 	return true;
 }
 
@@ -169,4 +183,12 @@ HalfEdge* Face::SeachStraightLine( HalfEdge* startHalfEdge)
 		he = he->GetNext();
 	}
 	return NULL;
+}
+
+/*------------------------------------------------------------------------------
+	移動による更新
+------------------------------------------------------------------------------*/
+void Face::UpdateByMove(void)
+{
+	m_Attribute->Update();
 }
