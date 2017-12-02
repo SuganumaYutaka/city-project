@@ -49,7 +49,7 @@ namespace HalfEdgeDataStructure
 		AttributeFactory* m_AttributeFactory;
 
 	public:
-		Model( Rule* rule, AttributeFactory* attributeFactory) : m_Rule( rule), m_AttributeFactory( attributeFactory) {}
+		Model( Rule* rule, AttributeFactory* attributeFactory) : m_Rule( rule), m_AttributeFactory( attributeFactory){}
 		~Model();
 
 		Vertex* CreateVertex( const Vector3& position);

@@ -40,8 +40,7 @@ namespace HalfEdgeDataStructure
 		FaceAttribute* m_Attribute;
 
 	public:
-		Face( HalfEdgeDataStructure::Model* model, HalfEdge* he, FaceAttribute* attribute)
-			: m_Model(model), m_HalfEdge(he), m_Attribute( attribute) { model->RegisterFace(this); }
+		Face( HalfEdgeDataStructure::Model* model, HalfEdge* he, FaceAttribute* attribute);
 		~Face(){ if( m_Attribute) delete m_Attribute; }
 
 		HalfEdge* GetHalfEdge( void) const{ return m_HalfEdge;}
@@ -53,6 +52,8 @@ namespace HalfEdgeDataStructure
 		HalfEdge* SeachStraightLine( HalfEdge* startHalfEdge);
 
 		FaceAttribute* GetAttribute( void) { return m_Attribute;}
+
+		void UpdateByMove( void);
 	};
 }
 

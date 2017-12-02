@@ -1,51 +1,46 @@
 /*==============================================================================
 
-    CityRule.h - 町の自動生成ールール
+    LandView.h - 町の自動生成ー区画ビュー
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/11/28
+                                                       Date   : 2017/12/1
 ==============================================================================*/
-#ifndef _CITY_RULE_H_
-#define _CITY_RULE_H_
+#ifndef _LAND_VIEW_H_
+#define _LAND_VIEW_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "Rule.h"
-#include <vector>
-#include <functional>
-#include <random>
+#include "Manager.h"
+#include "Component.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-namespace HalfEdgeDataStructure
-{
-	class Vertex;
-	class Edge;
-	class Face;
-	class HalfEdge;
-	class Model;
-}
-
+class LandAttribute;
+class Polygon3DRenderer;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class CityRule : public HalfEdgeDataStructure::Rule
+//点（交差点）
+class LandView : public Component
 {
-private:
-	std::vector< std::function<bool(HalfEdgeDataStructure::Face*)>> m_RulesDivideFace;
-
-	//面を分割するルール	戻り値　bool　引数　Face*
-	static bool DivideFaceFunc1( HalfEdgeDataStructure::Face* face);
-	static bool DivideFaceFunc2( HalfEdgeDataStructure::Face* face);
-
-	static std::mt19937  m_rand;
-
 public:
-	CityRule();
+	static Component* Create( GameObject* gameObject);
 
-	virtual bool DivideFace( HalfEdgeDataStructure::Face* face);
+	LandView( GameObject* pGameObject);
+	void Uninit( void);
+
+	void SetAttribute( LandAttribute* attribute);
+
+	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
+
+private:
+	void Update(void);
+
+	LandAttribute* m_Attribute;
+
+	bool m_IsUpdatedAttribute;
 };
 
 #endif

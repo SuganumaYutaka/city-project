@@ -16,6 +16,17 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
+	コンストラクタ
+------------------------------------------------------------------------------*/
+Edge::Edge( HalfEdgeDataStructure::Model* model, Vertex* start, Vertex* end, EdgeAttribute* attribute)
+	: m_Model(model), m_Start(start), m_End(end), m_Left(NULL), m_Right(NULL), m_Attribute(attribute)
+{
+	model->RegisterEdge(this); 
+	m_Attribute->SetEdge(this);
+	m_Attribute->Init();
+}
+
+/*------------------------------------------------------------------------------
 	ベクトルの取得
 ------------------------------------------------------------------------------*/
 Vector3 Edge::GetVector(void)
@@ -92,4 +103,25 @@ bool Edge::Divide(float rateFromStart, Vertex** ppOut)
 	edge->GetEnd()->RegisterEdge( edge);
 
 	return true;
+}
+
+/*------------------------------------------------------------------------------
+	移動による更新
+------------------------------------------------------------------------------*/
+void Edge::UpdateByMove(void)
+{
+	m_Attribute->Update();
+
+	//隣接する面に知らせる
+	//右
+	if (m_Right)
+	{
+		m_Right->GetFace()->UpdateByMove();
+	}
+
+	//左
+	if (m_Left)
+	{
+		m_Left->GetFace()->UpdateByMove();
+	}
 }
