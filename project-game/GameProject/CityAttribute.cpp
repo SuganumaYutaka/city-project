@@ -139,9 +139,9 @@ Vector3 RoadAttribute::GetVector( void)
 ------------------------------------------------------------------------------*/
 BlockAttribute::BlockAttribute( GameObject* parent)
 {
-	auto gameObject = new GameObject( parent);
-	gameObject->IsCreatedByOtherComponent = true;
-	m_View = gameObject->AddComponent<BlockView>();
+	m_ViewGameObject = new GameObject( parent);
+	m_ViewGameObject->IsCreatedByOtherComponent = true;
+	m_View = m_ViewGameObject->AddComponent<BlockView>();
 }
 
 /*------------------------------------------------------------------------------
@@ -153,6 +153,12 @@ BlockAttribute::~BlockAttribute()
 	{
 		m_View->ReleaseReserve();
 	}
+
+	for (auto building : m_Buildings)
+	{
+		delete building;
+	}
+	m_Buildings.clear();
 }
 
 /*------------------------------------------------------------------------------
@@ -161,6 +167,8 @@ BlockAttribute::~BlockAttribute()
 void BlockAttribute::Init(void)
 {
 	m_View->SetAttribute( this);
+	
+	CreateBuilding();
 }
 
 /*------------------------------------------------------------------------------
@@ -169,6 +177,23 @@ void BlockAttribute::Init(void)
 void BlockAttribute::Update(void)
 {
 	m_View->UpdateAttribute();
+
+	CreateBuilding();
 }
 
+/*------------------------------------------------------------------------------
+	‹æ‰æ[Œš•¨‚Ì¶¬
+------------------------------------------------------------------------------*/
+bool BlockAttribute::CreateBuilding(void)
+{
+	//Œ»İ‚ÌŒš•¨‚ğíœ
+	for (auto building : m_Buildings)
+	{
+		delete building;
+	}
+	m_Buildings.clear();
 
+
+
+	return true;
+}

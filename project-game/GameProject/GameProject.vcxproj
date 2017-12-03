@@ -164,6 +164,8 @@
     <ClCompile Include="BillboardShader.cpp" />
     <ClCompile Include="BlockView.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="Building.cpp" />
+    <ClCompile Include="BuildingView.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="CityAttribute.cpp" />
@@ -298,6 +300,8 @@
     <ClInclude Include="BillboardShader.h" />
     <ClInclude Include="BlockView.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Building.h" />
+    <ClInclude Include="BuildingView.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="CityAttribute.h" />

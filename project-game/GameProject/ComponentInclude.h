@@ -42,6 +42,7 @@
 #include "JunctionView.h"
 #include "RoadView.h"
 #include "BlockView.h"
+#include "BuildingView.h"
 
 #endif
 

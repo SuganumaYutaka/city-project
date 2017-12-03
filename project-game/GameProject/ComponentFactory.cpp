@@ -52,6 +52,7 @@ ComponentFactory::ComponentFactory()
 	REGISTER(JunctionView);
 	REGISTER(RoadView);
 	REGISTER(BlockView);
+	REGISTER(BuildingView);
 }
 
 /*------------------------------------------------------------------------------

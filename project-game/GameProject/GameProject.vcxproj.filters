@@ -360,6 +360,12 @@
     <ClCompile Include="BlockView.cpp">
       <Filter>CityEngine\City</Filter>
     </ClCompile>
+    <ClCompile Include="Building.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildingView.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModeTitle.h">
@@ -636,6 +642,12 @@
       <Filter>CityEngine\City</Filter>
     </ClInclude>
     <ClInclude Include="BlockView.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="Building.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingView.h">
       <Filter>CityEngine\City</Filter>
     </ClInclude>
   </ItemGroup>

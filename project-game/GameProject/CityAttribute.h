@@ -20,6 +20,7 @@ class JunctionView;
 class RoadView;
 class BlockView;
 class GameObject;
+class Building;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -67,6 +68,10 @@ class BlockAttribute : public HalfEdgeDataStructure::FaceAttribute
 {
 private:
 	BlockView* m_View;
+	std::vector<Building*> m_Buildings;
+	GameObject* m_ViewGameObject;
+
+	bool CreateBuilding( void);
 
 public:
 	BlockAttribute( GameObject* parent);
