@@ -48,7 +48,6 @@ void ModeGame::Init()
 	m_pRoot->AddComponent<EditSystem>();
 #endif // _DEBUG
 
-	
 	//ƒJƒƒ‰
 	GameObject *pCamera = new GameObject( m_pRoot);
 	auto cameraComponent = pCamera->AddComponent<Camera>();
@@ -67,6 +66,7 @@ void ModeGame::Init()
 	//City
 	auto cityObject = new GameObject( m_pRoot);
 	auto cityController = cityObject->AddComponent<CityController>();
+
 }
 
 /*------------------------------------------------------------------------------

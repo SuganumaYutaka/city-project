@@ -36,6 +36,7 @@
 #include "SkinMeshRenderer.h"
 #include "Sun.h"
 #include "EditSystem.h"
+#include "MeshPolygonRenderer.h"
 
 //City
 #include "CityController.h"

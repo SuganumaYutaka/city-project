@@ -53,6 +53,8 @@ ComponentFactory::ComponentFactory()
 	REGISTER(RoadView);
 	REGISTER(BlockView);
 	REGISTER(BuildingView);
+	REGISTER(MeshPolygonRenderer);
+
 }
 
 /*------------------------------------------------------------------------------

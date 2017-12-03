@@ -366,6 +366,9 @@
     <ClCompile Include="BuildingView.cpp">
       <Filter>CityEngine\City</Filter>
     </ClCompile>
+    <ClCompile Include="MeshPolygonRenderer.cpp">
+      <Filter>Engine\Component\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModeTitle.h">
@@ -649,6 +652,9 @@
     </ClInclude>
     <ClInclude Include="BuildingView.h">
       <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshPolygonRenderer.h">
+      <Filter>Engine\Component\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -205,6 +205,7 @@
     <ClCompile Include="MeshFieldCollider.cpp" />
     <ClCompile Include="MeshFieldRenderer.cpp" />
     <ClCompile Include="MeshPlaneRenderer.cpp" />
+    <ClCompile Include="MeshPolygonRenderer.cpp" />
     <ClCompile Include="Mode.cpp" />
     <ClCompile Include="ModeGame.cpp" />
     <ClCompile Include="ModeResult.cpp" />
@@ -342,6 +343,7 @@
     <ClInclude Include="MeshFieldCollider.h" />
     <ClInclude Include="MeshFieldRenderer.h" />
     <ClInclude Include="MeshPlaneRenderer.h" />
+    <ClInclude Include="MeshPolygonRenderer.h" />
     <ClInclude Include="Mode.h" />
     <ClInclude Include="ModeGame.h" />
     <ClInclude Include="ModeResult.h" />
