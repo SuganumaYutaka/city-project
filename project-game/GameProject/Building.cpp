@@ -24,6 +24,24 @@ using namespace HalfEdgeDataStructure;
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
+Building::Building( GameObject* parent, HalfEdgeDataStructure::Face* face, const std::vector<Vector3> vertices)
+	: m_Face( face)
+{
+	//頂点を格納
+	m_Vertices = vertices;
+
+	//TODO: 面積に応じてビルの高さを設定する
+	m_Height = BUILDING_HEIGHT;
+
+	//Viewの生成
+	auto gameObject = new GameObject( parent);
+	gameObject->IsCreatedByOtherComponent = true;
+	m_View = gameObject->AddComponent<BuildingView>();
+}
+
+/*------------------------------------------------------------------------------
+	コンストラクタ
+------------------------------------------------------------------------------*/
 Building::Building( GameObject* parent, HalfEdgeDataStructure::Face* face, const Vector3& topLeft, const Vector3& topRight, const Vector3& bottomLeft, const Vector3& bottomRight)
 	: m_Face( face)
 {
@@ -50,7 +68,7 @@ Building::~Building()
 {
 	if( m_View)
 	{
-		m_View->ReleaseReserve();
+		m_View->m_pGameObject->ReleaseReserve();
 	}
 }
 

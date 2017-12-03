@@ -85,6 +85,9 @@ void Polygon3DRenderer::Uninit( void)
 		delete m_pMaterial;
 		m_pMaterial = NULL;
 	}
+
+	m_Vertices.clear();
+	m_Vertices.shrink_to_fit();
 }
 
 /*------------------------------------------------------------------------------

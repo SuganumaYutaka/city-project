@@ -34,8 +34,8 @@ BuildingView::BuildingView( GameObject* pGameObject)
 
 	m_Building = NULL;
 
-	//TODO: レンダラーの設定
-	//m_Renderer = m_pGameObject->AddComponent<MeshPolygonRenderer>();
+	//レンダラーの設定
+	m_Renderer = m_pGameObject->AddComponent<MeshPolygonRenderer>();
 }
 
 /*------------------------------------------------------------------------------
@@ -67,6 +67,6 @@ void BuildingView::SetBuilding( Building* building)
 	m_Building = building;
 
 	//View情報の更新
-	
+	m_Renderer->SetVertices( m_Building->GetVertices());
 }
 

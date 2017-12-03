@@ -66,7 +66,7 @@ void ModeGame::Init()
 	//City
 	auto cityObject = new GameObject( m_pRoot);
 	auto cityController = cityObject->AddComponent<CityController>();
-
+	
 }
 
 /*------------------------------------------------------------------------------

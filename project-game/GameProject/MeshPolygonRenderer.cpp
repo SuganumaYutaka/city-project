@@ -73,6 +73,9 @@ void MeshPolygonRenderer::Uninit( void)
 		delete m_pMaterial;
 		m_pMaterial = NULL;
 	}
+
+	m_Vertices.clear();
+	m_Vertices.shrink_to_fit();
 }
 
 /*------------------------------------------------------------------------------
@@ -107,7 +110,7 @@ void MeshPolygonRenderer::Draw( Camera* pCamera)
 }
 
 /*------------------------------------------------------------------------------
-	頂点バッファ設定
+	頂点を設定
 ------------------------------------------------------------------------------*/
 void MeshPolygonRenderer::SetVertices( const std::vector<Vector3>& vertices)
 {
@@ -121,6 +124,7 @@ void MeshPolygonRenderer::SetVertices( const std::vector<Vector3>& vertices)
 
 	//頂点データの取得
 	m_Vertices.resize( size);
+	m_Vertices.shrink_to_fit();
 	for (int nCnt = 0; nCnt < size; nCnt++)
 	{
 		m_Vertices[ nCnt] = vertices[ nCnt].ConvertToDX();
@@ -186,7 +190,6 @@ void MeshPolygonRenderer::Load(Text& text)
 			text.ForwardPositionToNextWord();
 			m_nPass = std::stoi( text.GetWord());
 		}
-
 		else if (text.GetWord() == "Material")
 		{
 			text.ForwardPositionToNextWord();

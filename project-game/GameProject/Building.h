@@ -35,6 +35,7 @@ private:
 	BuildingView* m_View;
 
 public:
+	Building( GameObject* parent, HalfEdgeDataStructure::Face* face, const std::vector<Vector3> vertices);
 	Building( GameObject* parent, HalfEdgeDataStructure::Face* face, const Vector3& topLeft, const Vector3& topRight, const Vector3& bottomLeft, const Vector3& bottomRight);
 	~Building();
 

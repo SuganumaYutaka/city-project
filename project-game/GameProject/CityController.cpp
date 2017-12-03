@@ -58,7 +58,7 @@ CityController::CityController( GameObject* pGameObject)
 ------------------------------------------------------------------------------*/
 void CityController::Uninit( void)
 {
-	
+	delete m_Model;
 }
 
 /*------------------------------------------------------------------------------

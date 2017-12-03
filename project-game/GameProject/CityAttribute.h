@@ -72,6 +72,7 @@ private:
 	GameObject* m_ViewGameObject;
 
 	bool CreateBuilding( void);
+	bool NarrowLand( Vector3& start, Vector3& end, float value);
 
 public:
 	BlockAttribute( GameObject* parent);
@@ -79,6 +80,8 @@ public:
 	void Init( void) override;
 	void Update( void) override;
 	void UnregisterView( void){ m_View = NULL;}
+
+	const std::vector<Building*>& GetBuildings( void) { return m_Buildings;}
 
 };
 

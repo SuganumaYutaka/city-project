@@ -49,7 +49,6 @@ MeshBoxRenderer::MeshBoxRenderer( GameObject *pGameObject)
 	m_Center = Vector3( 0.0f, 0.0f, 0.0f);
 	m_Size = Vector3( 1.0f, 1.0f, 1.0f);
 
-	m_Vertices.resize(8);
 	SetVertices();
 	
 	//頂点バッファ生成
@@ -120,6 +119,9 @@ void MeshBoxRenderer::Uninit( void)
 		delete m_pMaterial;
 		m_pMaterial = NULL;
 	}
+
+	m_Vertices.clear();
+	m_Vertices.shrink_to_fit();
 }
 
 /*------------------------------------------------------------------------------
@@ -403,7 +405,7 @@ void MeshBoxRenderer::SetSize(const Vector3& Size)
 ------------------------------------------------------------------------------*/
 void MeshBoxRenderer::SetVertices(void)
 {
-	m_Vertices.clear();
+	std::vector<D3DXVECTOR3>().swap( m_Vertices);
 	Vector3 size = m_Size * 0.5f;
 
 	m_Vertices.resize(8);
