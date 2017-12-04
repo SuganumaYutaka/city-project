@@ -18,15 +18,16 @@
 #include "RoadView.h"
 #include "BlockView.h"
 #include "Building.h"
+#include "BuildingView.h"
 
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
 	マクロ定義
 ------------------------------------------------------------------------------*/
-#define DEFAULT_ROAD_WIDTH (2.0f)			//デフォルトの道路幅
-#define DEFAULT_LAND_SIZE (10.0f)			//デフォルトの土地サイズ
-#define DISTANCE_OF_LANDS (2.0f)		//土地同士の間隔
+#define DEFAULT_ROAD_WIDTH (4.0f)			//デフォルトの道路幅
+#define DEFAULT_LAND_SIZE (5.0f)			//デフォルトの土地サイズ
+#define DISTANCE_OF_LANDS (0.8f)		//土地同士の間隔
 
 /*------------------------------------------------------------------------------
 	交差点ーコンストラクタ
@@ -152,16 +153,16 @@ BlockAttribute::BlockAttribute( GameObject* parent)
 ------------------------------------------------------------------------------*/
 BlockAttribute::~BlockAttribute()
 {
+	if( m_View)
+	{
+		m_View->m_pGameObject->ReleaseReserve();
+	}
+
 	for (auto building : m_Buildings)
 	{
 		delete building;
 	}
 	m_Buildings.clear();
-
-	if( m_View)
-	{
-		m_View->m_pGameObject->ReleaseReserve();
-	}
 }
 
 /*------------------------------------------------------------------------------
@@ -171,7 +172,7 @@ void BlockAttribute::Init(void)
 {
 	m_View->SetAttribute( this);
 	
-	CreateBuilding();
+	//CreateBuilding();
 }
 
 /*------------------------------------------------------------------------------
@@ -181,7 +182,7 @@ void BlockAttribute::Update(void)
 {
 	m_View->UpdateAttribute();
 
-	CreateBuilding();
+	//CreateBuilding();
 }
 
 /*------------------------------------------------------------------------------
@@ -190,29 +191,19 @@ void BlockAttribute::Update(void)
 ------------------------------------------------------------------------------*/
 bool BlockAttribute::CreateBuilding(void)
 {
-	//建物の生成用構造体定義
-	//辺（連続する頂点）
-	typedef struct
-	{
-		std::vector<Vector3> vertices;
-		Vector3 vector;
-	}FaceEdge;
-
-	//土地（連続する頂点）
-	typedef struct
-	{
-		std::vector<Vector3> vertices;
-		bool canCreateBuilding;
-	}FaceLand;
-	
-
 	//現在の建物を削除
 	for (auto building : m_Buildings)
 	{
 		delete building;
 	}
 	m_Buildings.clear();
-
+	
+	//建物のViewを削除
+	auto views = m_ViewGameObject->GetComponentListInChildren<BuildingView>();
+	for (auto view : views)
+	{
+		view->m_pGameObject->ReleaseReserve();
+	}
 
 	//区画から角にあたる4頂点を抽出
 	std::vector<Vertex*> corners;
@@ -221,7 +212,7 @@ bool BlockAttribute::CreateBuilding(void)
 	{
 		//内積が0前後→角とする
 		float dot = Vector3::Dot(halfEdge->GetVector().Normalize(), halfEdge->GetNext()->GetVector().Normalize());
-		if (dot < 0.7f)
+		if (dot < 0.85f)
 		{
 			corners.push_back( halfEdge->GetEnd());
 		}
@@ -240,7 +231,8 @@ bool BlockAttribute::CreateBuilding(void)
 	}
 
 	//4頂点から4辺を生成
-	FaceEdge edges[ 4];
+	std::vector<FaceEdge> edges;
+	edges.resize( 4);
 	for(int nCnt = 0; nCnt < 4; nCnt++)
 	{
 		//辺の開始位置の設定
@@ -281,11 +273,13 @@ bool BlockAttribute::CreateBuilding(void)
 		Vector3 pointFourth;
 		if (nCnt != 0)
 		{
-			pointFourth = edges[ nCnt - 1].vertices[ edges[ nCnt - 1].vertices.size() - 1];
+			int prevSize = edges[ nCnt - 1].vertices.size();
+			pointFourth = edges[ nCnt - 1].vertices[ prevSize - 1];
 		}
 		else
 		{
-			pointFourth = edges[ 3].vertices[ edges[ 3].vertices.size() - 1];
+			int prevSize = edges[ 3].vertices.size();
+			pointFourth = edges[ 3].vertices[ prevSize - 1];
 		}
 
 		//土地を生成
@@ -316,8 +310,6 @@ bool BlockAttribute::CreateBuilding(void)
 	float roadWidthHalf = DEFAULT_ROAD_WIDTH * 0.5f;
 	for (FaceLand& land : lands)
 	{
-		Vector3 vector;
-		
 		//土地を道路幅分狭める
 		if ( !NarrowLand(land.vertices[0], land.vertices[3], DEFAULT_ROAD_WIDTH * 0.5f))
 		{
@@ -325,6 +317,18 @@ bool BlockAttribute::CreateBuilding(void)
 			continue;
 		}
 		if ( !NarrowLand(land.vertices[1], land.vertices[2], DEFAULT_ROAD_WIDTH * 0.5f))
+		{
+			land.canCreateBuilding = false;
+			continue;
+		}
+
+		//道路幅分右にずらす
+		if (!MoveLand(land.vertices[0], land.vertices[1], DEFAULT_ROAD_WIDTH * 0.5f))
+		{
+			land.canCreateBuilding = false;
+			continue;
+		}
+		if (!MoveLand(land.vertices[3], land.vertices[2], DEFAULT_ROAD_WIDTH * 0.5f))
 		{
 			land.canCreateBuilding = false;
 			continue;
@@ -341,7 +345,6 @@ bool BlockAttribute::CreateBuilding(void)
 			land.canCreateBuilding = false;
 			continue;
 		}
-		
 	}
 
 	//建物を生成
@@ -350,10 +353,22 @@ bool BlockAttribute::CreateBuilding(void)
 		if (land.canCreateBuilding)
 		{
 			//建物の生成
-			auto building = new Building( m_ViewGameObject, GetFace(), land.vertices);
-			building->Init();
+			auto building = new Building();
+			building->Init( this, m_ViewGameObject, GetFace(), land.vertices);
 			m_Buildings.push_back( building);
 		}
+	}
+
+	//辺・土地データの解放
+	for (FaceEdge& edge : edges)
+	{
+		edge.vertices.clear();
+		edge.vertices.shrink_to_fit();
+	}
+	for (FaceLand& land : lands)
+	{
+		land.vertices.clear();
+		land.vertices.shrink_to_fit();
 	}
 
 	return true;
@@ -372,6 +387,24 @@ bool BlockAttribute::NarrowLand(Vector3& start, Vector3& end, float value)
 	}
 	vector = vector.Normalize();
 	start += vector * value;
+
+	return true;
+}
+
+/*------------------------------------------------------------------------------
+	区画ー土地を移動させる
+------------------------------------------------------------------------------*/
+bool BlockAttribute::MoveLand(Vector3& start, Vector3& end, float value)
+{
+	Vector3 vector;
+	vector = end - start;
+	if (vector.Length() < value)
+	{
+		return false;
+	}
+	vector = vector.Normalize();
+	start += vector * value;
+	end += vector * value;
 
 	return true;
 }

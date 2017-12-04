@@ -22,11 +22,20 @@ using namespace HalfEdgeDataStructure;
 #define BUILDING_HEIGHT (5.0f)
 
 /*------------------------------------------------------------------------------
-	コンストラクタ
+	デストラクタ
 ------------------------------------------------------------------------------*/
-Building::Building( GameObject* parent, HalfEdgeDataStructure::Face* face, const std::vector<Vector3> vertices)
-	: m_Face( face)
+Building::~Building()
 {
+	
+}
+
+/*------------------------------------------------------------------------------
+	初期化
+------------------------------------------------------------------------------*/
+void Building::Init( BlockAttribute* attribute, GameObject* parent, HalfEdgeDataStructure::Face* face, const std::vector<Vector3> vertices)
+{
+	m_Face = face;
+
 	//頂点を格納
 	m_Vertices = vertices;
 
@@ -36,21 +45,23 @@ Building::Building( GameObject* parent, HalfEdgeDataStructure::Face* face, const
 	//Viewの生成
 	auto gameObject = new GameObject( parent);
 	gameObject->IsCreatedByOtherComponent = true;
-	m_View = gameObject->AddComponent<BuildingView>();
+	auto view = gameObject->AddComponent<BuildingView>();
+	view->SetBuilding( this, attribute);
 }
 
 /*------------------------------------------------------------------------------
-	コンストラクタ
+	初期化
 ------------------------------------------------------------------------------*/
-Building::Building( GameObject* parent, HalfEdgeDataStructure::Face* face, const Vector3& topLeft, const Vector3& topRight, const Vector3& bottomLeft, const Vector3& bottomRight)
-	: m_Face( face)
+void Building::Init( BlockAttribute* attribute, GameObject* parent, HalfEdgeDataStructure::Face* face, const Vector3& topLeft, const Vector3& topRight, const Vector3& bottomLeft, const Vector3& bottomRight)
 {
+	m_Face = face;
+
 	//頂点を格納
 	m_Vertices.resize( 4);
 	m_Vertices[0] = topLeft;
 	m_Vertices[1] = topRight;
-	m_Vertices[2] = bottomLeft;
-	m_Vertices[3] = bottomRight;
+	m_Vertices[2] = bottomRight;
+	m_Vertices[3] = bottomLeft;
 
 	//TODO: 面積に応じてビルの高さを設定する
 	m_Height = BUILDING_HEIGHT;
@@ -58,24 +69,6 @@ Building::Building( GameObject* parent, HalfEdgeDataStructure::Face* face, const
 	//Viewの生成
 	auto gameObject = new GameObject( parent);
 	gameObject->IsCreatedByOtherComponent = true;
-	m_View = gameObject->AddComponent<BuildingView>();
-}
-
-/*------------------------------------------------------------------------------
-	デストラクタ
-------------------------------------------------------------------------------*/
-Building::~Building()
-{
-	if( m_View)
-	{
-		m_View->m_pGameObject->ReleaseReserve();
-	}
-}
-
-/*------------------------------------------------------------------------------
-	初期化
-------------------------------------------------------------------------------*/
-void Building::Init(void)
-{
-	m_View->SetBuilding( this);
+	auto view = gameObject->AddComponent<BuildingView>();
+	view->SetBuilding( this, attribute);
 }

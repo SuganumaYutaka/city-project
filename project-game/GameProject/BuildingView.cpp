@@ -13,6 +13,7 @@
 #include "ComponentInclude.h"
 
 #include "Building.h"
+#include "CityAttribute.h"
 
 using namespace HalfEdgeDataStructure;
 
@@ -33,6 +34,7 @@ BuildingView::BuildingView( GameObject* pGameObject)
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 
 	m_Building = NULL;
+	m_Attribute = NULL;
 
 	//レンダラーの設定
 	m_Renderer = m_pGameObject->AddComponent<MeshPolygonRenderer>();
@@ -43,7 +45,7 @@ BuildingView::BuildingView( GameObject* pGameObject)
 ------------------------------------------------------------------------------*/
 void BuildingView::Uninit( void)
 {
-	m_Building->UnregisterView();
+	
 }
 
 /*------------------------------------------------------------------------------
@@ -57,16 +59,12 @@ void BuildingView::Update( void)
 /*------------------------------------------------------------------------------
 	建物情報の設定
 ------------------------------------------------------------------------------*/
-void BuildingView::SetBuilding( Building* building)
-{ 
-	if( m_Building)
-	{	
-		return;
-	}
-	
+void BuildingView::SetBuilding( Building* building, BlockAttribute* attribute)
+{
 	m_Building = building;
+	m_Attribute = attribute;
 
 	//View情報の更新
-	m_Renderer->SetVertices( m_Building->GetVertices());
+	m_Renderer->SetVertices( building->GetVertices());
 }
 

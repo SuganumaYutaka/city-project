@@ -60,8 +60,8 @@ void BlockView::Update( void)
 
 	m_IsUpdatedAttribute = false;
 
-	//View情報の更新
-
+	//建物を再生成
+	m_Attribute->CreateBuilding();
 }
 
 /*------------------------------------------------------------------------------
@@ -76,7 +76,7 @@ void BlockView::SetAttribute( BlockAttribute* attribute)
 	
 	m_Attribute = attribute;
 
-	//View情報の更新
-
+	//建物を生成
+	m_Attribute->CreateBuilding();
 }
 

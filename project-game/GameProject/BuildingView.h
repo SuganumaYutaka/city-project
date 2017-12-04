@@ -16,8 +16,9 @@
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class Building;
+class BlockAttribute;
 class MeshPolygonRenderer;
+class Building;
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -30,12 +31,12 @@ public:
 	BuildingView( GameObject* pGameObject);
 	void Uninit( void);
 
-	void SetBuilding( Building* building);
+	void SetBuilding( Building* building, BlockAttribute* attribute);
 
 private:
 	void Update(void);
-
 	Building* m_Building;
+	BlockAttribute* m_Attribute;
 	MeshPolygonRenderer* m_Renderer;
 };
 

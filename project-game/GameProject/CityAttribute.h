@@ -67,12 +67,27 @@ public:
 class BlockAttribute : public HalfEdgeDataStructure::FaceAttribute
 {
 private:
+	//建物の生成用構造体定義
+	//辺（連続する頂点）
+	typedef struct
+	{
+		std::vector<Vector3> vertices;
+		Vector3 vector;
+	}FaceEdge;
+
+	//土地（連続する頂点）
+	typedef struct
+	{
+		std::vector<Vector3> vertices;
+		bool canCreateBuilding;
+	}FaceLand;
+
 	BlockView* m_View;
-	std::vector<Building*> m_Buildings;
+	std::list<Building*> m_Buildings;
 	GameObject* m_ViewGameObject;
 
-	bool CreateBuilding( void);
 	bool NarrowLand( Vector3& start, Vector3& end, float value);
+	bool MoveLand( Vector3& start, Vector3& end, float value);
 
 public:
 	BlockAttribute( GameObject* parent);
@@ -81,8 +96,9 @@ public:
 	void Update( void) override;
 	void UnregisterView( void){ m_View = NULL;}
 
-	const std::vector<Building*>& GetBuildings( void) { return m_Buildings;}
+	const std::list<Building*>& GetBuildings( void) { return m_Buildings;}
 
+	bool CreateBuilding( void);
 };
 
 //ファクトリー

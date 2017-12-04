@@ -535,13 +535,17 @@ bool MeshBoxRenderer::CheckFrustumCulling(Camera* pCamera)
 	D3DXMATRIX wvp = m_pTransform->WorldMatrix() * *pCamera->GetViewMatrix() * *pCamera->GetProjectionMatrix();
 	bool isLeft = false;
 	bool isRight = false;
+	bool isInDepth = false;
 
 	for (D3DXVECTOR3 vertex : m_Vertices)
 	{
 		D3DXVec3TransformCoord( &vertex, &vertex, &wvp);
-		if (vertex.x >= -1.0f && vertex.x <= 1.0f)
+		
+		if (vertex.z >= 0 && vertex.z <= 1.0f)
 		{
-			if (vertex.z >= 0 && vertex.z <= 1.0f)
+			isInDepth = true;
+
+			if (vertex.x >= -1.0f && vertex.x <= 1.0f)
 			{
 				return true;
 			}
@@ -555,6 +559,11 @@ bool MeshBoxRenderer::CheckFrustumCulling(Camera* pCamera)
 		{
 			isRight = true;
 		}
+	}
+
+	if (isLeft && isRight && isInDepth)
+	{
+		return true;
 	}
 	
 	return false;

@@ -22,6 +22,7 @@ namespace HalfEdgeDataStructure
 }
 class BuildingView;
 class GameObject;
+class BlockAttribute;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -32,20 +33,17 @@ private:
 	std::vector<Vector3> m_Vertices;
 	float m_Height;
 	HalfEdgeDataStructure::Face* m_Face;
-	BuildingView* m_View;
 
 public:
-	Building( GameObject* parent, HalfEdgeDataStructure::Face* face, const std::vector<Vector3> vertices);
-	Building( GameObject* parent, HalfEdgeDataStructure::Face* face, const Vector3& topLeft, const Vector3& topRight, const Vector3& bottomLeft, const Vector3& bottomRight);
+	Building() : m_Face( NULL){}
 	~Building();
 
-	void Init( void);
+	void Init( BlockAttribute* attribute, GameObject* parent, HalfEdgeDataStructure::Face* face, const std::vector<Vector3> vertices);
+	void Init( BlockAttribute* attribute, GameObject* parent, HalfEdgeDataStructure::Face* face, const Vector3& topLeft, const Vector3& topRight, const Vector3& bottomLeft, const Vector3& bottomRight);
 
 	const std::vector<Vector3>& GetVertices( void) { return m_Vertices;}
 	float GetHeight( void) { return m_Height;}
 	HalfEdgeDataStructure::Face* GetFace( void){ return m_Face;}
-
-	void UnregisterView( void){ m_View = NULL;}
 };
 
 #endif
