@@ -26,8 +26,8 @@ using namespace HalfEdgeDataStructure;
 	マクロ定義
 ------------------------------------------------------------------------------*/
 #define DEFAULT_ROAD_WIDTH (4.0f)			//デフォルトの道路幅
-#define DEFAULT_LAND_SIZE (5.0f)			//デフォルトの土地サイズ
-#define DISTANCE_OF_LANDS (0.8f)		//土地同士の間隔
+#define DEFAULT_LAND_SIZE (10.0f)			//デフォルトの土地サイズ
+#define DISTANCE_OF_LANDS (0.8f)			//土地同士の間隔
 
 /*------------------------------------------------------------------------------
 	交差点ーコンストラクタ
