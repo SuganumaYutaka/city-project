@@ -84,4 +84,3 @@ void RoadView::SetAttribute( RoadAttribute* attribute)
 	m_Renderer->m_pTransform->SetWorldRotationLookDirection( m_Attribute->GetVector());
 	m_Renderer->m_pTransform->SetLocalScale( m_Attribute->GetWidth(), 1.0f, m_Attribute->GetLength());
 }
-

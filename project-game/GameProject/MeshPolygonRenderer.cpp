@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    Polygon3DRenderer.cpp - 3Dポリゴン描画
+    MeshPolygonRenderer.cpp - 3Dポリゴン描画
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/17
 ==============================================================================*/
@@ -8,7 +8,7 @@
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "Polygon3DRenderer.h"
+#include "MeshPolygonRenderer.h"
 #include "GameObject.h"
 #include "Transform.h"
 #include "RenderManager.h"
@@ -18,15 +18,15 @@
 /*------------------------------------------------------------------------------
 	コンポーネント生成
 ------------------------------------------------------------------------------*/
-Component* Polygon3DRenderer::Create(GameObject* gameObject)
+Component* MeshPolygonRenderer::Create(GameObject* gameObject)
 {
-	return gameObject->AddComponent<Polygon3DRenderer>();
+	return gameObject->AddComponent<MeshPolygonRenderer>();
 }
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
-Polygon3DRenderer::Polygon3DRenderer( GameObject *pGameObject)
+MeshPolygonRenderer::MeshPolygonRenderer( GameObject *pGameObject)
 {
 	m_pGameObject = pGameObject;
 	m_nLayer = eLayerDefault;
@@ -35,40 +35,28 @@ Polygon3DRenderer::Polygon3DRenderer( GameObject *pGameObject)
 
 	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//デバイス取得
 
-	m_Vertices.resize(4);
-	m_Vertices[0] = D3DXVECTOR3( -0.5f, 0.0f, +0.5f);
-	m_Vertices[1] = D3DXVECTOR3( +0.5f, 0.0f, +0.5f);
-	m_Vertices[2] = D3DXVECTOR3( -0.5f, 0.0f, -0.5f);
-	m_Vertices[3] = D3DXVECTOR3( +0.5f, 0.0f, -0.5f);
-
-	//頂点バッファ生成
-	if( FAILED( pDevice->CreateVertexBuffer(
-		sizeof( VERTEX_3D) * 4,				//作成したい頂点バッファのサイズ
-		D3DUSAGE_WRITEONLY,					//頂点バッファの使用方法(速さに影響)
-		0,									//FVF(頂点フォーマット)
-		D3DPOOL_MANAGED,					//メモリの管理(MANAGEDはデバイスにおまかせ)
-		&m_pVtxBuff,						//頂点バッファ管理インターフェイス
-		NULL)))
-	{
-		//エラー
-		assert( false);
-		return;
-	}
-
 	//色の設定
 	m_Color = D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f);
 
-	//頂点設定
-	SetVtxBuffer();
-
+	//デフォルトの頂点設定
+	std::vector<Vector3> vertices;
+	vertices.resize(4);
+	vertices[0] = Vector3( -0.5f, 0.0f, +0.5f);
+	vertices[1] = Vector3( +0.5f, 0.0f, +0.5f);
+	vertices[2] = Vector3( +0.5f, 0.0f, -0.5f);
+	vertices[3] = Vector3( -0.5f, 0.0f, -0.5f);
+	m_pVtxBuff = NULL;
+	SetVertices( vertices);
+	
 	//マテリアル
 	m_pMaterial = new Material();
+
 }
 
 /*------------------------------------------------------------------------------
 	終了処理
 ------------------------------------------------------------------------------*/
-void Polygon3DRenderer::Uninit( void)
+void MeshPolygonRenderer::Uninit( void)
 {
 	Manager::GetRenderManager()->ReleaseRenderer( this);
 
@@ -93,7 +81,7 @@ void Polygon3DRenderer::Uninit( void)
 /*------------------------------------------------------------------------------
 	更新
 ------------------------------------------------------------------------------*/
-void Polygon3DRenderer::Update( void)
+void MeshPolygonRenderer::Update( void)
 {
 	
 }
@@ -101,7 +89,7 @@ void Polygon3DRenderer::Update( void)
 /*------------------------------------------------------------------------------
 	描画
 ------------------------------------------------------------------------------*/
-void Polygon3DRenderer::Draw( Camera* pCamera)
+void MeshPolygonRenderer::Draw( Camera* pCamera)
 {
 	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//デバイス取得
 
@@ -115,62 +103,71 @@ void Polygon3DRenderer::Draw( Camera* pCamera)
 	m_pMaterial->Begin( m_nPass);
 
 	//ポリゴンの描画
-	pDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0,	2);
+	pDevice->DrawPrimitive( D3DPT_TRIANGLEFAN, 0, m_Vertices.size() - 2);
 
 	//テクニック終了
 	m_pMaterial->End();
 }
 
 /*------------------------------------------------------------------------------
+	頂点を設定
+------------------------------------------------------------------------------*/
+void MeshPolygonRenderer::SetVertices( const std::vector<Vector3>& vertices)
+{
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//デバイス取得
+
+	//頂点バッファの解放
+	SAFE_RELEASE( m_pVtxBuff);
+	
+	//頂点数の取得
+	int size = vertices.size();
+
+	//頂点データの取得
+	m_Vertices.resize( size);
+	m_Vertices.shrink_to_fit();
+	for (int nCnt = 0; nCnt < size; nCnt++)
+	{
+		m_Vertices[ nCnt] = vertices[ nCnt].ConvertToDX();
+	}
+	
+	//頂点バッファ生成
+	if( FAILED( pDevice->CreateVertexBuffer( sizeof( VERTEX_3D) * size, D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &m_pVtxBuff, NULL)))
+	{
+		//エラー
+		assert( false);
+		return;
+	}
+
+	SetVtxBuffer();
+}
+
+/*------------------------------------------------------------------------------
 	頂点バッファ設定
 ------------------------------------------------------------------------------*/
-void Polygon3DRenderer::SetVtxBuffer( void)
+void MeshPolygonRenderer::SetVtxBuffer( void)
 {
+	int size = m_Vertices.size();
+
 	//ロック
 	VERTEX_3D* pVtx;		//仮想アドレス用ポインタ
 	m_pVtxBuff->Lock( 0, 0, (void**)&pVtx, 0);
 
-	//頂点設定
-	//座標（Z字）
-	pVtx[ 0].Pos = m_Vertices[0];
-	pVtx[ 1].Pos = m_Vertices[1];
-	pVtx[ 2].Pos = m_Vertices[2];
-	pVtx[ 3].Pos = m_Vertices[3];
-	
-	//法線
-	pVtx[ 0].Normal = 
-	pVtx[ 1].Normal = 
-	pVtx[ 2].Normal = 
-	pVtx[ 3].Normal = D3DXVECTOR3( 0.0f, 1.0f, 0.0f);
-
-	//頂点カラー
-	pVtx[ 0].Color = 
-	pVtx[ 1].Color = 
-	pVtx[ 2].Color = 
-	pVtx[ 3].Color = m_Color;
-
-	//UV座標（Z字）
-	pVtx[ 0].Tex = D3DXVECTOR2( m_TextureUV.UV[ 0].x, m_TextureUV.UV[ 0].y);
-	pVtx[ 1].Tex = D3DXVECTOR2( m_TextureUV.UV[ 1].x, m_TextureUV.UV[ 1].y);
-	pVtx[ 2].Tex = D3DXVECTOR2( m_TextureUV.UV[ 2].x, m_TextureUV.UV[ 2].y);
-	pVtx[ 3].Tex = D3DXVECTOR2( m_TextureUV.UV[ 3].x, m_TextureUV.UV[ 3].y);
+	for (int nCnt = 0; nCnt < size; nCnt++)
+	{
+		pVtx[nCnt].Pos = m_Vertices[ nCnt];
+		pVtx[nCnt].Normal = D3DXVECTOR3( 0.0f, 1.0f, 0.0f);
+		pVtx[nCnt].Color = m_Color;
+		pVtx[nCnt].Tex = D3DXVECTOR2( 0.0f, 0.0f);
+	}
 
 	//アンロック
 	m_pVtxBuff->Unlock();
 }
 
 /*------------------------------------------------------------------------------
-	テクスチャ設定
-------------------------------------------------------------------------------*/
-void Polygon3DRenderer::LoadTexture(std::string FileName)
-{
-	m_pMaterial->SetTexture( FileName);
-}
-
-/*------------------------------------------------------------------------------
 	シェーダー設定
 ------------------------------------------------------------------------------*/
-void Polygon3DRenderer::SetShader(EShaderType Type)
+void MeshPolygonRenderer::SetShader(EShaderType Type)
 {
 	m_pMaterial->SetShader( Type);
 }
@@ -178,7 +175,7 @@ void Polygon3DRenderer::SetShader(EShaderType Type)
 /*------------------------------------------------------------------------------
 	ロード
 ------------------------------------------------------------------------------*/
-void Polygon3DRenderer::Load(Text& text)
+void MeshPolygonRenderer::Load(Text& text)
 {
 	//textを読み進める
 	if (text.ForwardPositionToNextWord() == Text::EoF)
@@ -193,7 +190,6 @@ void Polygon3DRenderer::Load(Text& text)
 			text.ForwardPositionToNextWord();
 			m_nPass = std::stoi( text.GetWord());
 		}
-
 		else if (text.GetWord() == "Material")
 		{
 			text.ForwardPositionToNextWord();
@@ -211,11 +207,23 @@ void Polygon3DRenderer::Load(Text& text)
 			text.ForwardPositionToNextWord();
 			m_Color.a = std::stof(text.GetWord());
 		}
-		else if (text.GetWord() == "TextureUV")
+		else if (text.GetWord() == "Vertices")
 		{
 			text.ForwardPositionToNextWord();
-		
-			m_TextureUV.ConvertFromString( text.GetAllText(), text.GetPosition());
+			
+			int size = std::stoi( text.GetWord());
+			m_Vertices.clear();
+			m_Vertices.resize(size);
+			
+			for (int nCnt = 0; nCnt < size; nCnt++)
+			{
+				text.ForwardPositionToNextWord();
+				m_Vertices[nCnt].x = std::stof( text.GetWord());
+				text.ForwardPositionToNextWord();
+				m_Vertices[nCnt].y = std::stof( text.GetWord());
+				text.ForwardPositionToNextWord();
+				m_Vertices[nCnt].z = std::stof( text.GetWord());
+			}
 		}
 
 		//textを読み進める
@@ -230,7 +238,7 @@ void Polygon3DRenderer::Load(Text& text)
 /*------------------------------------------------------------------------------
 	セーブ
 ------------------------------------------------------------------------------*/
-void Polygon3DRenderer::Save(Text& text)
+void MeshPolygonRenderer::Save(Text& text)
 {
 	StartSave(text);
 
@@ -241,7 +249,15 @@ void Polygon3DRenderer::Save(Text& text)
 		+ std::to_string(m_Color.g) + ' '
 		+ std::to_string(m_Color.b) + ' '
 		+ std::to_string(m_Color.a) + '\n';
-	text += "TextureUV " + m_TextureUV.ConvertToString() + '\n';
+	
+	text += "Vertices "
+		+ std::to_string(m_Vertices.size()) + '\n';
+	for (const D3DXVECTOR3& vertex : m_Vertices)
+	{
+		text += std::to_string( vertex.x) + ' '
+			+ std::to_string( vertex.y) + ' '
+			+ std::to_string( vertex.z) + '\n';
+	}
 
 	EndSave( text);
 }
@@ -249,7 +265,7 @@ void Polygon3DRenderer::Save(Text& text)
 /*------------------------------------------------------------------------------
 	視錐台カリング判定
 ------------------------------------------------------------------------------*/
-bool Polygon3DRenderer::CheckFrustumCulling(Camera* pCamera)
+bool MeshPolygonRenderer::CheckFrustumCulling(Camera* pCamera)
 {
 	D3DXMATRIX wvp = m_pTransform->WorldMatrix() * *pCamera->GetViewMatrix() * *pCamera->GetProjectionMatrix();
 	bool isLeft = false;

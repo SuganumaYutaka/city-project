@@ -354,11 +354,20 @@
     <ClCompile Include="JunctionView.cpp">
       <Filter>CityEngine\City</Filter>
     </ClCompile>
-    <ClCompile Include="LandView.cpp">
-      <Filter>CityEngine\City</Filter>
-    </ClCompile>
     <ClCompile Include="RoadView.cpp">
       <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockView.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="Building.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildingView.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshPolygonRenderer.cpp">
+      <Filter>Engine\Component\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -632,11 +641,20 @@
     <ClInclude Include="JunctionView.h">
       <Filter>CityEngine\City</Filter>
     </ClInclude>
-    <ClInclude Include="LandView.h">
-      <Filter>CityEngine\City</Filter>
-    </ClInclude>
     <ClInclude Include="RoadView.h">
       <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockView.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="Building.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingView.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshPolygonRenderer.h">
+      <Filter>Engine\Component\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

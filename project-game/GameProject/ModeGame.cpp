@@ -39,16 +39,10 @@ void ModeGame::Init()
 	//ノードの先頭
 	m_pRoot = new GameObject(NULL);
 
-	//ロード
-	/*Text loadText;
-	loadText.Load("data/SCRIPT/ModeGame.txt");
-	m_pRoot->Load(loadText);*/
-
 #ifdef _DEBUG
-	m_pRoot->AddComponent<EditSystem>();
+	//m_pRoot->AddComponent<EditSystem>();
 #endif // _DEBUG
 
-	
 	//カメラ
 	GameObject *pCamera = new GameObject( m_pRoot);
 	auto cameraComponent = pCamera->AddComponent<Camera>();
@@ -67,6 +61,7 @@ void ModeGame::Init()
 	//City
 	auto cityObject = new GameObject( m_pRoot);
 	auto cityController = cityObject->AddComponent<CityController>();
+	
 }
 
 /*------------------------------------------------------------------------------

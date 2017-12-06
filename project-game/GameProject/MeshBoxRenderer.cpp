@@ -49,7 +49,6 @@ MeshBoxRenderer::MeshBoxRenderer( GameObject *pGameObject)
 	m_Center = Vector3( 0.0f, 0.0f, 0.0f);
 	m_Size = Vector3( 1.0f, 1.0f, 1.0f);
 
-	m_Vertices.resize(8);
 	SetVertices();
 	
 	//頂点バッファ生成
@@ -120,6 +119,9 @@ void MeshBoxRenderer::Uninit( void)
 		delete m_pMaterial;
 		m_pMaterial = NULL;
 	}
+
+	m_Vertices.clear();
+	m_Vertices.shrink_to_fit();
 }
 
 /*------------------------------------------------------------------------------
@@ -403,32 +405,34 @@ void MeshBoxRenderer::SetSize(const Vector3& Size)
 ------------------------------------------------------------------------------*/
 void MeshBoxRenderer::SetVertices(void)
 {
-	m_Vertices.clear();
+	std::vector<D3DXVECTOR3>().swap( m_Vertices);
 	Vector3 size = m_Size * 0.5f;
 
+	m_Vertices.resize(8);
+
 	//上奥左
-	m_Vertices.push_back( D3DXVECTOR3( m_Center.x - size.x, m_Center.y + size.y, m_Center.z + size.z));
+	m_Vertices[0] = D3DXVECTOR3( m_Center.x - size.x, m_Center.y + size.y, m_Center.z + size.z);
 
 	//上奥右
-	m_Vertices.push_back( D3DXVECTOR3( m_Center.x + size.x, m_Center.y + size.y, m_Center.z + size.z));
+	m_Vertices[1] = D3DXVECTOR3( m_Center.x + size.x, m_Center.y + size.y, m_Center.z + size.z);
 
 	//上手前左
-	m_Vertices.push_back( D3DXVECTOR3( m_Center.x - size.x, m_Center.y + size.y, m_Center.z - size.z));
+	m_Vertices[2] = D3DXVECTOR3( m_Center.x - size.x, m_Center.y + size.y, m_Center.z - size.z);
 
 	//上手前右
-	m_Vertices.push_back( D3DXVECTOR3( m_Center.x + size.x, m_Center.y + size.y, m_Center.z - size.z));
+	m_Vertices[3] = D3DXVECTOR3( m_Center.x + size.x, m_Center.y + size.y, m_Center.z - size.z);
 
 	//下奥左
-	m_Vertices.push_back( D3DXVECTOR3( m_Center.x - size.x, m_Center.y - size.y, m_Center.z + size.z));
+	m_Vertices[4] = D3DXVECTOR3( m_Center.x - size.x, m_Center.y - size.y, m_Center.z + size.z);
 
 	//下奥右
-	m_Vertices.push_back( D3DXVECTOR3( m_Center.x + size.x, m_Center.y - size.y, m_Center.z + size.z));
+	m_Vertices[5] = D3DXVECTOR3( m_Center.x + size.x, m_Center.y - size.y, m_Center.z + size.z);
 
 	//下手前左
-	m_Vertices.push_back( D3DXVECTOR3( m_Center.x - size.x, m_Center.y - size.y, m_Center.z - size.z));
+	m_Vertices[6] = D3DXVECTOR3( m_Center.x - size.x, m_Center.y - size.y, m_Center.z - size.z);
 
 	//下手前右
-	m_Vertices.push_back( D3DXVECTOR3( m_Center.x + size.x, m_Center.y - size.y, m_Center.z - size.z));
+	m_Vertices[7] = D3DXVECTOR3( m_Center.x + size.x, m_Center.y - size.y, m_Center.z - size.z);
 }
 
 /*------------------------------------------------------------------------------
@@ -531,13 +535,17 @@ bool MeshBoxRenderer::CheckFrustumCulling(Camera* pCamera)
 	D3DXMATRIX wvp = m_pTransform->WorldMatrix() * *pCamera->GetViewMatrix() * *pCamera->GetProjectionMatrix();
 	bool isLeft = false;
 	bool isRight = false;
+	bool isInDepth = false;
 
 	for (D3DXVECTOR3 vertex : m_Vertices)
 	{
 		D3DXVec3TransformCoord( &vertex, &vertex, &wvp);
-		if (vertex.x >= -1.0f && vertex.x <= 1.0f)
+		
+		if (vertex.z >= 0 && vertex.z <= 1.0f)
 		{
-			if (vertex.z >= 0 && vertex.z <= 1.0f)
+			isInDepth = true;
+
+			if (vertex.x >= -1.0f && vertex.x <= 1.0f)
 			{
 				return true;
 			}
@@ -551,6 +559,11 @@ bool MeshBoxRenderer::CheckFrustumCulling(Camera* pCamera)
 		{
 			isRight = true;
 		}
+	}
+
+	if (isLeft && isRight && isInDepth)
+	{
+		return true;
 	}
 	
 	return false;

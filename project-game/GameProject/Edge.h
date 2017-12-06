@@ -46,7 +46,7 @@ namespace HalfEdgeDataStructure
 
 	public:
 		Edge( HalfEdgeDataStructure::Model* model, Vertex* start, Vertex* end, EdgeAttribute* attribute);
-		~Edge(){ if( m_Attribute) delete m_Attribute; }
+		~Edge();
 
 		Vertex* GetStart( void) const{ return m_Start;}
 		void SetStart( Vertex* vertex) { m_Start = vertex; m_Attribute->Update();}

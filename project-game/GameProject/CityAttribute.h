@@ -18,8 +18,9 @@
 ------------------------------------------------------------------------------*/
 class JunctionView;
 class RoadView;
-class LandView;
+class BlockView;
 class GameObject;
+class Building;
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -63,18 +64,41 @@ public:
 };
 
 //面（区画）
-class LandAttribute : public HalfEdgeDataStructure::FaceAttribute
+class BlockAttribute : public HalfEdgeDataStructure::FaceAttribute
 {
 private:
-	LandView* m_View;
+	//建物の生成用構造体定義
+	//辺（連続する頂点）
+	typedef struct
+	{
+		std::vector<Vector3> vertices;
+		Vector3 vector;
+	}FaceEdge;
+
+	//土地（連続する頂点）
+	typedef struct
+	{
+		std::vector<Vector3> vertices;
+		bool canCreateBuilding;
+	}FaceLand;
+
+	BlockView* m_View;
+	std::list<Building*> m_Buildings;
+	GameObject* m_ViewGameObject;
+
+	bool NarrowLand( Vector3& start, Vector3& end, float value);
+	bool MoveLand( Vector3& start, Vector3& end, float value);
 
 public:
-	LandAttribute( GameObject* parent);
-	~LandAttribute();
+	BlockAttribute( GameObject* parent);
+	~BlockAttribute();
 	void Init( void) override;
 	void Update( void) override;
 	void UnregisterView( void){ m_View = NULL;}
 
+	const std::list<Building*>& GetBuildings( void) { return m_Buildings;}
+
+	bool CreateBuilding( void);
 };
 
 //ファクトリー
@@ -88,7 +112,7 @@ public:
 
 	virtual HalfEdgeDataStructure::VertexAttribute* CreateVertexAttribute( void) { return new JunctionAttribute( m_Parent); }
 	virtual HalfEdgeDataStructure::EdgeAttribute* CreateEdgeAttribute( void) { return new RoadAttribute( m_Parent); }
-	virtual HalfEdgeDataStructure::FaceAttribute* CreateFaceAttribute( void){ return new LandAttribute( m_Parent); }
+	virtual HalfEdgeDataStructure::FaceAttribute* CreateFaceAttribute( void){ return new BlockAttribute( m_Parent); }
 };
 
 #endif

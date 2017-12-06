@@ -85,10 +85,9 @@ bool Face::Divide(Vertex* start, Vertex* end, Edge** ppOut)
 	right->SetFace( this);
 
 	//面の生成
-	auto face = m_Model->CreateFace( endHalfEdge);
+	auto face = m_Model->CreateFace( left);
 
 	//面にハーフエッジを設定
-	face->SetHalfEdge( left);
 	this->SetHalfEdge( right);
 	
 	//ハーフエッジに面を設定
@@ -113,8 +112,9 @@ bool Face::Divide(Vertex* start, Vertex* end, Edge** ppOut)
 		he = he->GetNext();
 	}
 
+	//面の更新
 	this->m_Attribute->Update();
-	face->m_Attribute->Update();
+	//face->m_Attribute->Update();
 
 	return true;
 }

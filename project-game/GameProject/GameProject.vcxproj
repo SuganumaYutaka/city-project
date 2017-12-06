@@ -162,7 +162,10 @@
     <ClCompile Include="AudioSource.cpp" />
     <ClCompile Include="BillboardRenderer.cpp" />
     <ClCompile Include="BillboardShader.cpp" />
+    <ClCompile Include="BlockView.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="Building.cpp" />
+    <ClCompile Include="BuildingView.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="CityAttribute.cpp" />
@@ -192,7 +195,6 @@
     <ClCompile Include="InputKeyboard.cpp" />
     <ClCompile Include="InputMouse.cpp" />
     <ClCompile Include="JunctionView.cpp" />
-    <ClCompile Include="LandView.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
@@ -203,6 +205,7 @@
     <ClCompile Include="MeshFieldCollider.cpp" />
     <ClCompile Include="MeshFieldRenderer.cpp" />
     <ClCompile Include="MeshPlaneRenderer.cpp" />
+    <ClCompile Include="MeshPolygonRenderer.cpp" />
     <ClCompile Include="Mode.cpp" />
     <ClCompile Include="ModeGame.cpp" />
     <ClCompile Include="ModeResult.cpp" />
@@ -296,7 +299,10 @@
     <ClInclude Include="AudioSource.h" />
     <ClInclude Include="BillboardRenderer.h" />
     <ClInclude Include="BillboardShader.h" />
+    <ClInclude Include="BlockView.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Building.h" />
+    <ClInclude Include="BuildingView.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="CityAttribute.h" />
@@ -328,7 +334,6 @@
     <ClInclude Include="InputKeyboard.h" />
     <ClInclude Include="InputMouse.h" />
     <ClInclude Include="JunctionView.h" />
-    <ClInclude Include="LandView.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Material.h" />
@@ -338,6 +343,7 @@
     <ClInclude Include="MeshFieldCollider.h" />
     <ClInclude Include="MeshFieldRenderer.h" />
     <ClInclude Include="MeshPlaneRenderer.h" />
+    <ClInclude Include="MeshPolygonRenderer.h" />
     <ClInclude Include="Mode.h" />
     <ClInclude Include="ModeGame.h" />
     <ClInclude Include="ModeResult.h" />

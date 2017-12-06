@@ -1,73 +1,70 @@
 /*==============================================================================
-	
-	CityController.cpp - 町の自動生成ーコントローラ
-														Author : Yutaka Suganuma
-														Date   : 2017/12/1
+
+    BuildingView.cpp - 町の自動生成ー建物ビュー
+                                                       Author : Yutaka Suganuma
+                                                       Date   : 2017/12/3
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "CityController.h"
+#include "BuildingView.h"
 #include "GameObject.h"
 #include "ComponentInclude.h"
 
-#include "HalfEdgeModel.h"
-#include "CityRule.h"
+#include "Building.h"
 #include "CityAttribute.h"
-
-#include "InputKeyboard.h"
 
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
-	マクロ定義
-------------------------------------------------------------------------------*/
-#define CITY_WIDTH (500.0f)
-#define CITY_HEIGHT (500.0f)
-
-
-/*------------------------------------------------------------------------------
 	コンポーネント生成
 ------------------------------------------------------------------------------*/
-Component* CityController::Create(GameObject* gameObject)
+Component* BuildingView::Create(GameObject* gameObject)
 {
-	return gameObject->AddComponent<CityController>();
+	return gameObject->AddComponent<BuildingView>();
 }
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
-CityController::CityController( GameObject* pGameObject)
+BuildingView::BuildingView( GameObject* pGameObject)
 {
 	m_pGameObject = pGameObject;
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 
-	//町の自動生成システム設定のハーフエッジデータ構造を生成
-	m_Model = new Model( new CityRule(), new CityAttributeFactory( m_pGameObject));
+	m_Building = NULL;
+	m_Attribute = NULL;
 
-	//はじめの面を生成
-	Vector3 sizeHalf( CITY_WIDTH * 0.5f, 0.0f, CITY_HEIGHT * 0.5f);
-	m_Model->CreateFirstFace( 
-		Vector3( -sizeHalf.x, 0.0f, +sizeHalf.z), Vector3( +sizeHalf.x, 0.0f, +sizeHalf.z),
-		Vector3( -sizeHalf.x, 0.0f, -sizeHalf.z), Vector3( +sizeHalf.x, 0.0f, -sizeHalf.z));
+	//レンダラーの設定
+	m_Renderer = m_pGameObject->AddComponent<MeshPolygonRenderer>();
 }
 
 /*------------------------------------------------------------------------------
 	終了処理
 ------------------------------------------------------------------------------*/
-void CityController::Uninit( void)
+void BuildingView::Uninit( void)
 {
-	delete m_Model;
+	
 }
 
 /*------------------------------------------------------------------------------
-	更新
+	更新処理
 ------------------------------------------------------------------------------*/
-void CityController::Update()
+void BuildingView::Update( void)
 {
-	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_SPACE))
-	{
-		m_Model->DivideAllFaces();
-	}
+	
 }
+
+/*------------------------------------------------------------------------------
+	建物情報の設定
+------------------------------------------------------------------------------*/
+void BuildingView::SetBuilding( Building* building, BlockAttribute* attribute)
+{
+	m_Building = building;
+	m_Attribute = attribute;
+
+	//View情報の更新
+	m_Renderer->SetVertices( building->GetVertices());
+}
+

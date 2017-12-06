@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    LandView.cpp - 町の自動生成ー区画ビュー
+    BlockView.cpp - 町の自動生成ー区画ビュー
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/12/1
 ==============================================================================*/
@@ -8,7 +8,7 @@
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "LandView.h"
+#include "BlockView.h"
 #include "GameObject.h"
 #include "ComponentInclude.h"
 
@@ -20,15 +20,15 @@ using namespace HalfEdgeDataStructure;
 /*------------------------------------------------------------------------------
 	コンポーネント生成
 ------------------------------------------------------------------------------*/
-Component* LandView::Create(GameObject* gameObject)
+Component* BlockView::Create(GameObject* gameObject)
 {
-	return gameObject->AddComponent<LandView>();
+	return gameObject->AddComponent<BlockView>();
 }
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
-LandView::LandView( GameObject* pGameObject)
+BlockView::BlockView( GameObject* pGameObject)
 {
 	m_pGameObject = pGameObject;
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
@@ -43,7 +43,7 @@ LandView::LandView( GameObject* pGameObject)
 /*------------------------------------------------------------------------------
 	終了処理
 ------------------------------------------------------------------------------*/
-void LandView::Uninit( void)
+void BlockView::Uninit( void)
 {
 	m_Attribute->UnregisterView();
 }
@@ -51,7 +51,7 @@ void LandView::Uninit( void)
 /*------------------------------------------------------------------------------
 	更新処理
 ------------------------------------------------------------------------------*/
-void LandView::Update( void)
+void BlockView::Update( void)
 {
 	if (!m_IsUpdatedAttribute)
 	{
@@ -60,14 +60,14 @@ void LandView::Update( void)
 
 	m_IsUpdatedAttribute = false;
 
-	//View情報の更新
-
+	//建物を再生成
+	m_Attribute->CreateBuilding();
 }
 
 /*------------------------------------------------------------------------------
 	属性情報の設定
 ------------------------------------------------------------------------------*/
-void LandView::SetAttribute( LandAttribute* attribute)
+void BlockView::SetAttribute( BlockAttribute* attribute)
 { 
 	if( m_Attribute)
 	{	
@@ -76,7 +76,7 @@ void LandView::SetAttribute( LandAttribute* attribute)
 	
 	m_Attribute = attribute;
 
-	//View情報の更新
-
+	//建物を生成
+	m_Attribute->CreateBuilding();
 }
 
