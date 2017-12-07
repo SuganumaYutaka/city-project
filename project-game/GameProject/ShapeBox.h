@@ -1,45 +1,44 @@
 /*==============================================================================
 
-    BlockView.h - 町の自動生成ー区画ビュー
+    ShapeBox.h - 建物の自動生成ーボックス
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/1
+                                                       Date   : 2017/12/8
 ==============================================================================*/
-#ifndef _BLOCK_VIEW_H_
-#define _BLOCK_VIEW_H_
+#ifndef _SHAPE_BOX_H_
+#define _SHAPE_BOX_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-#include "Component.h"
+#include "Shape.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class BlockAttribute;
-class Polygon3DRenderer;
+class GameObject;
+class Roof;
+class Wall;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BlockView : public Component
+class ShapeBox : public Shape
 {
 public:
-	static Component* Create( GameObject* gameObject);
+	ShapeBox( GameObject* buildingObject);
+	~ShapeBox();
 
-	BlockView( GameObject* pGameObject);
-	void Uninit( void);
+	void Init( const Vector3& position, float rotation, const Vector3& size);
 
-	void SetAttribute( BlockAttribute* attribute);
-
-	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
-
+	void Move( const Vector3& value) override;
+	void Rotate( float value) override;
+	void Scaling( const Vector3& rate) override;
+	
 private:
-	void Update(void);
-
-	BlockAttribute* m_Attribute;
-
-	bool m_IsUpdatedAttribute;
+	Vector3 m_Position;
+	float m_Rotation;
+	Vector3 m_Size;
 };
 
 #endif

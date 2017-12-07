@@ -1,45 +1,49 @@
 /*==============================================================================
 
-    BlockView.h - 町の自動生成ー区画ビュー
+    Floor.h - 建物の自動生成ーフロア（階層）
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/1
+                                                       Date   : 2017/12/7
 ==============================================================================*/
-#ifndef _BLOCK_VIEW_H_
-#define _BLOCK_VIEW_H_
+#ifndef _FLOOR_H_
+#define _FLOOR_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-#include "Component.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class BlockAttribute;
-class Polygon3DRenderer;
+class Tile;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BlockView : public Component
+class Floor
 {
 public:
-	static Component* Create( GameObject* gameObject);
+	Floor();
+	~Floor();
+	void Init( float height, float width);
+	
+	Tile* GetTile( void) { return m_Tile;}
 
-	BlockView( GameObject* pGameObject);
-	void Uninit( void);
+	bool SetVertexBuffer( VERTEX_3D* pVtx, const Vector3& bottomLeftPosition, const Vector3& normal, const Vector3& vector);
+	bool SetVertexBufferCurve( VERTEX_3D* pVtx, const Vector3& bottomLeftPosition, const Vector3& center, float radius);
 
-	void SetAttribute( BlockAttribute* attribute);
+	int CulcCountVertex( void);
+	int CulcCountVertexCurve( float radius);
 
-	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
+	int CulcCountPolygon( void);
+	int CulcCountPolygonCurve( float radius);
+
+	float GetHeight( void) { return m_Height;}
 
 private:
-	void Update(void);
-
-	BlockAttribute* m_Attribute;
-
-	bool m_IsUpdatedAttribute;
+	Tile* m_Tile;
+	float m_Height;
+	float m_Width;
 };
 
 #endif

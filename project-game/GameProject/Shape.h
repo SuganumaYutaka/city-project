@@ -1,45 +1,51 @@
 /*==============================================================================
 
-    BlockView.h - 町の自動生成ー区画ビュー
+    Shape.h - 建物の自動生成ー形状
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/1
+                                                       Date   : 2017/12/7
 ==============================================================================*/
-#ifndef _BLOCK_VIEW_H_
-#define _BLOCK_VIEW_H_
+#ifndef _SHAPE_H_
+#define _SHAPE_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-#include "Component.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class BlockAttribute;
-class Polygon3DRenderer;
+class GameObject;
+class Roof;
+class Wall;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BlockView : public Component
+class Shape
 {
 public:
-	static Component* Create( GameObject* gameObject);
+	virtual void Move( const Vector3& value) = 0;
+	virtual void Rotate( float value) = 0;
+	virtual void Scaling( const Vector3& rate) = 0;
 
-	BlockView( GameObject* pGameObject);
+protected:
 	void Uninit( void);
+	void AddRoof( Roof* roof);
+	void AddWall( Wall* wall);
+	void SubRoof(Roof* roof);
+	void SubWall( Wall* wall);
 
-	void SetAttribute( BlockAttribute* attribute);
+	std::list< Roof*>& GetRoofs( void) { return m_Roofs;}
+	std::list< Wall*>& GetWalls( void) { return m_Walls;}
 
-	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
-
+	void SetBuildingObject( GameObject* buildingObject) { m_BuildingObject = buildingObject;}
+	GameObject* GetBuildingObject( void) { return m_BuildingObject;}
+	
 private:
-	void Update(void);
-
-	BlockAttribute* m_Attribute;
-
-	bool m_IsUpdatedAttribute;
+	std::list< Roof*> m_Roofs;
+	std::list< Wall*> m_Walls;
+	GameObject* m_BuildingObject;
 };
 
 #endif

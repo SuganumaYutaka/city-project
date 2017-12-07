@@ -165,6 +165,7 @@
     <ClCompile Include="BlockView.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Building.cpp" />
+    <ClCompile Include="BuildingGeometry.cpp" />
     <ClCompile Include="BuildingView.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraController.cpp" />
@@ -182,6 +183,7 @@
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EditSystem.cpp" />
     <ClCompile Include="Face.cpp" />
+    <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="HalfEdge.cpp" />
@@ -195,6 +197,7 @@
     <ClCompile Include="InputKeyboard.cpp" />
     <ClCompile Include="InputMouse.cpp" />
     <ClCompile Include="JunctionView.cpp" />
+    <ClCompile Include="Land.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
@@ -224,6 +227,8 @@
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="ShadowVLShader.cpp" />
+    <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="ShapeBox.cpp" />
     <ClCompile Include="SkinMeshModel.cpp" />
     <ClCompile Include="SkinMeshRenderer.cpp" />
     <ClCompile Include="SkinMeshShader.cpp" />
@@ -237,12 +242,15 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TextureUV.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TitleController.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="VertexLightingShader.cpp" />
+    <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="WallRenderer.cpp" />
     <ClCompile Include="XModelData.cpp" />
     <ClCompile Include="XModelManager.cpp" />
     <ClCompile Include="XModelRenderer.cpp" />
@@ -302,6 +310,7 @@
     <ClInclude Include="BlockView.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Building.h" />
+    <ClInclude Include="BuildingGeometry.h" />
     <ClInclude Include="BuildingView.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraController.h" />
@@ -321,6 +330,7 @@
     <ClInclude Include="EditSystem.h" />
     <ClInclude Include="Face.h" />
     <ClInclude Include="Factory.h" />
+    <ClInclude Include="Floor.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="HalfEdge.h" />
@@ -334,6 +344,7 @@
     <ClInclude Include="InputKeyboard.h" />
     <ClInclude Include="InputMouse.h" />
     <ClInclude Include="JunctionView.h" />
+    <ClInclude Include="Land.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Material.h" />
@@ -360,10 +371,13 @@
     <ClInclude Include="RenderTexture.h" />
     <ClInclude Include="ResultController.h" />
     <ClInclude Include="RoadView.h" />
+    <ClInclude Include="Roof.h" />
     <ClInclude Include="Rule.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="ShadowVLShader.h" />
+    <ClInclude Include="Shape.h" />
+    <ClInclude Include="ShapeBox.h" />
     <ClInclude Include="SkinMeshDataFormat.h" />
     <ClInclude Include="SkinMeshModel.h" />
     <ClInclude Include="SkinMeshRenderer.h" />
@@ -381,12 +395,15 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TextureUV.h" />
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="TitleController.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexLightingShader.h" />
+    <ClInclude Include="Wall.h" />
+    <ClInclude Include="WallRenderer.h" />
     <ClInclude Include="XModelData.h" />
     <ClInclude Include="XModelManager.h" />
     <ClInclude Include="XModelRenderer.h" />

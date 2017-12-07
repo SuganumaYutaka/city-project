@@ -1,11 +1,11 @@
 /*==============================================================================
 
-    BlockView.h - 町の自動生成ー区画ビュー
+    BuildingGeometry.h - 建物の自動生成ー建物ジオメトリ
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/1
+                                                       Date   : 2017/12/7
 ==============================================================================*/
-#ifndef _BLOCK_VIEW_H_
-#define _BLOCK_VIEW_H_
+#ifndef _BUILDING_GEOMETRY_H_
+#define _BUILDING_GEOMETRY_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -16,30 +16,28 @@
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class BlockAttribute;
-class Polygon3DRenderer;
+class Land;
+class Shape;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BlockView : public Component
+class BuildingGeometry : public Component
 {
 public:
 	static Component* Create( GameObject* gameObject);
 
-	BlockView( GameObject* pGameObject);
+	BuildingGeometry( GameObject* pGameObject);
 	void Uninit( void);
 
-	void SetAttribute( BlockAttribute* attribute);
-
-	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
+	bool Init( Land* land);
 
 private:
 	void Update(void);
 
-	BlockAttribute* m_Attribute;
-
-	bool m_IsUpdatedAttribute;
+	Land* m_land;
+	std::list< Shape*> m_Shapes;
+	
 };
 
 #endif

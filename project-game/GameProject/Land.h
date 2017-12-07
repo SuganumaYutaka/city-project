@@ -1,45 +1,37 @@
 /*==============================================================================
 
-    BlockView.h - 町の自動生成ー区画ビュー
+    Land.h - 建物の自動生成ー土地
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/1
+                                                       Date   : 2017/12/7
 ==============================================================================*/
-#ifndef _BLOCK_VIEW_H_
-#define _BLOCK_VIEW_H_
+#ifndef _LAND_H_
+#define _LAND_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-#include "Component.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class BlockAttribute;
-class Polygon3DRenderer;
+class MeshPolygonRenderer;
+class GameObject;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BlockView : public Component
+class Land
 {
 public:
-	static Component* Create( GameObject* gameObject);
+	Land( GameObject* buildingObject);
+	void Init( const std::vector<Vector3>& vertices);
 
-	BlockView( GameObject* pGameObject);
-	void Uninit( void);
-
-	void SetAttribute( BlockAttribute* attribute);
-
-	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
+	const std::vector<Vector3>& GetVertices( void) { return m_Vertices;}
 
 private:
-	void Update(void);
-
-	BlockAttribute* m_Attribute;
-
-	bool m_IsUpdatedAttribute;
+	std::vector<Vector3> m_Vertices;
+	MeshPolygonRenderer* m_Renderer;
 };
 
 #endif

@@ -1,45 +1,54 @@
 /*==============================================================================
 
-    BlockView.h - 町の自動生成ー区画ビュー
+    WallRenderer.h - 建物の自動生成ー壁描画
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/1
+                                                       Date   : 2017/12/7
 ==============================================================================*/
-#ifndef _BLOCK_VIEW_H_
-#define _BLOCK_VIEW_H_
+#ifndef _WALL_RENDERER_H_
+#define _WALL_RENDERER_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-#include "Component.h"
+#include "Renderer.h"
+#include "ShaderManager.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class BlockAttribute;
-class Polygon3DRenderer;
+class Material;
+
+/*------------------------------------------------------------------------------
+	マクロ定義
+------------------------------------------------------------------------------*/
+
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BlockView : public Component
+class WallRenderer : public Renderer
 {
 public:
 	static Component* Create( GameObject* gameObject);
 
-	BlockView( GameObject* pGameObject);
+	WallRenderer( GameObject *pGameObject);
 	void Uninit( void);
 
-	void SetAttribute( BlockAttribute* attribute);
+	void Update( void);
+	void Draw( Camera* pCamera);
+	void LoadTexture( std::string fileName);
 
-	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
+	void SetShader( EShaderType Type);
+
+	VERTEX_3D* StartSetVertexBuffer( int countVertex, int countPolygon);
+	void EndSetVertexBuffer( void);
 
 private:
-	void Update(void);
+	Material *m_pMaterial;
+	int m_CountVertex;
+	int m_CountPolygon;
 
-	BlockAttribute* m_Attribute;
-
-	bool m_IsUpdatedAttribute;
 };
 
 #endif

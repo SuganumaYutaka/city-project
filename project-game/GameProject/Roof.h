@@ -1,45 +1,35 @@
 /*==============================================================================
 
-    BlockView.h - 町の自動生成ー区画ビュー
+    Roof.h - 建物の自動生成ー屋根
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/1
+                                                       Date   : 2017/12/7
 ==============================================================================*/
-#ifndef _BLOCK_VIEW_H_
-#define _BLOCK_VIEW_H_
+#ifndef _ROOF_H_
+#define _ROOF_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-#include "Component.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class BlockAttribute;
-class Polygon3DRenderer;
+class GameObject;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BlockView : public Component
+class Roof
 {
 public:
-	static Component* Create( GameObject* gameObject);
+	Roof( GameObject* buildingObject){}
+	//void Init( const std::vector<Vector3>& vertices);
 
-	BlockView( GameObject* pGameObject);
-	void Uninit( void);
-
-	void SetAttribute( BlockAttribute* attribute);
-
-	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
-
+	
 private:
-	void Update(void);
+	
 
-	BlockAttribute* m_Attribute;
-
-	bool m_IsUpdatedAttribute;
 };
 
 #endif
