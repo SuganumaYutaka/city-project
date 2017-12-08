@@ -11,6 +11,7 @@
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Vector2.h"
+#include <d3dx9.h>
 #include <string>
 
 /*------------------------------------------------------------------------------
@@ -20,27 +21,26 @@ class TextureUV
 {
 public:
 	TextureUV();
-	TextureUV( const Vector2 &Pos, const Vector2 &Size);
-	TextureUV( const Vector2 &NumPart, const int nPart);
 
-	Vector2 UV[ 4];
-	Vector2 m_Pos;			//UV位置（0.0f ～ 1.0f）
-	Vector2 m_Size;			//UVサイズ
-	Vector2 m_NumPart;		//分割数
-	int m_nPart;			//分割した画像の何番目に当たるか
+	void Init( void);
+	void Init( const Vector2 &topLeftPosition, const Vector2 &size);
 
-	void Scroll( const Vector2 &Value);
-	void SetScroll( const Vector2 &Pos = Vector2( 0.0f, 0.0f), const Vector2 &Size = Vector2( 1.0f, 1.0f));
-	void AddPart( int nValue = 1);
-	void SetPart( int NumPartX, int NumPartY, int nPart);
+	void Scroll( const Vector2 &value);
 
-	int GetMaxPart() { return (int)m_NumPart.x * (int)m_NumPart.y; }
+	const Vector2& GetTopLeftPosition( void) { return m_TopLeftPosition;}
+	const Vector2& GetSize( void){ return m_Size;}
+
+	D3DXVECTOR2 GetTopLeft( void);
+	D3DXVECTOR2 GetTopRight( void);
+	D3DXVECTOR2 GetBottomLeft( void);
+	D3DXVECTOR2 GetBottomRight( void);
 
 	std::string ConvertToString();
 	int ConvertFromString(std::string& str, int current);
 
 private:
-	
+	Vector2 m_TopLeftPosition;
+	Vector2 m_Size;
 };
 
 

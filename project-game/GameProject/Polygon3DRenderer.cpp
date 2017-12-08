@@ -150,10 +150,10 @@ void Polygon3DRenderer::SetVtxBuffer( void)
 	pVtx[ 3].Color = m_Color;
 
 	//UV座標（Z字）
-	pVtx[ 0].Tex = D3DXVECTOR2( m_TextureUV.UV[ 0].x, m_TextureUV.UV[ 0].y);
-	pVtx[ 1].Tex = D3DXVECTOR2( m_TextureUV.UV[ 1].x, m_TextureUV.UV[ 1].y);
-	pVtx[ 2].Tex = D3DXVECTOR2( m_TextureUV.UV[ 2].x, m_TextureUV.UV[ 2].y);
-	pVtx[ 3].Tex = D3DXVECTOR2( m_TextureUV.UV[ 3].x, m_TextureUV.UV[ 3].y);
+	pVtx[ 0].Tex = m_TextureUV.GetTopLeft();
+	pVtx[ 1].Tex = m_TextureUV.GetTopRight();
+	pVtx[ 2].Tex = m_TextureUV.GetBottomLeft();
+	pVtx[ 3].Tex = m_TextureUV.GetBottomRight();
 
 	//アンロック
 	m_pVtxBuff->Unlock();

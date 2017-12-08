@@ -97,7 +97,8 @@ void VertexLightingShader::Set(Camera* pCamera, Renderer* pRenderer, Material* p
 	auto list = Light::GetList();
 	for (auto light : list)
 	{
-		m_pEffect->SetVector( m_hDirLight, light->GetDirection());
+		D3DXVECTOR4 lightDir( light->GetDirection().ConvertToDX());
+		m_pEffect->SetVector( m_hDirLight, &lightDir);
 		m_pEffect->SetVector( m_hLightAmb, light->GetAmbient());
 		m_pEffect->SetVector( m_hLightDif, light->GetDiffuse());
 	}

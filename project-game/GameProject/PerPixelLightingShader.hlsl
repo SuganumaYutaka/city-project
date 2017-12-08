@@ -72,7 +72,7 @@ PS_INPUT vs(VS_INPUT input)
 	//ŠgŽU”½ŽËŒõ
 	float4 LocalLight = normalize( mul( g_DirLight, g_mtxWorldInv));
 	LocalLight = -LocalLight;
-	output.col = saturate( ( g_LightAmb * g_MaterialAmb) + ( g_LightDif * g_MaterialDif) * max( 0, dot( LocalLight, input.normal)));
+	output.col = saturate( ( g_LightAmb * g_MaterialAmb) + ( g_LightDif * g_MaterialDif) * max( 0, dot( LocalLight.xyz, input.normal)));
 
 	return output;
 }

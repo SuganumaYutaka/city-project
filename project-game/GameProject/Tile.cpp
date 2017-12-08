@@ -52,10 +52,12 @@ Vector3 Tile::SetVertexBuffer(VERTEX_3D* pVtx, const Vector3& bottomLeftPosition
 	}
 
 	pVtx[0].Tex = pVtx[5].Tex = D3DXVECTOR2( 0.0f, 0.0f); 
-	for (int i = 0; i < 4; i++)
-	{
-		pVtx[ i + 1].Tex = m_TexUV.UV[ i].ConvertToDX();
-	}
+	
+	//UV（N字）
+	pVtx[1].Tex = m_TexUV.GetBottomLeft();
+	pVtx[2].Tex = m_TexUV.GetTopLeft();
+	pVtx[3].Tex = m_TexUV.GetBottomRight();
+	pVtx[4].Tex = m_TexUV.GetTopRight();
 
 	pVtx += 6;
 
@@ -79,7 +81,9 @@ Vector3 Tile::SetVertexBufferCurve(VERTEX_3D* pVtx, const Vector3& bottomLeftPos
 	D3DXVECTOR3 positionFromCenter = (bottomLeftPosition - center).ConvertToDX();
 
 	//UV値設定の準備
-
+	D3DXVECTOR2 topTexUV = m_TexUV.GetTopLeft();
+	D3DXVECTOR2 bottomTexUV = m_TexUV.GetBottomLeft();
+	float deltaTexU = m_TexUV.GetSize().x / (float)( countDivide + 1);
 	
 	int countVertex = CulcCountVertexCurve( radius);
 	for (int i = 1; i < countVertex - 2; i++)
@@ -99,10 +103,13 @@ Vector3 Tile::SetVertexBufferCurve(VERTEX_3D* pVtx, const Vector3& bottomLeftPos
 		pVtx[ i].Color = pVtx[ i + 1].Color = D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f);
 
 		//UVの設定
+		pVtx[ i].Tex = bottomTexUV;
+		pVtx[ i + 1].Tex = topTexUV;
 		
-		
-		//次の設定に向けて回転
+		//次の設定に向けて更新
 		D3DXVec3TransformCoord( &positionFromCenter, &positionFromCenter, &mtxRotate);
+		topTexUV.x += deltaTexU;
+		bottomTexUV.x += deltaTexU;
 	}
 
 	//returnする次のbottomLeftPositionを設定

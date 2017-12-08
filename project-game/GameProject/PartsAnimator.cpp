@@ -81,8 +81,8 @@ void PartsAnimator::Update(void)
 	D3DXQUATERNION NowRot;
 	D3DXQUATERNION NextRot;
 	float hoge = (float)m_nCntFrame / (float)(m_nChangeFrame);
-
-	for( int nCntParts = 0; nCntParts < vecParts.size(); nCntParts++)
+	int sizeParts = vecParts.size();
+	for( int nCntParts = 0; nCntParts < sizeParts; nCntParts++)
 	{
 		//位置
 		//Pos = keysetNow.vecKey[ nCntParts].Position + ( keysetNext.vecKey[ nCntParts].Position - keysetNow.vecKey[ nCntParts].Position) * (float)m_nCntFrame / m_nChangeFrame;
@@ -520,7 +520,8 @@ void PartsAnimator::LoadAnimator( std::string fileName)
 void PartsAnimator::SetFirstMotion()
 {
 	//データからパーツの位置・角度設定
-	for( int nCntParts = 0; nCntParts < vecParts.size(); nCntParts++)
+	int sizeParts = vecParts.size();
+	for( int nCntParts = 0; nCntParts < sizeParts; nCntParts++)
 	{
 		vecParts[nCntParts]->m_pTransform->SetLocalPosition( vecMotion[ m_nNowMotion].vecKeySet[ m_nNowKey].vecKey[ nCntParts].Position);
 		vecParts[nCntParts]->m_pTransform->SetLocalRotationEuler( vecMotion[ m_nNowMotion].vecKeySet[ m_nNowKey].vecKey[ nCntParts].Rotation);

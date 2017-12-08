@@ -61,7 +61,7 @@ int AudioSource::LoadSound( std::string FileName, int nCntLoop)
 ------------------------------------------------------------------------------*/
 void AudioSource::Play(int nSoundIdx)
 {
-	if (nSoundIdx >= 0 && nSoundIdx < m_vecData.size())
+	if (nSoundIdx >= 0 && nSoundIdx < (int)m_vecData.size())
 	{
 		m_vecData[ nSoundIdx]->Play();
 	}
@@ -72,7 +72,7 @@ void AudioSource::Play(int nSoundIdx)
 ------------------------------------------------------------------------------*/
 void AudioSource::Stop(int nSoundIdx)
 {
-	if (nSoundIdx >= 0 && nSoundIdx < m_vecData.size())
+	if (nSoundIdx >= 0 && nSoundIdx < (int)m_vecData.size())
 	{
 		m_vecData[ nSoundIdx]->Stop();
 	}

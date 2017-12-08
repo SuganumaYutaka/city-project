@@ -73,19 +73,17 @@ void Light::Update()
 /*------------------------------------------------------------------------------
 	ˆÊ’uŽæ“¾ŠÖ”
 ------------------------------------------------------------------------------*/
-D3DXVECTOR4* Light::GetPosition( void)
+Vector3 Light::GetPosition( void)
 {
-	auto Pos = m_pTransform->GetWorldPosition();
-	return &D3DXVECTOR4( Pos.x, Pos.y, Pos.z, 0.0f);
+	return m_pTransform->GetWorldPosition();
 }
 
 /*------------------------------------------------------------------------------
 	•ûŒüŽæ“¾ŠÖ”
 ------------------------------------------------------------------------------*/
-D3DXVECTOR4* Light::GetDirection( void)
+Vector3 Light::GetDirection( void)
 {
-	Vector3 Dir = m_pTransform->GetForward();
-	return &D3DXVECTOR4( Dir.x, Dir.y, Dir.z, 0.0f);
+	return m_pTransform->GetForward();
 }
 
 /*------------------------------------------------------------------------------
