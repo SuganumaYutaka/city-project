@@ -61,7 +61,7 @@ void ShapeBox::Rotate( float value)
 /*------------------------------------------------------------------------------
 	ägëÂèkè¨
 ------------------------------------------------------------------------------*/
-void ShapeBox::Scaling(const Vector3& rate)
+void ShapeBox::Scale(const Vector3& value)
 {
 
 }

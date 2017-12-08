@@ -33,7 +33,7 @@ public:
 
 	void Move( const Vector3& value) override;
 	void Rotate( float value) override;
-	void Scaling( const Vector3& rate) override;
+	void Scale( const Vector3& value) override;
 	
 private:
 	Vector3 m_Position;

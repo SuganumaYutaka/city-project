@@ -27,7 +27,7 @@ class Shape
 public:
 	virtual void Move( const Vector3& value) = 0;
 	virtual void Rotate( float value) = 0;
-	virtual void Scaling( const Vector3& rate) = 0;
+	virtual void Scale( const Vector3& value) = 0;
 
 protected:
 	void Uninit( void);

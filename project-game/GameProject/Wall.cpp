@@ -47,6 +47,7 @@ void Wall::Init( float height, float width, const Vector3& bottomLeftPosition, c
 {
 	m_Height = height;
 	m_Width = width;
+	m_BottomLeftPosition = bottomLeftPosition;
 
 	//TODO:フロアの生成
 
@@ -61,6 +62,7 @@ void Wall::Init( float height, float width, const Vector3& bottomLeftPosition, c
 {
 	m_Height = height;
 	m_Width = width;
+	m_BottomLeftPosition = bottomLeftPosition;
 
 	//TODO:フロアの生成
 
@@ -73,6 +75,8 @@ void Wall::Init( float height, float width, const Vector3& bottomLeftPosition, c
 ------------------------------------------------------------------------------*/
 bool Wall::UpdateView( const Vector3& bottomLeftPosition, const Vector3& normal)
 {
+	m_BottomLeftPosition = bottomLeftPosition;
+
 	//Rendererの更新
 	Vector3 position = bottomLeftPosition;
 	Vector3 vector = Vector3::Cross( normal, Vector3(0.0f, 1.0f, 0.0f)).Normalize();
@@ -95,6 +99,8 @@ bool Wall::UpdateView( const Vector3& bottomLeftPosition, const Vector3& normal)
 ------------------------------------------------------------------------------*/
 bool Wall::UpdateView( const Vector3& bottomLeftPosition, const Vector3& center, float radius)
 {
+	m_BottomLeftPosition = bottomLeftPosition;
+
 	//Rendererの更新
 	Vector3 position = bottomLeftPosition;
 
