@@ -42,15 +42,8 @@ public:
 	void SetColor( float R, float G, float B, float A) { m_Color = D3DXCOLOR( R, G, B, A); SetVtxBuffer();}
 	void SetAlpha( float A) { m_Color.a = A; SetVtxBuffer();}
 
-	void UVScroll( const Vector2 &Value) { m_TextureUV.Scroll( Value); SetVtxBuffer();}
-	void UVSetScroll( const Vector2 &Pos = Vector2( 0.0f, 0.0f), const Vector2 &Size = Vector2( 1.0f, 1.0f))
-	{ 
-		m_TextureUV.SetScroll( Pos, Size);
-		SetVtxBuffer();
-	}
-	void UVAddPart( int nValue = 1) { m_TextureUV.AddPart( nValue); SetVtxBuffer();}
-	void UVSetPart( int NumPartX, int NumPartY, int nPart = 0) { m_TextureUV.SetPart( NumPartX, NumPartY, nPart); SetVtxBuffer();}
-	int UVGetMaxPart( void) { return m_TextureUV.GetMaxPart(); }
+	void ScrollUV( const Vector2& value) { m_TextureUV.Scroll( value); }
+	void SetUV( const TextureUV& texUV) { m_TextureUV = texUV;}
 
 	void SetShader( EShaderType Type);
 	

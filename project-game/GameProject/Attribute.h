@@ -36,8 +36,6 @@ namespace HalfEdgeDataStructure
 		void SetVertex( Vertex* vertex) { if( !m_Vertex) m_Vertex = vertex; }
 		virtual void Init( void){}
 		virtual void Update( void){}
-
-	protected:
 		Vertex* GetVertex( void) { return m_Vertex;}
 
 	private:
@@ -52,8 +50,6 @@ namespace HalfEdgeDataStructure
 		void SetEdge( Edge* edge) { if( !m_Edge) m_Edge = edge; }
 		virtual void Init( void){}
 		virtual void Update( void){}
-	
-	protected:
 		Edge* GetEdge( void) { return m_Edge;}
 
 	private:
@@ -68,8 +64,6 @@ namespace HalfEdgeDataStructure
 		void SetFace( Face* face) { if( !m_Face) m_Face = face; }
 		virtual void Init( void){}
 		virtual void Update( void){}
-
-	protected:
 		Face* GetFace( void) { return m_Face;}
 
 	private:

@@ -63,8 +63,5 @@ void BuildingView::SetBuilding( Building* building, BlockAttribute* attribute)
 {
 	m_Building = building;
 	m_Attribute = attribute;
-
-	//Viewî•ñ‚ÌXV
-	m_Renderer->SetVertices( building->GetVertices());
 }
 

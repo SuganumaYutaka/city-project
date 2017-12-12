@@ -41,7 +41,7 @@ public:
 	LONG GetAxisX( void);
 	LONG GetAxisY( void);
 	LONG GetWheel( void);
-	Vector2 GetScreenPosition(void) { return Vector2(m_posMouseWorld.x, m_posMouseWorld.y);}
+	Vector2 GetScreenPosition(void) { return Vector2( (float)m_posMouseWorld.x, (float)m_posMouseWorld.y);}
 
 	//const Vector2 Get2DDirection();
 	//const Vector3 Get3DDirection();

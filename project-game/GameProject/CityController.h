@@ -17,6 +17,7 @@
 	‘O•ûéŒ¾
 ------------------------------------------------------------------------------*/
 class GameObject;
+class BuildingRuleFactory;
 
 namespace HalfEdgeDataStructure
 {
@@ -38,7 +39,7 @@ private:
 	void Update();
 
 	HalfEdgeDataStructure::Model* m_Model;
-
+	BuildingRuleFactory* m_BuildingRuleFactory;
 };
 
 

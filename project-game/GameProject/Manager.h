@@ -23,6 +23,7 @@
 #include <algorithm>
 #include <assert.h>
 #include <fstream>
+#include <random>
 
 //DirectX9
 #include <d3dx9.h>	//<d3d9.h>Ç‡ä‹Ç‹ÇÍÇÈ

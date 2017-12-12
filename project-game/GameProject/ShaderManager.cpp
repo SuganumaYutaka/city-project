@@ -76,7 +76,7 @@ ShaderManager::~ShaderManager()
 Shader *ShaderManager::Load( EShaderType Type)
 {
 	//範囲をチェック
-	if (Type < 0 || Type >= m_vecShaderSet.capacity())
+	if (Type < 0 || Type >= (int)m_vecShaderSet.capacity())
 	{
 		assert(false);
 		return NULL;

@@ -75,7 +75,8 @@ void SkinMeshModel::LoadModel( std::string FileName, float scaleRate)
 	fread(&size, sizeof(int), 1, pFile);
 	vecAnimationClip.resize(size);
 	//for (auto anim : m_vecAnimation)
-	for( int i = 0; i < vecAnimationClip.size(); i++)
+	int sizeAnimation = vecAnimationClip.size();
+	for( int i = 0; i < sizeAnimation; i++)
 	{
 		AnimationClip& anim = vecAnimationClip[i];
 

@@ -14,6 +14,7 @@
 
 #include "Polygon3DRenderer.h"
 #include "CityAttribute.h"
+#include "BlockModel.h"
 
 using namespace HalfEdgeDataStructure;
 
@@ -36,8 +37,8 @@ BlockView::BlockView( GameObject* pGameObject)
 	m_Attribute = NULL;
 	m_IsUpdatedAttribute = false;
 
-	//ƒŒƒ“ƒ_ƒ‰[‚ÌÝ’è
-	
+	//ƒ‚ƒfƒ‹‚ÌÝ’è
+	m_BlockModel = m_pGameObject->AddComponent<BlockModel>();
 }
 
 /*------------------------------------------------------------------------------
@@ -60,8 +61,8 @@ void BlockView::Update( void)
 
 	m_IsUpdatedAttribute = false;
 
-	//Œš•¨‚ðÄ¶¬
-	m_Attribute->CreateBuilding();
+	//Œš•¨‚ÌÄ¶¬
+	m_BlockModel->CreateBuilding( m_Attribute);
 }
 
 /*------------------------------------------------------------------------------
@@ -76,7 +77,6 @@ void BlockView::SetAttribute( BlockAttribute* attribute)
 	
 	m_Attribute = attribute;
 
-	//Œš•¨‚ð¶¬
-	m_Attribute->CreateBuilding();
+	m_BlockModel->CreateBuilding( m_Attribute);
 }
 

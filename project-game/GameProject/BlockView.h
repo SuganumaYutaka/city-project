@@ -17,12 +17,12 @@
 	前方宣言
 ------------------------------------------------------------------------------*/
 class BlockAttribute;
+class BlockModel;
 class Polygon3DRenderer;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-//点（交差点）
 class BlockView : public Component
 {
 public:
@@ -32,6 +32,7 @@ public:
 	void Uninit( void);
 
 	void SetAttribute( BlockAttribute* attribute);
+	BlockAttribute* GetAttribute( void) { return m_Attribute;}
 
 	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
 
@@ -39,8 +40,9 @@ private:
 	void Update(void);
 
 	BlockAttribute* m_Attribute;
-
 	bool m_IsUpdatedAttribute;
+
+	BlockModel* m_BlockModel;
 };
 
 #endif

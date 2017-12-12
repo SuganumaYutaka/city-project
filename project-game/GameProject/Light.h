@@ -41,8 +41,8 @@ public:
 	void Uninit( void);
 
 	void Update( void);
-	D3DXVECTOR4* GetDirection( void);
-	D3DXVECTOR4* GetPosition( void);
+	Vector3 GetDirection( void);
+	Vector3 GetPosition( void);
 	void SetType( ELightType Type) { m_Type = Type;}
 	ELightType GetType( void){ return m_Type;}
 

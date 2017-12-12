@@ -214,8 +214,8 @@ void SkinMeshRenderer::LoadMeshData(FILE *pFile, SkinMeshModel* pModel)
 	//マテリアル
 	fread(&size, sizeof(int), 1, pFile);
 	m_vecMaterial.resize(size);
-	//for (auto mat : m_vecMaterial)
-	for( int i = 0; i < m_vecMaterial.size(); i++)
+	int sizeMat = m_vecMaterial.size();
+	for( int i = 0; i < sizeMat; i++)
 	{
 		Material& mat = m_vecMaterial[i];
 
@@ -242,8 +242,8 @@ void SkinMeshRenderer::LoadMeshData(FILE *pFile, SkinMeshModel* pModel)
 	//アニメーション
 	fread(&size, sizeof(int), 1, pFile);
 	m_vecAnimation.resize(size);
-	//for (auto anim : m_vecAnimation)
-	for( int i = 0; i < m_vecAnimation.size(); i++)
+	int sizeAnim = m_vecAnimation.size();
+	for( int i = 0; i < sizeAnim; i++)
 	{
 		Animation& anim = m_vecAnimation[i];
 
@@ -280,15 +280,16 @@ void SkinMeshRenderer::SetScale(float rate)
 	D3DXMatrixScaling( &mtxScale, rate, rate, rate);
 
 	//位置座標
-	int size = m_vecPoint.size();
-	for (int nCnt = 0; nCnt < size; nCnt++)
+	int sizePoint = m_vecPoint.size();
+	for (int nCnt = 0; nCnt < sizePoint; nCnt++)
 	{
 		Point& point = m_vecPoint[nCnt];
 		D3DXVec3Scale( &point.Position, &point.Position, rate);
 	}
 
 	//アニメーション情報
-	for (int nCntAnim = 0; nCntAnim < m_vecAnimation.size(); nCntAnim++)
+	int sizeAnim = m_vecAnimation.size();
+	for (int nCntAnim = 0; nCntAnim < sizeAnim; nCntAnim++)
 	{
 		for (int nCntFrame = 0; nCntFrame < m_vecAnimation[nCntAnim].AllFrame; nCntFrame++)
 		{

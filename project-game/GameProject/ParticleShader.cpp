@@ -78,7 +78,7 @@ void ParticleShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMateri
 	//定数をシェーダに伝える
 	D3DXMATRIX mtxWorld = pRenderer->m_pTransform->WorldMatrix() * *pCamera->GetViewMatrix() * *pCamera->GetProjectionMatrix();
 	m_pEffect->SetMatrix( m_hMtxWVP, &mtxWorld);
-	float time = timeGetTime();
+	float time = (float)timeGetTime();
 	m_pEffect->SetFloat( m_hTime, time);
 	m_pEffect->SetTexture( m_hTexture, pMaterial->GetTexture());
 	m_pEffect->SetFloat( m_hGravity, -0.000003f);	//重力
