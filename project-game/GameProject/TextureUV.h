@@ -21,6 +21,7 @@ class TextureUV
 {
 public:
 	TextureUV();
+	TextureUV( const Vector2 &topLeftPosition, const Vector2 &size);
 
 	void Init( void);
 	void Init( const Vector2 &topLeftPosition, const Vector2 &size);

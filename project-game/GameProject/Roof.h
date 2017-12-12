@@ -16,6 +16,7 @@
 	前方宣言
 ------------------------------------------------------------------------------*/
 class GameObject;
+class Renderer;
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -23,12 +24,12 @@ class GameObject;
 class Roof
 {
 public:
-	Roof( GameObject* buildingObject){}
-	//void Init( const std::vector<Vector3>& vertices);
-
+	Roof( GameObject* buildingObject);
+	void Init( const Vector3& position, float rotation, const Vector3& size);
 	
 private:
-	
+	GameObject* m_RoofObject;
+	Renderer* m_Renderer;
 
 };
 

@@ -1,11 +1,11 @@
 /*==============================================================================
 
-    BlockView.h - 町の自動生成ー区画ビュー
+    BlockModel.h - 町の自動生成ー区画モデル
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/1
+                                                       Date   : 2017/12/12
 ==============================================================================*/
-#ifndef _BLOCK_VIEW_H_
-#define _BLOCK_VIEW_H_
+#ifndef _BLOCK_MODEL_H_
+#define _BLOCK_MODEL_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -16,33 +16,45 @@
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
+class GameObject;
+class Building;
 class BlockAttribute;
-class BlockModel;
-class Polygon3DRenderer;
+class BuildingGeometry;
+class BuildingRuleFactory;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BlockView : public Component
+class BlockModel : public Component
 {
 public:
 	static Component* Create( GameObject* gameObject);
 
-	BlockView( GameObject* pGameObject);
+	BlockModel( GameObject* pGameObject);
 	void Uninit( void);
 
-	void SetAttribute( BlockAttribute* attribute);
-	BlockAttribute* GetAttribute( void) { return m_Attribute;}
-
-	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
+	bool CreateBuilding( BlockAttribute* attribute);
 
 private:
-	void Update(void);
+	//建物の生成用構造体定義
+	//辺（連続する頂点）
+	typedef struct
+	{
+		std::vector<Vector3> vertices;
+		Vector3 vector;
+	}BlockEdge;
 
-	BlockAttribute* m_Attribute;
-	bool m_IsUpdatedAttribute;
+	//土地（連続する頂点）
+	typedef struct
+	{
+		std::vector<Vector3> vertices;
+		bool canCreateBuilding;
+	}BlockLand;
 
-	BlockModel* m_BlockModel;
+	std::list<BuildingGeometry*> m_BuildingGeometries;
+
+	bool NarrowLand( Vector3& start, Vector3& end, float value);
+	bool MoveLand( Vector3& start, Vector3& end, float value);
 };
 
 #endif

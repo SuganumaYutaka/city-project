@@ -96,7 +96,7 @@ void WallRenderer::Draw( Camera* pCamera)
 	m_pMaterial->Begin( m_nPass);
 
 	//ポリゴンの描画
-	pDevice->DrawPrimitive( D3DPT_TRIANGLEFAN, 0, m_CountPolygon);
+	pDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, m_CountPolygon);
 
 	//テクニック終了
 	m_pMaterial->End();

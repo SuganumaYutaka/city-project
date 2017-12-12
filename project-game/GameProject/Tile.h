@@ -11,6 +11,12 @@
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
+#include "BuildingRuleFactory.h"
+
+/*------------------------------------------------------------------------------
+	前方宣言
+------------------------------------------------------------------------------*/
+class BuildingRule;
 
 /*------------------------------------------------------------------------------
 	マクロ定義
@@ -24,7 +30,7 @@ class Tile
 {
 public:
 	Tile();
-	void Init( float height, float width);
+	void Init( float height, float width, E_TILE_TYPE type, BuildingRule* rule);
 
 	Vector3 SetVertexBuffer( VERTEX_3D* pVtx, const Vector3& bottomLeftPosition, const Vector3& normal, const Vector3& vector);
 	Vector3 SetVertexBufferCurve( VERTEX_3D* pVtx, const Vector3& bottomLeftPosition, const Vector3& center, float radius);
@@ -47,6 +53,7 @@ private:
 	Tile* m_Next;
 	float m_Height;
 	float m_Width;
+	E_TILE_TYPE m_Type;
 	TextureUV m_TexUV;
 };
 

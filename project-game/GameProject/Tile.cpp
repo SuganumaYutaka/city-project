@@ -9,6 +9,8 @@
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Tile.h"
+#include "BuildingRule.h"
+#include "BuildingSurfacePattern.h"
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -17,19 +19,36 @@ Tile::Tile() : m_Next( NULL)
 {
 	m_Height = 1.0f;
 	m_Width = 1.0f;
+	m_Type = eTileWall;
 }
 
 
 /*------------------------------------------------------------------------------
 	初期化
 ------------------------------------------------------------------------------*/
-void Tile::Init( float height, float width)
+void Tile::Init( float height, float width, E_TILE_TYPE type, BuildingRule* rule)
 {
 	m_Height = height;
 	m_Width = width;
-
-	//TODO:タイルの設定
-
+	m_Type = type;
+	
+	switch (type)
+	{
+	case eTileWall:
+		m_TexUV = rule->GetSurfacePattern()->GetWall(0);
+		break;
+	case eTileWindow:
+		m_TexUV = rule->GetSurfacePattern()->GetWindow(0);
+		break;
+	case eTileEntrance:
+		m_TexUV = rule->GetSurfacePattern()->GetEntrance(0);
+		break;
+	case eTileBorder:
+		m_TexUV = rule->GetSurfacePattern()->GetBorder(0);
+		break;
+	default:
+		break;
+	}
 }
 
 /*------------------------------------------------------------------------------
@@ -58,8 +77,6 @@ Vector3 Tile::SetVertexBuffer(VERTEX_3D* pVtx, const Vector3& bottomLeftPosition
 	pVtx[2].Tex = m_TexUV.GetTopLeft();
 	pVtx[3].Tex = m_TexUV.GetBottomRight();
 	pVtx[4].Tex = m_TexUV.GetTopRight();
-
-	pVtx += 6;
 
 	return nextPosition;
 }

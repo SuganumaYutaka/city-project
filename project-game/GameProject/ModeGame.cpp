@@ -60,8 +60,8 @@ void ModeGame::Init()
 	meshDome->SetSize( 1000.0f, 1000.0f);
 
 	//City
-	//auto cityObject = new GameObject( m_pRoot);
-	//auto cityController = cityObject->AddComponent<CityController>();
+	auto cityObject = new GameObject( m_pRoot);
+	auto cityController = cityObject->AddComponent<CityController>();
 
 	//Building
 	

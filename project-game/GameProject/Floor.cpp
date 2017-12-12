@@ -10,6 +10,7 @@
 ------------------------------------------------------------------------------*/
 #include "Floor.h"
 #include "Tile.h"
+#include "BuildingRule.h"
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -18,6 +19,7 @@ Floor::Floor() : m_Tile( NULL)
 {
 	m_Height = 1.0f;
 	m_Width = 1.0f;
+	m_Type = eFloorDefault;
 }
 
 /*------------------------------------------------------------------------------
@@ -43,13 +45,14 @@ Floor::~Floor()
 /*------------------------------------------------------------------------------
 	初期化
 ------------------------------------------------------------------------------*/
-void Floor::Init( float height, float width)
+void Floor::Init( float height, float width, E_FLOOR_TYPE type, BuildingRule* rule)
 {
 	m_Height = height;
 	m_Width = width;
+	m_Type = type;
 
-	//TODO:タイルの生成
-
+	//タイルの生成
+	rule->ProceduralTile( this);
 }
 
 /*------------------------------------------------------------------------------
@@ -63,7 +66,8 @@ bool Floor::SetVertexBuffer(VERTEX_3D* pVtx, const Vector3& bottomLeftPosition, 
 	for (;;)
 	{	
 		position = tile->SetVertexBuffer( pVtx, position, normal, vector);
-		tile->GetNext();
+		pVtx += tile->CulcCountVertex();
+		tile = tile->GetNext();
 		if (!tile)
 		{
 			break;
@@ -84,7 +88,8 @@ bool Floor::SetVertexBufferCurve(VERTEX_3D* pVtx, const Vector3& bottomLeftPosit
 	for (;;)
 	{	
 		position = tile->SetVertexBufferCurve( pVtx, position, center, radius);
-		tile->GetNext();
+		pVtx += tile->CulcCountVertexCurve( radius);
+		tile = tile->GetNext();
 		if (!tile)
 		{
 			break;

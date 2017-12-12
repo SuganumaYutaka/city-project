@@ -29,18 +29,20 @@ public:
 	virtual void Rotate( float value) = 0;
 	virtual void Scale( const Vector3& value) = 0;
 
-protected:
-	void Uninit( void);
 	void AddRoof( Roof* roof);
-	void AddWall( Wall* wall);
 	void SubRoof(Roof* roof);
+	void AddWall( Wall* wall);
 	void SubWall( Wall* wall);
 
 	std::list< Roof*>& GetRoofs( void) { return m_Roofs;}
 	std::list< Wall*>& GetWalls( void) { return m_Walls;}
 
-	void SetBuildingObject( GameObject* buildingObject) { m_BuildingObject = buildingObject;}
 	GameObject* GetBuildingObject( void) { return m_BuildingObject;}
+
+protected:
+	void Uninit( void);
+	
+	void SetBuildingObject( GameObject* buildingObject) { m_BuildingObject = buildingObject;}
 	
 private:
 	std::list< Roof*> m_Roofs;

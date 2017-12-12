@@ -18,6 +18,7 @@
 ------------------------------------------------------------------------------*/
 class Land;
 class Shape;
+class BuildingRule;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -30,12 +31,15 @@ public:
 	BuildingGeometry( GameObject* pGameObject);
 	void Uninit( void);
 
-	bool Init( Land* land);
+	bool Init( const std::vector<Vector3>& vertices, BuildingRule* rule);
+
+	Land* GetLand( void) { return m_Land;}
+	void AddShape( Shape* shape){ m_Shapes.push_back( shape); }
 
 private:
 	void Update(void);
 
-	Land* m_land;
+	Land* m_Land;
 	std::list< Shape*> m_Shapes;
 	
 };

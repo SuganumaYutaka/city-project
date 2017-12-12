@@ -1,48 +1,44 @@
 /*==============================================================================
 
-    BlockView.h - 町の自動生成ー区画ビュー
+    BuildingRule.h - 建物の自動生成ー建物を生成するルール
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/1
+                                                       Date   : 2017/12/12
 ==============================================================================*/
-#ifndef _BLOCK_VIEW_H_
-#define _BLOCK_VIEW_H_
+#ifndef _BUILDING_RULE_H_
+#define _BUILDING_RULE_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-#include "Component.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class BlockAttribute;
-class BlockModel;
-class Polygon3DRenderer;
+class BuildingSurfacePattern; 
+class BuildingGeometry;
+class Wall;
+class Floor;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BlockView : public Component
+class BuildingRule
 {
 public:
-	static Component* Create( GameObject* gameObject);
+	BuildingRule() : m_SurfacePattern( NULL) {}
+	virtual ~BuildingRule(){}
 
-	BlockView( GameObject* pGameObject);
-	void Uninit( void);
+	virtual bool ProceduralShape( BuildingGeometry* geometry) = 0;
+	virtual bool ProceduralFloor( Wall* wall) = 0;
+	virtual bool ProceduralTile( Floor* floor) = 0;
 
-	void SetAttribute( BlockAttribute* attribute);
-	BlockAttribute* GetAttribute( void) { return m_Attribute;}
-
-	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
+	void SetSurfacePattern( BuildingSurfacePattern* surfacePattern) { m_SurfacePattern = surfacePattern;}
+	BuildingSurfacePattern* GetSurfacePattern( void) { return m_SurfacePattern;}
 
 private:
-	void Update(void);
+	BuildingSurfacePattern* m_SurfacePattern;
 
-	BlockAttribute* m_Attribute;
-	bool m_IsUpdatedAttribute;
-
-	BlockModel* m_BlockModel;
 };
 
 #endif

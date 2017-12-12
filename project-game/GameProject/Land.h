@@ -29,9 +29,14 @@ public:
 
 	const std::vector<Vector3>& GetVertices( void) { return m_Vertices;}
 
+	Vector3 CulcCenterPosition( void);
+
+	//TODO:–ÊÏ‚ğ‹‚ß‚é
+
 private:
 	std::vector<Vector3> m_Vertices;
 	MeshPolygonRenderer* m_Renderer;
+
 };
 
 #endif

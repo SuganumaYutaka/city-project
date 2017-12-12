@@ -18,13 +18,15 @@
 
 #include "InputKeyboard.h"
 
+#include "BuildingRuleFactory.h"
+
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
 	マクロ定義
 ------------------------------------------------------------------------------*/
-#define CITY_WIDTH (500.0f)
-#define CITY_HEIGHT (500.0f)
+#define CITY_WIDTH (200.0f)
+#define CITY_HEIGHT (200.0f)
 
 
 /*------------------------------------------------------------------------------
@@ -43,8 +45,11 @@ CityController::CityController( GameObject* pGameObject)
 	m_pGameObject = pGameObject;
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 
+	//建物の自動生成システムを生成
+	m_BuildingRuleFactory = new BuildingRuleFactory();
+
 	//町の自動生成システム設定のハーフエッジデータ構造を生成
-	m_Model = new Model( new CityRule(), new CityAttributeFactory( m_pGameObject));
+	m_Model = new Model( new CityRule(), new CityAttributeFactory( m_pGameObject, m_BuildingRuleFactory));
 
 	//はじめの面を生成
 	Vector3 sizeHalf( CITY_WIDTH * 0.5f, 0.0f, CITY_HEIGHT * 0.5f);
@@ -59,6 +64,7 @@ CityController::CityController( GameObject* pGameObject)
 void CityController::Uninit( void)
 {
 	delete m_Model;
+	delete m_BuildingRuleFactory;
 }
 
 /*------------------------------------------------------------------------------

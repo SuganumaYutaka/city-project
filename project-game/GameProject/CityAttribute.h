@@ -20,7 +20,7 @@ class JunctionView;
 class RoadView;
 class BlockView;
 class GameObject;
-class Building;
+class BuildingRuleFactory;
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -67,38 +67,17 @@ public:
 class BlockAttribute : public HalfEdgeDataStructure::FaceAttribute
 {
 private:
-	//建物の生成用構造体定義
-	//辺（連続する頂点）
-	typedef struct
-	{
-		std::vector<Vector3> vertices;
-		Vector3 vector;
-	}FaceEdge;
-
-	//土地（連続する頂点）
-	typedef struct
-	{
-		std::vector<Vector3> vertices;
-		bool canCreateBuilding;
-	}FaceLand;
-
 	BlockView* m_View;
-	std::list<Building*> m_Buildings;
-	GameObject* m_ViewGameObject;
-
-	bool NarrowLand( Vector3& start, Vector3& end, float value);
-	bool MoveLand( Vector3& start, Vector3& end, float value);
-
+	BuildingRuleFactory* m_BuildingRuleFactory;
+	
 public:
-	BlockAttribute( GameObject* parent);
+	BlockAttribute( GameObject* parent, BuildingRuleFactory* buildingRuleFactory);
 	~BlockAttribute();
 	void Init( void) override;
 	void Update( void) override;
 	void UnregisterView( void){ m_View = NULL;}
 
-	const std::list<Building*>& GetBuildings( void) { return m_Buildings;}
-
-	bool CreateBuilding( void);
+	BuildingRuleFactory* GetBuildingRuleFactory( void) { return m_BuildingRuleFactory;}
 };
 
 //ファクトリー
@@ -106,13 +85,14 @@ class CityAttributeFactory : public HalfEdgeDataStructure::AttributeFactory
 {
 private:
 	GameObject* m_Parent;
+	BuildingRuleFactory* m_BuildingRuleFactory;
 
 public:
-	CityAttributeFactory( GameObject* parent) : m_Parent( parent) {}
+	CityAttributeFactory( GameObject* parent, BuildingRuleFactory* buildingRuleFactory) : m_Parent( parent), m_BuildingRuleFactory(buildingRuleFactory) {}
 
 	virtual HalfEdgeDataStructure::VertexAttribute* CreateVertexAttribute( void) { return new JunctionAttribute( m_Parent); }
 	virtual HalfEdgeDataStructure::EdgeAttribute* CreateEdgeAttribute( void) { return new RoadAttribute( m_Parent); }
-	virtual HalfEdgeDataStructure::FaceAttribute* CreateFaceAttribute( void){ return new BlockAttribute( m_Parent); }
+	virtual HalfEdgeDataStructure::FaceAttribute* CreateFaceAttribute( void){ return new BlockAttribute( m_Parent, m_BuildingRuleFactory); }
 };
 
 #endif

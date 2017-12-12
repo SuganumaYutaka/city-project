@@ -363,12 +363,6 @@
     <ClCompile Include="BlockView.cpp">
       <Filter>CityEngine\City</Filter>
     </ClCompile>
-    <ClCompile Include="Building.cpp">
-      <Filter>CityEngine\City</Filter>
-    </ClCompile>
-    <ClCompile Include="BuildingView.cpp">
-      <Filter>CityEngine\City</Filter>
-    </ClCompile>
     <ClCompile Include="MeshPolygonRenderer.cpp">
       <Filter>Engine\Component\Renderer</Filter>
     </ClCompile>
@@ -394,6 +388,27 @@
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
     <ClCompile Include="Shape.cpp">
+      <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildingRuleFactory.cpp">
+      <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildingRuleSimple.cpp">
+      <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildingSurfacePattern.cpp">
+      <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="Building.cpp">
+      <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildingView.cpp">
+      <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockModel.cpp">
+      <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="Roof.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
   </ItemGroup>
@@ -674,12 +689,6 @@
     <ClInclude Include="BlockView.h">
       <Filter>CityEngine\City</Filter>
     </ClInclude>
-    <ClInclude Include="Building.h">
-      <Filter>CityEngine\City</Filter>
-    </ClInclude>
-    <ClInclude Include="BuildingView.h">
-      <Filter>CityEngine\City</Filter>
-    </ClInclude>
     <ClInclude Include="MeshPolygonRenderer.h">
       <Filter>Engine\Component\Renderer</Filter>
     </ClInclude>
@@ -708,6 +717,27 @@
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
     <ClInclude Include="Land.h">
+      <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingRuleFactory.h">
+      <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingRule.h">
+      <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingRuleSimple.h">
+      <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingSurfacePattern.h">
+      <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="Building.h">
+      <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingView.h">
+      <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockModel.h">
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
   </ItemGroup>

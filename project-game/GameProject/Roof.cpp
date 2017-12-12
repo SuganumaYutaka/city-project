@@ -1,43 +1,42 @@
 /*==============================================================================
 
-    Land.h - 建物の自動生成ー土地
+    Roof.cpp - 建物の自動生成ー屋根
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/7
+                                                       Date   : 2017/12/13
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "Land.h"
+#include "Roof.h"
 #include "GameObject.h"
 #include "ComponentInclude.h"
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
-Land::Land( GameObject* buildingObject)
+Roof::Roof(GameObject* buildingObject)
 {
-	m_Vertices.clear();
-
-	m_Renderer = buildingObject->AddComponent<MeshPolygonRenderer>();
-}
-
-
-/*------------------------------------------------------------------------------
-	初期化処理
-------------------------------------------------------------------------------*/
-void Land::Init( const std::vector<Vector3>& vertices)
-{
-	m_Vertices.clear();
-	m_Vertices = vertices;
-	m_Renderer->SetVertices( vertices);
+	m_RoofObject = new GameObject( buildingObject);
+	m_Renderer = NULL;
 }
 
 /*------------------------------------------------------------------------------
-	中心位置を算出
+	初期化
 ------------------------------------------------------------------------------*/
-Vector3 Land::CulcCenterPosition(void)
+void Roof::Init(const Vector3& position, float rotation, const Vector3& size)
 {
-	Vector3 vec02 = m_Vertices[2] - m_Vertices[0];
-	return m_Vertices[0] + vec02 * 0.5f;
+	if (m_Renderer)
+	{
+		m_Renderer->ReleaseReserve();
+		m_Renderer = NULL;
+	}
+
+	auto roofPosition = position;
+	roofPosition.y += size.y;
+
+	m_Renderer = m_RoofObject->AddComponent<Polygon3DRenderer>();
+	m_RoofObject->m_pTransform->SetLocalPosition( roofPosition);
+	m_RoofObject->m_pTransform->SetLocalRotationEuler( 0.0f, rotation, 0.0f);
+	m_RoofObject->m_pTransform->SetLocalScale( size);
 }

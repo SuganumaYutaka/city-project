@@ -13,6 +13,7 @@
 #include "WallRenderer.h"
 #include "GameObject.h"
 #include "ComponentInclude.h"
+#include "BuildingRule.h"
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -43,14 +44,14 @@ Wall::~Wall()
 /*------------------------------------------------------------------------------
 	初期化
 ------------------------------------------------------------------------------*/
-void Wall::Init( float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal)
+void Wall::Init( float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, BuildingRule* rule)
 {
 	m_Height = height;
 	m_Width = width;
 	m_BottomLeftPosition = bottomLeftPosition;
 
-	//TODO:フロアの生成
-
+	//フロアの生成
+	rule->ProceduralFloor( this);
 
 	UpdateView( bottomLeftPosition, normal);
 }
@@ -58,14 +59,14 @@ void Wall::Init( float height, float width, const Vector3& bottomLeftPosition, c
 /*------------------------------------------------------------------------------
 	初期化（円に沿って曲げる）
 ------------------------------------------------------------------------------*/
-void Wall::Init( float height, float width, const Vector3& bottomLeftPosition, const Vector3& center, float radius)
+void Wall::Init( float height, float width, const Vector3& bottomLeftPosition, const Vector3& center, float radius, BuildingRule* rule)
 {
 	m_Height = height;
 	m_Width = width;
 	m_BottomLeftPosition = bottomLeftPosition;
 
-	//TODO:フロアの生成
-
+	//フロアの生成
+	rule->ProceduralFloor( this);
 
 	UpdateView( bottomLeftPosition, center, radius);
 }
@@ -81,11 +82,13 @@ bool Wall::UpdateView( const Vector3& bottomLeftPosition, const Vector3& normal)
 	Vector3 position = bottomLeftPosition;
 	Vector3 vector = Vector3::Cross( normal, Vector3(0.0f, 1.0f, 0.0f)).Normalize();
 	
-	auto pVtx = m_Renderer->StartSetVertexBuffer( CulcCountVertex(), CulcCountPolygon());
+	auto pVtx = m_Renderer->StartSetVertexBuffer( CulcCountVertex() + 1, CulcCountPolygon());
 	
 	for (auto floor : m_Floors)
 	{
 		floor->SetVertexBuffer( pVtx, position, normal, vector);
+		auto countVertex = floor->CulcCountVertex();
+		pVtx += countVertex;
 		position.y += floor->GetHeight();
 	}
 
@@ -171,4 +174,38 @@ int Wall::CulcCountPolygonCurve(float radius)
 	}
 
 	return count - 2;
+}
+
+/*------------------------------------------------------------------------------
+	フロアの追加
+------------------------------------------------------------------------------*/
+void Wall::AddFloor( Floor* floor)
+{ 
+	m_Floors.push_back( floor);
+}
+
+/*------------------------------------------------------------------------------
+	フロアの削除
+------------------------------------------------------------------------------*/
+void Wall::SubFloor(Floor* floor)
+{
+	for (auto ite = m_Floors.begin(); ite != m_Floors.end(); ++ite)
+	{
+		if (*ite == floor)
+		{
+			delete floor;
+			m_Floors.erase( ite);
+			return;
+		}
+	}
+
+	DebugLog::Add( "WallにFloorが見つからない\n");
+}
+
+/*------------------------------------------------------------------------------
+	テクスチャのロード
+------------------------------------------------------------------------------*/
+void Wall::LoadTexture(std::string fileName)
+{
+	m_Renderer->LoadTexture( fileName);
 }
