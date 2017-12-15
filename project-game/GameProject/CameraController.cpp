@@ -19,8 +19,8 @@
 /*------------------------------------------------------------------------------
 	マクロ定義
 ------------------------------------------------------------------------------*/
-#define MOVE_SPEED ( 0.10f)		//カメラ平行移動速度
-#define ROT_SPEED ( 0.03f)		//カメラ回転速度
+#define MOVE_SPEED ( 0.05f)		//カメラ平行移動速度
+#define ROT_SPEED ( 0.003f)			//カメラ回転速度
 
 /*------------------------------------------------------------------------------
 	コンポーネント生成
@@ -102,8 +102,10 @@ void CameraController::Update()
 		if (m_pTargetPosAt == NULL)
 		{
 			Vector3 Move;
-			Move.y -= Manager::GetInputMouse()->GetAxisY() * MOVE_SPEED * m_fLength;
-			Move.x -= Manager::GetInputMouse()->GetAxisX() * MOVE_SPEED * m_fLength;
+			//Move.y -= Manager::GetInputMouse()->GetAxisY() * MOVE_SPEED * m_fLength;
+			//Move.x -= Manager::GetInputMouse()->GetAxisX() * MOVE_SPEED * m_fLength;
+			Move.y -= Manager::GetInputMouse()->GetAxisY() * MOVE_SPEED;
+			Move.x -= Manager::GetInputMouse()->GetAxisX() * MOVE_SPEED;
 
 			Vector3 CameraVec = m_pCamera->GetCameraVec();
 			CameraVec = Vector3( -CameraVec.z, CameraVec.y, CameraVec.x);
@@ -121,8 +123,8 @@ void CameraController::Update()
 		{
 			if (m_pTargetPosAt == NULL && m_pTargetPosEye == NULL)
 			{	
-				m_Rot.x -= Manager::GetInputMouse()->GetAxisY() * 0.005f;
-				m_Rot.y -= Manager::GetInputMouse()->GetAxisX() * 0.005f;
+				m_Rot.x -= Manager::GetInputMouse()->GetAxisY() * ROT_SPEED;
+				m_Rot.y -= Manager::GetInputMouse()->GetAxisX() * ROT_SPEED;
 
 				D3DXMATRIX mtxRotY, mtxRotX;
 				D3DXMatrixIdentity( &mtxRotX);
@@ -150,8 +152,8 @@ void CameraController::Update()
 		{
 			if (m_pTargetPosAt == NULL)
 			{
-				m_Rot.x -= Manager::GetInputMouse()->GetAxisY() * 0.005f;
-				m_Rot.y += Manager::GetInputMouse()->GetAxisX() * 0.005f;
+				m_Rot.x -= Manager::GetInputMouse()->GetAxisY() * ROT_SPEED;
+				m_Rot.y += Manager::GetInputMouse()->GetAxisX() * ROT_SPEED;
 
 				D3DXMATRIX mtxRotY, mtxRotX;
 				D3DXMatrixIdentity( &mtxRotX);
