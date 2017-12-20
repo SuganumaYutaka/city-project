@@ -12,6 +12,7 @@
 #include "GameObject.h"
 #include "ComponentInclude.h"
 #include "Land.h"
+#include "Shape.h"
 
 #include "BuildingRule.h"
 
@@ -37,7 +38,21 @@ BuildingGeometry::BuildingGeometry( GameObject* pGameObject)
 ------------------------------------------------------------------------------*/
 void BuildingGeometry::Uninit( void)
 {
+	if (m_Rule)
+	{
+		delete m_Rule;
+	}
+
+	if (m_Land)
+	{
+		delete m_Land;
+	}
 	
+	for (Shape* shape : m_Shapes)
+	{
+		delete shape;
+	}
+	m_Shapes.clear();
 }
 
 /*------------------------------------------------------------------------------
@@ -67,6 +82,8 @@ bool BuildingGeometry::Init( const std::vector<Vector3>& vertices, BuildingRule*
 
 	//Œ`ó‚Ì¶¬
 	rule->ProceduralShape( this);
+
+	m_Rule = rule;
 
 	return true;
 }

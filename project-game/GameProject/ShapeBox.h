@@ -28,7 +28,7 @@ class ShapeBox : public Shape
 {
 public:
 	ShapeBox( GameObject* buildingObject);
-	~ShapeBox();
+	~ShapeBox() override;
 
 	void Init( const Vector3& position, float rotation, const Vector3& size, BuildingRule* rule);
 

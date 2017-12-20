@@ -399,12 +399,6 @@
     <ClCompile Include="BuildingSurfacePattern.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
-    <ClCompile Include="Building.cpp">
-      <Filter>CityEngine\Building</Filter>
-    </ClCompile>
-    <ClCompile Include="BuildingView.cpp">
-      <Filter>CityEngine\Building</Filter>
-    </ClCompile>
     <ClCompile Include="BlockModel.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
@@ -729,12 +723,6 @@
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
     <ClInclude Include="BuildingSurfacePattern.h">
-      <Filter>CityEngine\Building</Filter>
-    </ClInclude>
-    <ClInclude Include="Building.h">
-      <Filter>CityEngine\Building</Filter>
-    </ClInclude>
-    <ClInclude Include="BuildingView.h">
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
     <ClInclude Include="BlockModel.h">

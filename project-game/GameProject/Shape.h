@@ -25,6 +25,7 @@ class Wall;
 class Shape
 {
 public:
+	virtual ~Shape();
 	virtual void Move( const Vector3& value) = 0;
 	virtual void Rotate( float value) = 0;
 	virtual void Scale( const Vector3& value) = 0;

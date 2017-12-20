@@ -61,6 +61,7 @@ bool BuildingRuleSimple::ProceduralShape(BuildingGeometry* geometry)
 	
 	auto shape = new ShapeBox( geometry->GetGameObject());
 	shape->Init( Vector3(0.0f, 0.0f, 0.0f), 0.0f, size, this);
+	geometry->AddShape( shape);
 
 	return true;
 }

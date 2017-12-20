@@ -43,8 +43,6 @@ BlockModel::BlockModel( GameObject* pGameObject)
 {
 	m_pGameObject = pGameObject;
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
-
-
 }
 
 /*------------------------------------------------------------------------------
@@ -52,7 +50,7 @@ BlockModel::BlockModel( GameObject* pGameObject)
 ------------------------------------------------------------------------------*/
 void BlockModel::Uninit( void)
 {
-	
+	m_BuildingGeometries.clear();
 }
 
 /*------------------------------------------------------------------------------

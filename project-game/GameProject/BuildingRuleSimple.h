@@ -32,6 +32,7 @@ public:
 	BuildingRuleSimple( float shapeHeight, float groundFloorHeight, float floorHeight, float windowWidth, float entranceWidth)
 		: m_ShapeHeight( shapeHeight), m_GroundFloorHeight( groundFloorHeight), m_FloorHeight( floorHeight)
 		, m_WindowWidth( windowWidth), m_EntranceWidth( entranceWidth){}
+	~BuildingRuleSimple() override{}
 
 	bool ProceduralShape( BuildingGeometry* geometry) override;
 	bool ProceduralFloor( Wall* wall)  override;

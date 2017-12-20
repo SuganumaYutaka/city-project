@@ -43,7 +43,9 @@
 #include "JunctionView.h"
 #include "RoadView.h"
 #include "BlockView.h"
-#include "BuildingView.h"
+#include "BlockModel.h"
+#include "BuildingGeometry.h"
+#include "WallRenderer.h"
 
 #endif
 

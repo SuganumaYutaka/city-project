@@ -41,7 +41,7 @@ private:
 
 	Land* m_Land;
 	std::list< Shape*> m_Shapes;
-	
+	BuildingRule* m_Rule;
 };
 
 #endif
