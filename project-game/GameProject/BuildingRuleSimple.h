@@ -27,12 +27,12 @@ class Floor;
 class BuildingRuleSimple : public BuildingRule
 {
 public:
-	static BuildingRule* Create( BuildingSurfacePattern* surfacePattern, std::mt19937& random);
+	static BuildingRule* Create( BuildingSurfacePattern* surfacePattern);
 
 	BuildingRuleSimple( float shapeHeight, float groundFloorHeight, float floorHeight, float windowWidth, float entranceWidth)
 		: m_ShapeHeight( shapeHeight), m_GroundFloorHeight( groundFloorHeight), m_FloorHeight( floorHeight)
 		, m_WindowWidth( windowWidth), m_EntranceWidth( entranceWidth){}
-	~BuildingRuleSimple() override{}
+	~BuildingRuleSimple() override;
 
 	bool ProceduralShape( BuildingGeometry* geometry) override;
 	bool ProceduralFloor( Wall* wall)  override;
@@ -45,6 +45,9 @@ public:
 	float GetEntranceWidth(void) { return m_EntranceWidth;}
 
 private:
+	//óêêî
+	Random* m_Random;
+
 	//ProceduralShape
 	float m_ShapeHeight;
 
@@ -55,8 +58,6 @@ private:
 	//ProceduralTile
 	float m_WindowWidth;
 	float m_EntranceWidth;
-
-
 };
 
 #endif

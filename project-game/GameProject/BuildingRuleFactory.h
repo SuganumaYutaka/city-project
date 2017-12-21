@@ -66,7 +66,7 @@ public:
 
 private:
 	std::vector<BuildingSurfacePattern*> m_SurfacePatterns;
-	std::mt19937  m_rand;
+	Random* m_Random;
 };
 
 #endif

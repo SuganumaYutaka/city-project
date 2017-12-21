@@ -56,6 +56,7 @@
 #include "Game.h"
 #include "DebugLog.h"
 #include "Ray.h"
+#include "Random.h"
 
 /*------------------------------------------------------------------------------
 	ƒ‰ƒCƒuƒ‰ƒŠ‚ÌƒŠƒ“ƒN

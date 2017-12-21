@@ -25,6 +25,8 @@ BuildingSurfacePattern::BuildingSurfacePattern(std::string fileName)
 	{
 		DebugLog::Add( "BuildingSurfacePattern：スクリプトの読み込みに失敗しました。" + fileName + '\n');
 	}
+
+	m_Random = new Random();
 }
 
 /*------------------------------------------------------------------------------
@@ -43,6 +45,8 @@ BuildingSurfacePattern::~BuildingSurfacePattern()
 
 	m_Borders.clear();
 	m_Borders.shrink_to_fit();
+
+	delete m_Random;
 }
 
 /*------------------------------------------------------------------------------
@@ -150,6 +154,33 @@ bool BuildingSurfacePattern::Load(std::string fileName)
 	}
 
 	return true;
+}
+
+/*------------------------------------------------------------------------------
+	ランダムでUV座標を取得
+------------------------------------------------------------------------------*/
+const TextureUV& BuildingSurfacePattern::GetWall()
+{
+	int index = m_Random->GetInt() % m_Walls.size();
+	return m_Walls[ index];
+}
+
+const TextureUV& BuildingSurfacePattern::GetWindow()
+{
+	int index = m_Random->GetInt() % m_Windows.size();
+	return m_Windows[ index];
+}
+
+const TextureUV& BuildingSurfacePattern::GetEntrance()
+{
+	int index = m_Random->GetInt() % m_Entrances.size();
+	return m_Entrances[ index];
+}
+
+const TextureUV& BuildingSurfacePattern::GetBorder()
+{
+	int index = m_Random->GetInt() % m_Borders.size();
+	return m_Borders[ index];
 }
 
 /*------------------------------------------------------------------------------

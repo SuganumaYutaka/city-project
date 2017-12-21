@@ -21,12 +21,14 @@
 ------------------------------------------------------------------------------*/
 BuildingRuleFactory::BuildingRuleFactory()
 {
-	std::random_device ran;
-	m_rand.seed( ran());
+	m_Random = new Random();
 
 	//建物の表面パターンを読み込み
-	m_SurfacePatterns.push_back( new BuildingSurfacePattern( "data/SCRIPT/BuildingSurfacePattern/test.txt"));
+	m_SurfacePatterns.push_back( new BuildingSurfacePattern( "data/SCRIPT/BuildingSurfacePattern/test03.txt"));
+	m_SurfacePatterns.push_back( new BuildingSurfacePattern( "data/SCRIPT/BuildingSurfacePattern/test02.txt"));
+	
 
+	m_Random->SetRangeInt( 0, (int)m_SurfacePatterns.size() - 1);
 }
 
 /*------------------------------------------------------------------------------
@@ -51,8 +53,11 @@ BuildingRule* BuildingRuleFactory::CreateBuildingRule(const std::vector<Vector3>
 
 	BuildingRule* rule;
 
+	//サーフェスパターンの決定
+	int pattern = m_Random->GetInt();
+
 	//Simple
-	rule = BuildingRuleSimple::Create(m_SurfacePatterns[0], m_rand);
+	rule = BuildingRuleSimple::Create(m_SurfacePatterns[ pattern]);
 	if (!rule)
 	{
 		DebugLog::Add( "BuildingRuleFactory:(simple)ルールの生成に失敗しました\n");

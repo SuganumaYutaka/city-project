@@ -26,7 +26,7 @@ class Floor;
 class BuildingRule
 {
 public:
-	BuildingRule() : m_SurfacePattern( NULL) {}
+	BuildingRule( ) : m_SurfacePattern( NULL) {}
 	virtual ~BuildingRule(){}
 
 	virtual bool ProceduralShape( BuildingGeometry* geometry) = 0;
@@ -38,7 +38,7 @@ public:
 
 private:
 	BuildingSurfacePattern* m_SurfacePattern;
-
+	
 };
 
 #endif
