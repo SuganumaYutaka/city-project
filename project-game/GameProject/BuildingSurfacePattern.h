@@ -32,6 +32,10 @@ public:
 	const std::vector<TextureUV>& GetEntrances( void) { return m_Entrances;}
 	const std::vector<TextureUV>& GetBorders( void) { return m_Borders;}
 
+	const TextureUV& GetWall();
+	const TextureUV& GetWindow();
+	const TextureUV& GetEntrance();
+	const TextureUV& GetBorder();
 	const TextureUV& GetWall( unsigned int index);
 	const TextureUV& GetWindow( unsigned int index);
 	const TextureUV& GetEntrance( unsigned int index);
@@ -54,6 +58,8 @@ private:
 	std::vector<TextureUV> m_Entrances;
 	std::vector<TextureUV> m_Borders;
 
+	//—”
+	Random* m_Random;
 };
 
 #endif

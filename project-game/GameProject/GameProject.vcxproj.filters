@@ -399,17 +399,14 @@
     <ClCompile Include="BuildingSurfacePattern.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
-    <ClCompile Include="Building.cpp">
-      <Filter>CityEngine\Building</Filter>
-    </ClCompile>
-    <ClCompile Include="BuildingView.cpp">
-      <Filter>CityEngine\Building</Filter>
-    </ClCompile>
     <ClCompile Include="BlockModel.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
     <ClCompile Include="Roof.cpp">
       <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>Engine\Generic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -731,14 +728,11 @@
     <ClInclude Include="BuildingSurfacePattern.h">
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
-    <ClInclude Include="Building.h">
-      <Filter>CityEngine\Building</Filter>
-    </ClInclude>
-    <ClInclude Include="BuildingView.h">
-      <Filter>CityEngine\Building</Filter>
-    </ClInclude>
     <ClInclude Include="BlockModel.h">
       <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Engine\Generic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

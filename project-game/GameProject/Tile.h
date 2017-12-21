@@ -30,7 +30,7 @@ class Tile
 {
 public:
 	Tile();
-	void Init( float height, float width, E_TILE_TYPE type, BuildingRule* rule);
+	void Init( float height, float width, E_TILE_TYPE type, const TextureUV& texUV);
 
 	Vector3 SetVertexBuffer( VERTEX_3D* pVtx, const Vector3& bottomLeftPosition, const Vector3& normal, const Vector3& vector);
 	Vector3 SetVertexBufferCurve( VERTEX_3D* pVtx, const Vector3& bottomLeftPosition, const Vector3& center, float radius);

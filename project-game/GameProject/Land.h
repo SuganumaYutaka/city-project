@@ -25,6 +25,7 @@ class Land
 {
 public:
 	Land( GameObject* buildingObject);
+	~Land();
 	void Init( const std::vector<Vector3>& vertices);
 
 	const std::vector<Vector3>& GetVertices( void) { return m_Vertices;}

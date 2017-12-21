@@ -165,12 +165,10 @@
     <ClCompile Include="BlockModel.cpp" />
     <ClCompile Include="BlockView.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
-    <ClCompile Include="Building.cpp" />
     <ClCompile Include="BuildingGeometry.cpp" />
     <ClCompile Include="BuildingRuleFactory.cpp" />
     <ClCompile Include="BuildingRuleSimple.cpp" />
     <ClCompile Include="BuildingSurfacePattern.cpp" />
-    <ClCompile Include="BuildingView.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="CityAttribute.cpp" />
@@ -222,6 +220,7 @@
     <ClCompile Include="PartsAnimator.cpp" />
     <ClCompile Include="PerPixelLightingShader.cpp" />
     <ClCompile Include="Polygon3DRenderer.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RenderManager.cpp" />
@@ -315,13 +314,11 @@
     <ClInclude Include="BlockModel.h" />
     <ClInclude Include="BlockView.h" />
     <ClInclude Include="BoxCollider.h" />
-    <ClInclude Include="Building.h" />
     <ClInclude Include="BuildingGeometry.h" />
     <ClInclude Include="BuildingRule.h" />
     <ClInclude Include="BuildingRuleFactory.h" />
     <ClInclude Include="BuildingRuleSimple.h" />
     <ClInclude Include="BuildingSurfacePattern.h" />
-    <ClInclude Include="BuildingView.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="CityAttribute.h" />
@@ -374,6 +371,7 @@
     <ClInclude Include="PartsAnimator.h" />
     <ClInclude Include="PerPixelLightingShader.h" />
     <ClInclude Include="Polygon3DRenderer.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="RaycastHit.h" />
     <ClInclude Include="Renderer.h" />

@@ -46,8 +46,8 @@ void ModeGame::Init()
 	//ƒJƒƒ‰
 	GameObject *pCamera = new GameObject( m_pRoot);
 	auto cameraComponent = pCamera->AddComponent<Camera>();
-	//pCamera->m_pTransform->SetLocalPosition( Vector3( 0.0f, 400.0f, -70.0f));
-	pCamera->m_pTransform->SetLocalPosition( Vector3( 0.0f, 5.0f, -5.0f));
+	pCamera->m_pTransform->SetLocalPosition( Vector3( 0.0f, 100.0f, -150.0f));
+	//pCamera->m_pTransform->SetLocalPosition( Vector3( 0.0f, 5.0f, -5.0f));
 	cameraComponent->SetFar( 2000.0f);
 	pCamera->AddComponent<CameraController>();
 

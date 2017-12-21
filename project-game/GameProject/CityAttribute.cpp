@@ -17,15 +17,13 @@
 #include "JunctionView.h"
 #include "RoadView.h"
 #include "BlockView.h"
-#include "Building.h"
-#include "BuildingView.h"
 
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
 	マクロ定義
 ------------------------------------------------------------------------------*/
-#define DEFAULT_ROAD_WIDTH (8.0f)			//デフォルトの道路幅
+#define DEFAULT_ROAD_WIDTH (4.0f)			//デフォルトの道路幅
 
 /*------------------------------------------------------------------------------
 	交差点ーコンストラクタ

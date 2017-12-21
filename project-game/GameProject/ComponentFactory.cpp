@@ -52,8 +52,11 @@ ComponentFactory::ComponentFactory()
 	REGISTER(JunctionView);
 	REGISTER(RoadView);
 	REGISTER(BlockView);
-	REGISTER(BuildingView);
 	REGISTER(MeshPolygonRenderer);
+	REGISTER(BlockModel);
+	REGISTER(BuildingGeometry);
+	REGISTER(WallRenderer);
+
 
 }
 

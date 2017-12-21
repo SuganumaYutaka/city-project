@@ -24,8 +24,8 @@ using namespace HalfEdgeDataStructure;
 /*------------------------------------------------------------------------------
 	マクロ定義
 ------------------------------------------------------------------------------*/
-#define DEFAULT_ROAD_WIDTH (8.0f)			//デフォルトの道路幅
-#define DEFAULT_LAND_SIZE (10.0f)			//デフォルトの土地サイズ
+#define DEFAULT_ROAD_WIDTH (4.0f)			//デフォルトの道路幅
+#define DEFAULT_LAND_SIZE (8.0f)			//デフォルトの土地サイズ
 #define DISTANCE_OF_LANDS (0.8f)			//土地同士の間隔
 
 /*------------------------------------------------------------------------------
@@ -43,8 +43,6 @@ BlockModel::BlockModel( GameObject* pGameObject)
 {
 	m_pGameObject = pGameObject;
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
-
-
 }
 
 /*------------------------------------------------------------------------------
@@ -52,7 +50,7 @@ BlockModel::BlockModel( GameObject* pGameObject)
 ------------------------------------------------------------------------------*/
 void BlockModel::Uninit( void)
 {
-	
+	m_BuildingGeometries.clear();
 }
 
 /*------------------------------------------------------------------------------

@@ -1,0 +1,17 @@
+BuildingSurfacePatternScript  //これは必ず消さない！
+
+Texture data/TEXTURE/BSP_test03.png
+
+SizeLevel Middle
+
+
+// 種類 左上座標のX 左上座標のY 大きさのX 大きさのY
+Wall 0.5 0.5 0.5 0.5 
+Window 0.0 0.0 0.5 0.5 
+Window 0.5 0.0 0.5 0.5 
+Entrance 0.0 0.5 0.5 0.5 
+Border 0.5 0.5 0.5 0.5 
+
+
+EndScript  //これは必ず消さない！
+

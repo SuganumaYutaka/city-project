@@ -38,6 +38,7 @@ Floor::~Floor()
 		{
 			break;
 		}
+		targetTile = nextTile;
 	}
 }
 

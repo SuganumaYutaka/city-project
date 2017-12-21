@@ -26,29 +26,12 @@ Tile::Tile() : m_Next( NULL)
 /*------------------------------------------------------------------------------
 	‰Šú‰»
 ------------------------------------------------------------------------------*/
-void Tile::Init( float height, float width, E_TILE_TYPE type, BuildingRule* rule)
+void Tile::Init( float height, float width, E_TILE_TYPE type, const TextureUV& texUV)
 {
 	m_Height = height;
 	m_Width = width;
 	m_Type = type;
-	
-	switch (type)
-	{
-	case eTileWall:
-		m_TexUV = rule->GetSurfacePattern()->GetWall(0);
-		break;
-	case eTileWindow:
-		m_TexUV = rule->GetSurfacePattern()->GetWindow(0);
-		break;
-	case eTileEntrance:
-		m_TexUV = rule->GetSurfacePattern()->GetEntrance(0);
-		break;
-	case eTileBorder:
-		m_TexUV = rule->GetSurfacePattern()->GetBorder(0);
-		break;
-	default:
-		break;
-	}
+	m_TexUV = texUV;
 }
 
 /*------------------------------------------------------------------------------
