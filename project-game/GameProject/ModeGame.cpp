@@ -54,10 +54,17 @@ void ModeGame::Init()
 	//スカイドーム
 	auto pSky = new GameObject( m_pRoot);
 	auto meshDome = pSky->AddComponent<MeshDomeRenderer>();
+	meshDome->SetDome( 30, 10, 220.0f, 220.0f);
 	meshDome->m_nLayer = eLayerSky;
 	meshDome->SetShader( eShaderSky);
-	meshDome->LoadTexture( "data/TEXTURE/sky00.jpg");
-	meshDome->SetSize( 1000.0f, 1000.0f);
+	meshDome->LoadTexture( "data/TEXTURE/sky01.jpg");
+	
+	//床
+	auto groundObject = new GameObject( m_pRoot);
+	auto grountRanderer = groundObject->AddComponent<Polygon3DRenderer>();
+	grountRanderer->LoadTexture("data/TEXTURE/black.jpg");
+	groundObject->m_pTransform->SetLocalPositionY( -5.0f);
+	groundObject->m_pTransform->SetLocalScale( 500.0f, 1.0f, 500.0f);
 
 	//City
 	auto cityObject = new GameObject( m_pRoot);

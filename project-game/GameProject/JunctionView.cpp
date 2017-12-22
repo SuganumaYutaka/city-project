@@ -124,7 +124,7 @@ void JunctionView::UpdateRenderer(void)
 			vec2 *= -1.0f;
 		}
 
-		//ŠOÏ‚É‰‚¶‚ÄŠp“x‚ğİ’è
+		//ŠOÏ‚É‰‚¶‚Ä‰ñ“]
 		if (Vector3::Cross(vec1, vec2).y < 0.0f)
 		{
 			m_pTransform->SetWorldRotationLookDirection( vec1);
