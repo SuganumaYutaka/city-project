@@ -61,6 +61,7 @@ public:
 	float GetLength( void);
 	Vector3 GetCenterPosition( void);
 	Vector3 GetVector( void);
+	std::vector<Vector3> GetVertices( void);
 };
 
 //–Êi‹æ‰æj

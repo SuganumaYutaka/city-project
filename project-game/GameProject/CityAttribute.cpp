@@ -23,7 +23,7 @@ using namespace HalfEdgeDataStructure;
 /*------------------------------------------------------------------------------
 	マクロ定義
 ------------------------------------------------------------------------------*/
-#define DEFAULT_ROAD_WIDTH (4.0f)			//デフォルトの道路幅
+#define DEFAULT_ROAD_WIDTH (12.0f)			//デフォルトの道路幅
 
 /*------------------------------------------------------------------------------
 	交差点ーコンストラクタ
@@ -132,6 +132,27 @@ Vector3 RoadAttribute::GetCenterPosition( void)
 Vector3 RoadAttribute::GetVector( void)
 {
 	return GetEdge()->GetVector();
+}
+
+/*------------------------------------------------------------------------------
+	道路ー頂点情報を取得
+------------------------------------------------------------------------------*/
+std::vector<Vector3> RoadAttribute::GetVertices(void)
+{
+	std::vector<Vector3> vertices;
+	auto edge = GetEdge();
+	Vector3 start = GetEdge()->GetStart()->GetPosition();
+	Vector3 end = GetEdge()->GetEnd()->GetPosition();
+	Vector3 vector = GetVector();
+	Vector3 vertical( -vector.z, vector.y, vector.x);
+	vertical = vertical.Normalize();
+	
+	vertices.push_back( start + vertical * Width * 0.5f);
+	vertices.push_back( end + vertical * Width * 0.5f);
+	vertices.push_back( end - vertical * Width * 0.5f);
+	vertices.push_back( start - vertical * Width * 0.5f);
+	
+	return vertices;
 }
 
 /*------------------------------------------------------------------------------
