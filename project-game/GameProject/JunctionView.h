@@ -41,6 +41,8 @@ private:
 	Polygon3DRenderer* m_Renderer;
 
 	bool m_IsUpdatedAttribute;
+
+	void UpdateRenderer( void);
 };
 
 #endif

@@ -25,24 +25,24 @@ BuildingRule* BuildingRuleSimple::Create( BuildingSurfacePattern* surfacePattern
 {
 	auto random = new Random();
 	
-	//形状の高さ(10-30)
-	random->SetRangeFloat( 10.0f, 30.0f);
+	//形状の高さ
+	random->SetRangeFloat( 10.0f, 50.0f);
 	float shapeHeight = random->GetFloat();
 
-	//1階の高さ(2-4)
-	random->SetRangeFloat( 2.0f, 4.0f);
+	//1階の高さ
+	random->SetRangeFloat( 2.0f, 2.5f);
 	float groundFloorHeight = random->GetFloat();
 	
-	//フロアの高さ(2-3)
-	random->SetRangeFloat( 2.0f, 3.0f);
+	//フロアの高さ
+	random->SetRangeFloat( 1.0f, 2.0f);
 	float floorHeight = random->GetFloat();
 
-	//窓の幅(1-3)
-	random->SetRangeFloat( 1.0f, 3.0f);
+	//窓の幅
+	random->SetRangeFloat( 0.8f, 1.8f);
 	float windowWidth = random->GetFloat();
 
-	//玄関の幅(2-6)
-	random->SetRangeFloat( 2.0f, 6.0f);
+	//玄関の幅
+	random->SetRangeFloat( 2.0f, 2.5f);
 	float entranceWidth = random->GetFloat();
 
 	//ルールの生成

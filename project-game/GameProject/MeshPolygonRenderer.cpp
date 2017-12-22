@@ -160,8 +160,24 @@ void MeshPolygonRenderer::SetVtxBuffer( void)
 		pVtx[nCnt].Tex = D3DXVECTOR2( 0.0f, 0.0f);
 	}
 
+	if (size == 4)
+	{
+		pVtx[0].Tex = D3DXVECTOR2( 0.0f, 0.0f);
+		pVtx[1].Tex = D3DXVECTOR2( 0.0f, 1.0f);
+		pVtx[2].Tex = D3DXVECTOR2( 1.0f, 1.0f);
+		pVtx[3].Tex = D3DXVECTOR2( 1.0f, 0.0f);
+	}
+
 	//アンロック
 	m_pVtxBuff->Unlock();
+}
+
+/*------------------------------------------------------------------------------
+	テクスチャ設定
+------------------------------------------------------------------------------*/
+void MeshPolygonRenderer::LoadTexture(std::string FileName)
+{
+	m_pMaterial->SetTexture( FileName);
 }
 
 /*------------------------------------------------------------------------------

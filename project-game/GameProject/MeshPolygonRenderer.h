@@ -37,6 +37,7 @@ public:
 
 	void Update( void);
 	void Draw( Camera* pCamera);
+	void LoadTexture( std::string FileName);
 	
 	void SetColor( float R, float G, float B, float A) { m_Color = D3DXCOLOR( R, G, B, A); SetVtxBuffer();}
 	void SetAlpha( float A) { m_Color.a = A; SetVtxBuffer();}

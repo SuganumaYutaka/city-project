@@ -37,8 +37,12 @@ RoadView::RoadView( GameObject* pGameObject)
 	m_IsUpdatedAttribute = false;
 
 	//レンダラーの設定
-	m_Renderer = m_pGameObject->AddComponent<Polygon3DRenderer>();
-	m_Renderer->LoadTexture( "data/TEXTURE/field.jpg");
+	m_GrayRenderer = m_pGameObject->AddComponent<MeshPolygonRenderer>();
+	m_GrayRenderer->LoadTexture( "data/TEXTURE/gray.jpg");
+
+	m_WhiteLineRenderer = m_pGameObject->AddComponent<MeshPolygonRenderer>();
+	m_WhiteLineRenderer->LoadTexture( "data/TEXTURE/whiteline.png");
+	m_WhiteLineRenderer->SetPass( 1);
 }
 
 /*------------------------------------------------------------------------------
@@ -61,10 +65,8 @@ void RoadView::Update( void)
 
 	m_IsUpdatedAttribute = false;
 
-	//View情報の更新
-	m_Renderer->m_pTransform->SetLocalPosition( m_Attribute->GetCenterPosition());
-	m_Renderer->m_pTransform->SetWorldRotationLookDirection( m_Attribute->GetVector());
-	m_Renderer->m_pTransform->SetLocalScale( m_Attribute->GetWidth(), 1.0f, m_Attribute->GetLength());
+	//描画情報の更新
+	UpdateRenderer();
 }
 
 /*------------------------------------------------------------------------------
@@ -79,8 +81,34 @@ void RoadView::SetAttribute( RoadAttribute* attribute)
 	
 	m_Attribute = attribute;
 
-	//View情報の更新
-	m_Renderer->m_pTransform->SetLocalPosition( m_Attribute->GetCenterPosition());
-	m_Renderer->m_pTransform->SetWorldRotationLookDirection( m_Attribute->GetVector());
-	m_Renderer->m_pTransform->SetLocalScale( m_Attribute->GetWidth(), 1.0f, m_Attribute->GetLength());
+	//描画情報の更新
+	UpdateRenderer();
 }
+
+/*------------------------------------------------------------------------------
+	描画情報の更新
+------------------------------------------------------------------------------*/
+void RoadView::UpdateRenderer(void)
+{
+	//道路の頂点を取得
+	auto& vertices = m_Attribute->GetVertices();
+	
+	//交差点分短くする
+	float width = m_Attribute->GetWidth();
+	Vector3 vector = m_Attribute->GetVector().Normalize();
+	vertices[0] += vector * width * ( 0.5f - 0.03f);
+	vertices[1] -= vector * width * ( 0.5f - 0.03f);
+	vertices[2] -= vector * width * ( 0.5f - 0.03f);
+	vertices[3] += vector * width * ( 0.5f - 0.03f);
+
+	//アスファルト
+	m_GrayRenderer->SetVertices( vertices);
+
+	//白線
+	for (auto& vertex : vertices)
+	{
+		vertex.y += 0.01f;
+	}
+	m_WhiteLineRenderer->SetVertices( vertices);
+}
+

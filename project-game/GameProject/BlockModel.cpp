@@ -24,7 +24,7 @@ using namespace HalfEdgeDataStructure;
 /*------------------------------------------------------------------------------
 	マクロ定義
 ------------------------------------------------------------------------------*/
-#define DEFAULT_ROAD_WIDTH (4.0f)			//デフォルトの道路幅
+#define DEFAULT_ROAD_WIDTH (12.0f)			//デフォルトの道路幅
 #define DEFAULT_LAND_SIZE (8.0f)			//デフォルトの土地サイズ
 #define DISTANCE_OF_LANDS (0.8f)			//土地同士の間隔
 
@@ -149,7 +149,7 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 
 		//土地を生成
 		int numVertex = edges[nCnt].vertices.size();
-		for (int i = 0; i < numVertex - 1; i++)
+		for (int i = 0; i < numVertex - 2; i++)
 		{
 			//4つ目の頂点（登録順は3番目）を設定
 			Vector3 pointThird = pointFourth + edges[ nCnt].vector / (float)( numVertex);
@@ -176,12 +176,12 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 	for (BlockLand& land : lands)
 	{
 		//土地を道路幅分狭める
-		if ( !NarrowLand(land.vertices[0], land.vertices[3], DEFAULT_ROAD_WIDTH * 0.5f))
+		if ( !MoveLand(land.vertices[0], land.vertices[3], DEFAULT_ROAD_WIDTH * 0.5f))
 		{
 			land.canCreateBuilding = false;
 			continue;
 		}
-		if ( !NarrowLand(land.vertices[1], land.vertices[2], DEFAULT_ROAD_WIDTH * 0.5f))
+		if ( !MoveLand(land.vertices[1], land.vertices[2], DEFAULT_ROAD_WIDTH * 0.5f))
 		{
 			land.canCreateBuilding = false;
 			continue;

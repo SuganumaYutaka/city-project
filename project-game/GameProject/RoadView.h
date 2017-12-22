@@ -17,7 +17,7 @@
 	前方宣言
 ------------------------------------------------------------------------------*/
 class RoadAttribute;
-class Polygon3DRenderer;
+class MeshPolygonRenderer;
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -38,9 +38,12 @@ private:
 	void Update(void);
 
 	RoadAttribute* m_Attribute;
-	Polygon3DRenderer* m_Renderer;
+	MeshPolygonRenderer* m_GrayRenderer;
+	MeshPolygonRenderer* m_WhiteLineRenderer;
 
 	bool m_IsUpdatedAttribute;
+
+	void UpdateRenderer( void);
 };
 
 #endif
