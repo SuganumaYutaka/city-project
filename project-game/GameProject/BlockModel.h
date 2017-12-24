@@ -19,8 +19,14 @@
 class GameObject;
 class Building;
 class BlockAttribute;
-class BuildingGeometry;
+class BuildingController;
 class BuildingRuleFactory;
+class RoadAttribute;
+
+namespace HalfEdgeDataStructure
+{
+	class Vertex;
+}
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -42,6 +48,9 @@ private:
 	{
 		std::vector<Vector3> vertices;
 		Vector3 vector;
+		
+		std::list<std::pair<RoadAttribute*, float>> roads;
+
 	}BlockEdge;
 
 	//土地（連続する頂点）
@@ -49,12 +58,16 @@ private:
 	{
 		std::vector<Vector3> vertices;
 		bool canCreateBuilding;
+
+		std::list<RoadAttribute*> roads;
 	}BlockLand;
 
-	std::list<BuildingGeometry*> m_BuildingGeometries;
+	std::list<BuildingController*> m_BuildingControllers;
 
 	bool NarrowLand( Vector3& start, Vector3& end, float value);
 	bool MoveLand( Vector3& start, Vector3& end, float value);
+
+	bool SetRoadsFromCorner( HalfEdgeDataStructure::Vertex* corner, HalfEdgeDataStructure::Vertex* next, BlockEdge* blockedge, BlockAttribute* attribute);
 };
 
 #endif

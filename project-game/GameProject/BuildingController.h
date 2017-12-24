@@ -1,11 +1,11 @@
 /*==============================================================================
-	
-	CityController.h - 町の自動生成ーコントローラ
-														Author : Yutaka Suganuma
-														Date   : 2017/12/1
+
+    BuildingController.h - 建物の自動生成ー建物コントローラ
+                                                       Author : Yutaka Suganuma
+                                                       Date   : 2017/12/24
 ==============================================================================*/
-#ifndef _CITY_CONTROLLER_H_
-#define _CITY_CONTROLLER_H_
+#ifndef _BUILDING_CONTROLLER_H_
+#define _BUILDING_CONTROLLER_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -16,34 +16,32 @@
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class GameObject;
-class BuildingRuleFactory;
+class BuildingGeometry;
+class BuildingRule;
+class RoadAttribute;
 class BuildingManager;
-
-namespace HalfEdgeDataStructure
-{
-	class Model;
-}
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class CityController : public Component
+class BuildingController : public Component
 {
 public:
 	static Component* Create( GameObject* gameObject);
 
-	CityController( GameObject* pGameObject);
+	BuildingController( GameObject* pGameObject);
 	void Uninit( void);
-	
+
+	bool Init( const std::vector<Vector3>& vertices, BuildingRule* rule, std::list<RoadAttribute*> roads, BuildingManager* manager);
+
 private:
-	void Update();
+	void Update(void);
 
-	HalfEdgeDataStructure::Model* m_Model;
-	BuildingRuleFactory* m_BuildingRuleFactory;
 	BuildingManager* m_BuildingManager;
+	BuildingGeometry* m_Geometry;
+	
+	
 };
-
 
 #endif
 

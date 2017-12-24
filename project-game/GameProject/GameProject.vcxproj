@@ -165,7 +165,9 @@
     <ClCompile Include="BlockModel.cpp" />
     <ClCompile Include="BlockView.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="BuildingController.cpp" />
     <ClCompile Include="BuildingGeometry.cpp" />
+    <ClCompile Include="BuildingManager.cpp" />
     <ClCompile Include="BuildingRuleFactory.cpp" />
     <ClCompile Include="BuildingRuleSimple.cpp" />
     <ClCompile Include="BuildingSurfacePattern.cpp" />
@@ -314,7 +316,9 @@
     <ClInclude Include="BlockModel.h" />
     <ClInclude Include="BlockView.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="BuildingController.h" />
     <ClInclude Include="BuildingGeometry.h" />
+    <ClInclude Include="BuildingManager.h" />
     <ClInclude Include="BuildingRule.h" />
     <ClInclude Include="BuildingRuleFactory.h" />
     <ClInclude Include="BuildingRuleSimple.h" />

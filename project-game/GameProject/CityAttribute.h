@@ -21,6 +21,7 @@ class RoadView;
 class BlockView;
 class GameObject;
 class BuildingRuleFactory;
+class BuildingManager;
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -70,15 +71,17 @@ class BlockAttribute : public HalfEdgeDataStructure::FaceAttribute
 private:
 	BlockView* m_View;
 	BuildingRuleFactory* m_BuildingRuleFactory;
+	BuildingManager* m_BuildingManager;
 	
 public:
-	BlockAttribute( GameObject* parent, BuildingRuleFactory* buildingRuleFactory);
+	BlockAttribute( GameObject* parent, BuildingRuleFactory* buildingRuleFactory, BuildingManager* buildingManager);
 	~BlockAttribute();
 	void Init( void) override;
 	void Update( void) override;
 	void UnregisterView( void){ m_View = NULL;}
 
 	BuildingRuleFactory* GetBuildingRuleFactory( void) { return m_BuildingRuleFactory;}
+	BuildingManager* GetBuildingManager( void) { return m_BuildingManager;}
 };
 
 //ファクトリー
@@ -87,13 +90,15 @@ class CityAttributeFactory : public HalfEdgeDataStructure::AttributeFactory
 private:
 	GameObject* m_Parent;
 	BuildingRuleFactory* m_BuildingRuleFactory;
+	BuildingManager* m_BuildingManager;
 
 public:
-	CityAttributeFactory( GameObject* parent, BuildingRuleFactory* buildingRuleFactory) : m_Parent( parent), m_BuildingRuleFactory(buildingRuleFactory) {}
+	CityAttributeFactory( GameObject* parent, BuildingRuleFactory* buildingRuleFactory, BuildingManager* buildingManager)
+		: m_Parent( parent), m_BuildingRuleFactory(buildingRuleFactory), m_BuildingManager( buildingManager) {}
 
 	virtual HalfEdgeDataStructure::VertexAttribute* CreateVertexAttribute( void) { return new JunctionAttribute( m_Parent); }
 	virtual HalfEdgeDataStructure::EdgeAttribute* CreateEdgeAttribute( void) { return new RoadAttribute( m_Parent); }
-	virtual HalfEdgeDataStructure::FaceAttribute* CreateFaceAttribute( void){ return new BlockAttribute( m_Parent, m_BuildingRuleFactory); }
+	virtual HalfEdgeDataStructure::FaceAttribute* CreateFaceAttribute( void){ return new BlockAttribute( m_Parent, m_BuildingRuleFactory, m_BuildingManager); }
 };
 
 #endif

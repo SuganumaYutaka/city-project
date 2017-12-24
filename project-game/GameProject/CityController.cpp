@@ -19,6 +19,7 @@
 #include "InputKeyboard.h"
 
 #include "BuildingRuleFactory.h"
+#include "BuildingManager.h"
 
 using namespace HalfEdgeDataStructure;
 
@@ -45,11 +46,15 @@ CityController::CityController( GameObject* pGameObject)
 	m_pGameObject = pGameObject;
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 
+	//建物管理オブジェクト生成
+	m_BuildingManager = new BuildingManager();
+
 	//建物の自動生成システムを生成
 	m_BuildingRuleFactory = new BuildingRuleFactory();
 
 	//町の自動生成システム設定のハーフエッジデータ構造を生成
-	m_Model = new Model( new CityRule(), new CityAttributeFactory( m_pGameObject, m_BuildingRuleFactory));
+	auto attributeFactory = new CityAttributeFactory( m_pGameObject, m_BuildingRuleFactory, m_BuildingManager);
+	m_Model = new Model( new CityRule(), attributeFactory);
 
 	//はじめの面を生成
 	Vector3 sizeHalf( CITY_WIDTH * 0.5f, 0.0f, CITY_HEIGHT * 0.5f);
@@ -65,6 +70,7 @@ void CityController::Uninit( void)
 {
 	delete m_Model;
 	delete m_BuildingRuleFactory;
+	delete m_BuildingManager;
 }
 
 /*------------------------------------------------------------------------------

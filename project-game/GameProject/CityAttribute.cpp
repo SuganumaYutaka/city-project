@@ -158,12 +158,13 @@ std::vector<Vector3> RoadAttribute::GetVertices(void)
 /*------------------------------------------------------------------------------
 	区画ーコンストラクタ
 ------------------------------------------------------------------------------*/
-BlockAttribute::BlockAttribute( GameObject* parent, BuildingRuleFactory* buildingRuleFactory)
+BlockAttribute::BlockAttribute( GameObject* parent, BuildingRuleFactory* buildingRuleFactory, BuildingManager* buildingManager)
 {
 	auto gameObject = new GameObject( parent);
 	gameObject->IsCreatedByOtherComponent = true;
 	m_View = gameObject->AddComponent<BlockView>();
 	m_BuildingRuleFactory = buildingRuleFactory;
+	m_BuildingManager = buildingManager;
 }
 
 /*------------------------------------------------------------------------------
