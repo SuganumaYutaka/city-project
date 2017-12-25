@@ -1,11 +1,11 @@
 /*==============================================================================
-
-    BuildingController.h - 建物の自動生成ー建物コントローラ
-                                                       Author : Yutaka Suganuma
-                                                       Date   : 2017/12/24
+	
+	TrafficRoad.h - 交通システムー道路
+														Author : Yutaka Suganuma
+														Date   : 2017/12/25
 ==============================================================================*/
-#ifndef _BUILDING_CONTROLLER_H_
-#define _BUILDING_CONTROLLER_H_
+#ifndef _TRAFFIC_ROAD_H_
+#define _TRAFFIC_ROAD_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -16,33 +16,42 @@
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class BuildingGeometry;
-class BuildingRule;
+class GameObject;
 class RoadAttribute;
-class BuildingManager;
-class TrafficBuilding;
+class CarController;
+class TrafficJunction;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BuildingController : public Component
+class TrafficRoad : public Component
 {
 public:
 	static Component* Create( GameObject* gameObject);
 
-	BuildingController( GameObject* pGameObject);
+	TrafficRoad( GameObject* pGameObject);
 	void Uninit( void);
 
-	bool Init( const std::vector<Vector3>& vertices, BuildingRule* rule, std::list<RoadAttribute*> roads, BuildingManager* manager);
+	RoadAttribute* GetAttribute( void) { return m_Attribute;}
+	void SetAttribute( RoadAttribute* attribute);
+	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
+	
+	void RegisterCar( CarController* car, TrafficJunction* nextJunction);
+	void UnregisterCar( CarController* car);
+
+	std::list<CarController*>* GetCars( TrafficJunction* nextJunction);
 
 private:
 	void Update(void);
 
-	BuildingManager* m_BuildingManager;
-	BuildingGeometry* m_Geometry;
-	TrafficBuilding* m_TrafficBuilding;
+	RoadAttribute* m_Attribute;
+	bool m_IsUpdatedAttribute;
+
+	std::list<CarController*> m_LeftSideCars;
+	std::list<CarController*> m_RightSideCars;
 	
 };
+
 
 #endif
 

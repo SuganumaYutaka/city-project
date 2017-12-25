@@ -1,11 +1,11 @@
 /*==============================================================================
-
-    BuildingController.h - 建物の自動生成ー建物コントローラ
-                                                       Author : Yutaka Suganuma
-                                                       Date   : 2017/12/24
+	
+	TrafficBuilding.h - 交通システムー建物
+														Author : Yutaka Suganuma
+														Date   : 2017/12/25
 ==============================================================================*/
-#ifndef _BUILDING_CONTROLLER_H_
-#define _BUILDING_CONTROLLER_H_
+#ifndef _TRAFFIC_BUILDING_H_
+#define _TRAFFIC_BUILDING_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -16,33 +16,39 @@
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class BuildingGeometry;
-class BuildingRule;
+class GameObject;
+class BuildingAttribute;
+class CarController;
+class TrafficRoad;
+class CarFactory;
 class RoadAttribute;
-class BuildingManager;
-class TrafficBuilding;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BuildingController : public Component
+class TrafficBuilding : public Component
 {
 public:
 	static Component* Create( GameObject* gameObject);
 
-	BuildingController( GameObject* pGameObject);
+	TrafficBuilding( GameObject* pGameObject);
 	void Uninit( void);
 
-	bool Init( const std::vector<Vector3>& vertices, BuildingRule* rule, std::list<RoadAttribute*> roads, BuildingManager* manager);
+	void SetRoads( std::list<RoadAttribute*> roadAttributes);
+	void SetCarFactory( CarFactory* carFactory);
+
+	CarController* CreateCar( void);
+	void EnterCar( CarController* car);
+	CarController* ExitCar( CarController* car = NULL);
 
 private:
 	void Update(void);
 
-	BuildingManager* m_BuildingManager;
-	BuildingGeometry* m_Geometry;
-	TrafficBuilding* m_TrafficBuilding;
-	
+	std::list<TrafficRoad*> m_Roads;
+	std::list<CarController*> m_Cars;
+	CarFactory* m_CarFactory;
 };
+
 
 #endif
 

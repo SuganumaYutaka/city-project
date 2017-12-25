@@ -173,6 +173,9 @@
     <ClCompile Include="BuildingSurfacePattern.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraController.cpp" />
+    <ClCompile Include="CarController.cpp" />
+    <ClCompile Include="CarFactory.cpp" />
+    <ClCompile Include="CarManager.cpp" />
     <ClCompile Include="CityAttribute.cpp" />
     <ClCompile Include="CityController.cpp" />
     <ClCompile Include="CityRule.cpp" />
@@ -250,6 +253,9 @@
     <ClCompile Include="TextureUV.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TitleController.cpp" />
+    <ClCompile Include="TrafficBuilding.cpp" />
+    <ClCompile Include="TrafficJunction.cpp" />
+    <ClCompile Include="TrafficRoad.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
@@ -325,6 +331,10 @@
     <ClInclude Include="BuildingSurfacePattern.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraController.h" />
+    <ClInclude Include="CarController.h" />
+    <ClInclude Include="CarFactory.h" />
+    <ClInclude Include="CarManager.h" />
+    <ClInclude Include="CarState.h" />
     <ClInclude Include="CityAttribute.h" />
     <ClInclude Include="CityController.h" />
     <ClInclude Include="CityRule.h" />
@@ -409,6 +419,9 @@
     <ClInclude Include="TextureUV.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TitleController.h" />
+    <ClInclude Include="TrafficBuilding.h" />
+    <ClInclude Include="TrafficJunction.h" />
+    <ClInclude Include="TrafficRoad.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />

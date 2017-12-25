@@ -18,6 +18,9 @@
 #include "RoadView.h"
 #include "BlockView.h"
 
+#include "TrafficJunction.h"
+#include "TrafficRoad.h"
+
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
@@ -33,6 +36,7 @@ JunctionAttribute::JunctionAttribute( GameObject* parent)
 	auto gameObject = new GameObject( parent);
 	gameObject->IsCreatedByOtherComponent = true;
 	m_View = gameObject->AddComponent<JunctionView>();
+	m_TrafficJunction = gameObject->AddComponent<TrafficJunction>();
 }
 
 /*------------------------------------------------------------------------------
@@ -52,6 +56,7 @@ JunctionAttribute::~JunctionAttribute()
 void JunctionAttribute::Init(void)
 {
 	m_View->SetAttribute( this);
+	m_TrafficJunction->SetAttribute( this);
 }
 
 /*------------------------------------------------------------------------------
@@ -60,6 +65,7 @@ void JunctionAttribute::Init(void)
 void JunctionAttribute::Update(void)
 {
 	m_View->UpdateAttribute();
+	m_TrafficJunction->UpdateAttribute();
 }
 
 /*------------------------------------------------------------------------------
@@ -78,6 +84,7 @@ RoadAttribute::RoadAttribute( GameObject* parent) : Width( DEFAULT_ROAD_WIDTH)
 	auto gameObject = new GameObject( parent);
 	gameObject->IsCreatedByOtherComponent = true;
 	m_View = gameObject->AddComponent<RoadView>();
+	m_TrafficRoad = gameObject->AddComponent<TrafficRoad>();
 }
 
 /*------------------------------------------------------------------------------
@@ -97,6 +104,7 @@ RoadAttribute::~RoadAttribute()
 void RoadAttribute::Init(void)
 {
 	m_View->SetAttribute( this);
+	m_TrafficRoad->SetAttribute( this);
 }
 
 /*------------------------------------------------------------------------------
@@ -105,6 +113,7 @@ void RoadAttribute::Init(void)
 void RoadAttribute::Update(void)
 {
 	m_View->UpdateAttribute();
+	m_TrafficRoad->UpdateAttribute();
 }
 
 /*------------------------------------------------------------------------------

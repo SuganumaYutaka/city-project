@@ -18,6 +18,7 @@
 #include "BuildingGeometry.h"
 #include "CityAttribute.h"
 #include "BuildingManager.h"
+#include "TrafficBuilding.h"
 
 /*------------------------------------------------------------------------------
 	コンポーネント生成
@@ -36,6 +37,7 @@ BuildingController::BuildingController( GameObject* pGameObject)
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 
 	m_Geometry = NULL;
+	m_TrafficBuilding = NULL;
 }
 
 /*------------------------------------------------------------------------------
@@ -62,10 +64,19 @@ bool BuildingController::Init( const std::vector<Vector3>& vertices, BuildingRul
 	{
 		m_Geometry = m_pGameObject->AddComponent<BuildingGeometry>();
 	}
-	bool hr = false;
-	hr = m_Geometry->Init( vertices, rule);
+	m_Geometry->Init( vertices, rule);
 
-	return hr;
+	//交通プログラムの建物の初期化
+	if (!m_TrafficBuilding)
+	{
+		m_TrafficBuilding = m_pGameObject->AddComponent<TrafficBuilding>();
+	}
+	m_TrafficBuilding->SetRoads( roads);
+	
+	//TODO:
+	//m_TrafficBuilding->SetCarFactory(m_CarFactory);
+
+	return true;
 }
 
 /*------------------------------------------------------------------------------

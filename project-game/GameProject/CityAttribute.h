@@ -22,6 +22,8 @@ class BlockView;
 class GameObject;
 class BuildingRuleFactory;
 class BuildingManager;
+class TrafficJunction;
+class TrafficRoad;
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -31,6 +33,7 @@ class JunctionAttribute : public HalfEdgeDataStructure::VertexAttribute
 {
 private:
 	JunctionView* m_View;
+	TrafficJunction* m_TrafficJunction;
 
 public:
 	JunctionAttribute( GameObject* parent);
@@ -40,6 +43,7 @@ public:
 	void UnregisterView( void){ m_View = NULL;}
 
 	const Vector3& GetPosition(void);
+	TrafficJunction* GetTrafficJunction( void){ return m_TrafficJunction;}
 };
 
 //辺（道路）
@@ -47,6 +51,7 @@ class RoadAttribute : public HalfEdgeDataStructure::EdgeAttribute
 {
 private:
 	RoadView* m_View;
+	TrafficRoad* m_TrafficRoad;
 	float Width;
 
 public:
@@ -63,6 +68,7 @@ public:
 	Vector3 GetCenterPosition( void);
 	Vector3 GetVector( void);
 	std::vector<Vector3> GetVertices( void);
+	TrafficRoad* GetTrafficRoad( void){ return m_TrafficRoad;}
 };
 
 //面（区画）

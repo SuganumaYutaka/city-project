@@ -80,6 +80,9 @@
     <Filter Include="CityEngine\Building">
       <UniqueIdentifier>{36f97a4b-6d6f-4ac7-86b4-955938b28b5b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CityEngine\Traffic">
+      <UniqueIdentifier>{ffb8ac06-1bc4-4a61-974a-81fdce74f88e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ParticleShader.hlsl">
@@ -414,6 +417,24 @@
     <ClCompile Include="BuildingManager.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
+    <ClCompile Include="TrafficJunction.cpp">
+      <Filter>CityEngine\Traffic</Filter>
+    </ClCompile>
+    <ClCompile Include="TrafficRoad.cpp">
+      <Filter>CityEngine\Traffic</Filter>
+    </ClCompile>
+    <ClCompile Include="TrafficBuilding.cpp">
+      <Filter>CityEngine\Traffic</Filter>
+    </ClCompile>
+    <ClCompile Include="CarManager.cpp">
+      <Filter>CityEngine\Traffic</Filter>
+    </ClCompile>
+    <ClCompile Include="CarController.cpp">
+      <Filter>CityEngine\Traffic</Filter>
+    </ClCompile>
+    <ClCompile Include="CarFactory.cpp">
+      <Filter>CityEngine\Traffic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModeTitle.h">
@@ -745,6 +766,27 @@
     </ClInclude>
     <ClInclude Include="BuildingManager.h">
       <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="TrafficJunction.h">
+      <Filter>CityEngine\Traffic</Filter>
+    </ClInclude>
+    <ClInclude Include="TrafficRoad.h">
+      <Filter>CityEngine\Traffic</Filter>
+    </ClInclude>
+    <ClInclude Include="TrafficBuilding.h">
+      <Filter>CityEngine\Traffic</Filter>
+    </ClInclude>
+    <ClInclude Include="CarManager.h">
+      <Filter>CityEngine\Traffic</Filter>
+    </ClInclude>
+    <ClInclude Include="CarController.h">
+      <Filter>CityEngine\Traffic</Filter>
+    </ClInclude>
+    <ClInclude Include="CarFactory.h">
+      <Filter>CityEngine\Traffic</Filter>
+    </ClInclude>
+    <ClInclude Include="CarState.h">
+      <Filter>CityEngine\Traffic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
