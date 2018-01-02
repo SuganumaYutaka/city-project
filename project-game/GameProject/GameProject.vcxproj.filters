@@ -432,7 +432,7 @@
     <ClCompile Include="CarController.cpp">
       <Filter>CityEngine\Traffic</Filter>
     </ClCompile>
-    <ClCompile Include="CarFactory.cpp">
+    <ClCompile Include="CarState.cpp">
       <Filter>CityEngine\Traffic</Filter>
     </ClCompile>
   </ItemGroup>
@@ -780,9 +780,6 @@
       <Filter>CityEngine\Traffic</Filter>
     </ClInclude>
     <ClInclude Include="CarController.h">
-      <Filter>CityEngine\Traffic</Filter>
-    </ClInclude>
-    <ClInclude Include="CarFactory.h">
       <Filter>CityEngine\Traffic</Filter>
     </ClInclude>
     <ClInclude Include="CarState.h">

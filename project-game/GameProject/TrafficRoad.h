@@ -36,10 +36,15 @@ public:
 	void SetAttribute( RoadAttribute* attribute);
 	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
 	
-	void RegisterCar( CarController* car, TrafficJunction* nextJunction);
+	void RegisterCar( CarController* car);
 	void UnregisterCar( CarController* car);
 
-	std::list<CarController*>* GetCars( TrafficJunction* nextJunction);
+	const std::list<CarController*>& GetCars( TrafficJunction* nextJunction);
+
+	std::list<TrafficJunction*> GetJunctions( void);
+	TrafficJunction* GetOtherJunction( TrafficJunction* junction);
+
+	Vector3 GetVector( TrafficJunction* nextJunction);
 
 private:
 	void Update(void);

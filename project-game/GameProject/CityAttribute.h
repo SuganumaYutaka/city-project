@@ -22,6 +22,7 @@ class BlockView;
 class GameObject;
 class BuildingRuleFactory;
 class BuildingManager;
+class CarManager;
 class TrafficJunction;
 class TrafficRoad;
 
@@ -78,9 +79,10 @@ private:
 	BlockView* m_View;
 	BuildingRuleFactory* m_BuildingRuleFactory;
 	BuildingManager* m_BuildingManager;
-	
+	CarManager* m_CarManager;
+
 public:
-	BlockAttribute( GameObject* parent, BuildingRuleFactory* buildingRuleFactory, BuildingManager* buildingManager);
+	BlockAttribute( GameObject* parent, BuildingRuleFactory* buildingRuleFactory, BuildingManager* buildingManager, CarManager* carManager);
 	~BlockAttribute();
 	void Init( void) override;
 	void Update( void) override;
@@ -88,6 +90,7 @@ public:
 
 	BuildingRuleFactory* GetBuildingRuleFactory( void) { return m_BuildingRuleFactory;}
 	BuildingManager* GetBuildingManager( void) { return m_BuildingManager;}
+	CarManager* GetCarManager( void){ return m_CarManager;}
 };
 
 //ファクトリー
@@ -97,14 +100,15 @@ private:
 	GameObject* m_Parent;
 	BuildingRuleFactory* m_BuildingRuleFactory;
 	BuildingManager* m_BuildingManager;
+	CarManager* m_CarManager;
 
 public:
-	CityAttributeFactory( GameObject* parent, BuildingRuleFactory* buildingRuleFactory, BuildingManager* buildingManager)
-		: m_Parent( parent), m_BuildingRuleFactory(buildingRuleFactory), m_BuildingManager( buildingManager) {}
+	CityAttributeFactory( GameObject* parent, BuildingRuleFactory* buildingRuleFactory, BuildingManager* buildingManager, CarManager* carManager)
+		: m_Parent( parent), m_BuildingRuleFactory(buildingRuleFactory), m_BuildingManager( buildingManager), m_CarManager( carManager) {}
 
 	virtual HalfEdgeDataStructure::VertexAttribute* CreateVertexAttribute( void) { return new JunctionAttribute( m_Parent); }
 	virtual HalfEdgeDataStructure::EdgeAttribute* CreateEdgeAttribute( void) { return new RoadAttribute( m_Parent); }
-	virtual HalfEdgeDataStructure::FaceAttribute* CreateFaceAttribute( void){ return new BlockAttribute( m_Parent, m_BuildingRuleFactory, m_BuildingManager); }
+	virtual HalfEdgeDataStructure::FaceAttribute* CreateFaceAttribute( void){ return new BlockAttribute( m_Parent, m_BuildingRuleFactory, m_BuildingManager, m_CarManager); }
 };
 
 #endif

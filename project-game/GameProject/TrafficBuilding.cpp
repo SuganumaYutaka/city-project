@@ -20,8 +20,8 @@
 
 #include "TrafficRoad.h"
 #include "CarController.h"
-#include "CarFactory.h"
 #include "CityAttribute.h"
+#include "CarManager.h"
 
 using namespace HalfEdgeDataStructure;
 
@@ -41,7 +41,19 @@ TrafficBuilding::TrafficBuilding( GameObject* pGameObject)
 	m_pGameObject = pGameObject;
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 
-	m_CarFactory = NULL;
+	m_CarManager = NULL;
+}
+
+/*------------------------------------------------------------------------------
+	‰Šú‰»
+------------------------------------------------------------------------------*/
+void TrafficBuilding::Init(std::list<RoadAttribute*> roadAttributes, CarManager* carManager)
+{
+	for (auto roadAttribute : roadAttributes)
+	{
+		m_Roads.push_back( roadAttribute->GetTrafficRoad());
+	}
+	m_CarManager = carManager;
 }
 
 /*------------------------------------------------------------------------------
@@ -57,27 +69,7 @@ void TrafficBuilding::Uninit( void)
 ------------------------------------------------------------------------------*/
 void TrafficBuilding::Update( void)
 {
-	
 
-}
-
-/*------------------------------------------------------------------------------
-	‘®«‚©‚ç“¹˜H‚ğİ’è
-------------------------------------------------------------------------------*/
-void TrafficBuilding::SetRoads(std::list<RoadAttribute*> roadAttributes)
-{
-	for (auto roadAttribute : roadAttributes)
-	{
-		m_Roads.push_back( roadAttribute->GetTrafficRoad());
-	}
-}
-
-/*------------------------------------------------------------------------------
-	CarFactory‚ğİ’è
-------------------------------------------------------------------------------*/
-void TrafficBuilding::SetCarFactory(CarFactory* carFactory)
-{
-	m_CarFactory = carFactory;
 }
 
 /*------------------------------------------------------------------------------
@@ -85,14 +77,21 @@ void TrafficBuilding::SetCarFactory(CarFactory* carFactory)
 ------------------------------------------------------------------------------*/
 CarController* TrafficBuilding::CreateCar(void)
 {
-	if (!m_CarFactory)
+	if (!m_CarManager)
 	{
 		return NULL;
 	}
 
-	//TODO:
+	//Ô‚ğ¶¬
+	auto road = m_Roads.front();
+	auto junction = road->GetJunctions().front();
+	auto carController = m_CarManager->CreateCarController( m_pTransform->GetWorldPosition(), m_pTransform->GetWorldRotation()
+		,road, junction, this);
 
-	return NULL;
+	//“üŒÉ‚³‚¹‚é
+	EnterCar( carController);
+
+	return carController;
 }
 
 /*------------------------------------------------------------------------------
@@ -100,17 +99,92 @@ CarController* TrafficBuilding::CreateCar(void)
 ------------------------------------------------------------------------------*/
 void TrafficBuilding::EnterCar(CarController* car)
 {
-	//TODO:
+	if (!IsCarInBuilding( car))
+	{
+		//“üŒÉ‚³‚¹‚é
+		m_Cars.push_back( car);
 
+		//“¹˜H‚Ì“o˜^‚ğ‰ğœ‚·‚é
+		car->GetCurrentRoad()->UnregisterCar( car);
+	}
 }
 
 /*------------------------------------------------------------------------------
 	Ô‚ğoŒÉ‚³‚¹‚é
 ------------------------------------------------------------------------------*/
-CarController* TrafficBuilding::ExitCar(CarController* car)
+bool TrafficBuilding::ExitCar(CarController* car)
 {
-	//TODO:
+	for (auto ite = m_Cars.begin(); ite != m_Cars.end(); ++ite)
+	{
+		if (*ite == car)
+		{
+			//“¹˜H‚É“o˜^‚·‚é
+			car->GetCurrentRoad()->RegisterCar( car);
 
-	return NULL;
+			//oŒÉ‚³‚¹‚é
+			m_Cars.erase( ite);
+			return true;
+		}
+	}
+
+	return false;
 }
+
+/*------------------------------------------------------------------------------
+	æ‚É“ü‚ê‚½Ô‚ğoŒÉ‚³‚¹‚é
+------------------------------------------------------------------------------*/
+CarController* TrafficBuilding::PopFrontCar(void)
+{
+	if (m_Cars.size() == 0)
+	{
+		return NULL;
+	}
+
+	auto car = m_Cars.front();
+
+	//“¹˜H‚É“o˜^‚·‚é
+	car->GetCurrentRoad()->RegisterCar( car);
+
+	//oŒÉ‚³‚¹‚é
+	m_Cars.pop_front();
+
+	return car;
+}
+
+/*------------------------------------------------------------------------------
+	Œã‚É“ü‚ê‚½Ô‚ğoŒÉ‚³‚¹‚é
+------------------------------------------------------------------------------*/
+CarController* TrafficBuilding::PopBackCar(void)
+{
+	if (m_Cars.size() == 0)
+	{
+		return NULL;
+	}
+	auto car = m_Cars.back();
+
+	//“¹˜H‚É“o˜^‚·‚é
+	car->GetCurrentRoad()->RegisterCar( car);
+
+	//oŒÉ‚³‚¹‚é
+	m_Cars.pop_back();
+
+	return car;
+}
+
+/*------------------------------------------------------------------------------
+	“Á’è‚ÌÔ‚ª“üŒÉ‚µ‚Ä‚¢‚é‚©Šm”F‚·‚é
+------------------------------------------------------------------------------*/
+bool TrafficBuilding::IsCarInBuilding(CarController* car)
+{
+	for (auto carInBuilding : m_Cars)
+	{
+		if (carInBuilding == car)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 

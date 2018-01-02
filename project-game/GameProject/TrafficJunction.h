@@ -23,7 +23,7 @@ class TrafficRoad;
 /*------------------------------------------------------------------------------
 	—ñ‹“Œ^’è‹`
 ------------------------------------------------------------------------------*/
-enum TrafficJunctionBranch
+enum ETrafficJunctionBranch
 {
 	eJunctionBranchBack = 0,
 	eJunctionBranchRight,
@@ -48,9 +48,16 @@ public:
 
 	const std::vector< TrafficRoad*>& GetRoads( void){ return m_Roads;}
 	
-	bool CanTurnRight( TrafficRoad* road);
-	bool CanTurnLeft( TrafficRoad* road);
-	bool CanGoStraight( TrafficRoad* road);
+	bool IsRightRoad( TrafficRoad* currentRoad);
+	bool IsLeftRoad( TrafficRoad* currentRoad);
+	bool IsStraightRoad( TrafficRoad* currentRoad);
+	bool CanTurnRight( TrafficRoad* currentRoad);
+	bool CanTurnLeft( TrafficRoad* currentRoad);
+	bool CanGoStraight( TrafficRoad* currentRoad);
+
+	
+
+	const Vector3& GetPosition( void);
 
 private:
 	void Update(void);
@@ -64,6 +71,9 @@ private:
 	bool m_CanMoveVertical;
 	bool m_CanMoveHorizontal;
 
+	ETrafficJunctionBranch CheckBranch( TrafficRoad* road);
+	bool CanMoveTraffic( ETrafficJunctionBranch currentBranch);
+	bool CheckOncomingCar( TrafficRoad* oncomingRoad);
 };
 
 

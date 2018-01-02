@@ -54,9 +54,9 @@ void BuildingController::Uninit( void)
 /*------------------------------------------------------------------------------
 	‰Šú‰»ˆ—
 ------------------------------------------------------------------------------*/
-bool BuildingController::Init( const std::vector<Vector3>& vertices, BuildingRule* rule, std::list<RoadAttribute*> roads, BuildingManager* manager)
+bool BuildingController::Init( const std::vector<Vector3>& vertices, BuildingRule* rule, std::list<RoadAttribute*> roads, BuildingManager* buildingManager, CarManager* carManager)
 {
-	m_BuildingManager = manager;
+	m_BuildingManager = buildingManager;
 	m_BuildingManager->Register( this);
 	
 	//ƒWƒIƒƒgƒŠ‚Ì‰Šú‰»
@@ -71,10 +71,7 @@ bool BuildingController::Init( const std::vector<Vector3>& vertices, BuildingRul
 	{
 		m_TrafficBuilding = m_pGameObject->AddComponent<TrafficBuilding>();
 	}
-	m_TrafficBuilding->SetRoads( roads);
-	
-	//TODO:
-	//m_TrafficBuilding->SetCarFactory(m_CarFactory);
+	m_TrafficBuilding->Init( roads, carManager);
 
 	return true;
 }

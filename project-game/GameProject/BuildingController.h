@@ -21,6 +21,7 @@ class BuildingRule;
 class RoadAttribute;
 class BuildingManager;
 class TrafficBuilding;
+class CarManager;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -33,7 +34,10 @@ public:
 	BuildingController( GameObject* pGameObject);
 	void Uninit( void);
 
-	bool Init( const std::vector<Vector3>& vertices, BuildingRule* rule, std::list<RoadAttribute*> roads, BuildingManager* manager);
+	bool Init( const std::vector<Vector3>& vertices, BuildingRule* rule, std::list<RoadAttribute*> roads, BuildingManager* buildingManager, CarManager* carManager);
+
+	BuildingGeometry* GetGeometry( void){ return m_Geometry;}
+	TrafficBuilding* GetTrafficBuilding( void){ return m_TrafficBuilding;}
 
 private:
 	void Update(void);

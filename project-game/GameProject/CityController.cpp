@@ -20,6 +20,7 @@
 
 #include "BuildingRuleFactory.h"
 #include "BuildingManager.h"
+#include "CarManager.h"
 
 using namespace HalfEdgeDataStructure;
 
@@ -49,11 +50,15 @@ CityController::CityController( GameObject* pGameObject)
 	//建物管理オブジェクト生成
 	m_BuildingManager = new BuildingManager();
 
+	//車の管理オブジェクト生成
+	auto carManagerObject = new GameObject( m_pGameObject);
+	m_CarManager = carManagerObject->AddComponent<CarManager>();
+
 	//建物の自動生成システムを生成
 	m_BuildingRuleFactory = new BuildingRuleFactory();
 
 	//町の自動生成システム設定のハーフエッジデータ構造を生成
-	auto attributeFactory = new CityAttributeFactory( m_pGameObject, m_BuildingRuleFactory, m_BuildingManager);
+	auto attributeFactory = new CityAttributeFactory( m_pGameObject, m_BuildingRuleFactory, m_BuildingManager, m_CarManager);
 	m_Model = new Model( new CityRule(), attributeFactory);
 
 	//はじめの面を生成

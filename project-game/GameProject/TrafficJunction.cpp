@@ -19,6 +19,7 @@
 #include "HalfEdge.h"
 
 #include "TrafficRoad.h"
+#include "CarController.h"
 
 using namespace HalfEdgeDataStructure;
 
@@ -42,8 +43,8 @@ TrafficJunction::TrafficJunction( GameObject* pGameObject)
 	m_IsUpdatedAttribute = false;
 
 	m_Roads.clear();
-	m_CanMoveVertical = false;
-	m_CanMoveHorizontal = false;
+	m_CanMoveVertical = true;
+	m_CanMoveHorizontal = true;
 }
 
 /*------------------------------------------------------------------------------
@@ -66,7 +67,7 @@ void TrafficJunction::Update( void)
 		m_IsUpdatedAttribute = false;
 	}
 
-	
+	//信号機の更新
 
 }
 
@@ -264,31 +265,301 @@ void TrafficJunction::UpdateJunction(void)
 }
 
 /*------------------------------------------------------------------------------
+	右に道路があるか
+------------------------------------------------------------------------------*/
+bool TrafficJunction::IsRightRoad(TrafficRoad* currentRoad)
+{
+	auto currentBranch = CheckBranch( currentRoad);
+	int size = m_Roads.size();
+	switch (currentBranch)
+	{
+	case eJunctionBranchBack:
+		break;
+
+	case eJunctionBranchRight:
+		//L字、T字は道路がない
+		if (size != 4)
+		{
+			return false;
+		}
+		break;
+
+	case eJunctionBranchLeft:
+		break;
+
+	case eJunctionBranchFront:
+		break;
+
+	default:
+		break;
+	}
+
+	return true;
+}
+
+/*------------------------------------------------------------------------------
+	左に道路があるか
+------------------------------------------------------------------------------*/
+bool TrafficJunction::IsLeftRoad(TrafficRoad* currentRoad)
+{
+	auto currentBranch = CheckBranch( currentRoad);
+	int size = m_Roads.size();
+	switch (currentBranch)
+	{
+	case eJunctionBranchBack:
+		//L字は道路がない
+		if (size == 2)
+		{
+			return false;
+		}
+		break;
+
+	case eJunctionBranchRight:
+		break;
+
+	case eJunctionBranchLeft:
+		//L字、T字は道路がない
+		if (size != 4)
+		{
+			return false;
+		}
+		break;
+
+	case eJunctionBranchFront:
+		break;
+
+	default:
+		break;
+	}
+
+	return true;
+}
+
+/*------------------------------------------------------------------------------
+	直進する道路があるか
+------------------------------------------------------------------------------*/
+bool TrafficJunction::IsStraightRoad(TrafficRoad* currentRoad)
+{
+	auto currentBranch = CheckBranch( currentRoad);
+	int size = m_Roads.size();
+	switch (currentBranch)
+	{
+	case eJunctionBranchBack:
+		//L字、T字は道路がない
+		if (size != 4)
+		{
+			return false;
+		}
+		break;
+
+	case eJunctionBranchRight:
+		//L字は道路がない
+		if (size == 2)
+		{
+			return false;
+		}
+		break;
+
+	case eJunctionBranchLeft:
+		break;
+
+	case eJunctionBranchFront:
+		break;
+
+	default:
+		break;
+	}
+
+	return true;
+}
+
+/*------------------------------------------------------------------------------
 	右折できるか
 ------------------------------------------------------------------------------*/
-bool TrafficJunction::CanTurnRight(TrafficRoad* road)
+bool TrafficJunction::CanTurnRight(TrafficRoad* currentRoad)
 {
-	//TODO:フラグと対向車をチェック
+	//現在のブランチをチェック
+	auto currentBranch = CheckBranch( currentRoad);
 
+	//信号を確認
+	if (!CanMoveTraffic(currentBranch))
+	{
+		return false;
+	}
+
+	//曲がる先に道があるか確認
+	if (!IsRightRoad(currentRoad))
+	{
+		return false;
+	}
+
+	//対向車がないか確認
+	int size = m_Roads.size();
+	TrafficRoad* oncomingCar = NULL;
+	switch (currentBranch)
+	{
+	case eJunctionBranchBack:
+		//対向車を設定
+		if (size == 4)
+		{
+			oncomingCar = m_Roads[ eJunctionBranchFront];
+		}
+		break;
+
+	case eJunctionBranchRight:
+		//対向車を設定
+		oncomingCar = m_Roads[ eJunctionBranchLeft];
+		break;
+
+	case eJunctionBranchLeft:
+		//対向車を設定
+		oncomingCar = m_Roads[ eJunctionBranchRight];
+		break;
+
+	case eJunctionBranchFront:
+		//対向車を設定
+		oncomingCar = m_Roads[ eJunctionBranchBack];
+		break;
+
+	default:
+		break;
+	}
+
+	//対向車が交差点近くにいないか確認
+	if (CheckOncomingCar(oncomingCar))
+	{
+		return false;
+	}
+
+	//通行可能
 	return true;
 }
 
 /*------------------------------------------------------------------------------
 	左折できるか
 ------------------------------------------------------------------------------*/
-bool TrafficJunction::CanTurnLeft(TrafficRoad* road)
+bool TrafficJunction::CanTurnLeft(TrafficRoad* currentRoad)
 {
-	//TODO:フラグと対向車をチェック
+	//現在のブランチをチェック
+	auto currentBranch = CheckBranch( currentRoad);
 
+	//信号を確認
+	if (!CanMoveTraffic(currentBranch))
+	{
+		return false;
+	}
+
+	//曲がる先に道があるか確認
+	if (!IsLeftRoad(currentRoad))
+	{
+		return false;
+	}
+
+	//通行可能
 	return true;
 }
 
 /*------------------------------------------------------------------------------
 	直進できるか
 ------------------------------------------------------------------------------*/
-bool TrafficJunction::CanGoStraight(TrafficRoad* road)
+bool TrafficJunction::CanGoStraight(TrafficRoad* currentRoad)
 {
-	//TODO:フラグと対向車をチェック
+	//現在のブランチをチェック
+	auto currentBranch = CheckBranch( currentRoad);
 
+	//信号を確認
+	if (!CanMoveTraffic(currentBranch))
+	{
+		return false;
+	}
+
+	//直進先に道があるか確認
+	if (!IsStraightRoad(currentRoad))
+	{
+		return false;
+	}
+
+	//通行可能
+	return true;
+}
+
+/*------------------------------------------------------------------------------
+	位置を取得
+------------------------------------------------------------------------------*/
+const Vector3& TrafficJunction::GetPosition(void)
+{
+	return m_Attribute->GetPosition();
+}
+
+/*------------------------------------------------------------------------------
+	道路がどのブランチに当たるかチェック
+------------------------------------------------------------------------------*/
+ETrafficJunctionBranch TrafficJunction::CheckBranch(TrafficRoad* road)
+{
+	if (m_Roads[eJunctionBranchBack] == road)
+	{
+		return eJunctionBranchBack;
+	}
+	if (m_Roads[eJunctionBranchRight] == road)
+	{
+		return eJunctionBranchRight;
+	}
+	if (m_Roads[eJunctionBranchLeft] == road)
+	{
+		return eJunctionBranchLeft;
+	}
+	
+	return eJunctionBranchFront;
+}
+
+/*------------------------------------------------------------------------------
+	信号を確認
+------------------------------------------------------------------------------*/
+bool TrafficJunction::CanMoveTraffic(ETrafficJunctionBranch currentBranch)
+{
+	if (currentBranch == eJunctionBranchBack || currentBranch == eJunctionBranchFront)
+	{
+		if (!m_CanMoveVertical)
+		{
+			return false;
+		}
+	}
+	else if (currentBranch == eJunctionBranchRight || currentBranch == eJunctionBranchLeft)
+	{
+		if (!m_CanMoveHorizontal)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/*------------------------------------------------------------------------------
+	対向車がいるか確認
+------------------------------------------------------------------------------*/
+bool TrafficJunction::CheckOncomingCar(TrafficRoad* oncomingRoad)
+{
+	if (!oncomingRoad)
+	{
+		return false;
+	}
+
+	//対向車線の先頭車の取得
+	auto oncomingCars = oncomingRoad->GetCars( this);
+	if (oncomingCars.size() == 0)
+	{
+		return false;
+	}
+	auto car = oncomingCars.back();
+
+	//対向車が交差点に近いか確認
+	float rate = car->CulcMoveRateOnRoad();
+	if (rate < 0.8f)
+	{
+		return false;
+	}
+
+	//対向車あり
 	return true;
 }

@@ -20,8 +20,8 @@ class GameObject;
 class BuildingAttribute;
 class CarController;
 class TrafficRoad;
-class CarFactory;
 class RoadAttribute;
+class CarManager;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -34,19 +34,22 @@ public:
 	TrafficBuilding( GameObject* pGameObject);
 	void Uninit( void);
 
-	void SetRoads( std::list<RoadAttribute*> roadAttributes);
-	void SetCarFactory( CarFactory* carFactory);
+	void Init( std::list<RoadAttribute*> roadAttributes, CarManager* carManager);
 
 	CarController* CreateCar( void);
 	void EnterCar( CarController* car);
-	CarController* ExitCar( CarController* car = NULL);
+	bool ExitCar( CarController* car = NULL);
+	CarController* PopFrontCar( void);
+	CarController* PopBackCar( void);
+	int GetCarCount( void){ return m_Cars.size(); }
+	bool IsCarInBuilding( CarController* car);
 
 private:
 	void Update(void);
 
 	std::list<TrafficRoad*> m_Roads;
 	std::list<CarController*> m_Cars;
-	CarFactory* m_CarFactory;
+	CarManager* m_CarManager;
 };
 
 

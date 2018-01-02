@@ -262,7 +262,7 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 			//Œš•¨‚Ì¶¬
 			auto gameObject = new GameObject( m_pGameObject);
 			auto controller = gameObject->AddComponent<BuildingController>();
-			controller->Init( land.vertices, buildingRuleFactory->CreateBuildingRule( land.vertices, attribute), land.roads, attribute->GetBuildingManager());
+			controller->Init( land.vertices, buildingRuleFactory->CreateBuildingRule( land.vertices, attribute), land.roads, attribute->GetBuildingManager(), attribute->GetCarManager());
 			m_BuildingControllers.push_back( controller);
 		}
 	}

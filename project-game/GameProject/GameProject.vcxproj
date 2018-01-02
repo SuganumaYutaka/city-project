@@ -174,8 +174,8 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="CarController.cpp" />
-    <ClCompile Include="CarFactory.cpp" />
     <ClCompile Include="CarManager.cpp" />
+    <ClCompile Include="CarState.cpp" />
     <ClCompile Include="CityAttribute.cpp" />
     <ClCompile Include="CityController.cpp" />
     <ClCompile Include="CityRule.cpp" />
@@ -332,7 +332,6 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="CarController.h" />
-    <ClInclude Include="CarFactory.h" />
     <ClInclude Include="CarManager.h" />
     <ClInclude Include="CarState.h" />
     <ClInclude Include="CityAttribute.h" />

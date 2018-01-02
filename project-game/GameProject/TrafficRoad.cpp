@@ -86,23 +86,60 @@ void TrafficRoad::SetAttribute( RoadAttribute* attribute)
 /*------------------------------------------------------------------------------
 	車の登録
 ------------------------------------------------------------------------------*/
-void TrafficRoad::RegisterCar(CarController* car, TrafficJunction* nextJunction)
+void TrafficRoad::RegisterCar(CarController* car)
 {
-	if ( !m_Attribute || !nextJunction->GetAttribute())
-	{
-		return;
-	}
-
 	UnregisterCar( car);
 
 	//次に到達する交差点の情報から左右のどちらを通行するか決定
-	if (nextJunction->GetAttribute()->GetVertex() == m_Attribute->GetEdge()->GetEnd())
+	if (car->GetNextJunction()->GetAttribute()->GetVertex() == m_Attribute->GetEdge()->GetEnd())
 	{
+		//始点から見て左車線に挿入
+		if (m_LeftSideCars.size() == 0)
+		{
+			m_LeftSideCars.push_back( car);
+			return;
+		}
+
+		//挿入地点の始点からの距離（進んだ距離）に応じて途中に挿入
+		float insertRate = car->CulcMoveRateOnRoad();
+		for (auto ite = m_LeftSideCars.begin(); ite != m_LeftSideCars.end(); ++ite)
+		{
+			float rate = (*ite)->CulcMoveRateOnRoad();
+			if (insertRate <= rate)
+			{
+				m_LeftSideCars.insert( ite, car);
+				return;
+			}
+		}
+
+		//最後尾に挿入
 		m_LeftSideCars.push_back( car);
+		return;
 	}
 	else
 	{
+		//始点から見て右車線に挿入
+		if (m_RightSideCars.size() == 0)
+		{
+			m_RightSideCars.push_back( car);
+			return;
+		}
+
+		//挿入地点の始点からの距離（進んだ距離）に応じて途中に挿入
+		float insertRate = car->CulcMoveRateOnRoad();
+		for (auto ite = m_RightSideCars.begin(); ite != m_RightSideCars.end(); ++ite)
+		{
+			float rate = (*ite)->CulcMoveRateOnRoad();
+			if (insertRate <= rate)
+			{
+				m_RightSideCars.insert( ite, car);
+				return;
+			}
+		}
+
+		//最後尾に挿入
 		m_RightSideCars.push_back( car);
+		return;
 	}
 }
 	
@@ -132,22 +169,65 @@ void TrafficRoad::UnregisterCar(CarController* car)
 /*------------------------------------------------------------------------------
 	車の取得
 ------------------------------------------------------------------------------*/
-std::list<CarController*>* TrafficRoad::GetCars(TrafficJunction* nextJunction)
+const std::list<CarController*>& TrafficRoad::GetCars(TrafficJunction* nextJunction)
 {
-	if ( !m_Attribute || !nextJunction->GetAttribute())
-	{
-		return NULL;
-	}
-
 	//次に到達する交差点の情報から左右のどちらを通行するか決定
 	if (nextJunction->GetAttribute()->GetVertex() == m_Attribute->GetEdge()->GetEnd())
 	{
-		return &m_LeftSideCars;
+		return m_LeftSideCars;
 	}
-	else
+	return m_RightSideCars;
+}
+
+/*------------------------------------------------------------------------------
+	交差点の取得
+------------------------------------------------------------------------------*/
+std::list<TrafficJunction*> TrafficRoad::GetJunctions(void)
+{
+	std::list<TrafficJunction*> junctions;
+	JunctionAttribute* junctionAttribute = (JunctionAttribute*)m_Attribute->GetEdge()->GetStart()->GetAttribute();
+	junctions.push_back( junctionAttribute->GetTrafficJunction());
+	junctionAttribute = (JunctionAttribute*)m_Attribute->GetEdge()->GetEnd()->GetAttribute();
+	junctions.push_back( junctionAttribute->GetTrafficJunction());
+
+	return junctions;
+}
+
+/*------------------------------------------------------------------------------
+	反対側の交差点の取得
+------------------------------------------------------------------------------*/
+TrafficJunction* TrafficRoad::GetOtherJunction(TrafficJunction* junction)
+{
+	JunctionAttribute* junctionAttribute = (JunctionAttribute*)m_Attribute->GetEdge()->GetStart()->GetAttribute();
+	auto startJunction = junctionAttribute->GetTrafficJunction();
+	junctionAttribute = (JunctionAttribute*)m_Attribute->GetEdge()->GetEnd()->GetAttribute();
+	auto endJunction = junctionAttribute->GetTrafficJunction();
+
+	if (startJunction == junction)
 	{
-		return &m_RightSideCars;
+		return endJunction;
+	}
+	else if (endJunction == junction)
+	{
+		return startJunction;
 	}
 
 	return NULL;
 }
+
+/*------------------------------------------------------------------------------
+	ベクトルの取得
+------------------------------------------------------------------------------*/
+Vector3 TrafficRoad::GetVector(TrafficJunction* nextJunction)
+{
+	JunctionAttribute* junctionAttribute = (JunctionAttribute*)m_Attribute->GetEdge()->GetStart()->GetAttribute();
+	auto startJunction = junctionAttribute->GetTrafficJunction();
+
+	if (nextJunction == startJunction)
+	{
+		return m_Attribute->GetVector() * -1.0f;
+	}
+	
+	return m_Attribute->GetVector();
+}
+
