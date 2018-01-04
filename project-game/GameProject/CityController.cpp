@@ -22,6 +22,11 @@
 #include "BuildingManager.h"
 #include "CarManager.h"
 
+#include "TrafficBuilding.h"
+#include "BuildingController.h"
+
+#include "CarController.h"
+
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
@@ -29,7 +34,8 @@ using namespace HalfEdgeDataStructure;
 ------------------------------------------------------------------------------*/
 #define CITY_WIDTH (200.0f)
 #define CITY_HEIGHT (200.0f)
-
+#define DIVIDE_COUNT ( 4)
+#define CREATE_CAR_COUNT ( 50)
 
 /*------------------------------------------------------------------------------
 	コンポーネント生成
@@ -66,6 +72,25 @@ CityController::CityController( GameObject* pGameObject)
 	m_Model->CreateFirstFace( 
 		Vector3( -sizeHalf.x, 0.0f, +sizeHalf.z), Vector3( +sizeHalf.x, 0.0f, +sizeHalf.z),
 		Vector3( -sizeHalf.x, 0.0f, -sizeHalf.z), Vector3( +sizeHalf.x, 0.0f, -sizeHalf.z));
+
+	//区画分割
+	for( int count = 0; count < DIVIDE_COUNT; count++)
+	{
+		m_Model->DivideAllFaces();
+	}
+
+	//建物から車を生成
+	auto buildings = m_BuildingManager->GetAllBuildings();
+	int parCreate = buildings.size() / CREATE_CAR_COUNT;
+	int count = 0;
+	for (auto ite = buildings.begin(); ite != buildings.end(); ++ite, ++count)
+	{
+		if (count % parCreate == 0)
+		{
+			auto trafficBuilding = (*ite)->GetTrafficBuilding();
+			trafficBuilding->CreateCar();
+		}
+	}
 }
 
 /*------------------------------------------------------------------------------
@@ -83,8 +108,25 @@ void CityController::Uninit( void)
 ------------------------------------------------------------------------------*/
 void CityController::Update()
 {
-	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_SPACE))
-	{
-		m_Model->DivideAllFaces();
-	}
+	////区画分割
+	//if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_SPACE))
+	//{
+	//	m_Model->DivideAllFaces();
+	//}
+
+	////建物から車を生成
+	//if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_SPACE))
+	//{
+	//	auto buildings = m_BuildingManager->GetAllBuildings();
+	//	int parCreate = buildings.size() / CREATE_CAR_COUNT;
+	//	int count = 0;
+	//	for (auto ite = buildings.begin(); ite != buildings.end(); ++ite, ++count)
+	//	{
+	//		if (count % parCreate == 0)
+	//		{
+	//			auto trafficBuilding = (*ite)->GetTrafficBuilding();
+	//			trafficBuilding->CreateCar();
+	//		}
+	//	}
+	//}
 }

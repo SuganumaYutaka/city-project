@@ -112,6 +112,11 @@ bool Model::CreateFirstEdge(const Vector3& startPosition, const Vector3& endPosi
 	start->RegisterEdge( edge);
 	end->RegisterEdge( edge);
 
+	//属性情報の更新
+	start->GetAttribute()->Update();
+	end->GetAttribute()->Update();
+	edge->GetAttribute()->Update();
+
 	return true;
 }
 
@@ -180,6 +185,17 @@ bool Model::CreateFirstFace(
 	heRight->SetFace( face);
 	heBottom->SetFace( face);
 	heLeft->SetFace( face);
+
+	//属性情報の更新
+	topLeft->GetAttribute()->Update();
+	topRight->GetAttribute()->Update();
+	bottomLeft->GetAttribute()->Update();
+	bottomRight->GetAttribute()->Update();
+	top->GetAttribute()->Update();
+	right->GetAttribute()->Update();
+	bottom->GetAttribute()->Update();
+	left->GetAttribute()->Update();
+	face->GetAttribute()->Update();
 	
 	return true;
 }

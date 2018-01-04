@@ -114,7 +114,7 @@ bool Face::Divide(Vertex* start, Vertex* end, Edge** ppOut)
 
 	//–Ê‚ÌXV
 	this->m_Attribute->Update();
-	//face->m_Attribute->Update();
+	face->m_Attribute->Update();
 
 	return true;
 }

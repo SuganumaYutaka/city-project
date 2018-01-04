@@ -60,8 +60,16 @@ void BlockView::Update( void)
 	}
 
 	m_IsUpdatedAttribute = false;
+}
 
-	//Œš•¨‚ÌÄ¶¬
+/*------------------------------------------------------------------------------
+	‘®«î•ñ‚ÌXV
+------------------------------------------------------------------------------*/
+void BlockView::UpdateAttribute(void)
+{
+	m_IsUpdatedAttribute = true;
+	
+	//Œš•¨‚Ì¶¬
 	m_BlockModel->CreateBuilding( m_Attribute);
 }
 
@@ -76,7 +84,5 @@ void BlockView::SetAttribute( BlockAttribute* attribute)
 	}
 	
 	m_Attribute = attribute;
-
-	m_BlockModel->CreateBuilding( m_Attribute);
 }
 

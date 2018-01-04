@@ -38,8 +38,11 @@ CarController::CarController( GameObject* pGameObject)
 
 	//ステートの設定
 	m_States[ eCarStateNeutral] = new CarStateNeutral();
-	
 	m_CurrentState = m_States[ eCarStateNeutral];
+
+	//描画の設定
+	auto renderer = m_pGameObject->AddComponent<XModelRenderer>();
+	renderer->LoadXModel( "data/MODEL/car.x");
 }
 
 /*------------------------------------------------------------------------------
@@ -50,11 +53,6 @@ void CarController::Init(TrafficRoad* currentRoad, TrafficJunction* nextJunction
 	m_CurrentRoad = currentRoad;
 	m_NextJunction = nextJunction;
 	m_TargetBuilding = targetBuilding;
-
-	//TODO:現在位置設定
-
-	//TODO:描画の設定
-
 }
 
 
@@ -79,6 +77,20 @@ void CarController::Update( void)
 }
 
 /*------------------------------------------------------------------------------
+	道路の上を車が進んだ距離を算出する
+------------------------------------------------------------------------------*/
+float CarController::CulcMoveDistanceOnRoad(void)
+{
+	//「正規化したベクトルNと任意ベクトルAとの内積は、AをNに投影した時の長さ（符号付き）となる」性質を利用する
+	auto otherJunctionPosition = m_CurrentRoad->GetOtherJunction( m_NextJunction)->GetPosition();
+	auto roadVector = m_CurrentRoad->GetVector( m_NextJunction);
+	Vector3 vector = m_pTransform->GetWorldPosition() - otherJunctionPosition;
+	float length = Vector3::Dot( roadVector.Normalize(), vector);
+
+	return length;
+}
+
+/*------------------------------------------------------------------------------
 	道路の上を車が進んだ距離の割合を算出する
 ------------------------------------------------------------------------------*/
 float CarController::CulcMoveRateOnRoad(void)
@@ -93,4 +105,87 @@ float CarController::CulcMoveRateOnRoad(void)
 	float rate = length / roadVector.Length();
 
 	return rate;
+}
+
+/*------------------------------------------------------------------------------
+	車が次の交差点までに残っている距離を算出する
+------------------------------------------------------------------------------*/
+float CarController::CulcRemainDistanceOnRoad(void)
+{
+	//「正規化したベクトルNと任意ベクトルAとの内積は、AをNに投影した時の長さ（符号付き）となる」性質を利用する
+	auto otherJunctionPosition = m_CurrentRoad->GetOtherJunction( m_NextJunction)->GetPosition();
+	auto roadVector = m_CurrentRoad->GetVector( m_NextJunction);
+	Vector3 vector = m_pTransform->GetWorldPosition() - otherJunctionPosition;
+	float length = Vector3::Dot( roadVector.Normalize(), vector);
+
+	return roadVector.Length() - length;
+}
+
+/*------------------------------------------------------------------------------
+	右折
+------------------------------------------------------------------------------*/
+bool CarController::TurnRight(void)
+{
+	//変更先の道路を取得
+	auto nextRoad = m_NextJunction->GetRightRoad( m_CurrentRoad);
+	if (!nextRoad)
+	{
+		return false;
+	}
+
+	//交差点を変更
+	m_NextJunction = nextRoad->GetOtherJunction( m_NextJunction);
+
+	//道路を変更
+	m_CurrentRoad->UnregisterCar( this);
+	m_CurrentRoad = nextRoad;
+	nextRoad->RegisterCar( this);
+
+	return true;
+}
+
+/*------------------------------------------------------------------------------
+	左折
+------------------------------------------------------------------------------*/
+bool CarController::TurnLeft(void)
+{
+	//変更先の道路を取得
+	auto nextRoad = m_NextJunction->GetLeftRoad( m_CurrentRoad);
+	if (!nextRoad)
+	{
+		return false;
+	}
+
+	//交差点を変更
+	m_NextJunction = nextRoad->GetOtherJunction( m_NextJunction);
+
+	//道路を変更
+	m_CurrentRoad->UnregisterCar( this);
+	m_CurrentRoad = nextRoad;
+	nextRoad->RegisterCar( this);
+
+	return true;
+}
+
+/*------------------------------------------------------------------------------
+	直進
+------------------------------------------------------------------------------*/
+bool CarController::GoStraight(void)
+{
+	//変更先の道路を取得
+	auto nextRoad = m_NextJunction->GetStraightRoad( m_CurrentRoad);
+	if (!nextRoad)
+	{
+		return false;
+	}
+
+	//交差点を変更
+	m_NextJunction = nextRoad->GetOtherJunction( m_NextJunction);
+
+	//道路を変更
+	m_CurrentRoad->UnregisterCar( this);
+	m_CurrentRoad = nextRoad;
+	nextRoad->RegisterCar( this);
+
+	return true;
 }

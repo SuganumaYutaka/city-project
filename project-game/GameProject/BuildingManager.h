@@ -28,6 +28,8 @@ public:
 	void Register( BuildingController* buildingController);
 	void Unregister( BuildingController* buildingController);
 
+	const std::list<BuildingController*>& GetAllBuildings( void){ return m_Buildings;}
+
 private:
 	std::list<BuildingController*> m_Buildings;
 

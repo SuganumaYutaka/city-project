@@ -34,7 +34,7 @@ public:
 	void SetAttribute( BlockAttribute* attribute);
 	BlockAttribute* GetAttribute( void) { return m_Attribute;}
 
-	void UpdateAttribute( void) { m_IsUpdatedAttribute = true;}
+	void UpdateAttribute( void);
 
 private:
 	void Update(void);

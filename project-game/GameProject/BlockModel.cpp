@@ -18,13 +18,14 @@
 
 #include "BuildingController.h"
 #include "BuildingRuleFactory.h"
+#include "BuildingManager.h"
 
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
 	マクロ定義
 ------------------------------------------------------------------------------*/
-#define DEFAULT_ROAD_WIDTH (12.0f)			//デフォルトの道路幅
+//#define DEFAULT_ROAD_WIDTH (18.0f)			//デフォルトの道路幅
 #define DEFAULT_LAND_SIZE (8.0f)			//デフォルトの土地サイズ
 #define DISTANCE_OF_LANDS (0.8f)			//土地同士の間隔
 
@@ -60,9 +61,11 @@ void BlockModel::Uninit( void)
 bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 {
 	//現在の建物を削除
+	auto buildingManager = attribute->GetBuildingManager();
 	for (auto controller : m_BuildingControllers)
 	{
 		controller->m_pGameObject->ReleaseReserve();
+		buildingManager->Unregister(controller);
 	}
 	m_BuildingControllers.clear();
 	
@@ -102,7 +105,9 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 	{
 		//辺の開始位置の設定
 		edges[ nCnt].vertices.push_back( corners[nCnt]->GetPosition());
-
+	}
+	for(int nCnt = 0; nCnt < 4; nCnt++)
+	{
 		//辺の道路情報の設定
 		if (nCnt != 3)
 		{

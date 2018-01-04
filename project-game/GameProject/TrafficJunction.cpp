@@ -24,6 +24,11 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
+	マクロ定義
+------------------------------------------------------------------------------*/
+#define ONCOMING_CAR_MAX_NEAR_DISTANCE ( 2.0f)		//対向車と交差点の最接近距離（これより近いと対向車ありとみなす）
+
+/*------------------------------------------------------------------------------
 	コンポーネント生成
 ------------------------------------------------------------------------------*/
 Component* TrafficJunction::Create(GameObject* gameObject)
@@ -82,7 +87,7 @@ void TrafficJunction::SetAttribute( JunctionAttribute* attribute)
 	}
 	
 	m_Attribute = attribute;
-	m_IsUpdatedAttribute = true;
+	UpdateJunction();
 }
 
 /*------------------------------------------------------------------------------
@@ -265,42 +270,46 @@ void TrafficJunction::UpdateJunction(void)
 }
 
 /*------------------------------------------------------------------------------
-	右に道路があるか
+	右にある道路を取得
 ------------------------------------------------------------------------------*/
-bool TrafficJunction::IsRightRoad(TrafficRoad* currentRoad)
+TrafficRoad* TrafficJunction::GetRightRoad(TrafficRoad* currentRoad)
 {
 	auto currentBranch = CheckBranch( currentRoad);
 	int size = m_Roads.size();
 	switch (currentBranch)
 	{
 	case eJunctionBranchBack:
+		return m_Roads[ eJunctionBranchRight];
 		break;
 
 	case eJunctionBranchRight:
 		//L字、T字は道路がない
 		if (size != 4)
 		{
-			return false;
+			return NULL;
 		}
+		return m_Roads[ eJunctionBranchFront];
 		break;
 
 	case eJunctionBranchLeft:
+		return m_Roads[ eJunctionBranchBack];
 		break;
 
 	case eJunctionBranchFront:
+		return m_Roads[ eJunctionBranchLeft];
 		break;
 
 	default:
 		break;
 	}
 
-	return true;
+	return NULL;
 }
 
 /*------------------------------------------------------------------------------
-	左に道路があるか
+	左にある道路を取得
 ------------------------------------------------------------------------------*/
-bool TrafficJunction::IsLeftRoad(TrafficRoad* currentRoad)
+TrafficRoad* TrafficJunction::GetLeftRoad(TrafficRoad* currentRoad)
 {
 	auto currentBranch = CheckBranch( currentRoad);
 	int size = m_Roads.size();
@@ -310,35 +319,39 @@ bool TrafficJunction::IsLeftRoad(TrafficRoad* currentRoad)
 		//L字は道路がない
 		if (size == 2)
 		{
-			return false;
+			return NULL;
 		}
+		return m_Roads[ eJunctionBranchLeft];
 		break;
 
 	case eJunctionBranchRight:
+		return m_Roads[ eJunctionBranchBack];
 		break;
 
 	case eJunctionBranchLeft:
 		//L字、T字は道路がない
 		if (size != 4)
 		{
-			return false;
+			return NULL;
 		}
+		return m_Roads[ eJunctionBranchFront];
 		break;
 
 	case eJunctionBranchFront:
+		return m_Roads[ eJunctionBranchRight];
 		break;
 
 	default:
 		break;
 	}
 
-	return true;
+	return NULL;
 }
 
 /*------------------------------------------------------------------------------
-	直進する道路があるか
+	直進する道路を取得
 ------------------------------------------------------------------------------*/
-bool TrafficJunction::IsStraightRoad(TrafficRoad* currentRoad)
+TrafficRoad* TrafficJunction::GetStraightRoad(TrafficRoad* currentRoad)
 {
 	auto currentBranch = CheckBranch( currentRoad);
 	int size = m_Roads.size();
@@ -348,29 +361,33 @@ bool TrafficJunction::IsStraightRoad(TrafficRoad* currentRoad)
 		//L字、T字は道路がない
 		if (size != 4)
 		{
-			return false;
+			return NULL;
 		}
+		return m_Roads[ eJunctionBranchFront];
 		break;
 
 	case eJunctionBranchRight:
 		//L字は道路がない
 		if (size == 2)
 		{
-			return false;
+			return NULL;
 		}
+		return m_Roads[ eJunctionBranchLeft];
 		break;
 
 	case eJunctionBranchLeft:
+		return m_Roads[ eJunctionBranchRight];
 		break;
 
 	case eJunctionBranchFront:
+		return m_Roads[ eJunctionBranchBack];
 		break;
 
 	default:
 		break;
 	}
 
-	return true;
+	return NULL;
 }
 
 /*------------------------------------------------------------------------------
@@ -388,7 +405,7 @@ bool TrafficJunction::CanTurnRight(TrafficRoad* currentRoad)
 	}
 
 	//曲がる先に道があるか確認
-	if (!IsRightRoad(currentRoad))
+	if (!GetRightRoad(currentRoad))
 	{
 		return false;
 	}
@@ -450,7 +467,7 @@ bool TrafficJunction::CanTurnLeft(TrafficRoad* currentRoad)
 	}
 
 	//曲がる先に道があるか確認
-	if (!IsLeftRoad(currentRoad))
+	if (!GetLeftRoad(currentRoad))
 	{
 		return false;
 	}
@@ -474,7 +491,7 @@ bool TrafficJunction::CanGoStraight(TrafficRoad* currentRoad)
 	}
 
 	//直進先に道があるか確認
-	if (!IsStraightRoad(currentRoad))
+	if (!GetStraightRoad(currentRoad))
 	{
 		return false;
 	}
@@ -554,8 +571,8 @@ bool TrafficJunction::CheckOncomingCar(TrafficRoad* oncomingRoad)
 	auto car = oncomingCars.back();
 
 	//対向車が交差点に近いか確認
-	float rate = car->CulcMoveRateOnRoad();
-	if (rate < 0.8f)
+	float distance = car->CulcRemainDistanceOnRoad();
+	if ( distance > ONCOMING_CAR_MAX_NEAR_DISTANCE)
 	{
 		return false;
 	}

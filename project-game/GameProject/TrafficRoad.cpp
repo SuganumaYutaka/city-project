@@ -101,11 +101,11 @@ void TrafficRoad::RegisterCar(CarController* car)
 		}
 
 		//挿入地点の始点からの距離（進んだ距離）に応じて途中に挿入
-		float insertRate = car->CulcMoveRateOnRoad();
+		float insertDistance = car->CulcMoveDistanceOnRoad();
 		for (auto ite = m_LeftSideCars.begin(); ite != m_LeftSideCars.end(); ++ite)
 		{
-			float rate = (*ite)->CulcMoveRateOnRoad();
-			if (insertRate <= rate)
+			float distance = (*ite)->CulcMoveDistanceOnRoad();
+			if (insertDistance <= distance)
 			{
 				m_LeftSideCars.insert( ite, car);
 				return;
@@ -126,11 +126,11 @@ void TrafficRoad::RegisterCar(CarController* car)
 		}
 
 		//挿入地点の始点からの距離（進んだ距離）に応じて途中に挿入
-		float insertRate = car->CulcMoveRateOnRoad();
+		float insertDistance = car->CulcMoveDistanceOnRoad();
 		for (auto ite = m_RightSideCars.begin(); ite != m_RightSideCars.end(); ++ite)
 		{
-			float rate = (*ite)->CulcMoveRateOnRoad();
-			if (insertRate <= rate)
+			float distance = (*ite)->CulcMoveDistanceOnRoad();
+			if (insertDistance <= distance)
 			{
 				m_RightSideCars.insert( ite, car);
 				return;

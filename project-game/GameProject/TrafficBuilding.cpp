@@ -69,7 +69,7 @@ void TrafficBuilding::Uninit( void)
 ------------------------------------------------------------------------------*/
 void TrafficBuilding::Update( void)
 {
-
+	
 }
 
 /*------------------------------------------------------------------------------
@@ -78,6 +78,11 @@ void TrafficBuilding::Update( void)
 CarController* TrafficBuilding::CreateCar(void)
 {
 	if (!m_CarManager)
+	{
+		return NULL;
+	}
+
+	if (m_Roads.size() == 0)
 	{
 		return NULL;
 	}

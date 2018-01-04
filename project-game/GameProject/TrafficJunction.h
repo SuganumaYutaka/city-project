@@ -48,15 +48,13 @@ public:
 
 	const std::vector< TrafficRoad*>& GetRoads( void){ return m_Roads;}
 	
-	bool IsRightRoad( TrafficRoad* currentRoad);
-	bool IsLeftRoad( TrafficRoad* currentRoad);
-	bool IsStraightRoad( TrafficRoad* currentRoad);
+	TrafficRoad* GetRightRoad( TrafficRoad* currentRoad);
+	TrafficRoad* GetLeftRoad( TrafficRoad* currentRoad);
+	TrafficRoad* GetStraightRoad( TrafficRoad* currentRoad);
 	bool CanTurnRight( TrafficRoad* currentRoad);
 	bool CanTurnLeft( TrafficRoad* currentRoad);
 	bool CanGoStraight( TrafficRoad* currentRoad);
-
 	
-
 	const Vector3& GetPosition( void);
 
 private:

@@ -41,7 +41,13 @@ public:
 	TrafficJunction* GetNextJunction( void){ return m_NextJunction;}
 	void SetTargetBuilding( TrafficBuilding* building){ m_TargetBuilding = building;}
 	TrafficBuilding* GetTargetBuilding( void){ return m_TargetBuilding;}
+	float CulcMoveDistanceOnRoad( void);
 	float CulcMoveRateOnRoad( void);
+	float CulcRemainDistanceOnRoad( void);
+
+	bool TurnRight( void);
+	bool TurnLeft( void);
+	bool GoStraight( void);
 
 private:
 	void Update(void);
