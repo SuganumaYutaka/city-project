@@ -22,7 +22,17 @@ class CarController;
 ------------------------------------------------------------------------------*/
 enum ECarState
 {
-	eCarStateNeutral = 0
+	eCarStateNeutral = 0,
+	eCarStateMoveOnRoad,
+	eCarStateMoveTowardRoad,
+	eCarStateNearNextJunction
+};
+
+enum ECarJunctionSelect
+{
+	eCarJunctionGoStraight = 0,
+	eCarJunctionTurnRight,
+	eCarJunctionTurnLeft
 };
 
 /*------------------------------------------------------------------------------
@@ -33,23 +43,55 @@ class CarState
 public:
 	CarState() : m_CarController( NULL){}
 	virtual ~CarState(){}
-	virtual void Init( CarController* carController){ SetCarController( carController);}
+	virtual void Init( void){}
 	virtual void Update( void){}
 
 protected:
-	CarController* GetCarController( void){ return m_CarController;}
-	void SetCarController( CarController* carController){ m_CarController = carController;}
-
-private:
 	CarController* m_CarController;
+	
 };
 
 //ニュートラル
 class CarStateNeutral : public CarState
 {
 public:
+	CarStateNeutral( CarController* carController){ m_CarController = carController; }
 	void Update( void) override;
 
+};
+
+//道路上を走行
+class CarStateMoveOnRoad : public CarState
+{
+public:
+	CarStateMoveOnRoad( CarController* carController){ m_CarController = carController; }
+	void Init( void) override;
+	void Update( void) override;
+
+};
+
+//道路に合流するために走行
+class CarStateMoveTowardRoad : public CarState
+{
+public:
+	CarStateMoveTowardRoad( CarController* carController){ m_CarController = carController; }
+	void Init( void) override;
+	void Update( void) override;
+
+};
+
+//次の交差点に接近した状態
+class CarStateNearNextJunction : public CarState
+{
+public:
+	CarStateNearNextJunction( CarController* carController);
+	~CarStateNearNextJunction();
+	void Init( void) override;
+	void Update( void) override;
+
+private:
+	ECarJunctionSelect m_JunctionSelect;
+	Random* m_Random;
 };
 
 

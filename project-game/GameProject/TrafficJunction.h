@@ -68,6 +68,7 @@ private:
 	std::vector< TrafficRoad*> m_Roads;
 	bool m_CanMoveVertical;
 	bool m_CanMoveHorizontal;
+	int m_TrafficCount;
 
 	ETrafficJunctionBranch CheckBranch( TrafficRoad* road);
 	bool CanMoveTraffic( ETrafficJunctionBranch currentBranch);

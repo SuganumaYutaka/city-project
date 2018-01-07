@@ -40,11 +40,13 @@ public:
 	void UnregisterCar( CarController* car);
 
 	const std::list<CarController*>& GetCars( TrafficJunction* nextJunction);
+	CarController* GetFrontCar( CarController* carController);
 
 	std::list<TrafficJunction*> GetJunctions( void);
 	TrafficJunction* GetOtherJunction( TrafficJunction* junction);
 
 	Vector3 GetVector( TrafficJunction* nextJunction);
+	float GetWidth( void);
 
 private:
 	void Update(void);

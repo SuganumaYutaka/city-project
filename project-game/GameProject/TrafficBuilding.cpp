@@ -94,7 +94,10 @@ CarController* TrafficBuilding::CreateCar(void)
 		,road, junction, this);
 
 	//“üŒÉ‚³‚¹‚é
-	EnterCar( carController);
+	//EnterCar( carController);
+
+	//‚·‚®‚ÉoŒÉ‚³‚¹‚é
+	road->RegisterCar( carController);
 
 	return carController;
 }

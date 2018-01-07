@@ -27,6 +27,7 @@ using namespace HalfEdgeDataStructure;
 	マクロ定義
 ------------------------------------------------------------------------------*/
 #define ONCOMING_CAR_MAX_NEAR_DISTANCE ( 2.0f)		//対向車と交差点の最接近距離（これより近いと対向車ありとみなす）
+#define TRAFFIC_CHANGE_COUNT (120)
 
 /*------------------------------------------------------------------------------
 	コンポーネント生成
@@ -50,6 +51,7 @@ TrafficJunction::TrafficJunction( GameObject* pGameObject)
 	m_Roads.clear();
 	m_CanMoveVertical = true;
 	m_CanMoveHorizontal = true;
+	m_TrafficCount = 0;
 }
 
 /*------------------------------------------------------------------------------
@@ -73,7 +75,25 @@ void TrafficJunction::Update( void)
 	}
 
 	//信号機の更新
-
+	if (m_Roads.size() <= 2)
+	{
+		m_CanMoveVertical = true;
+		m_CanMoveHorizontal = true;
+	}
+	else
+	{
+		m_TrafficCount = (m_TrafficCount + 1) % (TRAFFIC_CHANGE_COUNT * 2);
+		if (m_TrafficCount < TRAFFIC_CHANGE_COUNT)
+		{
+			m_CanMoveHorizontal = false;
+			m_CanMoveVertical = true;
+		}
+		else
+		{
+			m_CanMoveHorizontal = true;
+			m_CanMoveVertical = false;
+		}
+	}
 }
 
 /*------------------------------------------------------------------------------

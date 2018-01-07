@@ -180,6 +180,32 @@ const std::list<CarController*>& TrafficRoad::GetCars(TrafficJunction* nextJunct
 }
 
 /*------------------------------------------------------------------------------
+	‘O•û‚ÌÔ‚ğæ“¾
+------------------------------------------------------------------------------*/
+CarController* TrafficRoad::GetFrontCar(CarController* carController)
+{
+	auto cars = GetCars( carController->GetNextJunction());
+	for (auto ite = cars.begin(); ite != cars.end(); ++ite)
+	{
+		if (*ite == carController)
+		{
+			++ite;
+			if ( ite == cars.end())
+			{
+				return NULL;
+			}
+			else
+			{
+				auto frontCar = *ite;
+				return frontCar;
+			}
+		}
+	}
+
+	return NULL;
+}
+
+/*------------------------------------------------------------------------------
 	Œğ·“_‚Ìæ“¾
 ------------------------------------------------------------------------------*/
 std::list<TrafficJunction*> TrafficRoad::GetJunctions(void)
@@ -231,3 +257,10 @@ Vector3 TrafficRoad::GetVector(TrafficJunction* nextJunction)
 	return m_Attribute->GetVector();
 }
 
+/*------------------------------------------------------------------------------
+	“¹˜H•‚Ìæ“¾
+------------------------------------------------------------------------------*/
+float TrafficRoad::GetWidth(void)
+{
+	return m_Attribute->GetWidth();
+}
