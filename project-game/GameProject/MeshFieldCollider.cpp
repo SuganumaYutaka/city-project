@@ -303,8 +303,6 @@ bool MeshFieldCollider::IsPointInPolygon( int nIndex, const Vector3& Pos)
 {
 	Vector3 Vec01 = m_pVtxPos[ m_pPolygon[ nIndex].nVtxIndex[1]] - m_pVtxPos[ m_pPolygon[ nIndex].nVtxIndex[0]];
 	Vector3 Vec0P = Pos - m_pVtxPos[ m_pPolygon[ nIndex].nVtxIndex[0]];
-	//Vec01.y = 0.0f;
-	//Vec0P.y = 0.0f;
 	Vector3 Cross0 = Vector3::Cross(Vec01, Vec0P);
 	if (Cross0.y < 0.0f)
 	{
@@ -313,8 +311,6 @@ bool MeshFieldCollider::IsPointInPolygon( int nIndex, const Vector3& Pos)
 
 	Vector3 Vec12 = m_pVtxPos[ m_pPolygon[ nIndex].nVtxIndex[2]] - m_pVtxPos[ m_pPolygon[ nIndex].nVtxIndex[1]];
 	Vector3 Vec1P = Pos - m_pVtxPos[ m_pPolygon[ nIndex].nVtxIndex[1]];
-	//Vec12.y = 0.0f;
-	//Vec1P.y = 0.0f;
 	Vector3 Cross1 = Vector3::Cross(Vec12, Vec1P);
 	if (Cross1.y < 0.0f)
 	{
@@ -323,8 +319,6 @@ bool MeshFieldCollider::IsPointInPolygon( int nIndex, const Vector3& Pos)
 	
 	Vector3 Vec20 = m_pVtxPos[ m_pPolygon[ nIndex].nVtxIndex[0]] - m_pVtxPos[ m_pPolygon[ nIndex].nVtxIndex[2]];
 	Vector3 Vec2P = Pos - m_pVtxPos[ m_pPolygon[ nIndex].nVtxIndex[2]];
-	//Vec20.y = 0.0f;
-	//Vec2P.y = 0.0f;
 	Vector3 Cross2 = Vector3::Cross(Vec20, Vec2P);
 	if (Cross2.y < 0.0f)
 	{

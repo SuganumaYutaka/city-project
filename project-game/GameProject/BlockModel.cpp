@@ -27,7 +27,7 @@ using namespace HalfEdgeDataStructure;
 ------------------------------------------------------------------------------*/
 //#define DEFAULT_ROAD_WIDTH (18.0f)			//デフォルトの道路幅
 #define DEFAULT_LAND_SIZE (8.0f)			//デフォルトの土地サイズ
-#define DISTANCE_OF_LANDS (0.8f)			//土地同士の間隔
+#define DISTANCE_OF_LANDS (0.5f)			//土地同士の間隔
 
 /*------------------------------------------------------------------------------
 	コンポーネント生成
@@ -164,7 +164,7 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 
 		//土地を生成
 		int numVertex = edges[nCnt].vertices.size();
-		for (int i = 0; i < numVertex - 2; i++)
+		for (int i = 0; i < numVertex - 3; i++)
 		{
 			//4つ目の頂点（登録順は3番目）を設定
 			Vector3 pointThird = pointFourth + edges[ nCnt].vector / (float)( numVertex);
@@ -215,13 +215,16 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 			pointFourth = pointThird;
 		}
 	}
-
-	//TODO: 土地の衝突判定→土地の合体
 	
 	//土地を狭める
 	float roadWidthHalf = DEFAULT_ROAD_WIDTH * 0.5f;
 	for (BlockLand& land : lands)
 	{
+		if (!land.canCreateBuilding)
+		{
+			//continue;
+		}
+
 		//土地を道路幅分狭める
 		if ( !MoveLand(land.vertices[0], land.vertices[3], DEFAULT_ROAD_WIDTH * 0.5f))
 		{
@@ -256,6 +259,21 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 		{
 			land.canCreateBuilding = false;
 			continue;
+		}
+	}
+
+	//土地の衝突判定
+	for (auto ite1 = lands.begin(); ite1 != lands.end(); ++ite1)
+	{
+		for (auto ite2 = lands.begin(); ite2 != lands.end(); ++ite2)
+		{
+			if (ite1 != ite2 && (*ite1).canCreateBuilding && (*ite2).canCreateBuilding)
+			{
+				if (CollisionLand(*ite1, *ite2))
+				{
+					(*ite1).canCreateBuilding = false;
+				}
+			}
 		}
 	}
 
@@ -369,5 +387,91 @@ bool BlockModel::SetRoadsFromCorner(Vertex* corner, Vertex* next, BlockEdge* blo
 		halfEdge = halfEdge->GetNext();
 	}
 
+	return false;
+}
+
+/*------------------------------------------------------------------------------
+	土地と土地の衝突判定
+------------------------------------------------------------------------------*/
+bool BlockModel::CollisionLand(const BlockLand& source, const BlockLand& dest)
+{
+	//ある頂点がすべての辺に対して右側にある（外積で判定）→衝突あり
+	for (auto& vertex : source.vertices)
+	{
+		Vector3 Vec01 = dest.vertices[1] - dest.vertices[0];
+		Vector3 Vec0P = vertex - dest.vertices[0];
+		Vector3 Cross0 = Vector3::Cross(Vec01, Vec0P);
+		if (Cross0.y < 0.0f)
+		{
+			continue;
+		}
+
+		Vector3 Vec12 = dest.vertices[2] - dest.vertices[1];
+		Vector3 Vec1P = vertex - dest.vertices[1];
+		Vector3 Cross1 = Vector3::Cross(Vec12, Vec1P);
+		if (Cross1.y < 0.0f)
+		{
+			continue;
+		}
+
+		Vector3 Vec23 = dest.vertices[3] - dest.vertices[2];
+		Vector3 Vec2P = vertex - dest.vertices[2];
+		Vector3 Cross2 = Vector3::Cross(Vec23, Vec2P);
+		if (Cross2.y < 0.0f)
+		{
+			continue;
+		}
+
+		Vector3 Vec30 = dest.vertices[0] - dest.vertices[3];
+		Vector3 Vec3P = vertex - dest.vertices[3];
+		Vector3 Cross3 = Vector3::Cross(Vec30, Vec3P);
+		if (Cross3.y < 0.0f)
+		{
+			continue;
+		}
+
+		//衝突あり
+		return true;
+	}
+
+	for (auto& vertex : dest.vertices)
+	{
+		Vector3 Vec01 = source.vertices[1] - source.vertices[0];
+		Vector3 Vec0P = vertex - source.vertices[0];
+		Vector3 Cross0 = Vector3::Cross(Vec01, Vec0P);
+		if (Cross0.y < 0.0f)
+		{
+			continue;
+		}
+
+		Vector3 Vec12 = source.vertices[2] - source.vertices[1];
+		Vector3 Vec1P = vertex - source.vertices[1];
+		Vector3 Cross1 = Vector3::Cross(Vec12, Vec1P);
+		if (Cross1.y < 0.0f)
+		{
+			continue;
+		}
+
+		Vector3 Vec23 = source.vertices[3] - source.vertices[2];
+		Vector3 Vec2P = vertex - source.vertices[2];
+		Vector3 Cross2 = Vector3::Cross(Vec23, Vec2P);
+		if (Cross2.y < 0.0f)
+		{
+			continue;
+		}
+
+		Vector3 Vec30 = source.vertices[0] - source.vertices[3];
+		Vector3 Vec3P = vertex - source.vertices[3];
+		Vector3 Cross3 = Vector3::Cross(Vec30, Vec3P);
+		if (Cross3.y < 0.0f)
+		{
+			continue;
+		}
+
+		//衝突あり
+		return true;
+	}
+
+	//衝突なし
 	return false;
 }
