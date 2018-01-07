@@ -26,7 +26,7 @@ class Shader
 {
 public:
 	virtual ~Shader(){}
-	virtual void Set( Camera* pCamera, Renderer* pRenderer, Material* pMaterial) = 0;
+	virtual void Set( Camera* pCamera, Renderer* pRenderer, Material* pMaterial, bool isAlreadySet) = 0;
 
 	void Begin(int nPass)
 	{

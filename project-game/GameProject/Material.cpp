@@ -76,8 +76,7 @@ Material::~Material()
 ------------------------------------------------------------------------------*/
 void Material::Set( Camera* pCamera, Renderer* pRenderer)
 {
-	auto pShader = Manager::GetShaderManager()->Load( m_ShaderType);
-	pShader->Set( pCamera, pRenderer, this);
+	Manager::GetShaderManager()->SetShader( pCamera, pRenderer, this, m_ShaderType);
 }
 
 /*------------------------------------------------------------------------------

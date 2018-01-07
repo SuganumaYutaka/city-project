@@ -65,15 +65,18 @@ ParticleShader::~ParticleShader()
 /*------------------------------------------------------------------------------
 	シェーダーをセット
 ------------------------------------------------------------------------------*/
-void ParticleShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial)
+void ParticleShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial, bool isAlreadySet)
 {
 	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//デバイスのポインタ
 
-	//頂点宣言
-	pDevice->SetVertexDeclaration( m_pVertexDec);
+	if( !isAlreadySet)
+	{
+		//頂点宣言
+		pDevice->SetVertexDeclaration( m_pVertexDec);
 
-	//テクニックの設定
-	m_pEffect->SetTechnique( m_hTech);
+		//テクニックの設定
+		m_pEffect->SetTechnique( m_hTech);
+	}
 
 	//定数をシェーダに伝える
 	D3DXMATRIX mtxWorld = pRenderer->m_pTransform->WorldMatrix() * *pCamera->GetViewMatrix() * *pCamera->GetProjectionMatrix();

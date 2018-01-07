@@ -59,15 +59,18 @@ SpriteShader::~SpriteShader()
 /*------------------------------------------------------------------------------
 	シェーダーをセット
 ------------------------------------------------------------------------------*/
-void SpriteShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial)
+void SpriteShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial, bool isAlreadySet)
 {
 	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//デバイスのポインタ
 
-	//頂点宣言
-	pDevice->SetVertexDeclaration( m_pVertexDec);
+	if( !isAlreadySet)
+	{
+		//頂点宣言
+		pDevice->SetVertexDeclaration( m_pVertexDec);
 
-	//テクニックの設定
-	m_pEffect->SetTechnique( m_hTech);
+		//テクニックの設定
+		m_pEffect->SetTechnique( m_hTech);
+	}
 
 	//定数をシェーダに伝える
 	m_pEffect->SetTexture( m_hTexture, pMaterial->GetTexture());

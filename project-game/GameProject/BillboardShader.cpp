@@ -65,7 +65,7 @@ BillboardShader::~BillboardShader()
 /*------------------------------------------------------------------------------
 	シェーダーをセット
 ------------------------------------------------------------------------------*/
-void BillboardShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial)
+void BillboardShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial, bool isAlreadySet)
 {
 	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//デバイスのポインタ
 
@@ -80,11 +80,14 @@ void BillboardShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMater
 	mtxViewInverse._24 = 0.0f;
 	mtxViewInverse._34 = 0.0f;
 
-	//頂点宣言
-	pDevice->SetVertexDeclaration( m_pVertexDec);
+	if( !isAlreadySet)
+	{
+		//頂点宣言
+		pDevice->SetVertexDeclaration( m_pVertexDec);
 
-	//テクニックの設定
-	m_pEffect->SetTechnique( m_hTech);
+		//テクニックの設定
+		m_pEffect->SetTechnique( m_hTech);
+	}
 
 	//定数をシェーダに伝える
 	m_pEffect->SetMatrix( m_hMtxPos, &mtxPos);
