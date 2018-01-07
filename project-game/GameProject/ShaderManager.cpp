@@ -23,7 +23,7 @@
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
-ShaderManager::ShaderManager()
+ShaderManager::ShaderManager() : m_CurrentShader( NULL)
 {
 	//シェーダーのロード
 	m_vecShaderSet.clear();
@@ -64,6 +64,23 @@ ShaderManager::~ShaderManager()
 	m_mapShaderLoad.clear();
 
 	m_vecShaderSet.clear();
+}
+
+/*------------------------------------------------------------------------------
+	シェーダーをロード
+------------------------------------------------------------------------------*/
+void ShaderManager::SetShader( Camera* pCamera, Renderer* pRenderer, Material* pMaterial, EShaderType Type)
+{
+	auto shader = Load( Type);
+	if (m_CurrentShader == shader)
+	{
+		shader->Set( pCamera, pRenderer, pMaterial, true);
+	}
+	else
+	{
+		shader->Set( pCamera, pRenderer, pMaterial, false);
+		m_CurrentShader = shader;
+	}
 }
 
 /*------------------------------------------------------------------------------

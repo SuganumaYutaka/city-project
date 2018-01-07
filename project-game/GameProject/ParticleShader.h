@@ -21,7 +21,7 @@ class ParticleShader : public Shader
 public:
 	ParticleShader();
 	~ParticleShader();
-	void Set( Camera* pCamera, Renderer* pRenderer, Material* pMaterial);
+	void Set( Camera* pCamera, Renderer* pRenderer, Material* pMaterial, bool isAlreadySet);
 private:
 	D3DXHANDLE m_hTech;
 	D3DXHANDLE m_hMtxWVP;

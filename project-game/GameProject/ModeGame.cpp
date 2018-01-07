@@ -74,11 +74,6 @@ void ModeGame::Init()
 	//City
 	auto cityObject = new GameObject( m_pRoot);
 	auto cityController = cityObject->AddComponent<CityController>();
-
-	auto carObject = new GameObject( m_pRoot);
-	//auto carRenderer = carObject->AddComponent<XModelRenderer>();
-	//carRenderer->LoadXModel( "data/MODEL/car.x");
-	
 }
 
 /*------------------------------------------------------------------------------

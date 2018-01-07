@@ -73,7 +73,7 @@ ShadowVLShader::~ShadowVLShader()
 /*------------------------------------------------------------------------------
 	シェーダーをセット
 ------------------------------------------------------------------------------*/
-void ShadowVLShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial)
+void ShadowVLShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial, bool isAlreadySet)
 {
 	//逆行列の設定
 	D3DXMATRIX mtxWorldInv = pRenderer->m_pTransform->WorldMatrix();
@@ -99,11 +99,14 @@ void ShadowVLShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMateri
 
 	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//デバイスのポインタ
 
-	//頂点宣言
-	pDevice->SetVertexDeclaration( m_pVertexDec);
+	if( !isAlreadySet)
+	{
+		//頂点宣言
+		pDevice->SetVertexDeclaration( m_pVertexDec);
 
-	//テクニックの設定
-	m_pEffect->SetTechnique( m_hTech);
+		//テクニックの設定
+		m_pEffect->SetTechnique( m_hTech);
+	}
 
 	//定数をシェーダに伝える
 	m_pEffect->SetMatrix( m_hMtxWorld, &pRenderer->m_pTransform->WorldMatrix());
