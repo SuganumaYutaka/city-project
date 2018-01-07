@@ -51,6 +51,11 @@ void ModeGame::Init()
 	cameraComponent->SetFar( 2000.0f);
 	pCamera->AddComponent<CameraController>();
 
+	//ライト
+	auto cameraObj = new GameObject( m_pRoot);
+	cameraObj->AddComponent<Light>();
+	cameraObj->m_pTransform->SetWorldRotationLookDirection( Vector3( 0.0f, -1.0f, 1.0f));
+
 	//スカイドーム
 	auto pSky = new GameObject( m_pRoot);
 	auto meshDome = pSky->AddComponent<MeshDomeRenderer>();
@@ -70,7 +75,9 @@ void ModeGame::Init()
 	auto cityObject = new GameObject( m_pRoot);
 	auto cityController = cityObject->AddComponent<CityController>();
 
-	//Building
+	auto carObject = new GameObject( m_pRoot);
+	//auto carRenderer = carObject->AddComponent<XModelRenderer>();
+	//carRenderer->LoadXModel( "data/MODEL/car.x");
 	
 }
 

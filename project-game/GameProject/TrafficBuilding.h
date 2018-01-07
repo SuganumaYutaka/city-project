@@ -1,11 +1,11 @@
 /*==============================================================================
-
-    BlockView.h - 町の自動生成ー区画ビュー
-                                                       Author : Yutaka Suganuma
-                                                       Date   : 2017/12/1
+	
+	TrafficBuilding.h - 交通システムー建物
+														Author : Yutaka Suganuma
+														Date   : 2017/12/25
 ==============================================================================*/
-#ifndef _BLOCK_VIEW_H_
-#define _BLOCK_VIEW_H_
+#ifndef _TRAFFIC_BUILDING_H_
+#define _TRAFFIC_BUILDING_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -16,34 +16,42 @@
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class BlockAttribute;
-class BlockModel;
-class Polygon3DRenderer;
+class GameObject;
+class BuildingAttribute;
+class CarController;
+class TrafficRoad;
+class RoadAttribute;
+class CarManager;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BlockView : public Component
+class TrafficBuilding : public Component
 {
 public:
 	static Component* Create( GameObject* gameObject);
 
-	BlockView( GameObject* pGameObject);
+	TrafficBuilding( GameObject* pGameObject);
 	void Uninit( void);
 
-	void SetAttribute( BlockAttribute* attribute);
-	BlockAttribute* GetAttribute( void) { return m_Attribute;}
+	void Init( std::list<RoadAttribute*> roadAttributes, CarManager* carManager);
 
-	void UpdateAttribute( void);
+	CarController* CreateCar( void);
+	void EnterCar( CarController* car);
+	bool ExitCar( CarController* car = NULL);
+	CarController* PopFrontCar( void);
+	CarController* PopBackCar( void);
+	int GetCarCount( void){ return m_Cars.size(); }
+	bool IsCarInBuilding( CarController* car);
 
 private:
 	void Update(void);
 
-	BlockAttribute* m_Attribute;
-	bool m_IsUpdatedAttribute;
-
-	BlockModel* m_BlockModel;
+	std::list<TrafficRoad*> m_Roads;
+	std::list<CarController*> m_Cars;
+	CarManager* m_CarManager;
 };
+
 
 #endif
 

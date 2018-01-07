@@ -18,6 +18,8 @@
 ------------------------------------------------------------------------------*/
 class GameObject;
 class BuildingRuleFactory;
+class BuildingManager;
+class CarManager;
 
 namespace HalfEdgeDataStructure
 {
@@ -40,6 +42,8 @@ private:
 
 	HalfEdgeDataStructure::Model* m_Model;
 	BuildingRuleFactory* m_BuildingRuleFactory;
+	BuildingManager* m_BuildingManager;
+	CarManager* m_CarManager;
 };
 
 

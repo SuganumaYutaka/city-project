@@ -1,88 +1,86 @@
 /*==============================================================================
 
-    BlockView.cpp - 町の自動生成ー区画ビュー
+    BuildingController.cpp - 建物の自動生成ー建物コントローラ
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/1
+                                                       Date   : 2017/12/24
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "BlockView.h"
+#include "BuildingController.h"
 #include "GameObject.h"
 #include "ComponentInclude.h"
+#include "Land.h"
+#include "Shape.h"
 
-#include "Polygon3DRenderer.h"
+#include "BuildingRule.h"
+#include "BuildingGeometry.h"
 #include "CityAttribute.h"
-#include "BlockModel.h"
-
-using namespace HalfEdgeDataStructure;
+#include "BuildingManager.h"
+#include "TrafficBuilding.h"
 
 /*------------------------------------------------------------------------------
 	コンポーネント生成
 ------------------------------------------------------------------------------*/
-Component* BlockView::Create(GameObject* gameObject)
+Component* BuildingController::Create(GameObject* gameObject)
 {
-	return gameObject->AddComponent<BlockView>();
+	return gameObject->AddComponent<BuildingController>();
 }
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
-BlockView::BlockView( GameObject* pGameObject)
+BuildingController::BuildingController( GameObject* pGameObject)
 {
 	m_pGameObject = pGameObject;
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
-	
-	m_Attribute = NULL;
-	m_IsUpdatedAttribute = false;
 
-	//モデルの設定
-	m_BlockModel = m_pGameObject->AddComponent<BlockModel>();
+	m_Geometry = NULL;
+	m_TrafficBuilding = NULL;
 }
 
 /*------------------------------------------------------------------------------
 	終了処理
 ------------------------------------------------------------------------------*/
-void BlockView::Uninit( void)
+void BuildingController::Uninit( void)
 {
-	m_Attribute->UnregisterView();
+	if (m_BuildingManager)
+	{
+		m_BuildingManager->Unregister( this);
+	}
+}
+
+/*------------------------------------------------------------------------------
+	初期化処理
+------------------------------------------------------------------------------*/
+bool BuildingController::Init( const std::vector<Vector3>& vertices, BuildingRule* rule, std::list<RoadAttribute*> roads, BuildingManager* buildingManager, CarManager* carManager)
+{
+	m_BuildingManager = buildingManager;
+	m_BuildingManager->Register( this);
+	
+	//ジオメトリの初期化
+	if( !m_Geometry)
+	{
+		m_Geometry = m_pGameObject->AddComponent<BuildingGeometry>();
+	}
+	m_Geometry->Init( vertices, rule);
+
+	//交通プログラムの建物の初期化
+	if (!m_TrafficBuilding)
+	{
+		m_TrafficBuilding = m_pGameObject->AddComponent<TrafficBuilding>();
+	}
+	m_TrafficBuilding->Init( roads, carManager);
+
+	return true;
 }
 
 /*------------------------------------------------------------------------------
 	更新処理
 ------------------------------------------------------------------------------*/
-void BlockView::Update( void)
+void BuildingController::Update( void)
 {
-	if (!m_IsUpdatedAttribute)
-	{
-		return;
-	}
-
-	m_IsUpdatedAttribute = false;
-}
-
-/*------------------------------------------------------------------------------
-	属性情報の更新
-------------------------------------------------------------------------------*/
-void BlockView::UpdateAttribute(void)
-{
-	m_IsUpdatedAttribute = true;
 	
-	//建物の生成
-	m_BlockModel->CreateBuilding( m_Attribute);
-}
-
-/*------------------------------------------------------------------------------
-	属性情報の設定
-------------------------------------------------------------------------------*/
-void BlockView::SetAttribute( BlockAttribute* attribute)
-{ 
-	if( m_Attribute)
-	{	
-		return;
-	}
-	
-	m_Attribute = attribute;
 }
 

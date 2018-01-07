@@ -56,7 +56,7 @@ ComponentFactory::ComponentFactory()
 	REGISTER(BlockModel);
 	REGISTER(BuildingGeometry);
 	REGISTER(WallRenderer);
-
+	REGISTER(BuildingController);
 
 }
 

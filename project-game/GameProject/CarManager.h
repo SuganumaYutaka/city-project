@@ -1,11 +1,11 @@
 /*==============================================================================
-
-    BlockView.h - 町の自動生成ー区画ビュー
-                                                       Author : Yutaka Suganuma
-                                                       Date   : 2017/12/1
+	
+	CarManager.h - 交通システムー車マネージャー
+														Author : Yutaka Suganuma
+														Date   : 2017/12/28
 ==============================================================================*/
-#ifndef _BLOCK_VIEW_H_
-#define _BLOCK_VIEW_H_
+#ifndef _CAR_MANAGER_H_
+#define _CAR_MANAGER_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -16,34 +16,32 @@
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class BlockAttribute;
-class BlockModel;
-class Polygon3DRenderer;
+class GameObject;
+class CarController;
+class TrafficJunction;
+class TrafficRoad;
+class TrafficBuilding;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BlockView : public Component
+class CarManager : public Component
 {
 public:
 	static Component* Create( GameObject* gameObject);
 
-	BlockView( GameObject* pGameObject);
+	CarManager( GameObject* pGameObject);
 	void Uninit( void);
 
-	void SetAttribute( BlockAttribute* attribute);
-	BlockAttribute* GetAttribute( void) { return m_Attribute;}
-
-	void UpdateAttribute( void);
+	CarController* CreateCarController( const Vector3& position, const D3DXQUATERNION& rotation
+		, TrafficRoad* currentRoad, TrafficJunction* nextJunction, TrafficBuilding* targetBuilding);
 
 private:
 	void Update(void);
 
-	BlockAttribute* m_Attribute;
-	bool m_IsUpdatedAttribute;
-
-	BlockModel* m_BlockModel;
+	std::list<CarController*> GetAllCarControllers( void);
 };
+
 
 #endif
 

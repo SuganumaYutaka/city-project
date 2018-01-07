@@ -107,12 +107,13 @@ void CameraController::Update()
 			Move.y -= Manager::GetInputMouse()->GetAxisY() * MOVE_SPEED;
 			Move.x -= Manager::GetInputMouse()->GetAxisX() * MOVE_SPEED;
 
-			Vector3 CameraVec = m_pCamera->GetCameraVec();
-			CameraVec = Vector3( -CameraVec.z, CameraVec.y, CameraVec.x);
-			m_pCamera->Move( CameraVec * Move.x);
+			Vector3 cameraVec = m_pCamera->GetCameraVec();
+			Vector3 vecUp = m_pCamera->GetVecUp();
+			cameraVec = Vector3::Cross( cameraVec, vecUp);
+			m_pCamera->Move( cameraVec.Normalize() * Move.x);
 			
-			CameraVec = m_pCamera->GetVecUp();
-			m_pCamera->Move( CameraVec * Move.y);
+			cameraVec = vecUp;
+			m_pCamera->Move( cameraVec.Normalize() * Move.y);
 		}
 	}
 

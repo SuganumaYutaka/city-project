@@ -21,6 +21,15 @@ class RoadView;
 class BlockView;
 class GameObject;
 class BuildingRuleFactory;
+class BuildingManager;
+class CarManager;
+class TrafficJunction;
+class TrafficRoad;
+
+/*------------------------------------------------------------------------------
+	マクロ定義
+------------------------------------------------------------------------------*/
+#define DEFAULT_ROAD_WIDTH (16.0f)			//デフォルトの道路幅
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -30,6 +39,7 @@ class JunctionAttribute : public HalfEdgeDataStructure::VertexAttribute
 {
 private:
 	JunctionView* m_View;
+	TrafficJunction* m_TrafficJunction;
 
 public:
 	JunctionAttribute( GameObject* parent);
@@ -39,6 +49,7 @@ public:
 	void UnregisterView( void){ m_View = NULL;}
 
 	const Vector3& GetPosition(void);
+	TrafficJunction* GetTrafficJunction( void){ return m_TrafficJunction;}
 };
 
 //辺（道路）
@@ -46,6 +57,7 @@ class RoadAttribute : public HalfEdgeDataStructure::EdgeAttribute
 {
 private:
 	RoadView* m_View;
+	TrafficRoad* m_TrafficRoad;
 	float Width;
 
 public:
@@ -62,6 +74,7 @@ public:
 	Vector3 GetCenterPosition( void);
 	Vector3 GetVector( void);
 	std::vector<Vector3> GetVertices( void);
+	TrafficRoad* GetTrafficRoad( void){ return m_TrafficRoad;}
 };
 
 //面（区画）
@@ -70,15 +83,19 @@ class BlockAttribute : public HalfEdgeDataStructure::FaceAttribute
 private:
 	BlockView* m_View;
 	BuildingRuleFactory* m_BuildingRuleFactory;
-	
+	BuildingManager* m_BuildingManager;
+	CarManager* m_CarManager;
+
 public:
-	BlockAttribute( GameObject* parent, BuildingRuleFactory* buildingRuleFactory);
+	BlockAttribute( GameObject* parent, BuildingRuleFactory* buildingRuleFactory, BuildingManager* buildingManager, CarManager* carManager);
 	~BlockAttribute();
 	void Init( void) override;
 	void Update( void) override;
 	void UnregisterView( void){ m_View = NULL;}
 
 	BuildingRuleFactory* GetBuildingRuleFactory( void) { return m_BuildingRuleFactory;}
+	BuildingManager* GetBuildingManager( void) { return m_BuildingManager;}
+	CarManager* GetCarManager( void){ return m_CarManager;}
 };
 
 //ファクトリー
@@ -87,13 +104,16 @@ class CityAttributeFactory : public HalfEdgeDataStructure::AttributeFactory
 private:
 	GameObject* m_Parent;
 	BuildingRuleFactory* m_BuildingRuleFactory;
+	BuildingManager* m_BuildingManager;
+	CarManager* m_CarManager;
 
 public:
-	CityAttributeFactory( GameObject* parent, BuildingRuleFactory* buildingRuleFactory) : m_Parent( parent), m_BuildingRuleFactory(buildingRuleFactory) {}
+	CityAttributeFactory( GameObject* parent, BuildingRuleFactory* buildingRuleFactory, BuildingManager* buildingManager, CarManager* carManager)
+		: m_Parent( parent), m_BuildingRuleFactory(buildingRuleFactory), m_BuildingManager( buildingManager), m_CarManager( carManager) {}
 
 	virtual HalfEdgeDataStructure::VertexAttribute* CreateVertexAttribute( void) { return new JunctionAttribute( m_Parent); }
 	virtual HalfEdgeDataStructure::EdgeAttribute* CreateEdgeAttribute( void) { return new RoadAttribute( m_Parent); }
-	virtual HalfEdgeDataStructure::FaceAttribute* CreateFaceAttribute( void){ return new BlockAttribute( m_Parent, m_BuildingRuleFactory); }
+	virtual HalfEdgeDataStructure::FaceAttribute* CreateFaceAttribute( void){ return new BlockAttribute( m_Parent, m_BuildingRuleFactory, m_BuildingManager, m_CarManager); }
 };
 
 #endif

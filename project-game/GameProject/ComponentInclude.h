@@ -46,6 +46,7 @@
 #include "BlockModel.h"
 #include "BuildingGeometry.h"
 #include "WallRenderer.h"
+#include "BuildingController.h"
 
 #endif
 

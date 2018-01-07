@@ -18,12 +18,10 @@
 #include "RoadView.h"
 #include "BlockView.h"
 
-using namespace HalfEdgeDataStructure;
+#include "TrafficJunction.h"
+#include "TrafficRoad.h"
 
-/*------------------------------------------------------------------------------
-	マクロ定義
-------------------------------------------------------------------------------*/
-#define DEFAULT_ROAD_WIDTH (12.0f)			//デフォルトの道路幅
+using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
 	交差点ーコンストラクタ
@@ -33,6 +31,7 @@ JunctionAttribute::JunctionAttribute( GameObject* parent)
 	auto gameObject = new GameObject( parent);
 	gameObject->IsCreatedByOtherComponent = true;
 	m_View = gameObject->AddComponent<JunctionView>();
+	m_TrafficJunction = gameObject->AddComponent<TrafficJunction>();
 }
 
 /*------------------------------------------------------------------------------
@@ -52,6 +51,7 @@ JunctionAttribute::~JunctionAttribute()
 void JunctionAttribute::Init(void)
 {
 	m_View->SetAttribute( this);
+	m_TrafficJunction->SetAttribute( this);
 }
 
 /*------------------------------------------------------------------------------
@@ -60,6 +60,7 @@ void JunctionAttribute::Init(void)
 void JunctionAttribute::Update(void)
 {
 	m_View->UpdateAttribute();
+	m_TrafficJunction->UpdateAttribute();
 }
 
 /*------------------------------------------------------------------------------
@@ -78,6 +79,7 @@ RoadAttribute::RoadAttribute( GameObject* parent) : Width( DEFAULT_ROAD_WIDTH)
 	auto gameObject = new GameObject( parent);
 	gameObject->IsCreatedByOtherComponent = true;
 	m_View = gameObject->AddComponent<RoadView>();
+	m_TrafficRoad = gameObject->AddComponent<TrafficRoad>();
 }
 
 /*------------------------------------------------------------------------------
@@ -97,6 +99,7 @@ RoadAttribute::~RoadAttribute()
 void RoadAttribute::Init(void)
 {
 	m_View->SetAttribute( this);
+	m_TrafficRoad->SetAttribute( this);
 }
 
 /*------------------------------------------------------------------------------
@@ -105,6 +108,7 @@ void RoadAttribute::Init(void)
 void RoadAttribute::Update(void)
 {
 	m_View->UpdateAttribute();
+	m_TrafficRoad->UpdateAttribute();
 }
 
 /*------------------------------------------------------------------------------
@@ -158,12 +162,14 @@ std::vector<Vector3> RoadAttribute::GetVertices(void)
 /*------------------------------------------------------------------------------
 	区画ーコンストラクタ
 ------------------------------------------------------------------------------*/
-BlockAttribute::BlockAttribute( GameObject* parent, BuildingRuleFactory* buildingRuleFactory)
+BlockAttribute::BlockAttribute( GameObject* parent, BuildingRuleFactory* buildingRuleFactory, BuildingManager* buildingManager, CarManager* carManager)
 {
 	auto gameObject = new GameObject( parent);
 	gameObject->IsCreatedByOtherComponent = true;
 	m_View = gameObject->AddComponent<BlockView>();
 	m_BuildingRuleFactory = buildingRuleFactory;
+	m_BuildingManager = buildingManager;
+	m_CarManager = carManager;
 }
 
 /*------------------------------------------------------------------------------

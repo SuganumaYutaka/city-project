@@ -1,11 +1,11 @@
 /*==============================================================================
 
-    BlockView.h - 町の自動生成ー区画ビュー
+    BuildingController.h - 建物の自動生成ー建物コントローラ
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/1
+                                                       Date   : 2017/12/24
 ==============================================================================*/
-#ifndef _BLOCK_VIEW_H_
-#define _BLOCK_VIEW_H_
+#ifndef _BUILDING_CONTROLLER_H_
+#define _BUILDING_CONTROLLER_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -16,33 +16,36 @@
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class BlockAttribute;
-class BlockModel;
-class Polygon3DRenderer;
+class BuildingGeometry;
+class BuildingRule;
+class RoadAttribute;
+class BuildingManager;
+class TrafficBuilding;
+class CarManager;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BlockView : public Component
+class BuildingController : public Component
 {
 public:
 	static Component* Create( GameObject* gameObject);
 
-	BlockView( GameObject* pGameObject);
+	BuildingController( GameObject* pGameObject);
 	void Uninit( void);
 
-	void SetAttribute( BlockAttribute* attribute);
-	BlockAttribute* GetAttribute( void) { return m_Attribute;}
+	bool Init( const std::vector<Vector3>& vertices, BuildingRule* rule, std::list<RoadAttribute*> roads, BuildingManager* buildingManager, CarManager* carManager);
 
-	void UpdateAttribute( void);
+	BuildingGeometry* GetGeometry( void){ return m_Geometry;}
+	TrafficBuilding* GetTrafficBuilding( void){ return m_TrafficBuilding;}
 
 private:
 	void Update(void);
 
-	BlockAttribute* m_Attribute;
-	bool m_IsUpdatedAttribute;
-
-	BlockModel* m_BlockModel;
+	BuildingManager* m_BuildingManager;
+	BuildingGeometry* m_Geometry;
+	TrafficBuilding* m_TrafficBuilding;
+	
 };
 
 #endif

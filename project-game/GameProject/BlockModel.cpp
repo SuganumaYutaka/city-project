@@ -16,15 +16,16 @@
 #include "HalfEdge.h"
 #include "CityAttribute.h"
 
-#include "BuildingGeometry.h"
+#include "BuildingController.h"
 #include "BuildingRuleFactory.h"
+#include "BuildingManager.h"
 
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
 	マクロ定義
 ------------------------------------------------------------------------------*/
-#define DEFAULT_ROAD_WIDTH (12.0f)			//デフォルトの道路幅
+//#define DEFAULT_ROAD_WIDTH (18.0f)			//デフォルトの道路幅
 #define DEFAULT_LAND_SIZE (8.0f)			//デフォルトの土地サイズ
 #define DISTANCE_OF_LANDS (0.8f)			//土地同士の間隔
 
@@ -50,21 +51,23 @@ BlockModel::BlockModel( GameObject* pGameObject)
 ------------------------------------------------------------------------------*/
 void BlockModel::Uninit( void)
 {
-	m_BuildingGeometries.clear();
+	m_BuildingControllers.clear();
 }
 
 /*------------------------------------------------------------------------------
-	区画ー建物の生成
+	建物の生成
 	※　四角形の区画のみ対応
 ------------------------------------------------------------------------------*/
 bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 {
 	//現在の建物を削除
-	for (auto geometries : m_BuildingGeometries)
+	auto buildingManager = attribute->GetBuildingManager();
+	for (auto controller : m_BuildingControllers)
 	{
-		geometries->m_pGameObject->ReleaseReserve();
+		controller->m_pGameObject->ReleaseReserve();
+		buildingManager->Unregister(controller);
 	}
-	m_BuildingGeometries.clear();
+	m_BuildingControllers.clear();
 	
 	//区画から角にあたる4頂点を抽出
 	std::vector<Vertex*> corners;
@@ -102,6 +105,18 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 	{
 		//辺の開始位置の設定
 		edges[ nCnt].vertices.push_back( corners[nCnt]->GetPosition());
+	}
+	for(int nCnt = 0; nCnt < 4; nCnt++)
+	{
+		//辺の道路情報の設定
+		if (nCnt != 3)
+		{
+			SetRoadsFromCorner( corners[nCnt], corners[nCnt + 1], &edges[nCnt], attribute);
+		}
+		else
+		{
+			SetRoadsFromCorner( corners[ nCnt], corners[ 0], &edges[nCnt], attribute);
+		}
 	}
 	for(int nCnt = 0; nCnt < 4; nCnt++)
 	{
@@ -162,6 +177,38 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 			land.vertices[2] = pointThird;
 			land.vertices[3] = pointFourth;
 			land.canCreateBuilding = true;
+
+			//土地に隣接する道路情報を設定
+			if( edges[ nCnt].roads.size() > 0)
+			{
+				Vector3 midVertex = ( land.vertices[0] + land.vertices[1]) * 0.5f;
+				float lengthFromCorner = Vector3::Distance( midVertex, edges[ nCnt].vertices[ 0]);
+				float lengthEdge = edges[ nCnt].vector.Length();
+				float length = lengthFromCorner / lengthEdge;
+				for (auto road : edges[nCnt].roads)
+				{
+					if (length < road.second)
+					{
+						land.roads.push_back( road.first);
+					}
+				}
+			
+				//角地には手前の辺の最後の道路情報も設定
+				if (i == 0)
+				{
+					if (nCnt != 0)
+					{
+						auto road = edges[ nCnt - 1].roads.back();
+						land.roads.push_back( road.first);
+					}
+					else
+					{
+						auto road = edges[ 3].roads.back();
+						land.roads.push_back( road.first);
+					}
+				}
+			}
+			//土地を追加
 			lands.push_back( land);
 
 			//次の生成にはpointThirdを利用する
@@ -219,9 +266,9 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 		{
 			//建物の生成
 			auto gameObject = new GameObject( m_pGameObject);
-			auto geometry = gameObject->AddComponent<BuildingGeometry>();
-			geometry->Init( land.vertices, buildingRuleFactory->CreateBuildingRule( land.vertices, attribute));
-			m_BuildingGeometries.push_back( geometry);
+			auto controller = gameObject->AddComponent<BuildingController>();
+			controller->Init( land.vertices, buildingRuleFactory->CreateBuildingRule( land.vertices, attribute), land.roads, attribute->GetBuildingManager(), attribute->GetCarManager());
+			m_BuildingControllers.push_back( controller);
 		}
 	}
 
@@ -230,18 +277,20 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 	{
 		edge.vertices.clear();
 		edge.vertices.shrink_to_fit();
+		edge.roads.clear();
 	}
 	for (BlockLand& land : lands)
 	{
 		land.vertices.clear();
 		land.vertices.shrink_to_fit();
+		land.roads.clear();
 	}
 
 	return true;
 }
 
 /*------------------------------------------------------------------------------
-	区画ー土地を狭める
+	土地を狭める
 ------------------------------------------------------------------------------*/
 bool BlockModel::NarrowLand(Vector3& start, Vector3& end, float value)
 {
@@ -258,7 +307,7 @@ bool BlockModel::NarrowLand(Vector3& start, Vector3& end, float value)
 }
 
 /*------------------------------------------------------------------------------
-	区画ー土地を移動させる
+	土地を移動させる
 ------------------------------------------------------------------------------*/
 bool BlockModel::MoveLand(Vector3& start, Vector3& end, float value)
 {
@@ -273,4 +322,52 @@ bool BlockModel::MoveLand(Vector3& start, Vector3& end, float value)
 	end += vector * value;
 
 	return true;
+}
+
+/*------------------------------------------------------------------------------
+	区画の角から道路情報を設定
+------------------------------------------------------------------------------*/
+bool BlockModel::SetRoadsFromCorner(Vertex* corner, Vertex* next, BlockEdge* blockedge, BlockAttribute* attribute)
+{
+	float blockedgeLength = Vector3::Distance( next->GetPosition(), corner->GetPosition());
+
+	//はじめのHalfedgeを設定
+	HalfEdge* firstHalfedge = corner->SearchHalfEdgeOnFace( attribute->GetFace());
+	if (!firstHalfedge)
+	{
+		return false;
+	}
+	firstHalfedge = firstHalfedge->GetNext();
+	if (!firstHalfedge)
+	{
+		return false;
+	}
+	
+	//距離に応じて辺に占める割合を算出
+	float length = firstHalfedge->GetVector().Length();
+	
+	//Edgeを設定
+	blockedge->roads.push_back( std::make_pair( (RoadAttribute*)( firstHalfedge->GetEdge()->GetAttribute()), length / blockedgeLength));
+
+	//Edgeが一つのみのとき正常終了
+	if (firstHalfedge->GetEnd() == next)
+	{
+		return true;
+	}
+
+	//Halfedgeがnextに到達するまで設定
+	auto halfEdge = firstHalfedge->GetNext();
+	for (;;)
+	{
+		length += halfEdge->GetVector().Length();
+		blockedge->roads.push_back( std::make_pair( (RoadAttribute*)( halfEdge->GetEdge()->GetAttribute()), length / blockedgeLength));
+
+		if (halfEdge->GetEnd() == next)
+		{
+			return true;
+		}
+		halfEdge = halfEdge->GetNext();
+	}
+
+	return false;
 }

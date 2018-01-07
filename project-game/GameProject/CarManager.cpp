@@ -1,88 +1,75 @@
 /*==============================================================================
-
-    BlockView.cpp - 町の自動生成ー区画ビュー
-                                                       Author : Yutaka Suganuma
-                                                       Date   : 2017/12/1
+	
+	CarManager.cpp - 交通システムー車マネージャー
+														Author : Yutaka Suganuma
+														Date   : 2017/12/28
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "BlockView.h"
+#include "CarManager.h"
 #include "GameObject.h"
 #include "ComponentInclude.h"
-
-#include "Polygon3DRenderer.h"
-#include "CityAttribute.h"
-#include "BlockModel.h"
-
-using namespace HalfEdgeDataStructure;
+#include "CarController.h"
+#include "TrafficRoad.h"
+#include "TrafficJunction.h"
+#include "TrafficBuilding.h"
 
 /*------------------------------------------------------------------------------
 	コンポーネント生成
 ------------------------------------------------------------------------------*/
-Component* BlockView::Create(GameObject* gameObject)
+Component* CarManager::Create(GameObject* gameObject)
 {
-	return gameObject->AddComponent<BlockView>();
+	return gameObject->AddComponent<CarManager>();
 }
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
-BlockView::BlockView( GameObject* pGameObject)
+CarManager::CarManager( GameObject* pGameObject)
 {
 	m_pGameObject = pGameObject;
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
-	
-	m_Attribute = NULL;
-	m_IsUpdatedAttribute = false;
 
-	//モデルの設定
-	m_BlockModel = m_pGameObject->AddComponent<BlockModel>();
+
 }
 
 /*------------------------------------------------------------------------------
 	終了処理
 ------------------------------------------------------------------------------*/
-void BlockView::Uninit( void)
+void CarManager::Uninit( void)
 {
-	m_Attribute->UnregisterView();
+	
 }
 
 /*------------------------------------------------------------------------------
 	更新処理
 ------------------------------------------------------------------------------*/
-void BlockView::Update( void)
+void CarManager::Update( void)
 {
-	if (!m_IsUpdatedAttribute)
-	{
-		return;
-	}
-
-	m_IsUpdatedAttribute = false;
+	
 }
 
 /*------------------------------------------------------------------------------
-	属性情報の更新
+	すべてのCarControllerを取得
 ------------------------------------------------------------------------------*/
-void BlockView::UpdateAttribute(void)
+std::list<CarController*> CarManager::GetAllCarControllers(void)
 {
-	m_IsUpdatedAttribute = true;
-	
-	//建物の生成
-	m_BlockModel->CreateBuilding( m_Attribute);
+	return m_pGameObject->GetComponentListInChildren<CarController>();
 }
 
 /*------------------------------------------------------------------------------
-	属性情報の設定
+	CarController生成
 ------------------------------------------------------------------------------*/
-void BlockView::SetAttribute( BlockAttribute* attribute)
-{ 
-	if( m_Attribute)
-	{	
-		return;
-	}
-	
-	m_Attribute = attribute;
-}
+CarController* CarManager::CreateCarController(const Vector3& position, const D3DXQUATERNION& rotation
+	, TrafficRoad* currentRoad, TrafficJunction* nextJunction, TrafficBuilding* targetBuilding)
+{
+	auto carObject = new GameObject( m_pGameObject);
+	carObject->m_pTransform->SetWorldPosition( position);
+	carObject->m_pTransform->SetWorldRotation( rotation);
+	auto carController = carObject->AddComponent<CarController>();
+	carController->Init( currentRoad, nextJunction, targetBuilding);
 
+	return carController;
+}
