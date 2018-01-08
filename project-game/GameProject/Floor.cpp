@@ -27,6 +27,11 @@ Floor::Floor() : m_Tile( NULL)
 ------------------------------------------------------------------------------*/
 Floor::~Floor()
 {
+	if (!m_Tile)
+	{
+		return;
+	}
+
 	//ƒ^ƒCƒ‹‚ÌÁ‹Ž
 	Tile* targetTile = m_Tile;
 	Tile* nextTile;
@@ -180,3 +185,22 @@ int Floor::CulcCountPolygonCurve(float radius)
 	return count;
 }
 
+/*------------------------------------------------------------------------------
+	“¯ˆêShape‚ÌFloor‚Æ—Z‡‚·‚é
+------------------------------------------------------------------------------*/
+void Floor::FusionSameShape(Floor* other)
+{
+	//ÅŒã‚ÌTile‚ÌNext‚ðother‚ÌÅ‰‚ÌTile‚É‚·‚é
+	auto tile = m_Tile;
+	for (;;)
+	{
+		if (!tile->GetNext())
+		{
+			break;
+		}
+	}
+	tile->SetNext( other->m_Tile);
+
+	//Tile‚ªÁ‹Ž‚³‚ê‚È‚¢‚æ‚¤‚Éother‚ÌTile‚ðNULL‚É
+	other->m_Tile = NULL;
+}

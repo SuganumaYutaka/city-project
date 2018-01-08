@@ -35,6 +35,7 @@ public:
 	void Move( const Vector3& value) override;
 	void Rotate( float value) override;
 	void Scale( const Vector3& value) override;
+	void ConfirmShape( void) override;
 	
 private:
 	Vector3 m_Position;

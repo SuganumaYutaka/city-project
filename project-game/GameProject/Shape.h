@@ -29,6 +29,7 @@ public:
 	virtual void Move( const Vector3& value) = 0;
 	virtual void Rotate( float value) = 0;
 	virtual void Scale( const Vector3& value) = 0;
+	virtual void ConfirmShape( void){}
 
 	void AddRoof( Roof* roof);
 	void SubRoof(Roof* roof);

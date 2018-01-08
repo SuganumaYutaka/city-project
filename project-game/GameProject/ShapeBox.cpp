@@ -46,17 +46,17 @@ void ShapeBox::Init(const Vector3& position, float rotation, const Vector3& size
 	AddRoof( roof);
 
 	//壁の生成
+	//手前
+	Vector3 leftFront( size.x * -0.5f, 0.0f, size.z * 0.5f);
+	auto frontWall = new Wall( GetBuildingObject());
+	frontWall->Init( size.y, size.x, leftFront, Vector3(0.0f, 0.0f, -1.0f), rule);
+	AddWall( frontWall);
+
 	//右
 	Vector3 rightFront( size.x * -0.5f, 0.0f, size.z * -0.5f);
 	auto rightWall = new Wall( GetBuildingObject());
 	rightWall->Init( size.y, size.z, rightFront, Vector3(1.0f, 0.0f, 0.0f), rule);
 	AddWall( rightWall);
-
-	//左
-	Vector3 leftBack( size.x * 0.5f, 0.0f, size.z * +0.5f);
-	auto leftWall = new Wall( GetBuildingObject());
-	leftWall->Init( size.y, size.z, leftBack, Vector3(-1.0f, 0.0f, 0.0f), rule);
-	AddWall( leftWall);
 
 	//奥
 	Vector3 rightBack( size.x * +0.5f, 0.0f, size.z * -0.5f);
@@ -64,11 +64,11 @@ void ShapeBox::Init(const Vector3& position, float rotation, const Vector3& size
 	backWall->Init( size.y, size.x, rightBack, Vector3(0.0f, 0.0f, 1.0f), rule);
 	AddWall( backWall);
 
-	//手前
-	Vector3 leftFront( size.x * -0.5f, 0.0f, size.z * 0.5f);
-	auto frontWall = new Wall( GetBuildingObject());
-	frontWall->Init( size.y, size.x, leftFront, Vector3(0.0f, 0.0f, -1.0f), rule);
-	AddWall( frontWall);
+	//左
+	Vector3 leftBack( size.x * 0.5f, 0.0f, size.z * +0.5f);
+	auto leftWall = new Wall( GetBuildingObject());
+	leftWall->Init( size.y, size.z, leftBack, Vector3(-1.0f, 0.0f, 0.0f), rule);
+	AddWall( leftWall);
 }
 
 /*------------------------------------------------------------------------------
@@ -93,6 +93,23 @@ void ShapeBox::Rotate( float value)
 void ShapeBox::Scale(const Vector3& value)
 {
 
+}
+
+/*------------------------------------------------------------------------------
+	形状を確定させる
+------------------------------------------------------------------------------*/
+void ShapeBox::ConfirmShape(void)
+{
+	//4つの壁を融合する
+	auto wall = GetWalls().front();
+	for (auto other : GetWalls())
+	{
+		wall->FusionSameShape( other);
+		SubWall( other);
+	}
+
+	//描画情報の更新
+	//wall->UpdateView();
 }
 
 

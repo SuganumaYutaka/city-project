@@ -36,6 +36,8 @@ public:
 	Land* GetLand( void) { return m_Land;}
 	void AddShape( Shape* shape){ m_Shapes.push_back( shape); }
 
+	void ConfirmGeometry(void);
+
 private:
 	void Update(void);
 

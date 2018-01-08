@@ -18,11 +18,11 @@
 /*------------------------------------------------------------------------------
 	É}ÉNÉçíËã`
 ------------------------------------------------------------------------------*/
-#define ADD_SPEED_ON_ROAD (0.1f)
+#define ADD_SPEED_ON_ROAD (0.09f)
 #define ADD_SPEED_TOWARD_ROAD (0.07f)
 #define ADD_SPEED_NEAR_JUNCTION ( 0.03f)
 #define SPEED_SIDEWAY ( 0.03f)
-#define MAX_DISTANCE_FRONT_CAR ( 15.0f)
+#define MAX_DISTANCE_FRONT_CAR ( 10.0f)
 #define MIN_DISTANCE_FRONT_CAR ( 5.0f)
 #define SLERP_VALUE (0.2f)
 

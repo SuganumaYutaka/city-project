@@ -209,3 +209,17 @@ void Wall::LoadTexture(std::string fileName)
 {
 	m_Renderer->LoadTexture( fileName);
 }
+
+/*------------------------------------------------------------------------------
+	“¯ˆêShape‚ÌWall‚Æ—Z‡‚·‚é
+------------------------------------------------------------------------------*/
+void Wall::FusionSameShape(Wall* other)
+{
+	//Floor‚Ì—Z‡
+	auto destFloor = other->m_Floors.begin();
+	for (auto sourceFloor = m_Floors.begin(); sourceFloor != m_Floors.end(); ++sourceFloor)
+	{
+		(*sourceFloor)->FusionSameShape( (*destFloor));
+		++destFloor;
+	}
+}

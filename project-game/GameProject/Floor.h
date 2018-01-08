@@ -45,6 +45,8 @@ public:
 	float GetWidth( void) { return m_Width;}
 	E_FLOOR_TYPE GetType( void) { return m_Type;}
 
+	void FusionSameShape( Floor* other);
+
 private:
 	Tile* m_Tile;
 	float m_Height;

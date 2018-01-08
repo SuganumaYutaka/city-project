@@ -44,6 +44,8 @@ public:
 
 	void LoadTexture( std::string fileName);
 
+	void FusionSameShape( Wall* other);
+
 private:
 	float m_Height;
 	float m_Width;
