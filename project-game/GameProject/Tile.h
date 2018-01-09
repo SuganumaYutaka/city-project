@@ -14,11 +14,6 @@
 #include "BuildingRuleFactory.h"
 
 /*------------------------------------------------------------------------------
-	前方宣言
-------------------------------------------------------------------------------*/
-class BuildingRule;
-
-/*------------------------------------------------------------------------------
 	マクロ定義
 ------------------------------------------------------------------------------*/
 #define TILE_DIVIDE_PER_RADIAN (0.5f)	//ラジアン角に応じてタイルを分割する基準
@@ -29,30 +24,21 @@ class BuildingRule;
 class Tile
 {
 public:
-	Tile();
-	void Init( float height, float width, E_TILE_TYPE type, const TextureUV& texUV);
-
-	Vector3 SetVertexBuffer( VERTEX_3D* pVtx, const Vector3& bottomLeftPosition, const Vector3& normal, const Vector3& vector);
-	Vector3 SetVertexBufferCurve( VERTEX_3D* pVtx, const Vector3& bottomLeftPosition, const Vector3& center, float radius);
-
+	virtual void Transform(D3DXMATRIX shapeMatrix) = 0;
+	virtual void SetVertexBuffer( VERTEX_3D* pVtx) = 0;
+	
+	virtual int CulcCountVertex( void) = 0;
+	virtual int CulcCountPolygon( void) = 0;
+	
 	void SetNext( Tile* next) { m_Next = next;}
 	Tile* GetNext( void){ return m_Next;}
-
-	float CulcAngle( float radius) { return m_Width / radius;}
-	int CulcCountDivide( float radius);
-
-	int CulcCountVertex( void);
-	int CulcCountVertexCurve( float radius);
-
-	int CulcCountPolygon( void);
-	int CulcCountPolygonCurve( float radius);
-
 	float GetWidth( void){ return m_Width;}
 	
-private:
+protected:
 	Tile* m_Next;
 	float m_Height;
 	float m_Width;
+	Vector3 m_BottomLeftPosition;
 	E_TILE_TYPE m_Type;
 	TextureUV m_TexUV;
 };

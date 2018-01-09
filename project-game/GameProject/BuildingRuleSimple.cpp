@@ -15,6 +15,8 @@
 #include "Floor.h"
 #include "Tile.h"
 #include "Land.h"
+#include "TileDefault.h"
+#include "TileCurve.h"
 
 #include "ShapeBox.h"
 
@@ -76,6 +78,7 @@ bool BuildingRuleSimple::ProceduralShape(BuildingGeometry* geometry)
 	size.z = vec03.Length();
 	size.y = m_ShapeHeight;
 	
+	//ShapeBoxの生成
 	auto shape = new ShapeBox( geometry->GetGameObject());
 	shape->Init( Vector3(0.0f, 0.0f, 0.0f), 0.0f, size, this);
 	geometry->AddShape( shape);
@@ -94,13 +97,15 @@ bool BuildingRuleSimple::ProceduralFloor( Wall* wall)
 	float height = wall->GetHeight();
 	float width = wall->GetWidth();
 	Vector3 bottomLeft = wall->GetBottomLeftPosition();
+	auto normal = wall->GetNormal();
 	Floor* floor = NULL;
 
 	//1階
 	floor = new Floor();
-	floor->Init( m_GroundFloorHeight, width, eFloorGround, this);
+	floor->InitDefault( m_GroundFloorHeight, width, bottomLeft, normal, eFloorGround, this);
 	wall->AddFloor( floor);
 	height -= m_GroundFloorHeight;
+	bottomLeft.y += m_GroundFloorHeight;
 
 	//それ以外のフロア
 	for (;;)
@@ -110,14 +115,15 @@ bool BuildingRuleSimple::ProceduralFloor( Wall* wall)
 			break;
 		}
 		floor = new Floor();
-		floor->Init( m_FloorHeight, width, eFloorDefault, this);
+		floor->InitDefault( m_FloorHeight, width, bottomLeft, normal, eFloorDefault, this);
 		wall->AddFloor( floor);
 		height -= m_FloorHeight;
+		bottomLeft.y += m_FloorHeight;
 	}
 
 	//上部に余白
 	floor = new Floor();
-	floor->Init( height, width, eFloorMargin, this);
+	floor->InitDefault( height, width, bottomLeft, normal, eFloorMargin, this);
 	wall->AddFloor( floor);
 
 	return true;
@@ -128,26 +134,29 @@ bool BuildingRuleSimple::ProceduralFloor( Wall* wall)
 ------------------------------------------------------------------------------*/
 bool BuildingRuleSimple::ProceduralTile( Floor* floor)
 {
+	Vector3 bottomLeftPosition = floor->GetBottomLeftPosition();
+	auto normal = floor->GetNormal();
+	auto vector = Vector3::Cross( normal, Vector3( 0.0f, 1.0f, 0.0f)).Normalize();
 	float height = floor->GetHeight();
 	float width = floor->GetWidth();
-	Tile* tile = NULL;
-	Tile* tileNext = NULL;
+	TileDefault* tile = NULL;
+	TileDefault* tileNext = NULL;
 	
 	//幅が窓より足りない場合壁のみ設定
 	if (width < m_WindowWidth)
 	{
-		tile = new Tile();
+		tile = new TileDefault();
 		floor->SetTile( tile);
-		tile->Init( height, width, eTileWall, GetSurfacePattern()->GetWall());
+		tile->Init( height, width, bottomLeftPosition, normal, eTileWall, GetSurfacePattern()->GetWall());
 		return true;
 	}
 
 	//境界の設定
 	if (floor->GetType() == eFloorBorder)
 	{
-		tile = new Tile();
+		tile = new TileDefault();
 		floor->SetTile( tile);
-		tile->Init( height, width, eTileBorder, GetSurfacePattern()->GetBorder());
+		tile->Init( height, width, bottomLeftPosition, normal, eTileBorder, GetSurfacePattern()->GetBorder());
 		return true;
 	}
 
@@ -162,26 +171,30 @@ bool BuildingRuleSimple::ProceduralTile( Floor* floor)
 			countWindow = (int)( ( width - m_EntranceWidth) / m_WindowWidth);
 			wallWidth = ( width - countWindow * m_WindowWidth - m_EntranceWidth) * 0.5f;
 
-			tile = new Tile();
+			tile = new TileDefault();
 			floor->SetTile( tile);
-			tile->Init( height, wallWidth, eTileWall, GetSurfacePattern()->GetWall());
+			tile->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, GetSurfacePattern()->GetWall());
+			bottomLeftPosition += vector * wallWidth;
 
-			tileNext = new Tile();
+			tileNext = new TileDefault();
 			tile->SetNext( tileNext);
-			tileNext->Init( height, m_EntranceWidth, eTileEntrance, GetSurfacePattern()->GetEntrance());
+			tileNext->Init( height, m_EntranceWidth, bottomLeftPosition, normal, eTileEntrance, GetSurfacePattern()->GetEntrance());
+			bottomLeftPosition += vector * m_EntranceWidth;
 			tile = tileNext;
 			
 			for (int i = 0; i < countWindow; i++)
 			{
-				tileNext = new Tile();
+				tileNext = new TileDefault();
 				tile->SetNext( tileNext);
-				tileNext->Init( height, m_WindowWidth, eTileWindow, GetSurfacePattern()->GetWindow());
+				tileNext->Init( height, m_WindowWidth, bottomLeftPosition, normal, eTileWindow, GetSurfacePattern()->GetWindow());
+				bottomLeftPosition += vector * m_WindowWidth;
 				tile = tileNext;
 			}
 			
-			tileNext = new Tile();
+			tileNext = new TileDefault();
 			tile->SetNext( tileNext);
-			tileNext->Init( height, wallWidth, eTileWall, GetSurfacePattern()->GetWall());
+			tileNext->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, GetSurfacePattern()->GetWall());
+			bottomLeftPosition += vector * wallWidth;
 
 			return true;
 		}
@@ -190,41 +203,67 @@ bool BuildingRuleSimple::ProceduralTile( Floor* floor)
 	//余白の設定（すべて壁）
 	if (floor->GetType() == eFloorMargin)
 	{
-		tile = new Tile();
+		tile = new TileDefault();
 		floor->SetTile( tile);
-		tile->Init( height, wallWidth, eTileWall, GetSurfacePattern()->GetWall());
+		tile->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, GetSurfacePattern()->GetWall());
+		bottomLeftPosition += vector * wallWidth;
 
 		for (int i = 0; i < countWindow; i++)
 		{
-			tileNext = new Tile();
+			tileNext = new TileDefault();
 			tile->SetNext( tileNext);
-			tileNext->Init( height, m_WindowWidth, eTileWall, GetSurfacePattern()->GetWall());
+			tileNext->Init( height, m_WindowWidth, bottomLeftPosition, normal, eTileWall, GetSurfacePattern()->GetWall());
+			bottomLeftPosition += vector * m_WindowWidth;
 			tile = tileNext;
 		}
 			
-		tileNext = new Tile();
+		tileNext = new TileDefault();
 		tile->SetNext( tileNext);
-		tileNext->Init( height, wallWidth, eTileWall, GetSurfacePattern()->GetWall());
-
+		tileNext->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, GetSurfacePattern()->GetWall());
+		bottomLeftPosition += vector * wallWidth;
 		return true;
 	}
 
 	//デフォルトの設定（窓と両端に壁）
-	tile = new Tile();
+	tile = new TileDefault();
 	floor->SetTile( tile);
-	tile->Init( height, wallWidth, eTileWall, GetSurfacePattern()->GetWall());
+	tile->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, GetSurfacePattern()->GetWall());
+	bottomLeftPosition += vector * wallWidth;
 
 	for (int i = 0; i < countWindow; i++)
 	{
-		tileNext = new Tile();
+		tileNext = new TileDefault();
 		tile->SetNext( tileNext);
-		tileNext->Init( height, m_WindowWidth, eTileWindow, GetSurfacePattern()->GetWindow());
+		tileNext->Init( height, m_WindowWidth, bottomLeftPosition, normal, eTileWindow, GetSurfacePattern()->GetWindow());
+		bottomLeftPosition += vector * m_WindowWidth;
 		tile = tileNext;
 	}
 			
-	tileNext = new Tile();
+	tileNext = new TileDefault();
 	tile->SetNext( tileNext);
-	tileNext->Init( height, wallWidth, eTileWall, GetSurfacePattern()->GetWall());
+	tileNext->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, GetSurfacePattern()->GetWall());
+	bottomLeftPosition += vector * wallWidth;
 
 	return true;
 }
+
+/*------------------------------------------------------------------------------
+	フロアの生成（円に沿って曲がる）
+------------------------------------------------------------------------------*/
+bool BuildingRuleSimple::ProceduralFloorCurve( Wall* wall)
+{
+	//TODO:
+
+	return true;
+}
+
+/*------------------------------------------------------------------------------
+	タイルの生成（円に沿って曲がる）
+------------------------------------------------------------------------------*/
+bool BuildingRuleSimple::ProceduralTileCurve( Floor* floor)
+{
+	//TODO:
+
+	return true;
+}
+

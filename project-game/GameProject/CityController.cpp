@@ -91,6 +91,15 @@ CityController::CityController( GameObject* pGameObject)
 			trafficBuilding->CreateCar();
 		}
 	}
+
+	//建物ジオメトリ情報の削除
+	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_SPACE))
+	{
+		for (auto building : m_BuildingManager->GetAllBuildings())
+		{
+			building->ConfirmGeometry();
+		}
+	}
 }
 
 /*------------------------------------------------------------------------------
@@ -127,6 +136,15 @@ void CityController::Update()
 	//			auto trafficBuilding = (*ite)->GetTrafficBuilding();
 	//			trafficBuilding->CreateCar();
 	//		}
+	//	}
+	//}
+
+	////建物ジオメトリ情報の削除
+	//if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_SPACE))
+	//{
+	//	for (auto building : m_BuildingManager->GetAllBuildings())
+	//	{
+	//		building->ConfirmGeometry();
 	//	}
 	//}
 }

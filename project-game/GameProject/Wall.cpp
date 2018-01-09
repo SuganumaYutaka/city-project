@@ -44,77 +44,47 @@ Wall::~Wall()
 /*------------------------------------------------------------------------------
 	初期化
 ------------------------------------------------------------------------------*/
-void Wall::Init( float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, BuildingRule* rule)
+void Wall::InitDefault( D3DXMATRIX shapeMatrix, float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, BuildingRule* rule)
 {
 	m_Height = height;
 	m_Width = width;
 	m_BottomLeftPosition = bottomLeftPosition;
+	m_Normal = normal;
 
 	//フロアの生成
 	rule->ProceduralFloor( this);
 
-	UpdateView( bottomLeftPosition, normal);
+	UpdateView( shapeMatrix);
 }
 
 /*------------------------------------------------------------------------------
 	初期化（円に沿って曲げる）
 ------------------------------------------------------------------------------*/
-void Wall::Init( float height, float width, const Vector3& bottomLeftPosition, const Vector3& center, float radius, BuildingRule* rule)
+void Wall::InitCurve( D3DXMATRIX shapeMatrix, float height, float width, const Vector3& bottomLeftPosition,  BuildingRule* rule)
 {
 	m_Height = height;
 	m_Width = width;
 	m_BottomLeftPosition = bottomLeftPosition;
+	m_Normal = bottomLeftPosition.Normalize();
 
 	//フロアの生成
-	rule->ProceduralFloor( this);
+	rule->ProceduralFloorCurve( this);
 
-	UpdateView( bottomLeftPosition, center, radius);
+	UpdateView( shapeMatrix);
 }
 
 /*------------------------------------------------------------------------------
 	描画情報の更新
 ------------------------------------------------------------------------------*/
-bool Wall::UpdateView( const Vector3& bottomLeftPosition, const Vector3& normal)
+bool Wall::UpdateView( D3DXMATRIX shapeMatrix)
 {
-	m_BottomLeftPosition = bottomLeftPosition;
-
 	//Rendererの更新
-	Vector3 position = bottomLeftPosition;
-	Vector3 vector = Vector3::Cross( normal, Vector3(0.0f, 1.0f, 0.0f)).Normalize();
-	
 	auto pVtx = m_Renderer->StartSetVertexBuffer( CulcCountVertex() + 1, CulcCountPolygon());
-	
 	for (auto floor : m_Floors)
 	{
-		floor->SetVertexBuffer( pVtx, position, normal, vector);
-		auto countVertex = floor->CulcCountVertex();
-		pVtx += countVertex;
-		position.y += floor->GetHeight();
+		floor->SetVertexBuffer( pVtx);
+		pVtx += floor->CulcCountVertex();
 	}
-
-	m_Renderer->EndSetVertexBuffer();
-
-	return true;
-}
-
-/*------------------------------------------------------------------------------
-	描画情報の更新（円に沿って曲げる）
-------------------------------------------------------------------------------*/
-bool Wall::UpdateView( const Vector3& bottomLeftPosition, const Vector3& center, float radius)
-{
-	m_BottomLeftPosition = bottomLeftPosition;
-
-	//Rendererの更新
-	Vector3 position = bottomLeftPosition;
-
-	auto pVtx = m_Renderer->StartSetVertexBuffer( CulcCountVertex(), CulcCountPolygon());
-
-	for (auto floor : m_Floors)
-	{
-		floor->SetVertexBufferCurve( pVtx, position, center, radius);
-		position.y += floor->GetHeight();
-	}
-
 	m_Renderer->EndSetVertexBuffer();
 
 	return true;
@@ -133,21 +103,6 @@ int Wall::CulcCountVertex(void)
 
 	return count - 1;
 }
-
-/*------------------------------------------------------------------------------
-	頂点数を算出（円に沿って曲げる場合）
-------------------------------------------------------------------------------*/
-int Wall::CulcCountVertexCurve( float radius)
-{
-	int count = 0;
-	for (auto floor : m_Floors)
-	{
-		count += floor->CulcCountVertexCurve( radius);
-	}
-
-	return count - 1;
-}
-
 /*------------------------------------------------------------------------------
 	ポリゴン数を算出
 ------------------------------------------------------------------------------*/
@@ -157,20 +112,6 @@ int Wall::CulcCountPolygon(void)
 	for (auto floor : m_Floors)
 	{
 		count += floor->CulcCountPolygon();
-	}
-
-	return count - 2;
-}
-
-/*------------------------------------------------------------------------------
-	ポリゴン数を算出（円に沿って曲げる場合）
-------------------------------------------------------------------------------*/
-int Wall::CulcCountPolygonCurve(float radius)
-{
-	int count = 0;
-	for (auto floor : m_Floors)
-	{
-		count += floor->CulcCountPolygonCurve( radius);
 	}
 
 	return count - 2;
@@ -222,4 +163,8 @@ void Wall::FusionSameShape(Wall* other)
 		(*sourceFloor)->FusionSameShape( (*destFloor));
 		++destFloor;
 	}
+
+	//Rendererの消去
+	other->m_Renderer->ReleaseReserve();
+	other->m_Renderer = NULL;
 }

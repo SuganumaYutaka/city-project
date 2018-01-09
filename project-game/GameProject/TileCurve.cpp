@@ -8,84 +8,61 @@
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "Tile.h"
-#include "BuildingRule.h"
-#include "BuildingSurfacePattern.h"
-
-/*------------------------------------------------------------------------------
-	コンストラクタ
-------------------------------------------------------------------------------*/
-Tile::Tile() : m_Next( NULL)
-{
-	m_Height = 1.0f;
-	m_Width = 1.0f;
-	m_Type = eTileWall;
-}
-
+#include "TileCurve.h"
 
 /*------------------------------------------------------------------------------
 	初期化
 ------------------------------------------------------------------------------*/
-void Tile::Init( float height, float width, E_TILE_TYPE type, const TextureUV& texUV)
+void TileCurve::Init( float height, float width, const Vector3& bottomLeftPosition, const Vector3& radiusVector, E_TILE_TYPE type, const TextureUV& texUV)
 {
 	m_Height = height;
 	m_Width = width;
+	m_BottomLeftPosition = bottomLeftPosition;
+	m_RadiusVector = radiusVector;
 	m_Type = type;
 	m_TexUV = texUV;
 }
 
 /*------------------------------------------------------------------------------
-	頂点バッファの設定
+	位置と半径の更新
 ------------------------------------------------------------------------------*/
-Vector3 Tile::SetVertexBuffer(VERTEX_3D* pVtx, const Vector3& bottomLeftPosition, const Vector3& normal, const Vector3& vector)
+void TileCurve::Transform(D3DXMATRIX shapeMatrix)
 {
-	//縮退ポリゴンに注意して頂点を設定
-	Vector3 nextPosition = bottomLeftPosition + vector * m_Width;
+	auto position = m_BottomLeftPosition.ConvertToDX();
+	auto vector = m_RadiusVector.ConvertToDX();
+	auto length = m_RadiusVector.Length();
 
-	pVtx[ 0].Pos = pVtx[ 1].Pos = D3DXVECTOR3( bottomLeftPosition.x, bottomLeftPosition.y, bottomLeftPosition.z);
-	pVtx[ 2].Pos = D3DXVECTOR3( bottomLeftPosition.x, bottomLeftPosition.y + m_Height, bottomLeftPosition.z);
-	pVtx[ 3].Pos = D3DXVECTOR3( nextPosition.x, nextPosition.y, nextPosition.z);
-	pVtx[ 4].Pos = pVtx[ 5].Pos = D3DXVECTOR3( nextPosition.x, nextPosition.y + m_Height, nextPosition.z);
+	D3DXVec3TransformCoord( &position, &position, &shapeMatrix);
+	D3DXVec3TransformNormal( &vector, &vector, &shapeMatrix);
 
-	for (int i = 0; i < 6; i++)
-	{
-		pVtx[ i].Normal = normal.ConvertToDX();
-		pVtx[ i].Color = D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f);
-	}
-
-	pVtx[0].Tex = pVtx[5].Tex = D3DXVECTOR2( 0.0f, 0.0f); 
-	
-	//UV（N字）
-	pVtx[1].Tex = m_TexUV.GetBottomLeft();
-	pVtx[2].Tex = m_TexUV.GetTopLeft();
-	pVtx[3].Tex = m_TexUV.GetBottomRight();
-	pVtx[4].Tex = m_TexUV.GetTopRight();
-
-	return nextPosition;
+	m_BottomLeftPosition = Vector3::ConvertFromDX( position);
+	m_RadiusVector = Vector3::ConvertFromDX( vector) * length;
 }
 
 /*------------------------------------------------------------------------------
 	頂点バッファの設定（円に沿って曲げる）
 ------------------------------------------------------------------------------*/
-Vector3 Tile::SetVertexBufferCurve(VERTEX_3D* pVtx, const Vector3& bottomLeftPosition,  const Vector3& center, float radius)
+void TileCurve::SetVertexBuffer(VERTEX_3D* pVtx)
 {
-	//縮退ポリゴンに注意して頂点を設定
+	//中心を算出
+	auto center = m_BottomLeftPosition - m_RadiusVector;
 	
+	//縮退ポリゴンに注意して頂点を設定
 	//回転用の準備
-	float angle = CulcAngle( radius);
-	int countDivide = CulcCountDivide( radius);
+	float angle = CulcAngle();
+	int countDivide = CulcCountDivide();
 	float deltaAngle = angle / (float)( countDivide + 1);
 	D3DXMATRIX mtxRotate;
 	D3DXMatrixIdentity( &mtxRotate);
 	D3DXMatrixRotationY( &mtxRotate, deltaAngle);
-	D3DXVECTOR3 positionFromCenter = (bottomLeftPosition - center).ConvertToDX();
+	D3DXVECTOR3 positionFromCenter = (m_BottomLeftPosition - center).ConvertToDX();
 
 	//UV値設定の準備
 	D3DXVECTOR2 topTexUV = m_TexUV.GetTopLeft();
 	D3DXVECTOR2 bottomTexUV = m_TexUV.GetBottomLeft();
 	float deltaTexU = m_TexUV.GetSize().x / (float)( countDivide + 1);
 	
-	int countVertex = CulcCountVertexCurve( radius);
+	int countVertex = CulcCountVertex();
 	for (int i = 1; i < countVertex - 2; i++)
 	{
 		//位置の設定
@@ -115,11 +92,11 @@ Vector3 Tile::SetVertexBufferCurve(VERTEX_3D* pVtx, const Vector3& bottomLeftPos
 	//returnする次のbottomLeftPositionを設定
 	D3DXVECTOR3 nextPosition;
 	D3DXMatrixRotationY( &mtxRotate, angle);
-	D3DXVec3TransformCoord( &nextPosition, &( bottomLeftPosition - center).ConvertToDX(), &mtxRotate);
+	D3DXVec3TransformCoord( &nextPosition, &( m_BottomLeftPosition - center).ConvertToDX(), &mtxRotate);
 	nextPosition += center.ConvertToDX();
 
 	//縮退ポリゴンの設定
-	pVtx[ 0].Pos = bottomLeftPosition.ConvertToDX();
+	pVtx[ 0].Pos = m_BottomLeftPosition.ConvertToDX();
 	pVtx[ 0].Normal = D3DXVECTOR3( 0.0f, 0.0f, 0.0f);
 	pVtx[ 0].Color = D3DXCOLOR( 0.0f, 0.0f, 0.0f, 0.0f);
 	pVtx[ 0].Tex = D3DXVECTOR2( 0.0f, 0.0f);
@@ -131,23 +108,15 @@ Vector3 Tile::SetVertexBufferCurve(VERTEX_3D* pVtx, const Vector3& bottomLeftPos
 	pVtx[ countVertex - 1].Color = D3DXCOLOR( 0.0f, 0.0f, 0.0f, 0.0f);
 	pVtx[ countVertex - 1].Tex = D3DXVECTOR2( 0.0f, 0.0f);
 
-	return Vector3::ConvertFromDX( nextPosition);
+	pVtx += countVertex;
 }
 
 /*------------------------------------------------------------------------------
 	頂点数の算出
 ------------------------------------------------------------------------------*/
-int Tile::CulcCountVertex()
+int TileCurve::CulcCountVertex( void)
 {
-	return 4 + 2;
-}
-
-/*------------------------------------------------------------------------------
-	頂点数の算出（円に沿って曲げる場合）
-------------------------------------------------------------------------------*/
-int Tile::CulcCountVertexCurve( float radius)
-{
-	int countDivide = CulcCountDivide( radius);
+	int countDivide = CulcCountDivide();
 	int countVertex = ( countDivide + 2) * 2 + 2;
 
 	return countVertex;
@@ -156,28 +125,28 @@ int Tile::CulcCountVertexCurve( float radius)
 /*------------------------------------------------------------------------------
 	ポリゴン数の算出
 ------------------------------------------------------------------------------*/
-int Tile::CulcCountPolygon()
+int TileCurve::CulcCountPolygon(void)
 {
-	return 6;
-}
-
-/*------------------------------------------------------------------------------
-	ポリゴン数の算出（円に沿って曲げる場合）
-------------------------------------------------------------------------------*/
-int Tile::CulcCountPolygonCurve( float radius)
-{
-	int countDivide = CulcCountDivide( radius);
-
+	int countDivide = CulcCountDivide();
 
 	return 6 + countDivide * 2;
 }
 
 /*------------------------------------------------------------------------------
+	半径から角度を算出
+------------------------------------------------------------------------------*/
+float TileCurve::CulcAngle( void)
+{
+	float radius = m_RadiusVector.Length();
+	return m_Width / radius;
+}
+
+/*------------------------------------------------------------------------------
 	分割数を算出
 ------------------------------------------------------------------------------*/
-int Tile::CulcCountDivide(float radius)
+int TileCurve::CulcCountDivide(void)
 {
-	float angle = CulcAngle( radius);
+	float angle = CulcAngle();
 	return (int)( angle / TILE_DIVIDE_PER_RADIAN);
 }
 

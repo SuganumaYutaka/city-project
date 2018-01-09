@@ -27,23 +27,20 @@ class Floor
 public:
 	Floor();
 	~Floor();
-	void Init( float height, float width, E_FLOOR_TYPE type, BuildingRule* rule);
-	
+	void InitDefault( float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, E_FLOOR_TYPE type, BuildingRule* rule);
+	void InitCurve( float height, float width, const Vector3& bottomLeftPosition, E_FLOOR_TYPE type, BuildingRule* rule);
+	void Transform(D3DXMATRIX shapeMatrix);
 	void SetTile( Tile* tile){ m_Tile = tile;}
 	Tile* GetTile( void) { return m_Tile;}
-
-	bool SetVertexBuffer( VERTEX_3D* pVtx, const Vector3& bottomLeftPosition, const Vector3& normal, const Vector3& vector);
-	bool SetVertexBufferCurve( VERTEX_3D* pVtx, const Vector3& bottomLeftPosition, const Vector3& center, float radius);
-
-	int CulcCountVertex( void);
-	int CulcCountVertexCurve( float radius);
-
-	int CulcCountPolygon( void);
-	int CulcCountPolygonCurve( float radius);
-
 	float GetHeight( void) { return m_Height;}
 	float GetWidth( void) { return m_Width;}
+	const Vector3& GetBottomLeftPosition( void) { return m_BottomLeftPosition;}
+	const Vector3& GetNormal( void) { return m_Normal;}
 	E_FLOOR_TYPE GetType( void) { return m_Type;}
+
+	bool SetVertexBuffer( VERTEX_3D* pVtx);
+	int CulcCountVertex( void);
+	int CulcCountPolygon( void);
 
 	void FusionSameShape( Floor* other);
 
@@ -51,6 +48,8 @@ private:
 	Tile* m_Tile;
 	float m_Height;
 	float m_Width;
+	Vector3 m_BottomLeftPosition;
+	Vector3 m_Normal;
 	E_FLOOR_TYPE m_Type;
 };
 

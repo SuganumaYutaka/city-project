@@ -37,6 +37,8 @@ public:
 	bool ProceduralShape( BuildingGeometry* geometry) override;
 	bool ProceduralFloor( Wall* wall)  override;
 	bool ProceduralTile( Floor* floor)  override;
+	bool ProceduralFloorCurve( Wall* wall)  override;
+	bool ProceduralTileCurve( Floor* floor)  override;
 
 	float GetShapeHeight(void) { return m_ShapeHeight;}
 	float GetGroundFloorHeight(void) { return m_GroundFloorHeight;}

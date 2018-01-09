@@ -1,47 +1,41 @@
 /*==============================================================================
 
-    ShapeBox.h - 建物の自動生成ーボックス
+    TileCurve.h - 建物の自動生成ータイル（曲線）
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/8
+                                                       Date   : 2018/1/8
 ==============================================================================*/
-#ifndef _SHAPE_BOX_H_
-#define _SHAPE_BOX_H_
+#ifndef _TILE_CURVE_H_
+#define _TILE_CURVE_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-#include "Shape.h"
+#include "Tile.h"
 
 /*------------------------------------------------------------------------------
-	前方宣言
+	マクロ定義
 ------------------------------------------------------------------------------*/
-class GameObject;
-class Roof;
-class Wall;
-class BuildingRule;
+#define TILE_DIVIDE_PER_RADIAN (0.5f)	//ラジアン角に応じてタイルを分割する基準
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class ShapeBox : public Shape
+class TileCurve : public Tile
 {
 public:
-	ShapeBox( GameObject* buildingObject);
-	~ShapeBox() override;
-
-	void Init( const Vector3& position, float rotation, const Vector3& size, BuildingRule* rule);
-	void CreateWalls( void);
-
-	void Move( const Vector3& value) override;
-	void Rotate( float value) override;
-	void ScaleUpDown( const Vector3& value) override;
-	void ScaleRate( float rate) override;
-	void ScaleRate( const Vector3& rate) override;
-	void ConfirmShape( void) override;
+	void Init( float height, float width, const Vector3& bottomLeftPosition, const Vector3& radiusVector, E_TILE_TYPE type, const TextureUV& texUV);
+	void Transform(D3DXMATRIX shapeMatrix) override;
+	void SetVertexBuffer( VERTEX_3D* pVtx) override;
+	int CulcCountVertex( void) override;
+	int CulcCountPolygon( void) override;
 	
 private:
-	Vector3 m_Size;
+	float CulcAngle( void);
+	int CulcCountDivide( void);
+
+	Vector3 m_RadiusVector;
+
 };
 
 #endif

@@ -38,6 +38,8 @@ public:
 
 	BuildingGeometry* GetGeometry( void){ return m_Geometry;}
 	TrafficBuilding* GetTrafficBuilding( void){ return m_TrafficBuilding;}
+	
+	void ConfirmGeometry( void);
 
 private:
 	void Update(void);

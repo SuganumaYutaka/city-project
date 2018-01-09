@@ -1,41 +1,32 @@
 /*==============================================================================
 
-    Roof.h - 建物の自動生成ー屋根
+    TileDefault.h - 建物の自動生成ータイル（デフォルト）
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/7
+                                                       Date   : 2018/1/8
 ==============================================================================*/
-#ifndef _ROOF_H_
-#define _ROOF_H_
+#ifndef _TILE_DEFAULT_H_
+#define _TILE_DEFAULT_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-
-/*------------------------------------------------------------------------------
-	前方宣言
-------------------------------------------------------------------------------*/
-class GameObject;
-class Renderer;
+#include "Tile.h"
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class Roof
+class TileDefault : public Tile
 {
 public:
-	Roof( GameObject* buildingObject);
-	void Init( const Vector3& position, float rotation, const Vector3& size);
-
-
-	void UpdatePosition( const Vector3& position);
-	void UpdateRotation( float rotation);
-	void UpdateSize( const Vector3& size);
+	void Init( float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, E_TILE_TYPE type, const TextureUV& texUV);
+	void Transform(D3DXMATRIX shapeMatrix) override;
+	void SetVertexBuffer( VERTEX_3D* pVtx) override;
+	int CulcCountVertex( void) override;
+	int CulcCountPolygon( void) override;
 	
 private:
-	GameObject* m_RoofObject;
-	Renderer* m_Renderer;
-
+	Vector3 m_Normal;
 };
 
 #endif
