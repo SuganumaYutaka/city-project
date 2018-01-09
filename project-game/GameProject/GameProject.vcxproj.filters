@@ -438,6 +438,12 @@
     <ClCompile Include="TileDefault.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
+    <ClCompile Include="BuildingRuleCylinder.cpp">
+      <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapeCylinder.cpp">
+      <Filter>CityEngine\Building</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModeTitle.h">
@@ -792,6 +798,12 @@
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
     <ClInclude Include="TileDefault.h">
+      <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingRuleCylinder.h">
+      <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeCylinder.h">
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
   </ItemGroup>

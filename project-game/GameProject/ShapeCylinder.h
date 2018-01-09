@@ -1,39 +1,49 @@
+#pragma once
 /*==============================================================================
 
-    Roof.h - 建物の自動生成ー屋根
+    ShapeCylinder.h - 建物の自動生成ーシリンダー
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/7
+                                                       Date   : 2018/1/9
 ==============================================================================*/
-#ifndef _ROOF_H_
-#define _ROOF_H_
+#ifndef _SHAPE_CYLINDER_H_
+#define _SHAPE_CYLINDER_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
+#include "Shape.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
 class GameObject;
-class Renderer;
+class Roof;
+class Wall;
+class BuildingRule;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class Roof
+class ShapeCylinder : public Shape
 {
 public:
-	Roof( GameObject* buildingObject);
-	void InitPlane( const Vector3& position, float rotation, const Vector3& size, std::string fileName = "data/TEXTURE/default.jpg");
+	ShapeCylinder( GameObject* buildingObject);
+	~ShapeCylinder() override;
 
-	void UpdatePosition( const Vector3& position);
-	void UpdateRotation( float rotation);
-	void UpdateSize( const Vector3& size);
+	void Init( const Vector3& position, float rotation, float height, float radius, BuildingRule* rule);
+	void CreateWalls( void);
+
+	void Move( const Vector3& value) override;
+	void Rotate( float value) override;
+	void ScaleUpDown( const Vector3& value) override;
+	void ScaleRate( float rate) override;
+	void ScaleRate( const Vector3& rate) override;
+	void ConfirmShape( void) override;
 	
 private:
-	GameObject* m_RoofObject;
-	Renderer* m_Renderer;
+	float m_Height;
+	float m_Radius;
 
 };
 

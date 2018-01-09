@@ -24,7 +24,7 @@ Roof::Roof(GameObject* buildingObject)
 /*------------------------------------------------------------------------------
 	‰Šú‰»
 ------------------------------------------------------------------------------*/
-void Roof::Init(const Vector3& position, float rotation, const Vector3& size)
+void Roof::InitPlane( const Vector3& position, float rotation, const Vector3& size, std::string fileName)
 {
 	if (m_Renderer)
 	{
@@ -35,7 +35,9 @@ void Roof::Init(const Vector3& position, float rotation, const Vector3& size)
 	auto roofPosition = position;
 	roofPosition.y += size.y;
 
-	m_Renderer = m_RoofObject->AddComponent<Polygon3DRenderer>();
+	auto renderer = m_RoofObject->AddComponent<Polygon3DRenderer>();
+	renderer->LoadTexture( fileName);
+	m_Renderer = renderer;
 	m_RoofObject->m_pTransform->SetLocalPosition( roofPosition);
 	m_RoofObject->m_pTransform->SetLocalRotationEuler( 0.0f, rotation, 0.0f);
 	m_RoofObject->m_pTransform->SetLocalScale( size);

@@ -63,7 +63,7 @@ void Floor::InitDefault( float height, float width, const Vector3& bottomLeftPos
 }
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»
+	‰Šú‰»i‰~‚É‰ˆ‚Á‚Ä‹È‚°‚éj
 ------------------------------------------------------------------------------*/
 void Floor::InitCurve( float height, float width, const Vector3& bottomLeftPosition, E_FLOOR_TYPE type, BuildingRule* rule)
 {

@@ -15,6 +15,7 @@
 #include "DebugLog.h"
 
 #include "BuildingRuleSimple.h"
+#include "BuildingRuleCylinder.h"
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -56,11 +57,12 @@ BuildingRule* BuildingRuleFactory::CreateBuildingRule(const std::vector<Vector3>
 	//サーフェスパターンの決定
 	int pattern = m_Random->GetInt();
 
-	//Simple
-	rule = BuildingRuleSimple::Create(m_SurfacePatterns[ pattern]);
+	//ルールの生成
+	//rule = BuildingRuleSimple::Create(m_SurfacePatterns[ pattern]);
+	rule = BuildingRuleCylinder::Create(m_SurfacePatterns[ pattern]);
 	if (!rule)
 	{
-		DebugLog::Add( "BuildingRuleFactory:(simple)ルールの生成に失敗しました\n");
+		DebugLog::Add( "BuildingRuleFactory:ルールの生成に失敗しました\n");
 		return NULL;
 	}
 
