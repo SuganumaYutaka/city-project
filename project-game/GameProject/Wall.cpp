@@ -44,77 +44,47 @@ Wall::~Wall()
 /*------------------------------------------------------------------------------
 	‰Šú‰»
 ------------------------------------------------------------------------------*/
-void Wall::Init( float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, BuildingRule* rule)
+void Wall::InitDefault( D3DXMATRIX shapeMatrix, float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, BuildingRule* rule)
 {
 	m_Height = height;
 	m_Width = width;
 	m_BottomLeftPosition = bottomLeftPosition;
+	m_Normal = normal;
 
 	//ƒtƒƒA‚Ì¶¬
 	rule->ProceduralFloor( this);
 
-	UpdateView( bottomLeftPosition, normal);
+	UpdateView( shapeMatrix);
 }
 
 /*------------------------------------------------------------------------------
 	‰Šú‰»i‰~‚É‰ˆ‚Á‚Ä‹È‚°‚éj
 ------------------------------------------------------------------------------*/
-void Wall::Init( float height, float width, const Vector3& bottomLeftPosition, const Vector3& center, float radius, BuildingRule* rule)
+void Wall::InitCurve( D3DXMATRIX shapeMatrix, float height, float width, const Vector3& bottomLeftPosition,  BuildingRule* rule)
 {
 	m_Height = height;
 	m_Width = width;
 	m_BottomLeftPosition = bottomLeftPosition;
+	m_Normal = bottomLeftPosition.Normalize();
 
 	//ƒtƒƒA‚Ì¶¬
-	rule->ProceduralFloor( this);
+	rule->ProceduralFloorCurve( this);
 
-	UpdateView( bottomLeftPosition, center, radius);
+	UpdateView( shapeMatrix);
 }
 
 /*------------------------------------------------------------------------------
 	•`‰æî•ñ‚ÌXV
 ------------------------------------------------------------------------------*/
-bool Wall::UpdateView( const Vector3& bottomLeftPosition, const Vector3& normal)
+bool Wall::UpdateView( D3DXMATRIX shapeMatrix)
 {
-	m_BottomLeftPosition = bottomLeftPosition;
-
 	//Renderer‚ÌXV
-	Vector3 position = bottomLeftPosition;
-	Vector3 vector = Vector3::Cross( normal, Vector3(0.0f, 1.0f, 0.0f)).Normalize();
-	
 	auto pVtx = m_Renderer->StartSetVertexBuffer( CulcCountVertex() + 1, CulcCountPolygon());
-	
 	for (auto floor : m_Floors)
 	{
-		floor->SetVertexBuffer( pVtx, position, normal, vector);
-		auto countVertex = floor->CulcCountVertex();
-		pVtx += countVertex;
-		position.y += floor->GetHeight();
+		floor->SetVertexBuffer( pVtx);
+		pVtx += floor->CulcCountVertex();
 	}
-
-	m_Renderer->EndSetVertexBuffer();
-
-	return true;
-}
-
-/*------------------------------------------------------------------------------
-	•`‰æî•ñ‚ÌXVi‰~‚É‰ˆ‚Á‚Ä‹È‚°‚éj
-------------------------------------------------------------------------------*/
-bool Wall::UpdateView( const Vector3& bottomLeftPosition, const Vector3& center, float radius)
-{
-	m_BottomLeftPosition = bottomLeftPosition;
-
-	//Renderer‚ÌXV
-	Vector3 position = bottomLeftPosition;
-
-	auto pVtx = m_Renderer->StartSetVertexBuffer( CulcCountVertex(), CulcCountPolygon());
-
-	for (auto floor : m_Floors)
-	{
-		floor->SetVertexBufferCurve( pVtx, position, center, radius);
-		position.y += floor->GetHeight();
-	}
-
 	m_Renderer->EndSetVertexBuffer();
 
 	return true;
@@ -133,21 +103,6 @@ int Wall::CulcCountVertex(void)
 
 	return count - 1;
 }
-
-/*------------------------------------------------------------------------------
-	’¸“_”‚ðŽZoi‰~‚É‰ˆ‚Á‚Ä‹È‚°‚éê‡j
-------------------------------------------------------------------------------*/
-int Wall::CulcCountVertexCurve( float radius)
-{
-	int count = 0;
-	for (auto floor : m_Floors)
-	{
-		count += floor->CulcCountVertexCurve( radius);
-	}
-
-	return count - 1;
-}
-
 /*------------------------------------------------------------------------------
 	ƒ|ƒŠƒSƒ“”‚ðŽZo
 ------------------------------------------------------------------------------*/
@@ -157,20 +112,6 @@ int Wall::CulcCountPolygon(void)
 	for (auto floor : m_Floors)
 	{
 		count += floor->CulcCountPolygon();
-	}
-
-	return count - 2;
-}
-
-/*------------------------------------------------------------------------------
-	ƒ|ƒŠƒSƒ“”‚ðŽZoi‰~‚É‰ˆ‚Á‚Ä‹È‚°‚éê‡j
-------------------------------------------------------------------------------*/
-int Wall::CulcCountPolygonCurve(float radius)
-{
-	int count = 0;
-	for (auto floor : m_Floors)
-	{
-		count += floor->CulcCountPolygonCurve( radius);
 	}
 
 	return count - 2;
@@ -208,4 +149,22 @@ void Wall::SubFloor(Floor* floor)
 void Wall::LoadTexture(std::string fileName)
 {
 	m_Renderer->LoadTexture( fileName);
+}
+
+/*------------------------------------------------------------------------------
+	“¯ˆêShape‚ÌWall‚Æ—Z‡‚·‚é
+------------------------------------------------------------------------------*/
+void Wall::FusionSameShape(Wall* other)
+{
+	//Floor‚Ì—Z‡
+	auto destFloor = other->m_Floors.begin();
+	for (auto sourceFloor = m_Floors.begin(); sourceFloor != m_Floors.end(); ++sourceFloor)
+	{
+		(*sourceFloor)->FusionSameShape( (*destFloor));
+		++destFloor;
+	}
+
+	//Renderer‚ÌÁ‹Ž
+	other->m_Renderer->ReleaseReserve();
+	other->m_Renderer = NULL;
 }

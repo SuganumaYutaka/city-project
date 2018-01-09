@@ -25,7 +25,11 @@ class Roof
 {
 public:
 	Roof( GameObject* buildingObject);
-	void Init( const Vector3& position, float rotation, const Vector3& size);
+	void InitPlane( const Vector3& position, float rotation, const Vector3& size, std::string fileName = "data/TEXTURE/default.jpg");
+
+	void UpdatePosition( const Vector3& position);
+	void UpdateRotation( float rotation);
+	void UpdateSize( const Vector3& size);
 	
 private:
 	GameObject* m_RoofObject;

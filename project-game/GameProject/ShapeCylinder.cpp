@@ -1,14 +1,14 @@
 /*==============================================================================
 
-    ShapeBox.cpp - 建物の自動生成ーボックス
+    ShapeCylinder.cpp - 建物の自動生成ーボックス
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/8
+                                                       Date   : 2018/1/9
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "ShapeBox.h"
+#include "ShapeCylinder.h"
 #include "Wall.h"
 #include "Roof.h"
 #include "DebugLog.h"
@@ -18,7 +18,7 @@
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
-ShapeBox::ShapeBox(GameObject* buildingObject)
+ShapeCylinder::ShapeCylinder(GameObject* buildingObject)
 {
 	SetBuildingObject( buildingObject);
 }
@@ -26,7 +26,7 @@ ShapeBox::ShapeBox(GameObject* buildingObject)
 /*------------------------------------------------------------------------------
 	デストラクタ
 ------------------------------------------------------------------------------*/
-ShapeBox::~ShapeBox()
+ShapeCylinder::~ShapeCylinder()
 {
 	Uninit();
 }
@@ -34,16 +34,19 @@ ShapeBox::~ShapeBox()
 /*------------------------------------------------------------------------------
 	初期化
 ------------------------------------------------------------------------------*/
-void ShapeBox::Init(const Vector3& position, float rotation, const Vector3& size, BuildingRule* rule)
+void ShapeCylinder::Init(const Vector3& position, float rotation, float height, float radius, BuildingRule* rule)
 {
 	SetPosition( position);
 	SetRotation( rotation);
-	m_Size = size;
+	m_Height = height;
+	m_Radius = radius;
 	m_Rule = rule;
+
+	Vector3 size = Vector3( radius * 2.0f, height, radius * 2.0f);
 
 	//屋根の生成
 	auto roof = new Roof(GetBuildingObject());
-	roof->InitPlane( position, rotation, size);
+	roof->InitPlane( position, rotation, size, "data/TEXTURE/circle.png");
 	AddRoof( roof);
 
 	//壁の生成
@@ -53,7 +56,7 @@ void ShapeBox::Init(const Vector3& position, float rotation, const Vector3& size
 /*------------------------------------------------------------------------------
 	壁の生成
 ------------------------------------------------------------------------------*/
-void ShapeBox::CreateWalls(void)
+void ShapeCylinder::CreateWalls(void)
 {
 	//壁の消去
 	if (GetWalls().size() != 0)
@@ -63,35 +66,16 @@ void ShapeBox::CreateWalls(void)
 
 	auto matrix = GetMatrix();
 
-	//手前
-	Vector3 leftFront( m_Size.x * -0.5f, 0.0f, m_Size.z * 0.5f);
-	auto frontWall = new Wall( GetBuildingObject());
-	frontWall->InitDefault( matrix, m_Size.y, m_Size.x, leftFront, Vector3(0.0f, 0.0f, -1.0f), m_Rule);
-	AddWall( frontWall);
-
-	//右
-	Vector3 rightFront( m_Size.x * -0.5f, 0.0f, m_Size.z * -0.5f);
-	auto rightWall = new Wall( GetBuildingObject());
-	rightWall->InitDefault( matrix, m_Size.y, m_Size.z, rightFront, Vector3(1.0f, 0.0f, 0.0f), m_Rule);
-	AddWall( rightWall);
-
-	//奥
-	Vector3 rightBack( m_Size.x * +0.5f, 0.0f, m_Size.z * -0.5f);
-	auto backWall = new Wall( GetBuildingObject());
-	backWall->InitDefault( matrix, m_Size.y, m_Size.x, rightBack, Vector3(0.0f, 0.0f, 1.0f), m_Rule);
-	AddWall( backWall);
-
-	//左
-	Vector3 leftBack( m_Size.x * 0.5f, 0.0f, m_Size.z * +0.5f);
-	auto leftWall = new Wall( GetBuildingObject());
-	leftWall->InitDefault( matrix, m_Size.y, m_Size.z, leftBack, Vector3(-1.0f, 0.0f, 0.0f), m_Rule);
-	AddWall( leftWall);
+	Vector3 bottomLeft = Vector3( 0.0f, 0.0f, m_Radius);
+	auto wall = new Wall( GetBuildingObject());
+	wall->InitCurve( matrix, m_Height, m_Radius * 2 * D3DX_PI, bottomLeft, m_Rule);
+	AddWall( wall);
 }
 
 /*------------------------------------------------------------------------------
 	移動
 ------------------------------------------------------------------------------*/
-void ShapeBox::Move(const Vector3& value)
+void ShapeCylinder::Move(const Vector3& value)
 {
 	UpdatePosition( value);
 
@@ -111,7 +95,7 @@ void ShapeBox::Move(const Vector3& value)
 /*------------------------------------------------------------------------------
 	回転
 ------------------------------------------------------------------------------*/
-void ShapeBox::Rotate( float value)
+void ShapeCylinder::Rotate( float value)
 {
 	UpdateRotation( value);
 
@@ -131,9 +115,10 @@ void ShapeBox::Rotate( float value)
 /*------------------------------------------------------------------------------
 	拡大縮小（変化量）
 ------------------------------------------------------------------------------*/
-void ShapeBox::ScaleUpDown(const Vector3& value)
+void ShapeCylinder::ScaleUpDown(const Vector3& value)
 {
-	m_Size += value;
+	m_Radius += value.x;
+	m_Height += value.y;
 
 	//壁の更新
 	CreateWalls();
@@ -141,16 +126,17 @@ void ShapeBox::ScaleUpDown(const Vector3& value)
 	//屋根の更新
 	for (auto roof : GetRoofs())
 	{
-		roof->UpdateSize( m_Size);
+		roof->UpdateSize( Vector3(m_Radius * 2.0f, m_Height, m_Radius * 2.0f));
 	}
 }
 
 /*------------------------------------------------------------------------------
 	拡大縮小（比率・等倍）
 ------------------------------------------------------------------------------*/
-void ShapeBox::ScaleRate( float rate)
+void ShapeCylinder::ScaleRate( float rate)
 {
-	m_Size *= rate;
+	m_Radius *= rate;
+	m_Height *= rate;
 
 	//壁の更新
 	CreateWalls();
@@ -158,18 +144,17 @@ void ShapeBox::ScaleRate( float rate)
 	//屋根の更新
 	for (auto roof : GetRoofs())
 	{
-		roof->UpdateSize( m_Size);
+		roof->UpdateSize( Vector3(m_Radius * 2.0f, m_Height, m_Radius * 2.0f));
 	}
 }
 
 /*------------------------------------------------------------------------------
 	拡大縮小（比率）
 ------------------------------------------------------------------------------*/
-void ShapeBox::ScaleRate(const Vector3& rate)
+void ShapeCylinder::ScaleRate(const Vector3& rate)
 {
-	m_Size.x *= rate.x;
-	m_Size.y *= rate.y;
-	m_Size.z *= rate.z;
+	m_Radius *= rate.x;
+	m_Height *= rate.y;
 
 	//壁の更新
 	CreateWalls();
@@ -177,30 +162,16 @@ void ShapeBox::ScaleRate(const Vector3& rate)
 	//屋根の更新
 	for (auto roof : GetRoofs())
 	{
-		roof->UpdateSize( m_Size);
+		roof->UpdateSize( Vector3(m_Radius * 2.0f, m_Height, m_Radius * 2.0f));
 	}
 }
 
 /*------------------------------------------------------------------------------
 	形状を確定させる
 ------------------------------------------------------------------------------*/
-void ShapeBox::ConfirmShape(void)
+void ShapeCylinder::ConfirmShape(void)
 {
-	//4つの壁を融合する
-	auto walls = GetWalls();
-	auto wall = walls.front();
-	for (auto other : walls)
-	{
-		if (wall == other)
-		{
-			continue;
-		}
-		wall->FusionSameShape( other);
-		SubWall( other);
-	}
-
-	//描画情報の更新
-	wall->UpdateView( GetMatrix());
+	
 }
 
 

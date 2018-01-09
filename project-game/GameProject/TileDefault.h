@@ -1,41 +1,32 @@
 /*==============================================================================
 
-    Tile.h - 建物の自動生成ータイル
+    TileDefault.h - 建物の自動生成ータイル（デフォルト）
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/7
+                                                       Date   : 2018/1/8
 ==============================================================================*/
-#ifndef _TILE_H_
-#define _TILE_H_
+#ifndef _TILE_DEFAULT_H_
+#define _TILE_DEFAULT_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-#include "BuildingRuleFactory.h"
+#include "Tile.h"
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class Tile
+class TileDefault : public Tile
 {
 public:
-	virtual void Transform(D3DXMATRIX shapeMatrix) = 0;
-	virtual void SetVertexBuffer( VERTEX_3D* pVtx) = 0;
+	void Init( float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, E_TILE_TYPE type, const TextureUV& texUV);
+	void Transform(D3DXMATRIX shapeMatrix) override;
+	void SetVertexBuffer( VERTEX_3D* pVtx) override;
+	int CulcCountVertex( void) override;
+	int CulcCountPolygon( void) override;
 	
-	virtual int CulcCountVertex( void) = 0;
-	virtual int CulcCountPolygon( void) = 0;
-	
-	void SetNext( Tile* next) { m_Next = next;}
-	Tile* GetNext( void){ return m_Next;}
-	float GetWidth( void){ return m_Width;}
-	
-protected:
-	Tile* m_Next;
-	float m_Height;
-	float m_Width;
-	Vector3 m_BottomLeftPosition;
-	E_TILE_TYPE m_Type;
-	TextureUV m_TexUV;
+private:
+	Vector3 m_Normal;
 };
 
 #endif

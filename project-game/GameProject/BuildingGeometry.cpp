@@ -96,3 +96,18 @@ void BuildingGeometry::Update( void)
 	
 }
 
+/*------------------------------------------------------------------------------
+	ジオメトリを確定させる
+------------------------------------------------------------------------------*/
+void BuildingGeometry::ConfirmGeometry(void)
+{
+	if (m_Shapes.size() == 1)
+	{
+		//壁の融合
+		m_Shapes.front()->ConfirmShape();
+	}
+	else
+	{
+		//TODO:Shapeの融合
+	}
+}

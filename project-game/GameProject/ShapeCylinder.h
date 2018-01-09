@@ -1,11 +1,12 @@
+#pragma once
 /*==============================================================================
 
-    ShapeBox.h - 建物の自動生成ーボックス
+    ShapeCylinder.h - 建物の自動生成ーシリンダー
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/8
+                                                       Date   : 2018/1/9
 ==============================================================================*/
-#ifndef _SHAPE_BOX_H_
-#define _SHAPE_BOX_H_
+#ifndef _SHAPE_CYLINDER_H_
+#define _SHAPE_CYLINDER_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -24,13 +25,13 @@ class BuildingRule;
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class ShapeBox : public Shape
+class ShapeCylinder : public Shape
 {
 public:
-	ShapeBox( GameObject* buildingObject);
-	~ShapeBox() override;
+	ShapeCylinder( GameObject* buildingObject);
+	~ShapeCylinder() override;
 
-	void Init( const Vector3& position, float rotation, const Vector3& size, BuildingRule* rule);
+	void Init( const Vector3& position, float rotation, float height, float radius, BuildingRule* rule);
 	void CreateWalls( void);
 
 	void Move( const Vector3& value) override;
@@ -41,7 +42,9 @@ public:
 	void ConfirmShape( void) override;
 	
 private:
-	Vector3 m_Size;
+	float m_Height;
+	float m_Radius;
+
 };
 
 #endif

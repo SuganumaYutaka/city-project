@@ -1,11 +1,11 @@
 /*==============================================================================
 
-    BuildingRuleSimple.h - 建物の自動生成ー建物を生成するルールーシンプルな建物
+    BuildingRuleCylinder.h - 建物の自動生成ー建物を生成するルールー円柱
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/12
+                                                       Date   : 2018/1/9
 ==============================================================================*/
-#ifndef _BUILDING_RULE_SIMPLE_H_
-#define _BUILDING_RULE_SIMPLE_H_
+#ifndef _BUILDING_RULE_CYLINDER_H_
+#define _BUILDING_RULE_CYLINDER_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -24,15 +24,15 @@ class Floor;
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BuildingRuleSimple : public BuildingRule
+class BuildingRuleCylinder : public BuildingRule
 {
 public:
 	static BuildingRule* Create( BuildingSurfacePattern* surfacePattern);
 
-	BuildingRuleSimple( float shapeHeight, float groundFloorHeight, float floorHeight, float windowWidth, float entranceWidth)
+	BuildingRuleCylinder( float shapeHeight, float groundFloorHeight, float floorHeight, float windowWidth, float entranceWidth)
 		: m_ShapeHeight( shapeHeight), m_GroundFloorHeight( groundFloorHeight), m_FloorHeight( floorHeight)
 		, m_WindowWidth( windowWidth), m_EntranceWidth( entranceWidth){}
-	~BuildingRuleSimple() override;
+	~BuildingRuleCylinder() override;
 
 	bool ProceduralShape( BuildingGeometry* geometry) override;
 	bool ProceduralFloor( Wall* wall)  override;
@@ -60,6 +60,8 @@ private:
 	//ProceduralTile
 	float m_WindowWidth;
 	float m_EntranceWidth;
+
+	Vector3 MoveBottomLeftPosition( const Vector3& bottomLeftPosition, float angle);
 };
 
 #endif

@@ -24,7 +24,7 @@ Roof::Roof(GameObject* buildingObject)
 /*------------------------------------------------------------------------------
 	初期化
 ------------------------------------------------------------------------------*/
-void Roof::Init(const Vector3& position, float rotation, const Vector3& size)
+void Roof::InitPlane( const Vector3& position, float rotation, const Vector3& size, std::string fileName)
 {
 	if (m_Renderer)
 	{
@@ -35,8 +35,52 @@ void Roof::Init(const Vector3& position, float rotation, const Vector3& size)
 	auto roofPosition = position;
 	roofPosition.y += size.y;
 
-	m_Renderer = m_RoofObject->AddComponent<Polygon3DRenderer>();
+	auto renderer = m_RoofObject->AddComponent<Polygon3DRenderer>();
+	renderer->LoadTexture( fileName);
+	m_Renderer = renderer;
 	m_RoofObject->m_pTransform->SetLocalPosition( roofPosition);
 	m_RoofObject->m_pTransform->SetLocalRotationEuler( 0.0f, rotation, 0.0f);
+	m_RoofObject->m_pTransform->SetLocalScale( size);
+}
+
+/*------------------------------------------------------------------------------
+	位置の更新
+------------------------------------------------------------------------------*/
+void Roof::UpdatePosition(const Vector3& position)
+{
+	if (!m_Renderer)
+	{
+		return;
+	}
+
+	auto roofPosition = position;
+	roofPosition.y += m_RoofObject->m_pTransform->GetLocalScale().y;
+	m_RoofObject->m_pTransform->SetLocalPosition( roofPosition);
+}
+
+/*------------------------------------------------------------------------------
+	回転量の更新
+------------------------------------------------------------------------------*/
+void Roof::UpdateRotation(float rotation)
+{
+	if (!m_Renderer)
+	{
+		return;
+	}
+
+	m_RoofObject->m_pTransform->SetLocalRotationEuler( 0.0f, rotation, 0.0f);
+}
+
+/*------------------------------------------------------------------------------
+	大きさの更新
+------------------------------------------------------------------------------*/
+void Roof::UpdateSize(const Vector3& size)
+{
+	if (!m_Renderer)
+	{
+		return;
+	}
+
+	m_RoofObject->m_pTransform->SetLocalPositionY( size.y);
 	m_RoofObject->m_pTransform->SetLocalScale( size);
 }

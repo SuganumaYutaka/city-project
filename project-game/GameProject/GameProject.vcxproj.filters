@@ -375,9 +375,6 @@
     <ClCompile Include="Floor.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
-    <ClCompile Include="Tile.cpp">
-      <Filter>CityEngine\Building</Filter>
-    </ClCompile>
     <ClCompile Include="ShapeBox.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
@@ -434,6 +431,18 @@
     </ClCompile>
     <ClCompile Include="CarState.cpp">
       <Filter>CityEngine\Traffic</Filter>
+    </ClCompile>
+    <ClCompile Include="TileCurve.cpp">
+      <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="TileDefault.cpp">
+      <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildingRuleCylinder.cpp">
+      <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapeCylinder.cpp">
+      <Filter>CityEngine\Building</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -784,6 +793,18 @@
     </ClInclude>
     <ClInclude Include="CarState.h">
       <Filter>CityEngine\Traffic</Filter>
+    </ClInclude>
+    <ClInclude Include="TileCurve.h">
+      <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="TileDefault.h">
+      <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingRuleCylinder.h">
+      <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeCylinder.h">
+      <Filter>CityEngine\Building</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

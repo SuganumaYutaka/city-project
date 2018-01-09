@@ -27,6 +27,11 @@ Floor::Floor() : m_Tile( NULL)
 ------------------------------------------------------------------------------*/
 Floor::~Floor()
 {
+	if (!m_Tile)
+	{
+		return;
+	}
+
 	//タイルの消去
 	Tile* targetTile = m_Tile;
 	Tile* nextTile;
@@ -42,14 +47,15 @@ Floor::~Floor()
 	}
 }
 
-
 /*------------------------------------------------------------------------------
 	初期化
 ------------------------------------------------------------------------------*/
-void Floor::Init( float height, float width, E_FLOOR_TYPE type, BuildingRule* rule)
+void Floor::InitDefault( float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, E_FLOOR_TYPE type, BuildingRule* rule)
 {
 	m_Height = height;
 	m_Width = width;
+	m_BottomLeftPosition = bottomLeftPosition;
+	m_Normal = normal;
 	m_Type = type;
 
 	//タイルの生成
@@ -57,39 +63,53 @@ void Floor::Init( float height, float width, E_FLOOR_TYPE type, BuildingRule* ru
 }
 
 /*------------------------------------------------------------------------------
-	頂点バッファの設定
+	初期化（円に沿って曲げる）
 ------------------------------------------------------------------------------*/
-bool Floor::SetVertexBuffer(VERTEX_3D* pVtx, const Vector3& bottomLeftPosition, const Vector3& normal, const Vector3& vector)
+void Floor::InitCurve( float height, float width, const Vector3& bottomLeftPosition, E_FLOOR_TYPE type, BuildingRule* rule)
 {
-	//リスト状のタイルに設定させる
-	Vector3 position = bottomLeftPosition;
+	m_Height = height;
+	m_Width = width;
+	m_BottomLeftPosition = bottomLeftPosition;
+	m_Normal = bottomLeftPosition.Normalize();
+	m_Type = type;
+
+	//タイルの生成
+	rule->ProceduralTileCurve( this);
+}
+
+/*------------------------------------------------------------------------------
+	タイルの座標の更新
+------------------------------------------------------------------------------*/
+void Floor::Transform(D3DXMATRIX shapeMatrix)
+{
+	if (!m_Tile)
+	{
+		return;
+	}
+
 	Tile* tile = m_Tile;
 	for (;;)
 	{	
-		position = tile->SetVertexBuffer( pVtx, position, normal, vector);
-		pVtx += tile->CulcCountVertex();
+		tile->Transform( shapeMatrix);
 		tile = tile->GetNext();
 		if (!tile)
 		{
 			break;
 		}
 	}
-
-	return true;
 }
 
 /*------------------------------------------------------------------------------
-	頂点バッファの設定（円に沿って曲げる）
+	頂点バッファの設定
 ------------------------------------------------------------------------------*/
-bool Floor::SetVertexBufferCurve(VERTEX_3D* pVtx, const Vector3& bottomLeftPosition, const Vector3& center, float radius)
+bool Floor::SetVertexBuffer(VERTEX_3D* pVtx)
 {
 	//リスト状のタイルに設定させる
-	Vector3 position = bottomLeftPosition;
 	Tile* tile = m_Tile;
 	for (;;)
 	{	
-		position = tile->SetVertexBufferCurve( pVtx, position, center, radius);
-		pVtx += tile->CulcCountVertexCurve( radius);
+		tile->SetVertexBuffer( pVtx);
+		pVtx += tile->CulcCountVertex();
 		tile = tile->GetNext();
 		if (!tile)
 		{
@@ -121,26 +141,6 @@ int Floor::CulcCountVertex(void)
 }
 
 /*------------------------------------------------------------------------------
-	頂点数を算出（円に沿って曲げる場合）
-------------------------------------------------------------------------------*/
-int Floor::CulcCountVertexCurve( float radius)
-{
-	int count = 0;
-	Tile* tile = m_Tile;
-	for (;;)
-	{
-		count += tile->CulcCountVertexCurve( radius);
-		tile = tile->GetNext();
-		if (tile == NULL)
-		{
-			break;
-		}
-	}
-
-	return count;
-}
-
-/*------------------------------------------------------------------------------
 	ポリゴン数を算出
 ------------------------------------------------------------------------------*/
 int Floor::CulcCountPolygon(void)
@@ -161,22 +161,22 @@ int Floor::CulcCountPolygon(void)
 }
 
 /*------------------------------------------------------------------------------
-	ポリゴン数を算出（円に沿って曲げる場合）
+	同一ShapeのFloorと融合する
 ------------------------------------------------------------------------------*/
-int Floor::CulcCountPolygonCurve(float radius)
+void Floor::FusionSameShape(Floor* other)
 {
-	int count = 0;
-	Tile* tile = m_Tile;
+	//最後のTileのNextをotherの最初のTileにする
+	auto tile = m_Tile;
 	for (;;)
 	{
-		count += tile->CulcCountPolygonCurve( radius);
-		tile = tile->GetNext();
-		if (tile == NULL)
+		if (!tile->GetNext())
 		{
 			break;
 		}
+		tile = tile->GetNext();
 	}
+	tile->SetNext( other->m_Tile);
 
-	return count;
+	//Tileが消去されないようにotherのTileをNULLに
+	other->m_Tile = NULL;
 }
-

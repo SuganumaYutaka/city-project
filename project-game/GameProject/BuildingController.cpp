@@ -84,3 +84,19 @@ void BuildingController::Update( void)
 	
 }
 
+/*------------------------------------------------------------------------------
+	ジオメトリを確定させる
+------------------------------------------------------------------------------*/
+void BuildingController::ConfirmGeometry(void)
+{
+	if (!m_Geometry)
+	{
+		return;
+	}
+	m_Geometry->ConfirmGeometry();
+	
+	//ジオメトリ情報の削除
+	m_Geometry->ReleaseReserve();
+	m_Geometry =NULL;
+}
+

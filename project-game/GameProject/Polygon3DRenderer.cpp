@@ -29,7 +29,7 @@ Component* Polygon3DRenderer::Create(GameObject* gameObject)
 Polygon3DRenderer::Polygon3DRenderer( GameObject *pGameObject)
 {
 	m_pGameObject = pGameObject;
-	m_nLayer = eLayerDefault;
+	m_nLayer = eLayerBillboard;
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 	m_nPass = 1;
 

@@ -168,6 +168,7 @@
     <ClCompile Include="BuildingController.cpp" />
     <ClCompile Include="BuildingGeometry.cpp" />
     <ClCompile Include="BuildingManager.cpp" />
+    <ClCompile Include="BuildingRuleCylinder.cpp" />
     <ClCompile Include="BuildingRuleFactory.cpp" />
     <ClCompile Include="BuildingRuleSimple.cpp" />
     <ClCompile Include="BuildingSurfacePattern.cpp" />
@@ -238,6 +239,7 @@
     <ClCompile Include="ShadowVLShader.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="ShapeBox.cpp" />
+    <ClCompile Include="ShapeCylinder.cpp" />
     <ClCompile Include="SkinMeshModel.cpp" />
     <ClCompile Include="SkinMeshRenderer.cpp" />
     <ClCompile Include="SkinMeshShader.cpp" />
@@ -251,7 +253,8 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TextureUV.cpp" />
-    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TileCurve.cpp" />
+    <ClCompile Include="TileDefault.cpp" />
     <ClCompile Include="TitleController.cpp" />
     <ClCompile Include="TrafficBuilding.cpp" />
     <ClCompile Include="TrafficJunction.cpp" />
@@ -326,6 +329,7 @@
     <ClInclude Include="BuildingGeometry.h" />
     <ClInclude Include="BuildingManager.h" />
     <ClInclude Include="BuildingRule.h" />
+    <ClInclude Include="BuildingRuleCylinder.h" />
     <ClInclude Include="BuildingRuleFactory.h" />
     <ClInclude Include="BuildingRuleSimple.h" />
     <ClInclude Include="BuildingSurfacePattern.h" />
@@ -399,6 +403,7 @@
     <ClInclude Include="ShadowVLShader.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="ShapeBox.h" />
+    <ClInclude Include="ShapeCylinder.h" />
     <ClInclude Include="SkinMeshDataFormat.h" />
     <ClInclude Include="SkinMeshModel.h" />
     <ClInclude Include="SkinMeshRenderer.h" />
@@ -417,6 +422,8 @@
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TextureUV.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileCurve.h" />
+    <ClInclude Include="TileDefault.h" />
     <ClInclude Include="TitleController.h" />
     <ClInclude Include="TrafficBuilding.h" />
     <ClInclude Include="TrafficJunction.h" />

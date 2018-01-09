@@ -1,41 +1,36 @@
 /*==============================================================================
 
-    Tile.h - 建物の自動生成ータイル
+    TileCurve.h - 建物の自動生成ータイル（曲線）
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/7
+                                                       Date   : 2018/1/8
 ==============================================================================*/
-#ifndef _TILE_H_
-#define _TILE_H_
+#ifndef _TILE_CURVE_H_
+#define _TILE_CURVE_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-#include "BuildingRuleFactory.h"
+#include "Tile.h"
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class Tile
+class TileCurve : public Tile
 {
 public:
-	virtual void Transform(D3DXMATRIX shapeMatrix) = 0;
-	virtual void SetVertexBuffer( VERTEX_3D* pVtx) = 0;
+	void Init( float height, float width, const Vector3& bottomLeftPosition, E_TILE_TYPE type, const TextureUV& texUV);
+	void Transform(D3DXMATRIX shapeMatrix) override;
+	void SetVertexBuffer( VERTEX_3D* pVtx) override;
+	int CulcCountVertex( void) override;
+	int CulcCountPolygon( void) override;
+	float CulcAngle( void);
 	
-	virtual int CulcCountVertex( void) = 0;
-	virtual int CulcCountPolygon( void) = 0;
-	
-	void SetNext( Tile* next) { m_Next = next;}
-	Tile* GetNext( void){ return m_Next;}
-	float GetWidth( void){ return m_Width;}
-	
-protected:
-	Tile* m_Next;
-	float m_Height;
-	float m_Width;
-	Vector3 m_BottomLeftPosition;
-	E_TILE_TYPE m_Type;
-	TextureUV m_TexUV;
+private:
+	int CulcCountDivide( void);
+
+	Vector3 m_Center;
+
 };
 
 #endif

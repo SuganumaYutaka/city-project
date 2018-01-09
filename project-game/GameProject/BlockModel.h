@@ -68,6 +68,8 @@ private:
 	bool MoveLand( Vector3& start, Vector3& end, float value);
 
 	bool SetRoadsFromCorner( HalfEdgeDataStructure::Vertex* corner, HalfEdgeDataStructure::Vertex* next, BlockEdge* blockedge, BlockAttribute* attribute);
+
+	bool CollisionLand( const BlockLand& source, const BlockLand& dest);
 };
 
 #endif

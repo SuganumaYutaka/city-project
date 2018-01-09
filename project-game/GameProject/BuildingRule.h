@@ -32,6 +32,8 @@ public:
 	virtual bool ProceduralShape( BuildingGeometry* geometry) = 0;
 	virtual bool ProceduralFloor( Wall* wall) = 0;
 	virtual bool ProceduralTile( Floor* floor) = 0;
+	virtual bool ProceduralFloorCurve( Wall* wall) = 0;
+	virtual bool ProceduralTileCurve( Floor* floor) = 0;
 
 	void SetSurfacePattern( BuildingSurfacePattern* surfacePattern) { m_SurfacePattern = surfacePattern;}
 	BuildingSurfacePattern* GetSurfacePattern( void) { return m_SurfacePattern;}
