@@ -72,6 +72,7 @@ public:
 
 	void UninitDevice();
 
+	void ResetSeed( void);
 	void SetDefault( void);
 	void SetRangeInt( int min, int max);
 	void SetRangeFloat( float min, float max);

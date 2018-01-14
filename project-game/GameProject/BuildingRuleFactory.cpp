@@ -16,6 +16,7 @@
 
 #include "BuildingRuleSimple.h"
 #include "BuildingRuleCylinder.h"
+#include "BuildingRuleMultiShape.h"
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -58,8 +59,10 @@ BuildingRule* BuildingRuleFactory::CreateBuildingRule(const std::vector<Vector3>
 	int pattern = m_Random->GetInt();
 
 	//ルールの生成
-	rule = BuildingRuleSimple::Create(m_SurfacePatterns[ pattern]);
+	//rule = BuildingRuleSimple::Create(m_SurfacePatterns[ pattern]);
 	//rule = BuildingRuleCylinder::Create(m_SurfacePatterns[ pattern]);
+	rule = BuildingRuleMultiShape::Create(m_SurfacePatterns[ pattern]);
+	
 	if (!rule)
 	{
 		DebugLog::Add( "BuildingRuleFactory:ルールの生成に失敗しました\n");

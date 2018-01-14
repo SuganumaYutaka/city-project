@@ -170,6 +170,7 @@
     <ClCompile Include="BuildingManager.cpp" />
     <ClCompile Include="BuildingRuleCylinder.cpp" />
     <ClCompile Include="BuildingRuleFactory.cpp" />
+    <ClCompile Include="BuildingRuleMultiShape.cpp" />
     <ClCompile Include="BuildingRuleSimple.cpp" />
     <ClCompile Include="BuildingSurfacePattern.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -332,6 +333,7 @@
     <ClInclude Include="BuildingRule.h" />
     <ClInclude Include="BuildingRuleCylinder.h" />
     <ClInclude Include="BuildingRuleFactory.h" />
+    <ClInclude Include="BuildingRuleMultiShape.h" />
     <ClInclude Include="BuildingRuleSimple.h" />
     <ClInclude Include="BuildingSurfacePattern.h" />
     <ClInclude Include="Camera.h" />

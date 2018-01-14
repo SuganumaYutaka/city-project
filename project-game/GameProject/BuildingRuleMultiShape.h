@@ -1,11 +1,11 @@
 /*==============================================================================
 
-    BuildingRuleSimple.h - 建物の自動生成ー建物を生成するルールーシンプルな建物
+    BuildingRuleMultiShape.h - 建物の自動生成ー建物を生成するルールー複数Shapeからなる建物
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/12
+                                                       Date   : 2018/1/14
 ==============================================================================*/
-#ifndef _BUILDING_RULE_SIMPLE_H_
-#define _BUILDING_RULE_SIMPLE_H_
+#ifndef _BUILDING_RULE_MULTI_SHAPE_H_
+#define _BUILDING_RULE_MULTI_SHAPE_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -24,12 +24,12 @@ class Floor;
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class BuildingRuleSimple : public BuildingRule
+class BuildingRuleMultiShape : public BuildingRule
 {
 public:
 	static BuildingRule* Create( BuildingSurfacePattern* surfacePattern);
 
-	~BuildingRuleSimple() override;
+	~BuildingRuleMultiShape() override;
 
 	bool ProceduralShape( BuildingGeometry* geometry) override;
 	bool ProceduralFloor( Wall* wall)  override;
@@ -37,7 +37,8 @@ public:
 	bool ProceduralFloorCurve( Wall* wall)  override;
 	bool ProceduralTileCurve( Floor* floor)  override;
 
-	float GetShapeHeight(void) { return m_ShapeHeight;}
+	float GetShapeHeightMax(void) { return m_ShapeHeightMax;}
+	float GetShapeHeightMin(void) { return m_ShapeHeightMin;}
 	float GetGroundFloorHeight(void) { return m_GroundFloorHeight;}
 	float GetFloorHeight(void) { return m_FloorHeight;}
 	float GetWindowWidth(void) { return m_WindowWidth;}
@@ -48,7 +49,10 @@ private:
 	Random* m_Random;
 
 	//ProceduralShape
-	float m_ShapeHeight;
+	float m_ShapeHeightMax;
+	float m_ShapeHeightMin;
+	float m_ShapeSizeRateMax;
+	float m_ShapeSizeRateMin;
 
 	//ProceduralFloor
 	float m_GroundFloorHeight;
@@ -57,6 +61,11 @@ private:
 	//ProceduralTile
 	float m_WindowWidth;
 	float m_EntranceWidth;
+
+	Vector3 MoveBottomLeftPosition( const Vector3& bottomLeftPosition, float angle);
+
+	void CreateShapeBoxes( int shapeCount, BuildingGeometry* geometry, const Vector3& landSize);
+	void CreateShapeCylinders( int shapeCount, BuildingGeometry* geometry, const Vector3& landSize);
 };
 
 #endif

@@ -35,6 +35,7 @@ public:
 
 	Land* GetLand( void) { return m_Land;}
 	void AddShape( Shape* shape){ m_Shapes.push_back( shape); }
+	const std::list< Shape*>& GetShape( void){ return m_Shapes;}
 
 	void ConfirmGeometry(void);
 

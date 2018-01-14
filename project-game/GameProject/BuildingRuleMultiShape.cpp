@@ -1,14 +1,14 @@
 /*==============================================================================
 
-    BuildingRuleCylinder.cpp - 建物の自動生成ー建物を生成するルールー円柱
+    BuildingRuleMultiShape.h - 建物の自動生成ー建物を生成するルールー複数Shapeからなる建物
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2018/1/9
+                                                       Date   : 2018/1/14
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "BuildingRuleCylinder.h"
+#include "BuildingRuleMultiShape.h"
 #include "BuildingSurfacePattern.h"
 #include "BuildingGeometry.h"
 #include "Wall.h"
@@ -18,23 +18,30 @@
 #include "TileDefault.h"
 #include "TileCurve.h"
 
+#include "ShapeBox.h"
 #include "ShapeCylinder.h"
 
 /*------------------------------------------------------------------------------
 	ルールの生成
 ------------------------------------------------------------------------------*/
-BuildingRule* BuildingRuleCylinder::Create( BuildingSurfacePattern* surfacePattern)
+BuildingRule* BuildingRuleMultiShape::Create( BuildingSurfacePattern* surfacePattern)
 {
 	//ルールの生成
-	auto rule = new BuildingRuleCylinder();
-
+	auto rule = new BuildingRuleMultiShape();
+	
 	//ランダムの設定
 	auto random = new Random();
 	rule->m_Random = random;
-	
+
 	//形状の高さ
-	random->SetRangeFloat( 10.0f, 50.0f);
-	rule->m_ShapeHeight = random->GetFloat();
+	random->SetRangeFloat( 20.0f, 30.0f);
+	rule->m_ShapeHeightMin = random->GetFloat();
+	random->SetRangeFloat( 0.0f, 30.0f);
+	rule->m_ShapeHeightMax = rule->m_ShapeHeightMin + random->GetFloat();
+
+	//形状のサイズの比率
+	rule->m_ShapeSizeRateMax = 0.9f;
+	rule->m_ShapeSizeRateMin = 0.5f;
 
 	//1階の高さ
 	random->SetRangeFloat( 2.0f, 2.5f);
@@ -45,7 +52,7 @@ BuildingRule* BuildingRuleCylinder::Create( BuildingSurfacePattern* surfacePatte
 	rule->m_FloorHeight = random->GetFloat();
 
 	//窓の幅
-	random->SetRangeFloat( 0.8f, 3.8f);
+	random->SetRangeFloat( 0.8f, 1.8f);
 	rule->m_WindowWidth = random->GetFloat();
 
 	//玄関の幅
@@ -61,7 +68,7 @@ BuildingRule* BuildingRuleCylinder::Create( BuildingSurfacePattern* surfacePatte
 /*------------------------------------------------------------------------------
 	デストラクタ
 ------------------------------------------------------------------------------*/
-BuildingRuleCylinder::~BuildingRuleCylinder()
+BuildingRuleMultiShape::~BuildingRuleMultiShape()
 {
 	delete m_Random;
 }
@@ -69,30 +76,42 @@ BuildingRuleCylinder::~BuildingRuleCylinder()
 /*------------------------------------------------------------------------------
 	形状の生成
 ------------------------------------------------------------------------------*/
-bool BuildingRuleCylinder::ProceduralShape(BuildingGeometry* geometry)
+bool BuildingRuleMultiShape::ProceduralShape(BuildingGeometry* geometry)
 {
+	//土地の大きさ
 	auto land = geometry->GetLand();
 	auto vertices = land->GetVertices();
 	Vector3 vec01 = vertices[1] - vertices[0];
 	Vector3 vec03 = vertices[3] - vertices[0];
-	Vector3 size;
-	size.x = vec01.Length();
-	size.z = vec03.Length();
-	size.y = m_ShapeHeight;
-	float radius = min( size.x, size.z) * 0.5f;
-	
-	//ShapeBoxの生成
-	auto shape = new ShapeCylinder( geometry->GetGameObject());
-	shape->Init( Vector3(0.0f, 0.0f, 0.0f), 0.0f, m_ShapeHeight, radius, this);
-	geometry->AddShape( shape);
+	Vector3 landSize;
+	landSize.x = vec01.Length();
+	landSize.z = vec03.Length();
 
+	//Shapeの数
+	//m_Random->SetRangeInt( 1, 3);
+	//int shapeCount = m_Random->GetInt();
+	int shapeCount = 3;
+	
+	//Shapeの種類
+	m_Random->SetRangeInt( 0, 2);
+	int type = m_Random->GetInt();
+	if( type < 2)
+	{
+		//ShapeBoxの生成
+		CreateShapeBoxes( shapeCount, geometry, landSize);
+	}
+	else
+	{
+		//ShapeCylinderの生成
+		CreateShapeCylinders( shapeCount, geometry, landSize);
+	}
 	return true;
 }
 
 /*------------------------------------------------------------------------------
 	フロアの生成
 ------------------------------------------------------------------------------*/
-bool BuildingRuleCylinder::ProceduralFloor( Wall* wall)
+bool BuildingRuleMultiShape::ProceduralFloor( Wall* wall)
 {
 	//テクスチャの設定
 	wall->LoadTexture( GetSurfacePattern()->GetTextureFileName());
@@ -135,7 +154,7 @@ bool BuildingRuleCylinder::ProceduralFloor( Wall* wall)
 /*------------------------------------------------------------------------------
 	タイルの生成
 ------------------------------------------------------------------------------*/
-bool BuildingRuleCylinder::ProceduralTile( Floor* floor)
+bool BuildingRuleMultiShape::ProceduralTile( Floor* floor)
 {
 	Vector3 bottomLeftPosition = floor->GetBottomLeftPosition();
 	auto normal = floor->GetNormal();
@@ -253,7 +272,7 @@ bool BuildingRuleCylinder::ProceduralTile( Floor* floor)
 /*------------------------------------------------------------------------------
 	フロアの生成（円に沿って曲がる）
 ------------------------------------------------------------------------------*/
-bool BuildingRuleCylinder::ProceduralFloorCurve( Wall* wall)
+bool BuildingRuleMultiShape::ProceduralFloorCurve( Wall* wall)
 {
 	//テクスチャの設定
 	wall->LoadTexture( GetSurfacePattern()->GetTextureFileName());
@@ -295,7 +314,7 @@ bool BuildingRuleCylinder::ProceduralFloorCurve( Wall* wall)
 /*------------------------------------------------------------------------------
 	タイルの生成（円に沿って曲がる）
 ------------------------------------------------------------------------------*/
-bool BuildingRuleCylinder::ProceduralTileCurve( Floor* floor)
+bool BuildingRuleMultiShape::ProceduralTileCurve( Floor* floor)
 {
 	Vector3 bottomLeftPosition = floor->GetBottomLeftPosition();
 	float height = floor->GetHeight();
@@ -408,7 +427,7 @@ bool BuildingRuleCylinder::ProceduralTileCurve( Floor* floor)
 /*------------------------------------------------------------------------------
 	円に沿って左下座標を移動する
 ------------------------------------------------------------------------------*/
-Vector3 BuildingRuleCylinder::MoveBottomLeftPosition( const Vector3& bottomLeftPosition, float angle)
+Vector3 BuildingRuleMultiShape::MoveBottomLeftPosition( const Vector3& bottomLeftPosition, float angle)
 {
 	D3DXMATRIX mtxRotation;
 	D3DXMatrixIdentity( &mtxRotation);
@@ -419,3 +438,93 @@ Vector3 BuildingRuleCylinder::MoveBottomLeftPosition( const Vector3& bottomLeftP
 	
 	return Vector3::ConvertFromDX( position);
 }
+
+/*------------------------------------------------------------------------------
+	複数のShapeを生成（四角柱）
+------------------------------------------------------------------------------*/
+void BuildingRuleMultiShape::CreateShapeBoxes(int shapeCount, BuildingGeometry* geometry, const Vector3& landSize)
+{
+	for( int i = 0; i < shapeCount; i++)
+	{
+		//すでに生成されているShapeを延ばす
+		for ( auto shape : geometry->GetShape())
+		{
+			shape->ScaleRate( Vector3( 1.0f, 1.5f, 1.0f));
+		}
+
+		//乱数のシード値を再設定
+		m_Random->ResetSeed();
+
+		Vector3 size;
+
+		//大きさの設定
+		m_Random->SetRangeFloat( m_ShapeSizeRateMin, m_ShapeSizeRateMax);
+		size.x = landSize.x * m_Random->GetFloat();
+		size.z = landSize.z * m_Random->GetFloat();
+	
+		//位置の設定
+		Vector3 position;
+		position.y = 0.0f;
+		float range = ( landSize.x - size.x) * 0.5f;
+		m_Random->SetRangeFloat( -range, range);
+		position.x = m_Random->GetFloat();
+		range = ( landSize.z - size.z) * 0.5f;
+		m_Random->SetRangeFloat( -range, range);
+		position.z = m_Random->GetFloat();
+		//position.z = ( landSize.z - size.z) * 0.5f;
+
+		//高さの設定
+		m_Random->SetRangeFloat( m_ShapeHeightMin, m_ShapeHeightMax);
+		size.y = m_Random->GetFloat();
+
+		//形状の生成
+		auto shape = new ShapeBox( geometry->GetGameObject());
+		shape->Init( position, 0.0f, size, this);
+		geometry->AddShape( shape);
+	}
+}
+	
+/*------------------------------------------------------------------------------
+	複数のShapeを生成（円柱）
+------------------------------------------------------------------------------*/
+void BuildingRuleMultiShape::CreateShapeCylinders(int shapeCount, BuildingGeometry* geometry, const Vector3& landSize)
+{
+	for( int i = 0; i < shapeCount; i++)
+	{
+		//すでに生成されているShapeを延ばす
+		for ( auto shape : geometry->GetShape())
+		{
+			shape->ScaleRate( Vector3( 1.0f, 1.5f, 1.0f));
+		}
+
+		//乱数のシード値を再設定
+		m_Random->ResetSeed();
+
+		Vector3 size;
+
+		//大きさの設定
+		m_Random->SetRangeFloat( m_ShapeSizeRateMin, m_ShapeSizeRateMax);
+		size.x = landSize.x * m_Random->GetFloat();
+		size.z = size.x;
+	
+		//位置の設定
+		Vector3 position;
+		position.y = 0.0f;
+		/*float range = ( landSize.x - size.x) * 0.5f;
+		m_Random->SetRangeFloat( -range, range);
+		position.x = m_Random->GetFloat();
+		range = ( landSize.z - size.z) * 0.5f;
+		m_Random->SetRangeFloat( -range, range);
+		position.z = m_Random->GetFloat();*/
+		
+		//高さの設定
+		m_Random->SetRangeFloat( m_ShapeHeightMin, m_ShapeHeightMax);
+		size.y = m_Random->GetFloat();
+
+		//形状の生成
+		auto shape = new ShapeCylinder( geometry->GetGameObject());
+		shape->Init( position, 0.0f, size.y, size.x * 0.5f, this);
+		geometry->AddShape( shape);
+	}
+}
+
