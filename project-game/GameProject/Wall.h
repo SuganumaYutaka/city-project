@@ -44,6 +44,7 @@ public:
 
 	void LoadTexture( std::string fileName);
 	void FusionSameShape( Wall* other);
+	bool ChangeRingList( void);
 
 private:
 	float m_Height;

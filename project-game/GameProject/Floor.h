@@ -43,6 +43,8 @@ public:
 	int CulcCountPolygon( void);
 
 	void FusionSameShape( Floor* other);
+	Tile* GetBackTile( void);
+	bool ChangeRingList( void);
 
 private:
 	Tile* m_Tile;

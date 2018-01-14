@@ -93,12 +93,9 @@ CityController::CityController( GameObject* pGameObject)
 	}
 
 	//Œš•¨ƒWƒIƒƒgƒŠî•ñ‚Ìíœ
-	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_SPACE))
+	for (auto building : m_BuildingManager->GetAllBuildings())
 	{
-		for (auto building : m_BuildingManager->GetAllBuildings())
-		{
-			building->ConfirmGeometry();
-		}
+		building->ConfirmGeometry();
 	}
 }
 

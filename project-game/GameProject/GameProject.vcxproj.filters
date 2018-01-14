@@ -444,6 +444,9 @@
     <ClCompile Include="ShapeCylinder.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
+    <ClCompile Include="TileSplit.cpp">
+      <Filter>CityEngine\Building</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModeTitle.h">
@@ -804,6 +807,9 @@
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
     <ClInclude Include="ShapeCylinder.h">
+      <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="TileSplit.h">
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
   </ItemGroup>

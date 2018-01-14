@@ -82,6 +82,7 @@ bool Wall::UpdateView( D3DXMATRIX shapeMatrix)
 	auto pVtx = m_Renderer->StartSetVertexBuffer( CulcCountVertex() + 1, CulcCountPolygon());
 	for (auto floor : m_Floors)
 	{
+		floor->Transform( shapeMatrix);
 		floor->SetVertexBuffer( pVtx);
 		pVtx += floor->CulcCountVertex();
 	}
@@ -167,4 +168,20 @@ void Wall::FusionSameShape(Wall* other)
 	//Renderer‚ÌÁ‹
 	other->m_Renderer->ReleaseReserve();
 	other->m_Renderer = NULL;
+}
+
+/*------------------------------------------------------------------------------
+	ŠÂóƒŠƒXƒg‚É•ÏX
+------------------------------------------------------------------------------*/
+bool Wall::ChangeRingList(void)
+{
+	for (auto floor : m_Floors)
+	{
+		if (!floor->ChangeRingList())
+		{
+			return false;
+		}
+	}
+
+	return true;
 }

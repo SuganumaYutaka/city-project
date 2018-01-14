@@ -255,6 +255,7 @@
     <ClCompile Include="TextureUV.cpp" />
     <ClCompile Include="TileCurve.cpp" />
     <ClCompile Include="TileDefault.cpp" />
+    <ClCompile Include="TileSplit.cpp" />
     <ClCompile Include="TitleController.cpp" />
     <ClCompile Include="TrafficBuilding.cpp" />
     <ClCompile Include="TrafficJunction.cpp" />
@@ -424,6 +425,7 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileCurve.h" />
     <ClInclude Include="TileDefault.h" />
+    <ClInclude Include="TileSplit.h" />
     <ClInclude Include="TitleController.h" />
     <ClInclude Include="TrafficBuilding.h" />
     <ClInclude Include="TrafficJunction.h" />

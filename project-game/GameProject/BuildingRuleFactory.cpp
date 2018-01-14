@@ -58,8 +58,8 @@ BuildingRule* BuildingRuleFactory::CreateBuildingRule(const std::vector<Vector3>
 	int pattern = m_Random->GetInt();
 
 	//ƒ‹[ƒ‹‚Ì¶¬
-	//rule = BuildingRuleSimple::Create(m_SurfacePatterns[ pattern]);
-	rule = BuildingRuleCylinder::Create(m_SurfacePatterns[ pattern]);
+	rule = BuildingRuleSimple::Create(m_SurfacePatterns[ pattern]);
+	//rule = BuildingRuleCylinder::Create(m_SurfacePatterns[ pattern]);
 	if (!rule)
 	{
 		DebugLog::Add( "BuildingRuleFactory:ƒ‹[ƒ‹‚Ì¶¬‚É¸”s‚µ‚Ü‚µ‚½\n");

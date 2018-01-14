@@ -199,8 +199,13 @@ void ShapeBox::ConfirmShape(void)
 		SubWall( other);
 	}
 
+	//壁を環状リストにする
+	wall->ChangeRingList();
+
 	//描画情報の更新
-	wall->UpdateView( GetMatrix());
+	D3DXMATRIX matrix;
+	D3DXMatrixIdentity( &matrix);
+	wall->UpdateView( matrix);
 }
 
 
