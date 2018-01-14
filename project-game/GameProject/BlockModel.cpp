@@ -25,8 +25,7 @@ using namespace HalfEdgeDataStructure;
 /*------------------------------------------------------------------------------
 	マクロ定義
 ------------------------------------------------------------------------------*/
-//#define DEFAULT_ROAD_WIDTH (18.0f)			//デフォルトの道路幅
-#define DEFAULT_LAND_SIZE (8.0f)			//デフォルトの土地サイズ
+#define DEFAULT_LAND_SIZE (15.0f)			//デフォルトの土地サイズ
 #define DISTANCE_OF_LANDS (0.5f)			//土地同士の間隔
 
 /*------------------------------------------------------------------------------
@@ -103,8 +102,23 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 	edges.resize( 4);
 	for(int nCnt = 0; nCnt < 4; nCnt++)
 	{
+		//辺の開始位置を道路幅の半分だけ移動する
+		Vector3 position = corners[nCnt]->GetPosition();
+		Vector3 vector;
+		if (nCnt == 3)
+		{
+			vector = corners[ 0]->GetPosition() - corners[ 3]->GetPosition();
+		}
+		else
+		{
+			vector = corners[ nCnt + 1]->GetPosition() - corners[ nCnt]->GetPosition();
+		}
+		Vector3 vectorVertical = Vector3::Cross( Vector3(0.0f, 1.0f, 0.0f), vector);
+		position += vector.Normalize() * DEFAULT_ROAD_WIDTH * 0.5f;
+		position += vectorVertical.Normalize() * DEFAULT_ROAD_WIDTH * 0.5f;
+
 		//辺の開始位置の設定
-		edges[ nCnt].vertices.push_back( corners[nCnt]->GetPosition());
+		edges[ nCnt].vertices.push_back( position);
 	}
 	for(int nCnt = 0; nCnt < 4; nCnt++)
 	{
@@ -118,7 +132,7 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 			SetRoadsFromCorner( corners[ nCnt], corners[ 0], &edges[nCnt], attribute);
 		}
 	}
-	for(int nCnt = 0; nCnt < 4; nCnt++)
+	for (int nCnt = 0; nCnt < 4; nCnt++)
 	{
 		//辺のベクトルの設定
 		Vector3 nextPosition;
@@ -131,7 +145,7 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 			nextPosition = edges[ 0].vertices[0];
 		}
 		edges[ nCnt].vector = nextPosition - edges[ nCnt].vertices[0];
-
+	
 		//辺に隣接する土地数の設定
 		int numLand = (int)( edges[ nCnt].vector.Length() / DEFAULT_LAND_SIZE);
 
@@ -141,7 +155,7 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 		//辺を等分する点を設定
 		for (int i = 0; i < numLand - 1; i++)
 		{
-			edges[ nCnt].vertices.push_back( edges[ nCnt].vertices[0] + vector * (float)( i + 1));
+			edges[ nCnt].vertices.push_back( edges[ nCnt].vertices.back() + vector);
 		}
 	}
 
@@ -153,18 +167,16 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 		Vector3 pointFourth;
 		if (nCnt != 0)
 		{
-			int prevSize = edges[ nCnt - 1].vertices.size();
-			pointFourth = edges[ nCnt - 1].vertices[ prevSize - 1];
+			pointFourth = edges[ nCnt - 1].vertices.back();
 		}
 		else
 		{
-			int prevSize = edges[ 3].vertices.size();
-			pointFourth = edges[ 3].vertices[ prevSize - 1];
+			pointFourth = edges[ 3].vertices.back();
 		}
 
 		//土地を生成
 		int numVertex = edges[nCnt].vertices.size();
-		for (int i = 0; i < numVertex - 3; i++)
+		for (int i = 0; i < numVertex - 1; i++)
 		{
 			//4つ目の頂点（登録順は3番目）を設定
 			Vector3 pointThird = pointFourth + edges[ nCnt].vector / (float)( numVertex);
@@ -215,7 +227,7 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 			pointFourth = pointThird;
 		}
 	}
-	
+
 	//土地を狭める
 	float roadWidthHalf = DEFAULT_ROAD_WIDTH * 0.5f;
 	for (BlockLand& land : lands)
@@ -225,37 +237,13 @@ bool BlockModel::CreateBuilding( BlockAttribute* attribute)
 			//continue;
 		}
 
-		//土地を道路幅分狭める
-		if ( !MoveLand(land.vertices[0], land.vertices[3], DEFAULT_ROAD_WIDTH * 0.5f))
+		//土地の左側を間隔分狭める
+		if ( !NarrowLand(land.vertices[1], land.vertices[0], DISTANCE_OF_LANDS * 1.0f))
 		{
 			land.canCreateBuilding = false;
 			continue;
 		}
-		if ( !MoveLand(land.vertices[1], land.vertices[2], DEFAULT_ROAD_WIDTH * 0.5f))
-		{
-			land.canCreateBuilding = false;
-			continue;
-		}
-
-		//道路幅分右にずらす
-		if (!MoveLand(land.vertices[0], land.vertices[1], DEFAULT_ROAD_WIDTH * 0.5f))
-		{
-			land.canCreateBuilding = false;
-			continue;
-		}
-		if (!MoveLand(land.vertices[3], land.vertices[2], DEFAULT_ROAD_WIDTH * 0.5f))
-		{
-			land.canCreateBuilding = false;
-			continue;
-		}
-
-		//土地の右側を間隔分狭める
-		if ( !NarrowLand(land.vertices[1], land.vertices[0], DISTANCE_OF_LANDS))
-		{
-			land.canCreateBuilding = false;
-			continue;
-		}
-		if ( !NarrowLand(land.vertices[2], land.vertices[3], DISTANCE_OF_LANDS))
+		if ( !NarrowLand(land.vertices[2], land.vertices[3], DISTANCE_OF_LANDS * 1.0f))
 		{
 			land.canCreateBuilding = false;
 			continue;

@@ -34,8 +34,8 @@ using namespace HalfEdgeDataStructure;
 ------------------------------------------------------------------------------*/
 #define CITY_WIDTH (200.0f)
 #define CITY_HEIGHT (200.0f)
-#define DIVIDE_COUNT ( 4)
-#define CREATE_CAR_COUNT ( 50)
+#define DIVIDE_COUNT ( 2)
+#define CREATE_CAR_COUNT ( 20)
 
 /*------------------------------------------------------------------------------
 	コンポーネント生成
@@ -81,14 +81,21 @@ CityController::CityController( GameObject* pGameObject)
 
 	//建物から車を生成
 	auto buildings = m_BuildingManager->GetAllBuildings();
-	int parCreate = buildings.size() / CREATE_CAR_COUNT;
-	int count = 0;
-	for (auto ite = buildings.begin(); ite != buildings.end(); ++ite, ++count)
+	if( buildings.size() != 0)
 	{
-		if (count % parCreate == 0)
+		int parCreate = buildings.size() / CREATE_CAR_COUNT;
+		if (parCreate <= 0)
 		{
-			auto trafficBuilding = (*ite)->GetTrafficBuilding();
-			trafficBuilding->CreateCar();
+			parCreate = 1;
+		}
+		int count = 0;
+		for (auto ite = buildings.begin(); ite != buildings.end(); ++ite, ++count)
+		{
+			if (count % parCreate == 0)
+			{
+				auto trafficBuilding = (*ite)->GetTrafficBuilding();
+				trafficBuilding->CreateCar();
+			}
 		}
 	}
 
