@@ -103,6 +103,7 @@ OM_INPUT ps(PS_INPUT input)
 
 	//影
 	//テクスチャ座標を算出
+	input.lightPosH.xy /= input.lightPosH.w;
 	input.lightPosH.x = input.lightPosH.x * +0.5f + 0.5f;
 	input.lightPosH.y = input.lightPosH.y * -0.5f + 0.5f;
 
