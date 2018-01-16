@@ -27,6 +27,7 @@ private:
 	D3DXHANDLE m_hMtxWorld;
 	D3DXHANDLE m_hMtxView;
 	D3DXHANDLE m_hMtxProj;
+	D3DXHANDLE m_hFar;
 };
 
 

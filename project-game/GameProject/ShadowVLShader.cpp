@@ -57,7 +57,9 @@ ShadowVLShader::ShadowVLShader()
 	m_hMaterialDif = m_pEffect->GetParameterByName( 0, "g_MaterialDif");
 	m_hDirLight = m_pEffect->GetParameterByName( 0, "g_DirLight");
 	m_hShadowBuf = m_pEffect->GetParameterByName( 0, "g_shadowBuf");
-	m_hMtxLightVP = m_pEffect->GetParameterByName( 0, "g_mtxLightVP");
+	m_hMtxLightWVP = m_pEffect->GetParameterByName( 0, "g_mtxLightWVP");
+	m_hMtxLightWV = m_pEffect->GetParameterByName( 0, "g_mtxLightWV");
+	m_hFar = m_pEffect->GetParameterByName( 0, "g_far");
 }
 
 /*------------------------------------------------------------------------------
@@ -95,8 +97,9 @@ void ShadowVLShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMateri
 		MessageBox( NULL, "ライトカメラがありません\n", "エラー", MB_OK);
 		assert(false);
 	}
-	auto mtxLightVP = *pLightCamera->GetViewMatrix() * *pLightCamera->GetProjectionMatrix();
-
+	auto mtxLightWVP = pRenderer->m_pTransform->WorldMatrix() * *pLightCamera->GetViewMatrix() * *pLightCamera->GetProjectionMatrix();
+	auto mtxLightWV = pRenderer->m_pTransform->WorldMatrix() * *pLightCamera->GetViewMatrix();
+	
 	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//デバイスのポインタ
 
 	if( !isAlreadySet)
@@ -118,7 +121,9 @@ void ShadowVLShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMateri
 	m_pEffect->SetVector( m_hMaterialDif, pMaterial->GetDiffuse());
 
 	m_pEffect->SetTexture( m_hShadowBuf, Manager::GetTextureManager()->Load("shadow")->GetTexture());
-	m_pEffect->SetMatrix( m_hMtxLightVP, &mtxLightVP);
+	m_pEffect->SetMatrix( m_hMtxLightWVP, &mtxLightWVP);
+	m_pEffect->SetMatrix( m_hMtxLightWV, &mtxLightWV);
+	m_pEffect->SetFloat( m_hFar, pLightCamera->GetFar());
 	
 	//ライトの取得
 	auto list = Light::GetList();

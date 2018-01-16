@@ -44,7 +44,7 @@ RenderManager::RenderManager( HWND hWnd, BOOL bWindow)
 	d3dpp.BackBufferCount = 1;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.EnableAutoDepthStencil = TRUE;
-	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;	//ステンシルバッファ（3年次にここを編集する
+	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;	//ステンシルバッファ（3年次にここを編集する
 	d3dpp.Windowed = TRUE;					//フルスクリーンにする際変更
 	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;

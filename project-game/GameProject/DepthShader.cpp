@@ -44,6 +44,7 @@ DepthShader::DepthShader()
 	m_hMtxWorld = m_pEffect->GetParameterByName(0, "g_mtxWorld");
 	m_hMtxView = m_pEffect->GetParameterByName(0, "g_mtxView");
 	m_hMtxProj = m_pEffect->GetParameterByName(0, "g_mtxProj");
+	m_hFar = m_pEffect->GetParameterByName(0, "g_far");
 }
 
 /*------------------------------------------------------------------------------
@@ -76,6 +77,7 @@ void DepthShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial,
 	m_pEffect->SetMatrix( m_hMtxWorld, &pRenderer->m_pTransform->WorldMatrix());
 	m_pEffect->SetMatrix( m_hMtxView, pCamera->GetViewMatrix());
 	m_pEffect->SetMatrix( m_hMtxProj, pCamera->GetProjectionMatrix());
+	m_pEffect->SetFloat( m_hFar, pCamera->GetFar());
 	m_pEffect->CommitChanges();
 }
 
