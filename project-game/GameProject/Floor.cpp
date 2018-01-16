@@ -11,6 +11,7 @@
 #include "Floor.h"
 #include "Tile.h"
 #include "BuildingRule.h"
+#include "TileSplit.h"
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -39,7 +40,7 @@ Floor::~Floor()
 	{
 		nextTile = targetTile->GetNext();
 		delete targetTile;
-		if (!nextTile)
+		if (!nextTile || nextTile == m_Tile)
 		{
 			break;
 		}
@@ -92,7 +93,7 @@ void Floor::Transform(D3DXMATRIX shapeMatrix)
 	{	
 		tile->Transform( shapeMatrix);
 		tile = tile->GetNext();
-		if (!tile)
+		if (!tile || tile == m_Tile)
 		{
 			break;
 		}
@@ -111,9 +112,19 @@ bool Floor::SetVertexBuffer(VERTEX_3D* pVtx)
 		tile->SetVertexBuffer( pVtx);
 		pVtx += tile->CulcCountVertex();
 		tile = tile->GetNext();
-		if (!tile)
+		if (!tile || tile == m_Tile)
 		{
 			break;
+		}
+
+		//他のShapeとのつなぎ目があるとき他のShapeのタイルにジャンプする
+		if (tile->GetType() == eTileSplit)
+		{
+			auto split = dynamic_cast<TileSplit*>( tile);
+			if (split)
+			{
+				tile = split->GetTileOtherSplit();
+			}
 		}
 	}
 
@@ -131,9 +142,19 @@ int Floor::CulcCountVertex(void)
 	{
 		count += tile->CulcCountVertex();
 		tile = tile->GetNext();
-		if (tile == NULL)
+		if (tile == NULL || tile == m_Tile)
 		{
 			break;
+		}
+
+		//他のShapeとのつなぎ目があるとき他のShapeのタイルにジャンプする
+		if (tile->GetType() == eTileSplit)
+		{
+			auto split = dynamic_cast<TileSplit*>( tile);
+			if (split)
+			{
+				tile = split->GetTileOtherSplit();
+			}
 		}
 	}
 
@@ -151,9 +172,19 @@ int Floor::CulcCountPolygon(void)
 	{
 		count += tile->CulcCountPolygon();
 		tile = tile->GetNext();
-		if (tile == NULL)
+		if (tile == NULL || tile == m_Tile)
 		{
 			break;
+		}
+
+		//他のShapeとのつなぎ目があるとき他のShapeのタイルにジャンプする
+		if (tile->GetType() == eTileSplit)
+		{
+			auto split = dynamic_cast<TileSplit*>( tile);
+			if (split)
+			{
+				tile = split->GetTileOtherSplit();
+			}
 		}
 	}
 
@@ -166,17 +197,61 @@ int Floor::CulcCountPolygon(void)
 void Floor::FusionSameShape(Floor* other)
 {
 	//最後のTileのNextをotherの最初のTileにする
-	auto tile = m_Tile;
-	for (;;)
-	{
-		if (!tile->GetNext())
-		{
-			break;
-		}
-		tile = tile->GetNext();
-	}
+	auto tile = GetBackTile();
 	tile->SetNext( other->m_Tile);
 
 	//Tileが消去されないようにotherのTileをNULLに
 	other->m_Tile = NULL;
+}
+
+/*------------------------------------------------------------------------------
+	終端のタイルの取得
+------------------------------------------------------------------------------*/
+Tile* Floor::GetBackTile(void)
+{
+	auto tile = m_Tile;
+	for (;;)
+	{
+		//NextがNULLの場所を終端として返す
+		if (!tile->GetNext())
+		{
+			return tile;
+		}
+
+		//環状リストのときNULLを返す
+		else if (tile->GetNext() == m_Tile)
+		{
+			break;
+		}
+
+		tile = tile->GetNext();
+	}
+
+	return NULL;
+}
+
+/*------------------------------------------------------------------------------
+	環状リストに変更
+------------------------------------------------------------------------------*/
+bool Floor::ChangeRingList(void)
+{
+	//終端TileのNextに先頭Tileを設定
+	auto back = GetBackTile();
+	if (!back)
+	{
+		return false;
+	}
+
+	back->SetNext( m_Tile);
+	return true;
+}
+
+/*------------------------------------------------------------------------------
+	境目の挿入
+------------------------------------------------------------------------------*/
+bool Floor::InsertSplit(TileSplit* split)
+{
+
+
+	return true;
 }

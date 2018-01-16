@@ -111,10 +111,9 @@ void Shape::ClearWall( void)
 ------------------------------------------------------------------------------*/
 D3DXMATRIX Shape::GetMatrix(void)
 {
-	D3DXMATRIX matrix;
-	D3DXMatrixIdentity( &matrix);
-	D3DXMatrixTranslation( &matrix, m_Position.x, m_Position.y, m_Position.z);
-	D3DXMatrixRotationY( &matrix, m_Rotation);
+	D3DXMATRIX mtxRot, mtxPos;
+	D3DXMatrixTranslation( &mtxPos, m_Position.x, m_Position.y, m_Position.z);
+	D3DXMatrixRotationY( &mtxRot, m_Rotation);
 
-	return matrix;
+	return mtxRot * mtxPos;
 }

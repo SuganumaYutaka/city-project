@@ -74,6 +74,27 @@ void ModeGame::Init()
 	//City
 	auto cityObject = new GameObject( m_pRoot);
 	auto cityController = cityObject->AddComponent<CityController>();
+
+	////shadowtest
+	//auto sunObj = new GameObject( m_pRoot);
+	//auto sun = sunObj->AddComponent<Sun>();
+	//sunObj->m_pTransform->SetWorldPosition( Vector3( 250.0f, 250.0f, 250.0f));
+	//sunObj->m_pTransform->SetWorldRotationLookAt( Vector3(0.0f, 0.0f, 0.0f));
+	//
+	//auto castObj = new GameObject( m_pRoot);
+	//auto box = castObj->AddComponent<MeshBoxRenderer>();
+	//box->LoadTexture( "data/TEXTURE/bill02.png");
+	//castObj->m_pTransform->SetLocalScale( 50.0f, 200.0f, 50.0f);
+
+	//auto groundObject = new GameObject( m_pRoot);
+	//auto groundRenderer = groundObject->AddComponent<MeshField>();
+	//groundRenderer->SetSize( 500.0f, 500.0f);
+
+	//auto spriteObj = new GameObject( m_pRoot);
+	//auto sprite = spriteObj->AddComponent<SpriteRenderer>();
+	//sprite->LoadTexture("shadow");
+	//spriteObj->m_pTransform->SetLocalPosition( SCREEN_WIDTH - 100.0f, 100.0f, 0.0f);
+	//spriteObj->m_pTransform->SetLocalScale( 200.0f, 200.0f, 1.0f);
 }
 
 /*------------------------------------------------------------------------------

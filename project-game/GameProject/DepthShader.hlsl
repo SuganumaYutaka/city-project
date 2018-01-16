@@ -7,7 +7,7 @@ struct VS_INPUT
 struct PS_INPUT
 {
 	float4 pos : SV_Position;
-	float4 depth : TEXCOORD0;
+	float depthWV : TEXCOORD0;
 };
 
 struct OM_INPUT
@@ -19,6 +19,7 @@ struct OM_INPUT
 float4x4 g_mtxWorld;
 float4x4 g_mtxView;
 float4x4 g_mtxProj;
+float g_far;
 
 //頂点シェーダー
 PS_INPUT vs(VS_INPUT input)
@@ -27,16 +28,16 @@ PS_INPUT vs(VS_INPUT input)
 	output.pos = mul(float4( input.pos, 1.0f), g_mtxWorld);
 	output.pos = mul( output.pos, g_mtxView);
 	output.pos = mul( output.pos, g_mtxProj);
-	output.depth = output.pos;
+	float4 depth = mul(float4( input.pos, 1.0f), g_mtxWorld);
+	depth = mul( depth, g_mtxView);
+	output.depthWV = depth.z / g_far;
 	return output;
 }
 
 //ピクセルシェーダー
-OM_INPUT ps(PS_INPUT input)
+float4 ps(PS_INPUT input) : COLOR0
 {
-	OM_INPUT output;
-	output.col = input.depth.z / input.depth.w;
-	return output;
+	return (float4)input.depthWV;
 }
 
 //テクニック

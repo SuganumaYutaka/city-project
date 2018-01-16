@@ -137,14 +137,14 @@ void Camera::SetRenderTarget(std::string TextureName, bool isBuckBuffer)
 
 	if (isBuckBuffer == false)
 	{
+		auto size = m_RenderTarget->GetTextureSize();
+
 		//プロジェクション座標変換
-		m_fAspect = (float)TEXTURE_WIDTH / TEXTURE_HEIGHT;
-		m_fNear = 8.0f;
-		m_fFar = 100.0f;
+		m_fAspect = size.x / size.y;
 		D3DXMatrixPerspectiveFovLH( &m_mtxProj, m_fFovY, m_fAspect, m_fNear, m_fFar);
 
 		//ビューポート変換
-		SetViewPort( 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, 0.0f, 1.0f);
+		SetViewPort( 0, 0, (int)size.x, (int)size.y, 0.0f, 1.0f);
 	}
 }
 
@@ -161,7 +161,8 @@ void Camera::SetCamera(void)
 	pDevice->SetDepthStencilSurface( m_RenderTarget->GetDepthBuffer());
 
 	//レンダーターゲットの初期化
-	pDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA( 255, 255, 255, 255), 1.0f, 0);
+	//pDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA( 255, 255, 255, 255), 1.0f, 0);
+	pDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA( 0, 0, 0, 0), 1.0f, 0);
 
 	//シェーダーの設定
 	if (m_Type == eCameraDefault)
@@ -264,6 +265,33 @@ Vector3 Camera::CalcScreenPointToWorldPosition( Vector2 screenPoint, float posit
 	D3DXVec3TransformCoord( &worldPos, &D3DXVECTOR3( screenPoint.x, screenPoint.y, positionZ), &mtxWorld);
 
 	return worldPos;
+}
+
+/*------------------------------------------------------------------------------
+	ライトカメラ用の設定
+------------------------------------------------------------------------------*/
+bool Camera::ChangeLightCameraFormat(Vector3 fieldSize)
+{
+	//カメラの種類の設定
+	SetType( eCameraLight);
+
+	//描画レイヤーの設定
+	SetRenderLayer( eLayerBack);
+	SetRenderLayer( eLayerDefault);
+	
+	//レンダーターゲットの設定
+	SetRenderTarget( "shadow", false);
+	m_RenderTarget->ChangeDepthRenderFormat();
+
+	//Orthoの設定
+	float length = max( fieldSize.x, fieldSize.z) * 1.4142f;
+	SetOrtho( length, length, 0.1f, length);
+
+	//ビューポートの設定
+	auto textureSize = m_RenderTarget->GetTextureSize();
+	SetViewPort( 0, 0, (int)textureSize.x, (int)textureSize.y, 0.0f, 1.0f);
+
+	return true;
 }
 
 /*------------------------------------------------------------------------------

@@ -14,6 +14,7 @@
 #include "GameObject.h"
 #include "ComponentInclude.h"
 #include "BuildingRule.h"
+#include "TileSplit.h"
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -82,6 +83,7 @@ bool Wall::UpdateView( D3DXMATRIX shapeMatrix)
 	auto pVtx = m_Renderer->StartSetVertexBuffer( CulcCountVertex() + 1, CulcCountPolygon());
 	for (auto floor : m_Floors)
 	{
+		floor->Transform( shapeMatrix);
 		floor->SetVertexBuffer( pVtx);
 		pVtx += floor->CulcCountVertex();
 	}
@@ -167,4 +169,42 @@ void Wall::FusionSameShape(Wall* other)
 	//Rendererの消去
 	other->m_Renderer->ReleaseReserve();
 	other->m_Renderer = NULL;
+}
+
+/*------------------------------------------------------------------------------
+	環状リストに変更
+------------------------------------------------------------------------------*/
+bool Wall::ChangeRingList(void)
+{
+	for (auto floor : m_Floors)
+	{
+		if (!floor->ChangeRingList())
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/*------------------------------------------------------------------------------
+	ベクトルの取得
+------------------------------------------------------------------------------*/
+Vector3 Wall::GetVector(void)
+{
+	return Vector3::Cross( m_Normal, Vector3( 0.0f, 1.0f, 0.0f));
+}
+
+/*------------------------------------------------------------------------------
+	壁との衝突処理
+------------------------------------------------------------------------------*/
+bool Wall::Collision(Wall* other)
+{
+	//線分と線分の衝突判定
+	auto vectorSource = GetVector();
+	auto vectorOther = other->GetVector();
+
+	//フロア単位でSplit生成・設定・挿入
+
+	return true;
 }

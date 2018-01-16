@@ -36,7 +36,10 @@ private:
 	D3DXHANDLE m_hDirLight;
 
 	D3DXHANDLE m_hShadowBuf;
-	D3DXHANDLE m_hMtxLightVP;
+	D3DXHANDLE m_hMtxLightWVP;
+	D3DXHANDLE m_hMtxLightWV;
+	D3DXHANDLE m_hFar;
+
 };
 
 

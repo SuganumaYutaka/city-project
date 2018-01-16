@@ -28,6 +28,7 @@ public:
 	void SetNext( Tile* next) { m_Next = next;}
 	Tile* GetNext( void){ return m_Next;}
 	float GetWidth( void){ return m_Width;}
+	E_TILE_TYPE GetType(void){ return m_Type;}
 	
 protected:
 	Tile* m_Next;

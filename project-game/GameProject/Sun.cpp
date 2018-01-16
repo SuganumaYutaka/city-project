@@ -16,6 +16,11 @@
 #include "InputKeyboard.h"
 
 /*------------------------------------------------------------------------------
+	マクロ定義
+------------------------------------------------------------------------------*/
+#define DEFAULT_FIELD_SIZE (500.0f)
+
+/*------------------------------------------------------------------------------
 	コンポーネント生成
 ------------------------------------------------------------------------------*/
 Component* Sun::Create(GameObject* gameObject)
@@ -36,22 +41,12 @@ Sun::Sun( GameObject* pGameObject)
 	pLight->IsCreatedByOtherComponent = true;
 	m_pLight = pLight->AddComponent<Light>();
 	m_pLight->IsCreatedByOtherComponent = true;
-	pLight->m_pTransform->SetLocalPosition( Vector3( 0.0f, 0.0f, 0.0f));
 	
 	//ライトのカメラ
 	m_pCamera = pLight->AddComponent<Camera>();
 	m_pCamera->IsCreatedByOtherComponent = true;
-	m_pCamera->SetRenderTarget( "shadow", false);
-	m_pCamera->SetRenderLayer( eLayerBack);
-	m_pCamera->SetRenderLayer( eLayerDefault);
-	m_pCamera->SetType( eCameraLight);
-
-	// Orthoの設定
-	float length = 1500.0f * 1.4142f;
-	m_pCamera->SetOrtho( length, length, 0.1f, length);
-
-	m_pTransform->SetWorldPosition( -750.0f, 600.0f, -300.0f);
-	m_pTransform->SetWorldRotationLookAt( Vector3(750.0f, 0.0f, 750.0f));
+	m_pCamera->ChangeLightCameraFormat( Vector3( DEFAULT_FIELD_SIZE, DEFAULT_FIELD_SIZE, DEFAULT_FIELD_SIZE));
+	m_pCamera->SetPosAt( Vector3(0.0f, 0.0f, 0.0f));
 }
 
 /*------------------------------------------------------------------------------

@@ -57,6 +57,9 @@ public:
 	void SetVecUp( const Vector3& Vec) { m_VecUp = Vec;}
 	Vector3 GetVecUp( void) const { return m_VecUp;}
 	Vector3 GetCameraVec( void) const;
+
+	float GetNear( void){ return m_fNear;}
+	float GetFar( void){ return m_fFar;}
 	
 	D3DXMATRIX* GetViewMatrix( void){ return &m_mtxView;}
 	D3DXMATRIX* GetProjectionMatrix( void){ return &m_mtxProj;}
@@ -91,6 +94,8 @@ public:
 	void SetOrtho( float Width, float Height, float Near, float Far);
 
 	Ray CalcScreenPointToRay( Vector2 screenPoint);
+
+	bool ChangeLightCameraFormat( Vector3 fieldSize);
 
 	virtual void Save( Text& text);
 	virtual void Load( Text& text);

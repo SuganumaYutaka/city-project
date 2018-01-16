@@ -49,6 +49,7 @@ enum E_TILE_TYPE
 	eTileWindow,
 	eTileEntrance,
 	eTileBorder,
+	eTileSplit,
 	eTileTypeCount
 };
 

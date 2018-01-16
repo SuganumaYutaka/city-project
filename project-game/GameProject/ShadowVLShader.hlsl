@@ -11,7 +11,8 @@ struct PS_INPUT
 	float4 pos : SV_Position;
 	float4 col : COLOR0;
 	float2 tex : TEXCOORD0;
-	float4 posL : TEXCOORD1;
+	float4 lightPosH : TEXCOORD1;
+	float depthWV : TEXCOORD2;
 };
 
 struct OM_INPUT
@@ -34,7 +35,11 @@ float4 g_DirLight;
 texture g_texture;
 
 texture g_shadowBuf;
-float4x4 g_mtxLightVP;
+float4x4 g_mtxLightWVP;
+float4x4 g_mtxLightWV;
+float g_far;
+
+static const float SHADOW_EPSILON = 0.00094f;
 
 //テクスチャサンプラ
 sampler TextureSampler = 
@@ -82,8 +87,8 @@ PS_INPUT vs(VS_INPUT input)
 	output.col = saturate( ( g_LightAmb * g_MaterialAmb) + ( g_LightDif * g_MaterialDif) * max( 0, dot( LocalLight.xyz, input.normal)));
 
 	//影
-	float4 PosL = mul( PosWorld, g_mtxLightVP);
-	output.posL = PosL / PosL.w;
+	output.lightPosH = mul( float4(input.pos, 1.0f), g_mtxLightWVP);
+	output.depthWV = mul( float4(input.pos, 1.0f), g_mtxLightWV).z / g_far;
 
 	return output;
 }
@@ -91,27 +96,24 @@ PS_INPUT vs(VS_INPUT input)
 //ピクセルシェーダー
 OM_INPUT ps(PS_INPUT input)
 {
+	//カラーの計算
 	OM_INPUT output;
 	float4 color = tex2D(TextureSampler, input.tex) * input.col;
 	output.col = color;
 
 	//影
-	float bias = 0.0053f;		//バイアス値（調整が必要）
-	float ZValue = input.posL.z / input.posL.w;	//Z値
-	
-	//XY座標をテクスチャ座標に変換
-	float2 shadowTex;
-	shadowTex.x = (1.0f + input.posL.x / input.posL.w) * 0.5f;
-	shadowTex.y = (1.0f - input.posL.y / input.posL.w) * 0.5f;
+	//テクスチャ座標を算出
+	input.lightPosH.xy /= input.lightPosH.w;
+	input.lightPosH.x = input.lightPosH.x * +0.5f + 0.5f;
+	input.lightPosH.y = input.lightPosH.y * -0.5f + 0.5f;
 
-	//テクスチャからZ値を抽出
-	float shadowZ = tex2D(ShadowBufSampler, shadowTex).x;
+	//深度バッファから深度を得る
+	float lightDepthWV = tex2D(ShadowBufSampler, input.lightPosH.xy).r;
 
-	//実際のZ値がテクスチャから抽出したZ値より大きい場合影と判定
-	if (ZValue - shadowZ > bias)
-	{
-		output.col = color * 0.5f;
-	}
+	//カラーの決定(黒くするかそのままか)
+	float s = lightDepthWV + SHADOW_EPSILON < input.depthWV ? 0.2f : 1.0f;
+	//output.col = float4( color.rgb * s, color.a);
+	output.col = float4( color.r * s, color.g * s, color.b * s, color.a);
 
 	return output;
 }

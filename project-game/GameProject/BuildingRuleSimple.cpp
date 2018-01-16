@@ -25,33 +25,35 @@
 ------------------------------------------------------------------------------*/
 BuildingRule* BuildingRuleSimple::Create( BuildingSurfacePattern* surfacePattern)
 {
+	//ルールの生成
+	auto rule = new BuildingRuleSimple();
+
+	//ランダムの設定
 	auto random = new Random();
+	rule->m_Random = random;
 	
 	//形状の高さ
 	random->SetRangeFloat( 10.0f, 50.0f);
-	float shapeHeight = random->GetFloat();
+	rule->m_ShapeHeight = random->GetFloat();
 
 	//1階の高さ
 	random->SetRangeFloat( 2.0f, 2.5f);
-	float groundFloorHeight = random->GetFloat();
+	rule->m_GroundFloorHeight = random->GetFloat();
 	
 	//フロアの高さ
 	random->SetRangeFloat( 1.0f, 2.0f);
-	float floorHeight = random->GetFloat();
+	rule->m_FloorHeight = random->GetFloat();
 
 	//窓の幅
 	random->SetRangeFloat( 0.8f, 1.8f);
-	float windowWidth = random->GetFloat();
+	rule->m_WindowWidth = random->GetFloat();
 
 	//玄関の幅
 	random->SetRangeFloat( 2.0f, 2.5f);
-	float entranceWidth = random->GetFloat();
+	rule->m_EntranceWidth = random->GetFloat();
 
-	//ルールの生成
-	auto rule = new BuildingRuleSimple( shapeHeight, groundFloorHeight, floorHeight, windowWidth, entranceWidth);
+	//表面パターン
 	rule->SetSurfacePattern( surfacePattern);
-	random->SetDefault();
-	rule->m_Random = random;
 	
 	return rule;
 }

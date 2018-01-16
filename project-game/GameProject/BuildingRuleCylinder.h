@@ -29,9 +29,6 @@ class BuildingRuleCylinder : public BuildingRule
 public:
 	static BuildingRule* Create( BuildingSurfacePattern* surfacePattern);
 
-	BuildingRuleCylinder( float shapeHeight, float groundFloorHeight, float floorHeight, float windowWidth, float entranceWidth)
-		: m_ShapeHeight( shapeHeight), m_GroundFloorHeight( groundFloorHeight), m_FloorHeight( floorHeight)
-		, m_WindowWidth( windowWidth), m_EntranceWidth( entranceWidth){}
 	~BuildingRuleCylinder() override;
 
 	bool ProceduralShape( BuildingGeometry* geometry) override;

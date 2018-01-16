@@ -1,34 +1,24 @@
 /*==============================================================================
 
-    DepthShader.h - デプスシェーダー
+    TileSplit.cpp - 建物の自動生成ータイル（割れ目）
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/8/15
+                                                       Date   : 2018/1/11
 ==============================================================================*/
-#ifndef _DEPTH_SHADER_H_
-#define _DEPTH_SHADER_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "Manager.h"
-#include "Shader.h"
+#include "TileSplit.h"
 
 /*------------------------------------------------------------------------------
-	クラス定義
+	初期化
 ------------------------------------------------------------------------------*/
-class DepthShader : public Shader
+void TileSplit::Init( TileSplit* other, const Vector3& bottomLeftPosition)
 {
-public:
-	DepthShader();
-	~DepthShader();
-	void Set( Camera* pCamera, Renderer* pRenderer, Material* pMaterial, bool isAlreadySet);
-private:
-	D3DXHANDLE m_hTech;
-	D3DXHANDLE m_hMtxWorld;
-	D3DXHANDLE m_hMtxView;
-	D3DXHANDLE m_hMtxProj;
-	D3DXHANDLE m_hFar;
-};
-
-
-#endif
+	m_OtherSplit = other;
+	m_Next = NULL;
+	m_Height = 0.0f;
+	m_Width = 0.0f;
+	m_BottomLeftPosition = bottomLeftPosition;
+	m_Type = eTileSplit;
+}

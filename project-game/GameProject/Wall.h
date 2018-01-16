@@ -44,6 +44,9 @@ public:
 
 	void LoadTexture( std::string fileName);
 	void FusionSameShape( Wall* other);
+	bool ChangeRingList( void);
+	bool Collision( Wall* other);
+	Vector3 GetVector( void);
 
 private:
 	float m_Height;
