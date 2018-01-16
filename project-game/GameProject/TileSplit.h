@@ -20,7 +20,7 @@ class TileSplit : public Tile
 {
 public:
 	TileSplit() : m_OtherSplit(NULL){}
-	void Init(TileSplit* other);
+	void Init(TileSplit* other, const Vector3& bottomLeftPosition);
 	void Transform(D3DXMATRIX shapeMatrix) override {}
 	void SetVertexBuffer( VERTEX_3D* pVtx) override {}
 	int CulcCountVertex( void) override { return 0;}

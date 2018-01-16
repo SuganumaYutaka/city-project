@@ -13,8 +13,12 @@
 /*------------------------------------------------------------------------------
 	èâä˙âª
 ------------------------------------------------------------------------------*/
-void TileSplit::Init( TileSplit* other)
+void TileSplit::Init( TileSplit* other, const Vector3& bottomLeftPosition)
 {
 	m_OtherSplit = other;
+	m_Next = NULL;
+	m_Height = 0.0f;
+	m_Width = 0.0f;
+	m_BottomLeftPosition = bottomLeftPosition;
 	m_Type = eTileSplit;
 }

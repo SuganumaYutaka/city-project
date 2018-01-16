@@ -14,6 +14,7 @@
 #include "GameObject.h"
 #include "ComponentInclude.h"
 #include "BuildingRule.h"
+#include "TileSplit.h"
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -182,6 +183,28 @@ bool Wall::ChangeRingList(void)
 			return false;
 		}
 	}
+
+	return true;
+}
+
+/*------------------------------------------------------------------------------
+	ベクトルの取得
+------------------------------------------------------------------------------*/
+Vector3 Wall::GetVector(void)
+{
+	return Vector3::Cross( m_Normal, Vector3( 0.0f, 1.0f, 0.0f));
+}
+
+/*------------------------------------------------------------------------------
+	壁との衝突処理
+------------------------------------------------------------------------------*/
+bool Wall::Collision(Wall* other)
+{
+	//線分と線分の衝突判定
+	auto vectorSource = GetVector();
+	auto vectorOther = other->GetVector();
+
+	//フロア単位でSplit生成・設定・挿入
 
 	return true;
 }

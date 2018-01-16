@@ -245,3 +245,13 @@ bool Floor::ChangeRingList(void)
 	back->SetNext( m_Tile);
 	return true;
 }
+
+/*------------------------------------------------------------------------------
+	‹«–Ú‚Ì‘}“ü
+------------------------------------------------------------------------------*/
+bool Floor::InsertSplit(TileSplit* split)
+{
+
+
+	return true;
+}

@@ -18,6 +18,7 @@
 ------------------------------------------------------------------------------*/
 class Tile;
 class BuildingRule;
+class TileSplit;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -45,6 +46,7 @@ public:
 	void FusionSameShape( Floor* other);
 	Tile* GetBackTile( void);
 	bool ChangeRingList( void);
+	bool InsertSplit( TileSplit* split);
 
 private:
 	Tile* m_Tile;
