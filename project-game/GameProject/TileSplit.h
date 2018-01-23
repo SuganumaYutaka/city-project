@@ -19,7 +19,7 @@
 class TileSplit : public Tile
 {
 public:
-	TileSplit() : m_OtherSplit(NULL){}
+	TileSplit() : m_OtherSplit(NULL), m_PrevTile(NULL){}
 	void Init(TileSplit* other, const Vector3& bottomLeftPosition);
 	void Transform(D3DXMATRIX shapeMatrix) override {}
 	void SetVertexBuffer( VERTEX_3D* pVtx) override {}
@@ -28,9 +28,12 @@ public:
 
 	TileSplit* GetOtherSplit( void){ return m_OtherSplit;}
 	Tile* GetTileOtherSplit( void){ return m_OtherSplit->GetNext(); }
+	void SetPrevTile( Tile* prev){ m_PrevTile = prev;}
+	Tile* GetPrevTile( void){ return m_PrevTile;}
 	
 private:
 	TileSplit* m_OtherSplit;
+	Tile* m_PrevTile;
 
 };
 

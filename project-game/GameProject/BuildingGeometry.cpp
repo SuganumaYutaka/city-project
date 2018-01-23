@@ -13,8 +13,17 @@
 #include "ComponentInclude.h"
 #include "Land.h"
 #include "Shape.h"
-
 #include "BuildingRule.h"
+
+#include "Tile.h"
+#include "TileSplit.h"
+#include "WallRenderer.h"
+#include "BuildingSurfacePattern.h"
+
+/*------------------------------------------------------------------------------
+	マクロ定義
+------------------------------------------------------------------------------*/
+#define MAX_TILE (200)
 
 /*------------------------------------------------------------------------------
 	コンポーネント生成
@@ -101,13 +110,232 @@ void BuildingGeometry::Update( void)
 ------------------------------------------------------------------------------*/
 void BuildingGeometry::ConfirmGeometry(void)
 {
+	//単体Shapeの場合
 	if (m_Shapes.size() == 1)
 	{
 		//壁の融合
 		m_Shapes.front()->ConfirmShape();
+
+		//描画の更新
+		m_Shapes.front()->UpdateView();
+
+		return;
 	}
-	else
+
+	//Shapeの融合
+	//Shape同士で一度ずつ処理
+	for (auto ite1 = m_Shapes.begin(); *ite1 != m_Shapes.back(); ++ite1)
 	{
-		//TODO:Shapeの融合
+		auto ite2 = ite1;
+		++ite2;
+		for (; ite2 != m_Shapes.end(); ++ite2)
+		{
+			//交差するところに裂け目を設定
+			(*ite1)->Split( *ite2);
+		}
 	}
+
+	//形状を確定させる
+	for (auto shape : m_Shapes)
+	{
+		shape->ConfirmShape();
+	}
+
+	//壁のRendererの消去
+	for (auto shape : m_Shapes)
+	{
+		shape->ClearWallRenderer();
+	}
+
+	//各Shapeからフロア数分タイルの先頭を取得
+	std::list<Tile*> tiles;
+	int floorCount = 0;
+	for (;;)
+	{
+		//先頭タイルを取得
+		Tile* tile = NULL;
+		for (auto shape : m_Shapes)
+		{
+			tile = SearchStartTile( shape, floorCount);
+			if (tile)
+			{
+				//各フロアにつき１つ見つかればＯＫ
+				break;
+			}
+		}
+
+		//表示できる先頭タイルがないとき格納終了
+		if (!tile)
+		{
+			break;
+		}
+		
+		//タイルを格納して階数を一つ上げる
+		tiles.push_back( tile);
+		floorCount++;
+	}
+
+	//各Shapeの最後のFloorの先頭タイルを格納
+	for (auto shape : m_Shapes)
+	{
+		auto tile = shape->GetTopTile();
+		tiles.push_back( tile);
+	}
+	
+
+	//1枚のWallRendererに表に出ている全フロアの全タイルの描画情報を設定
+	//頂点数とポリゴン数を算出
+	int vertexCount = 0;
+	int polygonCount = 0;
+
+	for (auto start : tiles)
+	{
+		//タイルのリストをたどって頂点数・ポリゴン数を加算
+		auto tile = start;
+		int tileCount = 0;
+		for (;;)
+		{
+			vertexCount += tile->CulcCountVertex();
+			polygonCount += tile->CulcCountPolygon();
+
+			tile = tile->GetNext();
+			if (!tile || tile == start)
+			{
+				break;
+			}
+
+			//他のShapeとのつなぎ目があるとき他のShapeのタイルにジャンプする
+			if (tile->GetType() == eTileSplit)
+			{
+				auto split = dynamic_cast<TileSplit*>( tile);
+				if (split)
+				{
+					//prevも設定
+					auto prev = split->GetPrevTile();
+					vertexCount += prev->CulcCountVertex();
+					polygonCount += prev->CulcCountPolygon();
+
+					tile = split->GetOtherSplit();
+					//break;
+				}
+			}
+
+			//タイルが最大数を超えたら終了
+			tileCount++;
+			if (tileCount > MAX_TILE)
+			{
+				break;
+			}
+		}
+	}
+
+	//WallRendererを設定
+	auto wallRenderer = m_pGameObject->AddComponent<WallRenderer>();
+	wallRenderer->LoadTexture( m_Rule->GetSurfacePattern()->GetTextureFileName());
+	auto pVtx = wallRenderer->StartSetVertexBuffer( vertexCount + 1, polygonCount);
+	for (auto start : tiles)
+	{
+		//タイルのリストをたどって頂点情報を設定
+		auto tile = start;
+		int tileCount = 0;
+		for (;;)
+		{
+			tile->SetVertexBuffer(pVtx);
+			pVtx += tile->CulcCountVertex();
+
+			tile = tile->GetNext();
+			if (!tile || tile == start)
+			{
+				break;
+			}
+
+			//他のShapeとのつなぎ目があるとき他のShapeのタイルにジャンプする
+			if (tile->GetType() == eTileSplit)
+			{
+				auto split = dynamic_cast<TileSplit*>( tile);
+				if (split)
+				{
+					//prevも設定
+					auto prev = split->GetPrevTile();
+					prev->SetVertexBuffer(pVtx);
+					pVtx += prev->CulcCountVertex();
+					
+					tile = split->GetOtherSplit();
+					//break;
+				}
+			}
+
+			//タイルが最大数を超えたら終了
+			tileCount++;
+			if (tileCount > MAX_TILE)
+			{
+				break;
+			}
+		}
+	}
+	wallRenderer->EndSetVertexBuffer();
+
+}
+
+/*------------------------------------------------------------------------------
+	指定階層の表にある先頭タイルを探索
+------------------------------------------------------------------------------*/
+Tile* BuildingGeometry::SearchStartTile(Shape* shape, int floorCount)
+{
+	//フロアの一番上は設定しない
+	if (floorCount >= shape->GetFloorCount() - 1)
+	{
+		return NULL;
+	}
+
+	//Shapeから先頭タイルを取得
+	auto tile = shape->GetStartTile( floorCount);
+	if (!tile)
+	{
+		return NULL;
+	}
+
+	//環状リストをたどって表にあるタイルをさがす
+	auto start = tile;
+	for (;;)
+	{
+		//タイルが表にあるか判定
+		if (CanLookTile(tile, shape))
+		{
+			//対象のタイル発見
+			return tile;
+		}
+
+		tile = tile->GetNext();
+		if (!tile || tile == start)
+		{
+			break;
+		}
+	}
+
+	return NULL;
+}
+
+/*------------------------------------------------------------------------------
+	タイルを視認できるか
+------------------------------------------------------------------------------*/
+bool BuildingGeometry::CanLookTile(Tile* tile, Shape* owner)
+{
+	for (auto otherShape : m_Shapes)
+	{
+		if (owner == otherShape)
+		{
+			continue;
+		}
+
+		//タイルが他のShapeの中にあるか確認
+		if ( otherShape->CollisionPoint(tile->GetBottomLeftPosition()))
+		{
+			//視認できない
+			return false;
+		}
+	}
+	
+	//他のShapeと衝突なし→視認できる
+	return true;
 }

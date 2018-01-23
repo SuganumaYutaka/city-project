@@ -40,6 +40,7 @@ public:
 	void ScaleRate( float rate) override;
 	void ScaleRate( const Vector3& rate) override;
 	void ConfirmShape( void) override;
+	bool CollisionPoint( const Vector3& point) override;
 	
 private:
 	float m_Height;

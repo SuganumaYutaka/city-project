@@ -41,7 +41,7 @@ BuildingRule* BuildingRuleMultiShape::Create( BuildingSurfacePattern* surfacePat
 
 	//形状のサイズの比率
 	rule->m_ShapeSizeRateMax = 0.9f;
-	rule->m_ShapeSizeRateMin = 0.5f;
+	rule->m_ShapeSizeRateMin = 0.6f;
 
 	//1階の高さ
 	random->SetRangeFloat( 2.0f, 2.5f);
@@ -90,11 +90,12 @@ bool BuildingRuleMultiShape::ProceduralShape(BuildingGeometry* geometry)
 	//Shapeの数
 	//m_Random->SetRangeInt( 1, 3);
 	//int shapeCount = m_Random->GetInt();
-	int shapeCount = 3;
+	int shapeCount = 2;
 	
 	//Shapeの種類
 	m_Random->SetRangeInt( 0, 2);
-	int type = m_Random->GetInt();
+	//int type = m_Random->GetInt();
+	int type = 0;
 	if( type < 2)
 	{
 		//ShapeBoxの生成
@@ -461,6 +462,8 @@ void BuildingRuleMultiShape::CreateShapeBoxes(int shapeCount, BuildingGeometry* 
 		m_Random->SetRangeFloat( m_ShapeSizeRateMin, m_ShapeSizeRateMax);
 		size.x = landSize.x * m_Random->GetFloat();
 		size.z = landSize.z * m_Random->GetFloat();
+		size.x = (int)size.x;
+		size.z = (int)size.z;
 	
 		//位置の設定
 		Vector3 position;

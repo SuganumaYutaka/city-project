@@ -14,6 +14,11 @@
 #include "TileSplit.h"
 
 /*------------------------------------------------------------------------------
+	マクロ定義
+------------------------------------------------------------------------------*/
+#define INSERT_PERMIT_RANGE (0.01f)
+
+/*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
 Floor::Floor() : m_Tile( NULL)
@@ -79,10 +84,21 @@ void Floor::InitCurve( float height, float width, const Vector3& bottomLeftPosit
 }
 
 /*------------------------------------------------------------------------------
-	タイルの座標の更新
+	位置と法線の更新
 ------------------------------------------------------------------------------*/
 void Floor::Transform(D3DXMATRIX shapeMatrix)
 {
+	//フロアの更新
+	auto position = m_BottomLeftPosition.ConvertToDX();
+	auto normal = m_Normal.ConvertToDX();
+
+	D3DXVec3TransformCoord( &position, &position, &shapeMatrix);
+	D3DXVec3TransformNormal( &normal, &normal, &shapeMatrix);
+
+	m_BottomLeftPosition = Vector3::ConvertFromDX( position);
+	m_Normal = Vector3::ConvertFromDX( normal);
+
+	//タイルの更新
 	if (!m_Tile)
 	{
 		return;
@@ -218,13 +234,13 @@ Tile* Floor::GetBackTile(void)
 			return tile;
 		}
 
+		tile = tile->GetNext();
+
 		//環状リストのときNULLを返す
-		else if (tile->GetNext() == m_Tile)
+		if (tile == m_Tile)
 		{
 			break;
 		}
-
-		tile = tile->GetNext();
 	}
 
 	return NULL;
@@ -249,9 +265,42 @@ bool Floor::ChangeRingList(void)
 /*------------------------------------------------------------------------------
 	境目の挿入
 ------------------------------------------------------------------------------*/
-bool Floor::InsertSplit(TileSplit* split)
+bool Floor::InsertSplit(TileSplit* split, float lengthFromBottomLeft)
 {
+	//BottomLeftPositionから正しい位置に挿入
+	Tile* tile = m_Tile;
+	float length = 0.0f;
+	for (;;)
+	{
+		//始点からの距離をタイルの幅分足す
+		length += tile->GetWidth();
+		
+		//始点から距離が境目よりも遠いとき、タイルと次のタイルの間に挿入
+		if (length > lengthFromBottomLeft)
+		{
+			split->SetNext( tile->GetNext());
+			tile->SetNext( split);
+			split->SetPrevTile( tile);
+			return true;
+		}
 
+		tile = tile->GetNext();
+		if (tile == NULL || tile == m_Tile)
+		{
+			break;
+		}
+	}
 
-	return true;
+	//誤差の範囲のとき最後のタイルのNextに設定
+	if (lengthFromBottomLeft - length < INSERT_PERMIT_RANGE)
+	{
+		auto tile = GetBackTile();
+		split->SetNext( NULL);
+		tile->SetNext( split);
+		split->SetPrevTile( tile);
+		return true;
+	}
+
+	//挿入箇所なし
+	return false;
 }

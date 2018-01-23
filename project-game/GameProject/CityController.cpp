@@ -34,7 +34,7 @@ using namespace HalfEdgeDataStructure;
 ------------------------------------------------------------------------------*/
 #define CITY_WIDTH (200.0f)
 #define CITY_HEIGHT (200.0f)
-#define DIVIDE_COUNT ( 2)
+#define DIVIDE_COUNT ( 4)
 #define CREATE_CAR_COUNT ( 20)
 
 /*------------------------------------------------------------------------------
@@ -102,7 +102,7 @@ CityController::CityController( GameObject* pGameObject)
 	//建物ジオメトリ情報の削除
 	for (auto building : m_BuildingManager->GetAllBuildings())
 	{
-		building->ConfirmGeometry();
+		//building->ConfirmGeometry();
 	}
 }
 
@@ -143,12 +143,12 @@ void CityController::Update()
 	//	}
 	//}
 
-	////建物ジオメトリ情報の削除
-	//if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_SPACE))
-	//{
-	//	for (auto building : m_BuildingManager->GetAllBuildings())
-	//	{
-	//		building->ConfirmGeometry();
-	//	}
-	//}
+	//建物ジオメトリ情報の削除
+	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_SPACE))
+	{
+		for (auto building : m_BuildingManager->GetAllBuildings())
+		{
+			building->ConfirmGeometry();
+		}
+	}
 }

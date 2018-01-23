@@ -29,6 +29,7 @@ public:
 	Tile* GetNext( void){ return m_Next;}
 	float GetWidth( void){ return m_Width;}
 	E_TILE_TYPE GetType(void){ return m_Type;}
+	const Vector3& GetBottomLeftPosition( void){ return m_BottomLeftPosition;}
 	
 protected:
 	Tile* m_Next;

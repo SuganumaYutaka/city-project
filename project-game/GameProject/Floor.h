@@ -46,7 +46,7 @@ public:
 	void FusionSameShape( Floor* other);
 	Tile* GetBackTile( void);
 	bool ChangeRingList( void);
-	bool InsertSplit( TileSplit* split);
+	bool InsertSplit( TileSplit* split, float lengthFromBottomLeft);
 
 private:
 	Tile* m_Tile;

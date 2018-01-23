@@ -93,8 +93,9 @@ void ModeGame::Init()
 	//auto spriteObj = new GameObject( m_pRoot);
 	//auto sprite = spriteObj->AddComponent<SpriteRenderer>();
 	//sprite->LoadTexture("shadow");
-	//spriteObj->m_pTransform->SetLocalPosition( SCREEN_WIDTH - 100.0f, 100.0f, 0.0f);
-	//spriteObj->m_pTransform->SetLocalScale( 200.0f, 200.0f, 1.0f);
+	//Vector2 size = Vector2( 500.0f, 500.0f);
+	//spriteObj->m_pTransform->SetLocalPosition( SCREEN_WIDTH - size.x * 0.5f, size.y * 0.5f, 0.0f);
+	//spriteObj->m_pTransform->SetLocalScale( size.x, size.y, 1.0f);
 }
 
 /*------------------------------------------------------------------------------

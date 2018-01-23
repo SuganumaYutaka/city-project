@@ -47,10 +47,15 @@ void TileDefault::SetVertexBuffer(VERTEX_3D* pVtx)
 	auto vector = Vector3::Cross( m_Normal, Vector3(0.0f, 1.0f, 0.0f)).Normalize();
 	Vector3 nextPosition = m_BottomLeftPosition + vector * m_Width;
 
-	pVtx[ 0].Pos = pVtx[ 1].Pos = D3DXVECTOR3( m_BottomLeftPosition.x, m_BottomLeftPosition.y, m_BottomLeftPosition.z);
+	/*pVtx[ 0].Pos = pVtx[ 1].Pos = D3DXVECTOR3( m_BottomLeftPosition.x, m_BottomLeftPosition.y, m_BottomLeftPosition.z);
 	pVtx[ 2].Pos = D3DXVECTOR3( m_BottomLeftPosition.x, m_BottomLeftPosition.y + m_Height, m_BottomLeftPosition.z);
 	pVtx[ 3].Pos = D3DXVECTOR3( nextPosition.x, nextPosition.y, nextPosition.z);
-	pVtx[ 4].Pos = pVtx[ 5].Pos = D3DXVECTOR3( nextPosition.x, nextPosition.y + m_Height, nextPosition.z);
+	pVtx[ 4].Pos = pVtx[ 5].Pos = D3DXVECTOR3( nextPosition.x, nextPosition.y + m_Height, nextPosition.z);*/
+
+	pVtx[ 0].Pos = pVtx[ 1].Pos = D3DXVECTOR3( m_BottomLeftPosition.x, m_BottomLeftPosition.y + m_Height, m_BottomLeftPosition.z);
+	pVtx[ 2].Pos = D3DXVECTOR3( m_BottomLeftPosition.x, m_BottomLeftPosition.y, m_BottomLeftPosition.z);
+	pVtx[ 3].Pos = D3DXVECTOR3( nextPosition.x, nextPosition.y + m_Height, nextPosition.z);
+	pVtx[ 4].Pos = pVtx[ 5].Pos = D3DXVECTOR3( nextPosition.x, nextPosition.y, nextPosition.z);
 
 	for (int i = 0; i < 6; i++)
 	{

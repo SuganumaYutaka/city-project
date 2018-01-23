@@ -84,6 +84,7 @@ void Shape::SubWall( Wall* wall)
 	{
 		if (*ite == wall)
 		{
+			wall->ClearRenderer();
 			delete wall;
 			m_Walls.erase( ite);
 			return;
@@ -98,12 +99,25 @@ void Shape::SubWall( Wall* wall)
 ------------------------------------------------------------------------------*/
 void Shape::ClearWall( void)
 { 
+	//壁の消去
 	for (auto ite = m_Walls.begin(); ite != m_Walls.end(); ++ite)
 	{
+		(*ite)->ClearRenderer();
 		delete *ite;
 	}
 
 	m_Walls.clear();
+}
+
+/*------------------------------------------------------------------------------
+	壁の描画コンポーネントのクリア
+------------------------------------------------------------------------------*/
+void Shape::ClearWallRenderer( void)
+{ 
+	for (auto wall : m_Walls)
+	{
+		wall->ClearRenderer();
+	}
 }
 
 /*------------------------------------------------------------------------------
@@ -116,4 +130,72 @@ D3DXMATRIX Shape::GetMatrix(void)
 	D3DXMatrixRotationY( &mtxRot, m_Rotation);
 
 	return mtxRot * mtxPos;
+}
+
+/*------------------------------------------------------------------------------
+	描画の更新
+------------------------------------------------------------------------------*/
+void Shape::UpdateView(void)
+{
+	D3DXMATRIX matrix;
+	D3DXMatrixIdentity( &matrix);	
+
+	for (auto wall : m_Walls)
+	{
+		//描画情報の更新
+		wall->UpdateView( matrix);
+	}
+}
+
+/*------------------------------------------------------------------------------
+	裂け目の設定処理
+------------------------------------------------------------------------------*/
+void Shape::Split(Shape* other)
+{
+	//壁が交差するところに裂け目を設定
+	auto otherWalls = other->GetWalls();
+	for (auto wall1 : m_Walls)
+	{
+		for (auto wall2 : otherWalls)
+		{
+			//裂け目設定処理
+			wall1->Split( wall2);
+		}
+	}
+}
+
+/*------------------------------------------------------------------------------
+	フロアの先頭タイルを取得
+------------------------------------------------------------------------------*/
+Tile* Shape::GetStartTile(int floorCount)
+{
+	auto floors = m_Walls.front()->GetFloors();
+	
+	//フロアの階数をチェック
+	int size = floors.size();
+	if (size  <= floorCount)
+	{
+		return NULL;
+	}
+
+	//壁からタイルを取得
+	auto tile = m_Walls.front()->GetStartTile( floorCount);
+
+	return tile;
+}
+
+/*------------------------------------------------------------------------------
+	一番上のタイルを取得
+------------------------------------------------------------------------------*/
+Tile* Shape::GetTopTile(void)
+{
+	return m_Walls.front()->GetTopTile();
+}
+
+/*------------------------------------------------------------------------------
+	フロア数を取得
+------------------------------------------------------------------------------*/
+int Shape::GetFloorCount(void)
+{
+	return (int)m_Walls.front()->GetFloors().size();
 }

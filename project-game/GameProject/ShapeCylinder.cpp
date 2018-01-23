@@ -174,4 +174,26 @@ void ShapeCylinder::ConfirmShape(void)
 	
 }
 
+/*------------------------------------------------------------------------------
+	点との当たり判定
+------------------------------------------------------------------------------*/
+bool ShapeCylinder::CollisionPoint(const Vector3& point)
+{
+	//点をShapeのローカル空間に移動
+	auto mtxWorld = GetMatrix();
+	D3DXMATRIX mtxWorldInv;
+	D3DXMatrixInverse( &mtxWorldInv, NULL, &mtxWorld);
+	auto pointDX = point.ConvertToDX();
+	D3DXVec3TransformCoord( &pointDX, &pointDX, &mtxWorldInv);
+
+	//判定
+	if (Vector3::ConvertFromDX(pointDX).Length() < m_Radius && pointDX.y < m_Height - 0.5f)
+	{
+		//衝突あり
+		return true;
+	}
+
+	//衝突なし
+	return false;
+}
 

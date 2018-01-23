@@ -125,7 +125,7 @@ float Vector2::Cross( const Vector2 &V1, const Vector2 &V2)
 	à¯êî
 	const Vector2 &V1
 	ñﬂÇËíl
-	Vector2
+	float
 ------------------------------------------------------------------------------*/
 float Vector2::Distance( const Vector2 &V1) const
 {
@@ -138,11 +138,11 @@ float Vector2::Distance( const Vector2 &V1) const
 	const Vector2 &V1
 	const Vector2 &V2
 	ñﬂÇËíl
-	Vector2
+	float
 ------------------------------------------------------------------------------*/
 float Vector2::Distance( const Vector2 &V1, const Vector2 &V2)
 {
-	return ( V1 - V2).Length( V1);
+	return ( V1 - V2).Length();
 }
 
 /*------------------------------------------------------------------------------

@@ -19,6 +19,7 @@
 class Land;
 class Shape;
 class BuildingRule;
+class Tile;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -45,6 +46,10 @@ private:
 	Land* m_Land;
 	std::list< Shape*> m_Shapes;
 	BuildingRule* m_Rule;
+
+	Tile* SearchStartTile( Shape* shape, int floorCount);
+	bool CanLookTile( Tile* tile, Shape* owner);
+
 };
 
 #endif

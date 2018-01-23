@@ -63,26 +63,28 @@ void ShapeBox::CreateWalls(void)
 
 	auto matrix = GetMatrix();
 
+	//頂点
+	Vector3 leftFront(	m_Size.x * -0.5f, 0.0f, m_Size.z * -0.5f);
+	Vector3 rightFront( m_Size.x * +0.5f, 0.0f, m_Size.z * -0.5f);
+	Vector3 rightBack(	m_Size.x * +0.5f, 0.0f, m_Size.z * +0.5f);
+	Vector3 leftBack(	m_Size.x * -0.5f, 0.0f, m_Size.z * +0.5f);
+
 	//手前
-	Vector3 leftFront( m_Size.x * -0.5f, 0.0f, m_Size.z * 0.5f);
 	auto frontWall = new Wall( GetBuildingObject());
 	frontWall->InitDefault( matrix, m_Size.y, m_Size.x, leftFront, Vector3(0.0f, 0.0f, -1.0f), m_Rule);
 	AddWall( frontWall);
 
 	//右
-	Vector3 rightFront( m_Size.x * -0.5f, 0.0f, m_Size.z * -0.5f);
 	auto rightWall = new Wall( GetBuildingObject());
 	rightWall->InitDefault( matrix, m_Size.y, m_Size.z, rightFront, Vector3(1.0f, 0.0f, 0.0f), m_Rule);
 	AddWall( rightWall);
 
 	//奥
-	Vector3 rightBack( m_Size.x * +0.5f, 0.0f, m_Size.z * -0.5f);
 	auto backWall = new Wall( GetBuildingObject());
 	backWall->InitDefault( matrix, m_Size.y, m_Size.x, rightBack, Vector3(0.0f, 0.0f, 1.0f), m_Rule);
 	AddWall( backWall);
 
 	//左
-	Vector3 leftBack( m_Size.x * 0.5f, 0.0f, m_Size.z * +0.5f);
 	auto leftWall = new Wall( GetBuildingObject());
 	leftWall->InitDefault( matrix, m_Size.y, m_Size.z, leftBack, Vector3(-1.0f, 0.0f, 0.0f), m_Rule);
 	AddWall( leftWall);
@@ -201,11 +203,31 @@ void ShapeBox::ConfirmShape(void)
 
 	//壁を環状リストにする
 	wall->ChangeRingList();
-
-	//描画情報の更新
-	D3DXMATRIX matrix;
-	D3DXMatrixIdentity( &matrix);
-	wall->UpdateView( matrix);
 }
 
+/*------------------------------------------------------------------------------
+	点との当たり判定
+------------------------------------------------------------------------------*/
+bool ShapeBox::CollisionPoint(const Vector3& point)
+{
+	//点をShapeのローカル空間に移動
+	auto mtxWorld = GetMatrix();
+	D3DXMATRIX mtxWorldInv;
+	D3DXMatrixInverse( &mtxWorldInv, NULL, &mtxWorld);
+	auto pointDX = point.ConvertToDX();
+	D3DXVec3TransformCoord( &pointDX, &pointDX, &mtxWorldInv);
 
+	//判定
+	if (pointDX.x < m_Size.x * 0.5f && pointDX.x > -m_Size.x * 0.5f &&
+		pointDX.z < m_Size.z * 0.5f && pointDX.z > -m_Size.z * 0.5f)
+	{
+		if( pointDX.y < m_Size.y - 2.0f)
+		{
+			//衝突あり
+			return true;
+		}
+	}
+
+	//衝突なし
+	return false;
+}
