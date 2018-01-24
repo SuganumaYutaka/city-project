@@ -42,6 +42,7 @@ WallRenderer::WallRenderer( GameObject *pGameObject)
 
 	m_CountVertex = 0;
 	m_CountPolygon = 0;
+	m_CountRenderPolygon = 0;
 }
 
 /*------------------------------------------------------------------------------
@@ -96,7 +97,8 @@ void WallRenderer::Draw( Camera* pCamera)
 	m_pMaterial->Begin( m_nPass);
 
 	//ポリゴンの描画
-	pDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, m_CountPolygon);
+	//pDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, m_CountPolygon);
+	pDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, m_CountRenderPolygon);
 
 	//テクニック終了
 	m_pMaterial->End();
@@ -129,6 +131,7 @@ VERTEX_3D* WallRenderer::StartSetVertexBuffer( int countVertex, int countPolygon
 
 	m_CountVertex = countVertex;
 	m_CountPolygon = countPolygon;
+	m_CountRenderPolygon = countPolygon;
 
 	//頂点バッファを生成
 	if( FAILED( pDevice->CreateVertexBuffer( sizeof( VERTEX_3D) * countVertex, D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &m_pVtxBuff, NULL)))
@@ -153,4 +156,38 @@ void WallRenderer::EndSetVertexBuffer(void)
 	//アンロック
 	m_pVtxBuff->Unlock();
 }
+
+/*------------------------------------------------------------------------------
+	描画するポリゴンのOnOffを変更
+	Maxならtrue
+------------------------------------------------------------------------------*/
+bool WallRenderer::ChangeRenderPolygon()
+{
+	if (m_CountRenderPolygon > 0)
+	{
+		m_CountRenderPolygon = 0;
+		return false;
+	}
+	
+	m_CountRenderPolygon = m_CountPolygon;
+	return true;
+}
+
+/*------------------------------------------------------------------------------
+	描画するポリゴンを加算
+	Maxならtrue
+------------------------------------------------------------------------------*/
+bool WallRenderer::AddRenderPolygon()
+{
+	m_CountRenderPolygon += 6;
+
+	if (m_CountRenderPolygon > m_CountPolygon)
+	{
+		m_CountRenderPolygon = m_CountPolygon;
+		return true;
+	}
+
+	return false;
+}
+
 

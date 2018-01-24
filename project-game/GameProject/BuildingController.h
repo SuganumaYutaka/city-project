@@ -22,6 +22,7 @@ class RoadAttribute;
 class BuildingManager;
 class TrafficBuilding;
 class CarManager;
+class WallRenderer;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -40,6 +41,8 @@ public:
 	TrafficBuilding* GetTrafficBuilding( void){ return m_TrafficBuilding;}
 	
 	void ConfirmGeometry( void);
+	
+	void OnBuildingManagerDelete();
 
 private:
 	void Update(void);

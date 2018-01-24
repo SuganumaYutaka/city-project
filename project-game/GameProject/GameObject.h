@@ -88,6 +88,22 @@ public:
 		return NULL;
 	}
 
+	template< class T> std::list<T*> GetComponentList(void)	//コンポーネント取得
+	{
+		std::list<T*> list;
+
+		//コンポーネントの検索
+		for (Component* pComp : m_listComponent)
+		{
+			if( typeid(*pComp) == typeid(T))
+			{
+				list.push_back( (T *)pComp);
+			}
+		}
+
+		return list;
+	}
+
 	template< class T> T* GetComponentInChildren(void)	//子のコンポーネント取得
 	{
 		//コンポーネントの検索

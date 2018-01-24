@@ -54,6 +54,7 @@ public:
 	Tile* GetStartTile( int floorCount);
 	void ClearRenderer( void);
 	Tile* GetTopTile( void);
+	WallRenderer* GetWallRenderer( void){ return m_Renderer;}
 
 private:
 	float m_Height;

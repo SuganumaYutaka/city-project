@@ -36,7 +36,10 @@ public:
 
 	CityController( GameObject* pGameObject);
 	void Uninit( void);
-	
+	void Init( Vector2 citySize, int countDivide, int countCar, bool doConfirmGeometry);
+	void CreateCars( int countCar);
+	void DeleteAllCars( void);
+
 private:
 	void Update();
 
