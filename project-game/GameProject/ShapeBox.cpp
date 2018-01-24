@@ -221,7 +221,7 @@ bool ShapeBox::CollisionPoint(const Vector3& point)
 	if (pointDX.x < m_Size.x * 0.5f && pointDX.x > -m_Size.x * 0.5f &&
 		pointDX.z < m_Size.z * 0.5f && pointDX.z > -m_Size.z * 0.5f)
 	{
-		if( pointDX.y < m_Size.y - 2.0f)
+		if( pointDX.y < m_Size.y)
 		{
 			//Õ“Ë‚ ‚è
 			return true;

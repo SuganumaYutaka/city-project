@@ -276,7 +276,7 @@ bool Floor::InsertSplit(TileSplit* split, float lengthFromBottomLeft)
 		length += tile->GetWidth();
 		
 		//始点から距離が境目よりも遠いとき、タイルと次のタイルの間に挿入
-		if (length > lengthFromBottomLeft)
+		if (length + 0.001f >= lengthFromBottomLeft)
 		{
 			split->SetNext( tile->GetNext());
 			tile->SetNext( split);
@@ -291,15 +291,15 @@ bool Floor::InsertSplit(TileSplit* split, float lengthFromBottomLeft)
 		}
 	}
 
-	//誤差の範囲のとき最後のタイルのNextに設定
-	if (lengthFromBottomLeft - length < INSERT_PERMIT_RANGE)
-	{
-		auto tile = GetBackTile();
-		split->SetNext( NULL);
-		tile->SetNext( split);
-		split->SetPrevTile( tile);
-		return true;
-	}
+	////誤差の範囲のとき最後のタイルのNextに設定
+	//if (lengthFromBottomLeft - length < INSERT_PERMIT_RANGE)
+	//{
+	//	auto tile = GetBackTile();
+	//	split->SetNext( NULL);
+	//	tile->SetNext( split);
+	//	split->SetPrevTile( tile);
+	//	return true;
+	//}
 
 	//挿入箇所なし
 	return false;

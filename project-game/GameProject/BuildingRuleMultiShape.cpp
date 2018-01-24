@@ -44,15 +44,15 @@ BuildingRule* BuildingRuleMultiShape::Create( BuildingSurfacePattern* surfacePat
 	rule->m_ShapeSizeRateMin = 0.6f;
 
 	//1ŠK‚Ì‚‚³
-	random->SetRangeFloat( 2.0f, 2.5f);
+	random->SetRangeFloat( 1.2f, 1.5f);
 	rule->m_GroundFloorHeight = random->GetFloat();
 	
 	//ƒtƒƒA‚Ì‚‚³
-	random->SetRangeFloat( 1.0f, 2.0f);
+	random->SetRangeFloat( 1.0f, 1.5f);
 	rule->m_FloorHeight = random->GetFloat();
 
 	//‘‹‚Ì•
-	random->SetRangeFloat( 0.8f, 1.8f);
+	random->SetRangeFloat( 0.8f, 1.5f);
 	rule->m_WindowWidth = random->GetFloat();
 
 	//ŒºŠÖ‚Ì•

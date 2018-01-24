@@ -23,7 +23,7 @@
 /*------------------------------------------------------------------------------
 	マクロ定義
 ------------------------------------------------------------------------------*/
-#define MAX_TILE (200)
+#define MAX_TILE (300)
 
 /*------------------------------------------------------------------------------
 	コンポーネント生成
@@ -210,13 +210,12 @@ void BuildingGeometry::ConfirmGeometry(void)
 				auto split = dynamic_cast<TileSplit*>( tile);
 				if (split)
 				{
+					tile = split->GetOtherSplit();
+					
 					//prevも設定
-					auto prev = split->GetPrevTile();
+					auto prev = split->GetOtherSplit()->GetPrevTile();
 					vertexCount += prev->CulcCountVertex();
 					polygonCount += prev->CulcCountPolygon();
-
-					tile = split->GetOtherSplit();
-					//break;
 				}
 			}
 
@@ -255,13 +254,12 @@ void BuildingGeometry::ConfirmGeometry(void)
 				auto split = dynamic_cast<TileSplit*>( tile);
 				if (split)
 				{
+					tile = split->GetOtherSplit();
+					
 					//prevも設定
-					auto prev = split->GetPrevTile();
+					auto prev = split->GetOtherSplit()->GetPrevTile();
 					prev->SetVertexBuffer(pVtx);
 					pVtx += prev->CulcCountVertex();
-					
-					tile = split->GetOtherSplit();
-					//break;
 				}
 			}
 

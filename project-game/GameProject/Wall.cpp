@@ -348,8 +348,6 @@ bool Wall::SplitPlanes(Wall* source, Wall* dest)
 bool Wall::InsertSplit(const std::list<Floor*>& floors1, const std::list<Floor*>& floors2, float length1, float length2, Vector3 positionSplit)
 {
 	auto ite2 = floors2.begin();
-	//for (auto ite1 = floors1.begin(); *ite1 != floors1.back(); ++ite1, ++ite2)
-	//for (auto ite1 = floors1.begin(); ite1 != floors1.end(); ++ite1, ++ite2)
 	auto ite1 = floors1.begin();
 	for(;;)
 	{
