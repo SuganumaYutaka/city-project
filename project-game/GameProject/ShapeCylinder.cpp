@@ -171,7 +171,8 @@ void ShapeCylinder::ScaleRate(const Vector3& rate)
 ------------------------------------------------------------------------------*/
 void ShapeCylinder::ConfirmShape(void)
 {
-	
+	//壁を環状リストにする
+	GetWalls().front()->ChangeRingList();
 }
 
 /*------------------------------------------------------------------------------
@@ -179,15 +180,17 @@ void ShapeCylinder::ConfirmShape(void)
 ------------------------------------------------------------------------------*/
 bool ShapeCylinder::CollisionPoint(const Vector3& point)
 {
-	//点をShapeのローカル空間に移動
-	auto mtxWorld = GetMatrix();
-	D3DXMATRIX mtxWorldInv;
-	D3DXMatrixInverse( &mtxWorldInv, NULL, &mtxWorld);
-	auto pointDX = point.ConvertToDX();
-	D3DXVec3TransformCoord( &pointDX, &pointDX, &mtxWorldInv);
+	//高さの判定
+	if (point.y > m_Height - 1.0f)
+	{
+		//衝突なし
+		return false;
+	}
 
-	//判定
-	if (Vector3::ConvertFromDX(pointDX).Length() < m_Radius && pointDX.y < m_Height - 0.5f)
+	//中心からの距離で判定
+	auto center = GetPosition();
+	Vector3 vec( center.x - point.x, 0.0f, center.z - point.z);
+	if (vec.Length() < m_Radius)
 	{
 		//衝突あり
 		return true;

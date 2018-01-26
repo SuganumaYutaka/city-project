@@ -58,15 +58,23 @@ CityController::CityController( GameObject* pGameObject)
 	m_BuildingRuleFactory = NULL;
 	m_BuildingManager = NULL;
 	m_CarManager = NULL;
+
+	m_Width = CITY_WIDTH;
+	m_Height = CITY_HEIGHT;
+	m_CountCar = CREATE_CAR_COUNT;
 	
-	Init( Vector2( CITY_WIDTH, CITY_HEIGHT), DIVIDE_COUNT, CREATE_CAR_COUNT, true);
+	//Init( CITY_WIDTH, CITY_HEIGHT, DIVIDE_COUNT, CREATE_CAR_COUNT, true);
 }
 
 /*------------------------------------------------------------------------------
 	初期化
 ------------------------------------------------------------------------------*/
-void CityController::Init(Vector2 citySize, int countDivide, int countCar, bool doConfirmGeometry)
+void CityController::Init(float cityWidth, float cityHeight, int countDivide, int countCar, bool doConfirmGeometry)
 {
+	m_Width = cityWidth;
+	m_Height = cityHeight;
+	m_CountCar = countCar;
+
 	//車の消去
 	DeleteAllCars();
 
@@ -91,7 +99,7 @@ void CityController::Init(Vector2 citySize, int countDivide, int countCar, bool 
 	m_Model = new Model( new CityRule(), attributeFactory);
 
 	//はじめの面を生成
-	Vector3 sizeHalf( citySize.x * 0.5f, 0.0f, citySize.y * 0.5f);
+	Vector3 sizeHalf( cityWidth * 0.5f, 0.0f, cityHeight * 0.5f);
 	m_Model->CreateFirstFace( 
 		Vector3( -sizeHalf.x, 0.0f, +sizeHalf.z), Vector3( +sizeHalf.x, 0.0f, +sizeHalf.z),
 		Vector3( -sizeHalf.x, 0.0f, -sizeHalf.z), Vector3( +sizeHalf.x, 0.0f, -sizeHalf.z));
@@ -214,7 +222,7 @@ void CityController::Update()
 	{
 		if (m_CarManager->m_pGameObject->GetComponentListInChildren<CarController>().size() == 0)
 		{
-			CreateCars( CREATE_CAR_COUNT);
+			CreateCars( m_CountCar);
 		}
 		else
 		{
@@ -225,7 +233,7 @@ void CityController::Update()
 	//全データをリセット
 	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_6))
 	{
-		Init( Vector2( CITY_WIDTH, CITY_HEIGHT), 0, 0, false);
+		Init( m_Width,  m_Height, 0, 0, false);
 		return;
 	}
 }

@@ -15,6 +15,7 @@
 #include "ComponentInclude.h"
 #include "BuildingRule.h"
 #include "TileSplit.h"
+#include <math.h>
 
 /*------------------------------------------------------------------------------
 	マクロ定義
@@ -314,15 +315,6 @@ bool Wall::SplitPlanes(Wall* source, Wall* dest)
 	auto floors1 = source->GetFloors();
 	auto floors2 = dest->GetFloors();
 
-	if (source->GetWidth() < length1)
-	{
-		return false;
-	}
-	else if (dest->GetWidth() < length2)
-	{
-		return false;
-	}
-
 	//階数が少ない壁を基準として挿入処理
 	if (floors1.size() <= floors2.size())
 	{
@@ -343,58 +335,54 @@ bool Wall::SplitPlanes(Wall* source, Wall* dest)
 }
 
 /*------------------------------------------------------------------------------
-	境目の挿入
-------------------------------------------------------------------------------*/
-bool Wall::InsertSplit(const std::list<Floor*>& floors1, const std::list<Floor*>& floors2, float length1, float length2, Vector3 positionSplit)
-{
-	auto ite2 = floors2.begin();
-	auto ite1 = floors1.begin();
-	for(;;)
-	{
-		if (ite1 == floors1.end())
-		{
-			 break;
-		}
-		if ((*ite1)->GetType() == eFloorMargin)
-		{
-			break;
-		}
-
-		//境目となるタイルを生成して各フロアに挿入する
-		TileSplit* split1 = new TileSplit();
-		TileSplit* split2 = new TileSplit();
-		split1->Init( split2, positionSplit);
-		split2->Init( split1, positionSplit);
-
-		if (!(*ite1)->InsertSplit(split1, length1))
-		{
-			delete split1;
-			delete split2;
-			return false;
-		}
-		if (!(*ite2)->InsertSplit(split2, length2))
-		{
-			delete split1;
-			delete split2;
-			return false;
-		}
-
-		//境目の位置を高さ分ずらす
-		positionSplit.y += (*ite1)->GetHeight();
-
-		++ite1;
-		++ite2;
-	}
-
-	return true;
-}
-
-/*------------------------------------------------------------------------------
 	壁との裂け目処理（円柱と円柱）
 ------------------------------------------------------------------------------*/
 bool Wall::SplitCylinders(Wall* source, Wall* dest)
 {
+	//円同士の交点を二つ算出
+	Vector3 point1, point2;
+	if (!CulcPositionSplitCylinders(source, dest, &point1, &point2))
+	{
+		return false;
+	}
 
+	//交点と壁の始点との距離を算出
+	Vector3 center1 = source->GetCenter();
+	float radius1 = source->GetRadius();
+	Vector3 center2 = dest->GetCenter();
+	float radius2 = dest->GetRadius();
+	float lengthSource1 = CulcLengthArc( source->GetBottomLeftPosition(), point1, center1, radius1);
+	float lengthSource2 = CulcLengthArc( source->GetBottomLeftPosition(), point2, center1, radius1);
+	float lengthDest1 = CulcLengthArc( dest->GetBottomLeftPosition(), point1, center2, radius2);
+	float lengthDest2 = CulcLengthArc( dest->GetBottomLeftPosition(), point2, center2, radius2);
+
+	//最後の余白分を除くフロア階層分境目を設定
+	auto floors1 = source->GetFloors();
+	auto floors2 = dest->GetFloors();
+
+	//階数が少ない壁を基準として挿入処理
+	if (floors1.size() <= floors2.size())
+	{
+		if (!InsertSplit(floors1, floors2, lengthSource1, lengthDest1, point1))
+		{
+			return false;
+		}
+		if (!InsertSplit(floors1, floors2, lengthSource2, lengthDest2, point2))
+		{
+			return false;
+		}
+	}
+	else
+	{
+		if (!InsertSplit(floors2, floors1, lengthDest1, lengthSource1, point1))
+		{
+			return false;
+		}
+		if (!InsertSplit(floors2, floors1, lengthDest2, lengthSource2, point2))
+		{
+			return false;
+		}
+	}
 
 	return true;
 }
@@ -482,45 +470,121 @@ bool Wall::CulcPositionSplitPlanes(Wall* source, Wall* dest, Vector3* out)
 	}
 
 	return true;
-	
-	////同一平面（地面）での線分と線分の交点を求める
-	//Vector2 _s1 = Vector2( source->GetBottomLeftPosition().x, source->GetBottomLeftPosition().z);
-	//Vector2 _s2 = Vector2( dest->GetBottomLeftPosition().x, dest->GetBottomLeftPosition().z);
-	//Vector2 _v1 = Vector2( source->GetVector().x, source->GetVector().z);
-	//Vector2 _v2 = Vector2( dest->GetVector().x, dest->GetVector().z);
-	//
-	////外積で平行か確認
-	//float crossV1V2 = Vector2::Cross( _v1, _v2);
-	////if (crossV1V2 == 0.0f)
-	//if( crossV1V2 > -0.01f && crossV1V2 < 0.01f)
-	//{
-	//	return false;
-	//}
+}
 
-	////始点を結ぶベクトルと各ベクトルとの外積を算出
-	//Vector2 _vs = _s2 - _s1;
-	//float crossVSV1 = Vector2::Cross( _vs, _v1);
-	//float crossVSV2 = Vector2::Cross( _vs, _v2);
+/*------------------------------------------------------------------------------
+	壁との交点を算出（円柱の側面同士）
+------------------------------------------------------------------------------*/
+bool Wall::CulcPositionSplitCylinders(Wall* source, Wall* dest, Vector3* out1, Vector3* out2)
+{
+	Vector3 center1 = source->GetCenter();
+	Vector3 center2 = dest->GetCenter();
+	float radius1 = source->GetRadius();
+	float radius2 = dest->GetRadius();
+	Vector3 vec = center2 - center1;
+	float len = vec.Length();
 
-	////ベクトルを分割する比（内分比）が線分に収まるかで衝突判定
-	//float ratio1 = crossVSV2 / crossV1V2;
-	//float ratio2 = crossVSV1 / crossV1V2;
+	//距離が離れているか判定
+	if (len >= radius1 + radius2)
+	{
+		return false;
+	}
 
-	//Vector2 answer = _s1 + _v1 * ratio1;
-	//Vector3 vec = Vector3( answer.x, 0.0f, answer.y);
+	//円が円を内包しているか判定
+	if (abs(radius1 - radius2) >= len)
+	{
+		return false;
+	}
 
-	//if (ratio1 + SPLIT_EPSILON < 0 || ratio1 - SPLIT_EPSILON > 1 || ratio2 + SPLIT_EPSILON < 0 || ratio2 - SPLIT_EPSILON > 1)
-	//{
-	//	return false;
-	//}
+	//完全に重なるか判定
+	if (radius1 == radius2 && len == 0)
+	{
+		return false;
+	}
 
-	////交点を算出
-	//if(out)
-	//{
-	//	*out = Vector3( answer.x, 0.0f, answer.y);
-	//}
+	//X軸に対するvの角度
+	float angle = atan2f( vec.z, vec.x);
 
-	//return true;
+	//中心を結んだベクトルと交点のなす角を算出
+	float value = acosf( (len * len + radius1 * radius1 - radius2 * radius2) / ( radius1 * 2.0f * len));
+
+	*out1 = center1 + Vector3( radius1 * cosf( angle + value), 0.0f, radius1 * sinf( angle + value));
+	*out2 = center2 + Vector3( radius1 * cosf( angle - value), 0.0f, radius1 * sinf( angle - value));
+
+	//交点が近すぎる場合
+	if (Vector3::Distance(*out1, *out2) < SPLIT_EPSILON)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+/*------------------------------------------------------------------------------
+	弧の長さを算出
+------------------------------------------------------------------------------*/
+float Wall::CulcLengthArc(const Vector3& point1, const Vector3& point2, const Vector3& center, float radius)
+{
+	//内積で角度を算出
+	Vector3 v1 = point1 - center;
+	Vector3 v2 = point2 - center;
+	float angle = acos( Vector3::Dot( v1.Normalize(), v2.Normalize()));
+
+	//外積で0～2PIにする
+	Vector3 cross = Vector3::Cross( v1, v2);
+	if (cross.y > 0.0f)
+	{
+		angle = 2 * D3DX_PI - angle;
+	}
+
+	return angle * radius;
+}
+
+/*------------------------------------------------------------------------------
+	境目の挿入
+------------------------------------------------------------------------------*/
+bool Wall::InsertSplit(const std::list<Floor*>& floors1, const std::list<Floor*>& floors2, float length1, float length2, Vector3 positionSplit)
+{
+	auto ite2 = floors2.begin();
+	auto ite1 = floors1.begin();
+	for(;;)
+	{
+		if (ite1 == floors1.end())
+		{
+			 break;
+		}
+		if ((*ite1)->GetType() == eFloorMargin)
+		{
+			break;
+		}
+
+		//境目となるタイルを生成して各フロアに挿入する
+		TileSplit* split1 = new TileSplit();
+		TileSplit* split2 = new TileSplit();
+		split1->Init( split2, positionSplit);
+		split2->Init( split1, positionSplit);
+
+		if (!(*ite1)->InsertSplit(split1, length1))
+		{
+			delete split1;
+			delete split2;
+			return false;
+		}
+		if (!(*ite2)->InsertSplit(split2, length2))
+		{
+			delete split1;
+			delete split2;
+			return false;
+		}
+
+		//境目の位置を高さ分ずらす
+		positionSplit.y += (*ite1)->GetHeight();
+
+		++ite1;
+		++ite2;
+	}
+
+	return true;
 }
 
 /*------------------------------------------------------------------------------

@@ -34,14 +34,14 @@ BuildingRule* BuildingRuleMultiShape::Create( BuildingSurfacePattern* surfacePat
 	rule->m_Random = random;
 
 	//形状の高さ
-	random->SetRangeFloat( 20.0f, 30.0f);
+	random->SetRangeFloat( 20.0f, 25.0f);
 	rule->m_ShapeHeightMin = random->GetFloat();
-	random->SetRangeFloat( 0.0f, 30.0f);
+	random->SetRangeFloat( 25.0f, 30.0f);
 	rule->m_ShapeHeightMax = rule->m_ShapeHeightMin + random->GetFloat();
 
 	//形状のサイズの比率
 	rule->m_ShapeSizeRateMax = 0.9f;
-	rule->m_ShapeSizeRateMin = 0.6f;
+	rule->m_ShapeSizeRateMin = 0.5f;
 
 	//1階の高さ
 	random->SetRangeFloat( 1.2f, 1.5f);
@@ -88,14 +88,14 @@ bool BuildingRuleMultiShape::ProceduralShape(BuildingGeometry* geometry)
 	landSize.z = vec03.Length();
 
 	//Shapeの数
-	//m_Random->SetRangeInt( 1, 3);
-	//int shapeCount = m_Random->GetInt();
-	int shapeCount = 2;
+	m_Random->SetRangeInt( 1, 2);
+	int shapeCount = m_Random->GetInt();
+	//int shapeCount = 2;
 	
 	//Shapeの種類
 	m_Random->SetRangeInt( 0, 2);
-	//int type = m_Random->GetInt();
-	int type = 0;
+	int type = m_Random->GetInt();
+	//int type = 2;
 	if( type < 2)
 	{
 		//ShapeBoxの生成
@@ -432,7 +432,7 @@ Vector3 BuildingRuleMultiShape::MoveBottomLeftPosition( const Vector3& bottomLef
 {
 	D3DXMATRIX mtxRotation;
 	D3DXMatrixIdentity( &mtxRotation);
-	D3DXMatrixRotationY( &mtxRotation, angle);
+	D3DXMatrixRotationY( &mtxRotation, -angle);
 
 	D3DXVECTOR3 position = bottomLeftPosition.ConvertToDX();
 	D3DXVec3TransformCoord( &position, &position, &mtxRotation);
@@ -513,12 +513,12 @@ void BuildingRuleMultiShape::CreateShapeCylinders(int shapeCount, BuildingGeomet
 		//位置の設定
 		Vector3 position;
 		position.y = 0.0f;
-		/*float range = ( landSize.x - size.x) * 0.5f;
+		float range = ( landSize.x - size.x) * 0.5f;
 		m_Random->SetRangeFloat( -range, range);
 		position.x = m_Random->GetFloat();
 		range = ( landSize.z - size.z) * 0.5f;
 		m_Random->SetRangeFloat( -range, range);
-		position.z = m_Random->GetFloat();*/
+		position.z = m_Random->GetFloat();
 		
 		//高さの設定
 		m_Random->SetRangeFloat( m_ShapeHeightMin, m_ShapeHeightMax);

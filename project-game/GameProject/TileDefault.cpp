@@ -66,10 +66,10 @@ void TileDefault::SetVertexBuffer(VERTEX_3D* pVtx)
 	pVtx[0].Tex = pVtx[5].Tex = D3DXVECTOR2( 0.0f, 0.0f); 
 	
 	//UVÅiNéöÅj
-	pVtx[1].Tex = m_TexUV.GetBottomLeft();
-	pVtx[2].Tex = m_TexUV.GetTopLeft();
-	pVtx[3].Tex = m_TexUV.GetBottomRight();
-	pVtx[4].Tex = m_TexUV.GetTopRight();
+	pVtx[1].Tex = m_TexUV.GetTopLeft();
+	pVtx[2].Tex = m_TexUV.GetBottomLeft();
+	pVtx[3].Tex = m_TexUV.GetTopRight();
+	pVtx[4].Tex = m_TexUV.GetBottomRight();
 }
 
 /*------------------------------------------------------------------------------

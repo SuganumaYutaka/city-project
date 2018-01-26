@@ -74,7 +74,10 @@ private:
 	static bool SplitCylinders( Wall* source, Wall* dest);
 	static bool SplitPlaneCylinder( Wall* plane, Wall* cylinder);
 
-	static bool CulcPositionSplitPlanes( Wall* source, Wall* dest, Vector3* out = NULL);
+	static bool CulcPositionSplitPlanes( Wall* source, Wall* dest, Vector3* out);
+	static bool CulcPositionSplitCylinders( Wall* source, Wall* dest, Vector3* out1, Vector3* out2);
+	static float CulcLengthArc( const Vector3& point1, const Vector3& point2, const Vector3& center, float radius);
+
 	
 	static bool InsertSplit( const std::list<Floor*>& floors1, const std::list<Floor*>& floors2, float length1, float length2, Vector3 positionSplit);
 	

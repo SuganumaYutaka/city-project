@@ -412,7 +412,7 @@ Vector3 BuildingRuleCylinder::MoveBottomLeftPosition( const Vector3& bottomLeftP
 {
 	D3DXMATRIX mtxRotation;
 	D3DXMatrixIdentity( &mtxRotation);
-	D3DXMatrixRotationY( &mtxRotation, angle);
+	D3DXMatrixRotationY( &mtxRotation, -angle);
 
 	D3DXVECTOR3 position = bottomLeftPosition.ConvertToDX();
 	D3DXVec3TransformCoord( &position, &position, &mtxRotation);
