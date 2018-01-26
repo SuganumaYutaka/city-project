@@ -36,7 +36,10 @@ public:
 
 	CityController( GameObject* pGameObject);
 	void Uninit( void);
-	
+	void Init( float cityWidth, float cityHeight, int countDivide, int countCar, bool doConfirmGeometry);
+	void CreateCars( int countCar);
+	void DeleteAllCars( void);
+
 private:
 	void Update();
 
@@ -44,6 +47,11 @@ private:
 	BuildingRuleFactory* m_BuildingRuleFactory;
 	BuildingManager* m_BuildingManager;
 	CarManager* m_CarManager;
+
+	float m_Width;
+	float m_Height;
+	int m_CountCar;
+
 };
 
 

@@ -20,6 +20,17 @@ BuildingManager::BuildingManager()
 }
 
 /*------------------------------------------------------------------------------
+	デストラクタ
+------------------------------------------------------------------------------*/
+BuildingManager::~BuildingManager()
+{
+	for (auto building : m_Buildings)
+	{
+		building->OnBuildingManagerDelete();
+	}
+}
+
+/*------------------------------------------------------------------------------
 	建物の登録
 ------------------------------------------------------------------------------*/
 void BuildingManager::Register(BuildingController* buildingController)

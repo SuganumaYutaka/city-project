@@ -20,6 +20,7 @@ class WallRenderer;
 class GameObject;
 class BuildingRule;
 class Texture;
+class Tile;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -41,12 +42,19 @@ public:
 	float GetWidth( void) { return m_Width;}
 	const Vector3& GetBottomLeftPosition( void) { return m_BottomLeftPosition;}
 	const Vector3& GetNormal( void) { return m_Normal;}
+	const std::list<Floor*>& GetFloors( void){ return m_Floors;}
 
 	void LoadTexture( std::string fileName);
 	void FusionSameShape( Wall* other);
 	bool ChangeRingList( void);
-	bool Collision( Wall* other);
+	bool Split( Wall* other);
 	Vector3 GetVector( void);
+	Vector3 GetCenter( void);
+	float GetRadius( void);
+	Tile* GetStartTile( int floorCount);
+	void ClearRenderer( void);
+	Tile* GetTopTile( void);
+	WallRenderer* GetWallRenderer( void){ return m_Renderer;}
 
 private:
 	float m_Height;
@@ -55,9 +63,24 @@ private:
 	Vector3 m_Normal;
 	std::list<Floor*> m_Floors;
 	WallRenderer* m_Renderer;
+	bool m_IsCurve;
 
 	int CulcCountVertex( void);
 	int CulcCountPolygon( void);
+
+	void Transform(D3DXMATRIX shapeMatrix);
+
+	static bool SplitPlanes( Wall* source, Wall* dest);
+	static bool SplitCylinders( Wall* source, Wall* dest);
+	static bool SplitPlaneCylinder( Wall* plane, Wall* cylinder);
+
+	static bool CulcPositionSplitPlanes( Wall* source, Wall* dest, Vector3* out);
+	static bool CulcPositionSplitCylinders( Wall* source, Wall* dest, Vector3* out1, Vector3* out2);
+	static float CulcLengthArc( const Vector3& point1, const Vector3& point2, const Vector3& center, float radius);
+
+	
+	static bool InsertSplit( const std::list<Floor*>& floors1, const std::list<Floor*>& floors2, float length1, float length2, Vector3 positionSplit);
+	
 };
 
 #endif

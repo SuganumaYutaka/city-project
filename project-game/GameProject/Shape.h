@@ -19,6 +19,7 @@ class GameObject;
 class Roof;
 class Wall;
 class BuildingRule;
+class Tile;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -39,6 +40,7 @@ public:
 	void AddWall( Wall* wall);
 	void SubWall( Wall* wall);
 	void ClearWall( void);
+	void ClearWallRenderer( void);
 
 	std::list< Roof*>& GetRoofs( void) { return m_Roofs;}
 	std::list< Wall*>& GetWalls( void) { return m_Walls;}
@@ -47,6 +49,13 @@ public:
 	GameObject* GetBuildingObject( void) { return m_BuildingObject;}
 	
 	D3DXMATRIX GetMatrix( void);
+	void UpdateView( void);
+	void Split( Shape* other);
+	Tile* GetStartTile( int floorCount);
+
+	virtual bool CollisionPoint( const Vector3& point) = 0;
+	Tile* GetTopTile( void);
+	int GetFloorCount( void);
 
 protected:
 	void Uninit( void);

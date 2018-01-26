@@ -49,7 +49,7 @@ void TileCurve::SetVertexBuffer(VERTEX_3D* pVtx)
 {
 	//縮退ポリゴンに注意して頂点を設定
 	//回転用の準備
-	float angle = CulcAngle();
+	float angle = -CulcAngle();
 	int countDivide = CulcCountDivide();
 	float deltaAngle = angle / (float)( countDivide + 1);
 	D3DXMATRIX mtxRotate;
@@ -67,9 +67,9 @@ void TileCurve::SetVertexBuffer(VERTEX_3D* pVtx)
 	{
 		//位置の設定
 		D3DXVECTOR3 pos = m_Center.ConvertToDX() + positionFromCenter;
-		pVtx[ i].Pos = pos;
-		pos.y += m_Height;
 		pVtx[ i + 1].Pos = pos;
+		pos.y += m_Height;
+		pVtx[ i].Pos = pos;
 
 		//法線の設定
 		D3DXVECTOR3 normal;
@@ -80,8 +80,8 @@ void TileCurve::SetVertexBuffer(VERTEX_3D* pVtx)
 		pVtx[ i].Color = pVtx[ i + 1].Color = D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f);
 
 		//UVの設定
-		pVtx[ i].Tex = bottomTexUV;
-		pVtx[ i + 1].Tex = topTexUV;
+		pVtx[ i].Tex = topTexUV;
+		pVtx[ i + 1].Tex = bottomTexUV;
 		
 		//次の設定に向けて更新
 		D3DXVec3TransformCoord( &positionFromCenter, &positionFromCenter, &mtxRotate);
@@ -90,7 +90,7 @@ void TileCurve::SetVertexBuffer(VERTEX_3D* pVtx)
 	}
 
 	//縮退ポリゴンの設定
-	pVtx[ 0].Pos = m_BottomLeftPosition.ConvertToDX();
+	pVtx[ 0].Pos = D3DXVECTOR3( m_BottomLeftPosition.x, m_BottomLeftPosition.y + m_Height, m_BottomLeftPosition.z);
 	pVtx[ 0].Normal = D3DXVECTOR3( 0.0f, 0.0f, 0.0f);
 	pVtx[ 0].Color = D3DXCOLOR( 0.0f, 0.0f, 0.0f, 0.0f);
 	pVtx[ 0].Tex = D3DXVECTOR2( 0.0f, 0.0f);
@@ -99,7 +99,6 @@ void TileCurve::SetVertexBuffer(VERTEX_3D* pVtx)
 	D3DXMatrixRotationY( &mtxRotate, angle);
 	D3DXVec3TransformCoord( &lastPosition, &( m_BottomLeftPosition - m_Center).ConvertToDX(), &mtxRotate);
 	lastPosition += m_Center.ConvertToDX();
-	lastPosition.y += m_Height;
 	pVtx[ countVertex - 1].Pos = lastPosition;
 	pVtx[ countVertex - 1].Normal = D3DXVECTOR3( 0.0f, 0.0f, 0.0f);
 	pVtx[ countVertex - 1].Color = D3DXCOLOR( 0.0f, 0.0f, 0.0f, 0.0f);
@@ -141,7 +140,7 @@ float TileCurve::CulcAngle( void)
 ------------------------------------------------------------------------------*/
 int TileCurve::CulcCountDivide(void)
 {
-	float angle = CulcAngle();
+	float angle = abs( CulcAngle());
 	return (int)( angle / TILE_DIVIDE_PER_RADIAN);
 }
 

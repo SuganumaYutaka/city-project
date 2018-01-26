@@ -24,6 +24,7 @@ class BuildingManager
 {
 public:
 	BuildingManager();
+	~BuildingManager();
 
 	void Register( BuildingController* buildingController);
 	void Unregister( BuildingController* buildingController);

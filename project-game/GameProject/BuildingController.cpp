@@ -13,6 +13,7 @@
 #include "ComponentInclude.h"
 #include "Land.h"
 #include "Shape.h"
+#include "Wall.h"
 
 #include "BuildingRule.h"
 #include "BuildingGeometry.h"
@@ -100,3 +101,11 @@ void BuildingController::ConfirmGeometry(void)
 	m_Geometry =NULL;
 }
 
+/*------------------------------------------------------------------------------
+	ŠÇ—ƒNƒ‰ƒX‚ªíœ‚³‚ê‚éÛ‚Ìˆ—
+------------------------------------------------------------------------------*/
+void BuildingController::OnBuildingManagerDelete()
+{
+	m_BuildingManager = NULL;
+	m_pGameObject->ReleaseReserve();
+}

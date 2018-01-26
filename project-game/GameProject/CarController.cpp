@@ -72,6 +72,9 @@ void CarController::Init(TrafficRoad* currentRoad, TrafficJunction* nextJunction
 ------------------------------------------------------------------------------*/
 void CarController::Uninit( void)
 {
+	//道路から外す
+	m_CurrentRoad->UnregisterCar(this);
+
 	//ステートの解放
 	for (auto state : m_States)
 	{

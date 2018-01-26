@@ -37,15 +37,14 @@ Sun::Sun( GameObject* pGameObject)
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 
 	//ライト
-	GameObject *pLight = new GameObject( pGameObject);
-	pLight->IsCreatedByOtherComponent = true;
+	auto pLight = pGameObject;
 	m_pLight = pLight->AddComponent<Light>();
 	m_pLight->IsCreatedByOtherComponent = true;
 	
 	//ライトのカメラ
 	m_pCamera = pLight->AddComponent<Camera>();
 	m_pCamera->IsCreatedByOtherComponent = true;
-	m_pCamera->ChangeLightCameraFormat( Vector3( DEFAULT_FIELD_SIZE, DEFAULT_FIELD_SIZE, DEFAULT_FIELD_SIZE));
+	m_pCamera->ChangeLightCameraFormat( Vector3( DEFAULT_FIELD_SIZE + 100.0f, DEFAULT_FIELD_SIZE, DEFAULT_FIELD_SIZE + 100.0f));
 	m_pCamera->SetPosAt( Vector3(0.0f, 0.0f, 0.0f));
 }
 

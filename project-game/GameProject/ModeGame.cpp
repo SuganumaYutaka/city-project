@@ -43,11 +43,13 @@ void ModeGame::Init()
 	//m_pRoot->AddComponent<EditSystem>();
 #endif // _DEBUG
 
+	//街全体の大きさ
+	Vector2 citySize( 350.0f, 350.0f);
+
 	//カメラ
 	GameObject *pCamera = new GameObject( m_pRoot);
 	auto cameraComponent = pCamera->AddComponent<Camera>();
-	pCamera->m_pTransform->SetLocalPosition( Vector3( 0.0f, 100.0f, -150.0f));
-	//pCamera->m_pTransform->SetLocalPosition( Vector3( 0.0f, 5.0f, -5.0f));
+	pCamera->m_pTransform->SetLocalPosition( Vector3( 0.0f, 150.0f, citySize.y * -0.8f));
 	cameraComponent->SetFar( 2000.0f);
 	pCamera->AddComponent<CameraController>();
 
@@ -59,7 +61,7 @@ void ModeGame::Init()
 	//スカイドーム
 	auto pSky = new GameObject( m_pRoot);
 	auto meshDome = pSky->AddComponent<MeshDomeRenderer>();
-	meshDome->SetDome( 30, 10, 220.0f, 220.0f);
+	meshDome->SetDome( 30, 10, citySize.x * 1.1f, citySize.y * 1.1f);
 	meshDome->m_nLayer = eLayerSky;
 	meshDome->SetShader( eShaderSky);
 	meshDome->LoadTexture( "data/TEXTURE/sky01.jpg");
@@ -69,11 +71,13 @@ void ModeGame::Init()
 	auto grountRanderer = groundObject->AddComponent<Polygon3DRenderer>();
 	grountRanderer->LoadTexture("data/TEXTURE/black.jpg");
 	groundObject->m_pTransform->SetLocalPositionY( -5.0f);
-	groundObject->m_pTransform->SetLocalScale( 500.0f, 1.0f, 500.0f);
+	groundObject->m_pTransform->SetLocalScale( citySize.x * 3.0f, 1.0f, citySize.y * 3.0f);
 
 	//City
 	auto cityObject = new GameObject( m_pRoot);
 	auto cityController = cityObject->AddComponent<CityController>();
+	//cityController->Init( citySize.x, citySize.y, 4, 40, true);
+	cityController->Init( citySize.x, citySize.y, 0, 40, false);
 
 	////shadowtest
 	//auto sunObj = new GameObject( m_pRoot);
@@ -93,8 +97,9 @@ void ModeGame::Init()
 	//auto spriteObj = new GameObject( m_pRoot);
 	//auto sprite = spriteObj->AddComponent<SpriteRenderer>();
 	//sprite->LoadTexture("shadow");
-	//spriteObj->m_pTransform->SetLocalPosition( SCREEN_WIDTH - 100.0f, 100.0f, 0.0f);
-	//spriteObj->m_pTransform->SetLocalScale( 200.0f, 200.0f, 1.0f);
+	//Vector2 size = Vector2( 500.0f, 500.0f);
+	//spriteObj->m_pTransform->SetLocalPosition( SCREEN_WIDTH - size.x * 0.5f, size.y * 0.5f, 0.0f);
+	//spriteObj->m_pTransform->SetLocalScale( size.x, size.y, 1.0f);
 }
 
 /*------------------------------------------------------------------------------

@@ -171,7 +171,32 @@ void ShapeCylinder::ScaleRate(const Vector3& rate)
 ------------------------------------------------------------------------------*/
 void ShapeCylinder::ConfirmShape(void)
 {
-	
+	//壁を環状リストにする
+	GetWalls().front()->ChangeRingList();
 }
 
+/*------------------------------------------------------------------------------
+	点との当たり判定
+------------------------------------------------------------------------------*/
+bool ShapeCylinder::CollisionPoint(const Vector3& point)
+{
+	//高さの判定
+	if (point.y > m_Height - 1.0f)
+	{
+		//衝突なし
+		return false;
+	}
+
+	//中心からの距離で判定
+	auto center = GetPosition();
+	Vector3 vec( center.x - point.x, 0.0f, center.z - point.z);
+	if (vec.Length() < m_Radius)
+	{
+		//衝突あり
+		return true;
+	}
+
+	//衝突なし
+	return false;
+}
 

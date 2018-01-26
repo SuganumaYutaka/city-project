@@ -44,11 +44,14 @@ public:
 	VERTEX_3D* StartSetVertexBuffer( int countVertex, int countPolygon);
 	void EndSetVertexBuffer( void);
 
+	bool ChangeRenderPolygon();
+	bool AddRenderPolygon();
+
 private:
 	Material *m_pMaterial;
 	int m_CountVertex;
 	int m_CountPolygon;
-
+	int m_CountRenderPolygon;
 };
 
 #endif
