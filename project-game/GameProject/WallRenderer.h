@@ -47,11 +47,15 @@ public:
 	bool ChangeRenderPolygon();
 	bool AddRenderPolygon();
 
+	void ChangeWireFrame( bool isWireFrame){ m_IsWireFrame = isWireFrame;}
+
 private:
 	Material *m_pMaterial;
 	int m_CountVertex;
 	int m_CountPolygon;
 	int m_CountRenderPolygon;
+
+	bool m_IsWireFrame;
 };
 
 #endif

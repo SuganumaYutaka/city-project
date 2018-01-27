@@ -51,7 +51,7 @@ private:
 	float m_Width;
 	float m_Height;
 	int m_CountCar;
-
+	bool m_IsWireFrame;
 };
 
 
