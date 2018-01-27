@@ -30,6 +30,7 @@ WallRenderer::WallRenderer( GameObject *pGameObject)
 {
 	m_pGameObject = pGameObject;
 	m_nLayer = eLayerDefault;
+	m_nLayer = eLayerWireFrame;
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 	m_nPass = 1;
 
@@ -43,6 +44,7 @@ WallRenderer::WallRenderer( GameObject *pGameObject)
 	m_CountVertex = 0;
 	m_CountPolygon = 0;
 	m_CountRenderPolygon = 0;
+	m_IsWireFrame = false;
 }
 
 /*------------------------------------------------------------------------------
@@ -87,6 +89,12 @@ void WallRenderer::Draw( Camera* pCamera)
 
 	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//デバイス取得
 
+	//ワイヤーフレーム設定
+	if (m_IsWireFrame)
+	{
+		pDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME);	//ワイヤーフレーム表示
+	}
+
 	//マテリアル（シェーダー）をセット
 	m_pMaterial->Set( pCamera, this);
 
@@ -102,6 +110,12 @@ void WallRenderer::Draw( Camera* pCamera)
 
 	//テクニック終了
 	m_pMaterial->End();
+
+	//ワイヤーフレーム設定
+	if (m_IsWireFrame)
+	{
+		pDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_SOLID);
+	}
 }
 
 /*------------------------------------------------------------------------------

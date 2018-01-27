@@ -62,6 +62,7 @@ CityController::CityController( GameObject* pGameObject)
 	m_Width = CITY_WIDTH;
 	m_Height = CITY_HEIGHT;
 	m_CountCar = CREATE_CAR_COUNT;
+	m_IsWireFrame = false;
 	
 	//Init( CITY_WIDTH, CITY_HEIGHT, DIVIDE_COUNT, CREATE_CAR_COUNT, true);
 }
@@ -163,6 +164,13 @@ void CityController::Update()
 		for (auto building : m_BuildingManager->GetAllBuildings())
 		{
 			building->ConfirmGeometry();
+
+			//ワイヤーフレーム設定
+			auto renderers = building->m_pGameObject->GetComponentList<WallRenderer>();
+			for( auto renderer : renderers)
+			{
+				renderer->ChangeWireFrame( m_IsWireFrame);
+			}
 		}
 	}
 
@@ -230,11 +238,26 @@ void CityController::Update()
 		}
 	}
 
-	//全データをリセット
-	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_6))
+	////全データをリセット
+	//if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_6))
+	//{
+	//	Init( m_Width,  m_Height, 0, 0, false);
+	//	return;
+	//}
+
+	//ワイヤーフレーム設定
+	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_7))
 	{
-		Init( m_Width,  m_Height, 0, 0, false);
-		return;
+		m_IsWireFrame ? m_IsWireFrame = false : m_IsWireFrame = true;
+
+		for( auto building : m_BuildingManager->GetAllBuildings())
+		{
+			auto renderers = building->m_pGameObject->GetComponentList<WallRenderer>();
+			for( auto renderer : renderers)
+			{
+				renderer->ChangeWireFrame( m_IsWireFrame);
+			}
+		}
 	}
 }
 
