@@ -139,12 +139,6 @@ void MeshBoxRenderer::Draw( Camera* pCamera)
 {
 	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//デバイス取得
 
-	//ワイヤーフレーム設定
-	if (m_nLayer == eLayerWireFrame)
-	{
-		pDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME);	//ワイヤーフレーム表示
-	}
-
 	//マテリアル（シェーダー）をセット
 	m_pMaterial->Set( pCamera, this);
 
@@ -162,12 +156,6 @@ void MeshBoxRenderer::Draw( Camera* pCamera)
 
 	//テクニック終了
 	m_pMaterial->End();
-
-	//ワイヤーフレーム設定
-	if (m_nLayer == eLayerWireFrame)
-	{
-		pDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_SOLID);
-	}
 }
 
 /*------------------------------------------------------------------------------
