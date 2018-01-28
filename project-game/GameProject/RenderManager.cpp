@@ -196,19 +196,7 @@ void RenderManager::Draw()
 				for (int nCntLayer = 0; nCntLayer < eLayerNum; nCntLayer++)
 				{
 					//“o˜^‚³‚ê‚½ƒŒƒ“ƒ_ƒ‰[‚ð•`‰æ
-					for (Renderer* pRenderer : m_listRenderer)
-					{
-						if (pRenderer->m_nLayer == nCntLayer)
-						{
-							if( pRenderer->GetActive() == true)
-							{
-								if( pRenderer->CheckFrustumCulling( pCamera))
-								{
-									pRenderer->Draw( pCamera);
-								}
-							}
-						}
-					}
+					DrawRenderer( nCntLayer);
 				}
 			}
 
@@ -219,19 +207,7 @@ void RenderManager::Draw()
 				for (auto nLayer : List)
 				{
 					//“o˜^‚³‚ê‚½ƒŒƒ“ƒ_ƒ‰[‚ð•`‰æ
-					for (Renderer* pRenderer : m_listRenderer)
-					{
-						if (pRenderer->m_nLayer == nLayer)
-						{
-							if( pRenderer->GetActive() == true)
-							{
-								if( pRenderer->CheckFrustumCulling( pCamera))
-								{
-									pRenderer->Draw( pCamera);
-								}
-							}
-						}
-					}
+					DrawRenderer( nLayer);
 				}
 			}
 
@@ -254,19 +230,7 @@ void RenderManager::Draw()
 		for (int nCntLayer = 0; nCntLayer < eLayerNum; nCntLayer++)
 		{
 			//“o˜^‚³‚ê‚½ƒŒƒ“ƒ_ƒ‰[‚ð•`‰æ
-			for (Renderer* pRenderer : m_listRenderer)
-			{
-				if (pRenderer->m_nLayer == nCntLayer)
-				{
-					if( pRenderer->GetActive() == true)
-					{
-						if( pRenderer->CheckFrustumCulling(m_pMainCamera))
-						{
-							pRenderer->Draw( m_pMainCamera);
-						}
-					}
-				}
-			}
+			DrawRenderer( nCntLayer);
 		}
 
 		//ƒfƒoƒbƒO•\Ž¦
@@ -286,3 +250,36 @@ void RenderManager::Draw()
 	m_pDevice->Present( NULL, NULL, NULL, NULL);
 }
 
+/*------------------------------------------------------------------------------
+	“o˜^‚³‚ê‚½Renderer‚ðƒŒƒCƒ„[‚²‚Æ‚É•`‰æ
+------------------------------------------------------------------------------*/
+void RenderManager::DrawRenderer(int layer)
+{
+	//ƒŒƒCƒ„[‚²‚Æ‚ÌÝ’è
+	//ƒƒCƒ„[ƒtƒŒ[ƒ€
+	if (layer == eLayerWireFrame)
+	{
+		m_pDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	}
+
+	for (Renderer* pRenderer : m_listRenderer)
+	{
+		if (pRenderer->m_nLayer == layer)
+		{
+			if( pRenderer->GetActive() == true)
+			{
+				if( pRenderer->CheckFrustumCulling(m_pMainCamera))
+				{
+					pRenderer->Draw( m_pMainCamera);
+				}
+			}
+		}
+	}
+
+	//ƒŒƒCƒ„[‚²‚Æ‚ÌÝ’è
+	//ƒƒCƒ„[ƒtƒŒ[ƒ€
+	if (layer == eLayerWireFrame)
+	{
+		m_pDevice->SetRenderState( D3DRS_FILLMODE, D3DFILL_SOLID);
+	}
+}
