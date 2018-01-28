@@ -76,8 +76,8 @@ void ModeGame::Init()
 	//City
 	auto cityObject = new GameObject( m_pRoot);
 	auto cityController = cityObject->AddComponent<CityController>();
-	//cityController->Init( citySize.x, citySize.y, 4, 40, true);
-	cityController->Init( citySize.x, citySize.y, 0, 40, false);
+	cityController->Init( citySize.x, citySize.y, 4, 40, true);
+	//cityController->Init( citySize.x, citySize.y, 0, 40, false);
 
 	////shadowtest
 	//auto sunObj = new GameObject( m_pRoot);
