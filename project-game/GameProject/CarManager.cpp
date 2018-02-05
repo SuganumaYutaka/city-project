@@ -14,7 +14,7 @@
 #include "CarController.h"
 #include "TrafficRoad.h"
 #include "TrafficJunction.h"
-#include "TrafficBuilding.h"
+#include "TrafficLand.h"
 
 /*------------------------------------------------------------------------------
 	コンポーネント生成
@@ -63,13 +63,13 @@ std::list<CarController*> CarManager::GetAllCarControllers(void)
 	CarController生成
 ------------------------------------------------------------------------------*/
 CarController* CarManager::CreateCarController(const Vector3& position, const D3DXQUATERNION& rotation
-	, TrafficRoad* currentRoad, TrafficJunction* nextJunction, TrafficBuilding* targetBuilding)
+	, TrafficRoad* currentRoad, TrafficJunction* nextJunction, TrafficLand* targetLand)
 {
 	auto carObject = new GameObject( m_pGameObject);
 	carObject->m_pTransform->SetWorldPosition( position);
 	carObject->m_pTransform->SetWorldRotation( rotation);
 	auto carController = carObject->AddComponent<CarController>();
-	carController->Init( currentRoad, nextJunction, targetBuilding);
+	carController->Init( currentRoad, nextJunction, targetLand);
 
 	return carController;
 }

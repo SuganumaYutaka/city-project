@@ -384,9 +384,6 @@
     <ClCompile Include="WallRenderer.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
-    <ClCompile Include="Land.cpp">
-      <Filter>CityEngine\Building</Filter>
-    </ClCompile>
     <ClCompile Include="Shape.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
@@ -449,6 +446,21 @@
     </ClCompile>
     <ClCompile Include="BuildingRuleMultiShape.cpp">
       <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="TrafficLand.cpp">
+      <Filter>CityEngine\Traffic</Filter>
+    </ClCompile>
+    <ClCompile Include="LandCreateRule.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="Land.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="Attribute.cpp">
+      <Filter>CityEngine\HalfEdge</Filter>
+    </ClCompile>
+    <ClCompile Include="CityAttributeManager.cpp">
+      <Filter>CityEngine\City</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -755,9 +767,6 @@
     <ClInclude Include="WallRenderer.h">
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
-    <ClInclude Include="Land.h">
-      <Filter>CityEngine\Building</Filter>
-    </ClInclude>
     <ClInclude Include="BuildingRuleFactory.h">
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
@@ -817,6 +826,18 @@
     </ClInclude>
     <ClInclude Include="BuildingRuleMultiShape.h">
       <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="TrafficLand.h">
+      <Filter>CityEngine\Traffic</Filter>
+    </ClInclude>
+    <ClInclude Include="LandCreateRule.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="Land.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="CityAttributeManager.h">
+      <Filter>CityEngine\City</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

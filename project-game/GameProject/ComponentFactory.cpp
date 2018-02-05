@@ -48,15 +48,17 @@ ComponentFactory::ComponentFactory()
 	REGISTER(Slider);
 	REGISTER(Sun);
 	REGISTER(EditSystem);
+	REGISTER(MeshPolygonRenderer);
+
 	REGISTER(CityController);
-	REGISTER(JunctionView);
+	
+	/*REGISTER(JunctionView);
 	REGISTER(RoadView);
 	REGISTER(BlockView);
-	REGISTER(MeshPolygonRenderer);
 	REGISTER(BlockModel);
 	REGISTER(BuildingGeometry);
 	REGISTER(WallRenderer);
-	REGISTER(BuildingController);
+	REGISTER(BuildingController);*/
 
 }
 

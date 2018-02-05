@@ -19,12 +19,23 @@ using namespace HalfEdgeDataStructure;
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
-Face::Face( HalfEdgeDataStructure::Model* model, HalfEdge* he, FaceAttribute* attribute)
-	: m_Model(model), m_HalfEdge(he), m_Attribute( attribute)
+Face::Face( HalfEdgeDataStructure::Model* model, HalfEdge* he)
+	: m_Model(model), m_HalfEdge(he), m_Attribute( NULL)
 { 
 	model->RegisterFace(this);
-	m_Attribute->SetFace(this);
-	m_Attribute->Init();
+
+}
+
+/*------------------------------------------------------------------------------
+	デストラクタ
+------------------------------------------------------------------------------*/
+Face::~Face()
+{
+	m_Model->UnregisterFace( this);
+	if( m_Attribute)
+	{
+		m_Attribute->OnDeleteFace();
+	}
 }
 
 /*------------------------------------------------------------------------------
@@ -113,8 +124,14 @@ bool Face::Divide(Vertex* start, Vertex* end, Edge** ppOut)
 	}
 
 	//面の更新
-	this->m_Attribute->Update();
-	face->m_Attribute->Update();
+	if( this->m_Attribute)
+	{
+		this->m_Attribute->Update();
+	}
+	if( face->m_Attribute)
+	{
+		face->m_Attribute->Update();
+	}
 
 	return true;
 }
@@ -190,5 +207,8 @@ HalfEdge* Face::SeachStraightLine( HalfEdge* startHalfEdge)
 ------------------------------------------------------------------------------*/
 void Face::UpdateByMove(void)
 {
-	m_Attribute->Update();
+	if( m_Attribute)
+	{
+		m_Attribute->Update();
+	}
 }

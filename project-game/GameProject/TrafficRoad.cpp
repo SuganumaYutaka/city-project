@@ -51,7 +51,7 @@ TrafficRoad::TrafficRoad( GameObject* pGameObject)
 ------------------------------------------------------------------------------*/
 void TrafficRoad::Uninit( void)
 {
-	m_Attribute->UnregisterView();
+	
 }
 
 /*------------------------------------------------------------------------------
@@ -61,11 +61,9 @@ void TrafficRoad::Update( void)
 {
 	if (m_IsUpdatedAttribute)
 	{
-
 		m_IsUpdatedAttribute = false;
 	}
 
-	
 
 }
 

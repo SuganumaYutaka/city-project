@@ -32,7 +32,7 @@ public:
 	BuildingGeometry( GameObject* pGameObject);
 	void Uninit( void);
 
-	bool Init( const std::vector<Vector3>& vertices, BuildingRule* rule);
+	bool Init( Land* land, BuildingRule* rule);
 
 	Land* GetLand( void) { return m_Land;}
 	void AddShape( Shape* shape){ m_Shapes.push_back( shape); }

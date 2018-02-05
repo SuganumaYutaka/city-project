@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Attribute.cpp" />
     <ClCompile Include="AudioSource.cpp" />
     <ClCompile Include="BillboardRenderer.cpp" />
     <ClCompile Include="BillboardShader.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="CarManager.cpp" />
     <ClCompile Include="CarState.cpp" />
     <ClCompile Include="CityAttribute.cpp" />
+    <ClCompile Include="CityAttributeManager.cpp" />
     <ClCompile Include="CityController.cpp" />
     <ClCompile Include="CityRule.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -207,6 +209,7 @@
     <ClCompile Include="InputMouse.cpp" />
     <ClCompile Include="JunctionView.cpp" />
     <ClCompile Include="Land.cpp" />
+    <ClCompile Include="LandCreateRule.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
@@ -260,6 +263,7 @@
     <ClCompile Include="TitleController.cpp" />
     <ClCompile Include="TrafficBuilding.cpp" />
     <ClCompile Include="TrafficJunction.cpp" />
+    <ClCompile Include="TrafficLand.cpp" />
     <ClCompile Include="TrafficRoad.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector2.cpp" />
@@ -342,6 +346,7 @@
     <ClInclude Include="CarManager.h" />
     <ClInclude Include="CarState.h" />
     <ClInclude Include="CityAttribute.h" />
+    <ClInclude Include="CityAttributeManager.h" />
     <ClInclude Include="CityController.h" />
     <ClInclude Include="CityRule.h" />
     <ClInclude Include="Collider.h" />
@@ -372,6 +377,7 @@
     <ClInclude Include="InputMouse.h" />
     <ClInclude Include="JunctionView.h" />
     <ClInclude Include="Land.h" />
+    <ClInclude Include="LandCreateRule.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Material.h" />
@@ -431,6 +437,7 @@
     <ClInclude Include="TitleController.h" />
     <ClInclude Include="TrafficBuilding.h" />
     <ClInclude Include="TrafficJunction.h" />
+    <ClInclude Include="TrafficLand.h" />
     <ClInclude Include="TrafficRoad.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector2.h" />

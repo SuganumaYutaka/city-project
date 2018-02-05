@@ -27,28 +27,21 @@ Model::~Model()
 		delete face;
 	}
 	m_Faces.clear();
+	m_Faces.shrink_to_fit();
 
 	for (auto edge : m_Edges)
 	{
 		delete edge;
 	}
 	m_Edges.clear();
+	m_Edges.shrink_to_fit();
 	
 	for (auto vertex : m_Vertices)
 	{
 		delete vertex;
 	}
 	m_Vertices.clear();
-
-	if (m_Rule)
-	{
-		delete m_Rule;
-	}
-
-	if (m_AttributeFactory)
-	{
-		delete m_AttributeFactory;
-	}
+	m_Vertices.shrink_to_fit();
 }
 
 /*------------------------------------------------------------------------------
@@ -56,7 +49,7 @@ Model::~Model()
 ------------------------------------------------------------------------------*/
 Vertex* Model::CreateVertex(const Vector3& position)
 {
-	return new Vertex( this, position, m_AttributeFactory->CreateVertexAttribute());
+	return new Vertex( this, position);
 }
 
 /*------------------------------------------------------------------------------
@@ -64,7 +57,7 @@ Vertex* Model::CreateVertex(const Vector3& position)
 ------------------------------------------------------------------------------*/
 Edge* Model::CreateEdge( Vertex* start, Vertex* end)
 {
-	return new Edge( this, start, end, m_AttributeFactory->CreateEdgeAttribute());
+	return new Edge( this, start, end);
 }
 
 /*------------------------------------------------------------------------------
@@ -72,7 +65,7 @@ Edge* Model::CreateEdge( Vertex* start, Vertex* end)
 ------------------------------------------------------------------------------*/
 Face* Model::CreateFace( HalfEdge* he)
 {
-	return new Face( this, he, m_AttributeFactory->CreateFaceAttribute());
+	return new Face( this, he);
 }
 
 /*------------------------------------------------------------------------------
@@ -201,26 +194,148 @@ bool Model::CreateFirstFace(
 }
 
 /*------------------------------------------------------------------------------
-	‚·‚×‚Ä‚Ì–Ê‚ğ•ªŠ„
+	’¸“_‚ğæ“¾
 ------------------------------------------------------------------------------*/
-bool Model::DivideAllFaces(void)
+Vertex* Model::GetVertex(int id)
 {
-	if (m_Faces.size() == 0)
+	if (m_Vertices.size() <= id)
 	{
-		return false;
+		return NULL;
 	}
 
-	auto faces = m_Faces;
+	return m_Vertices[ id];
+}
 
-	for (auto face : faces)
+/*------------------------------------------------------------------------------
+	’¸“_‚ÌID‚ğæ“¾
+------------------------------------------------------------------------------*/
+int Model::GetVertexID(Vertex* vertex)
+{
+	int size = m_Vertices.size();
+	for (int i = 0; i < size; i++)
 	{
-		//³•ûŒ`E’·•ûŒ`‚Æ‰¼’è‚µ‚Ä•ªŠ„ƒ‹[ƒ‹‚ğİ’è
-
-		if (!m_Rule->DivideFace( face))
+		if (m_Vertices[i] == vertex)
 		{
-			continue;
+			return i;
 		}
 	}
 
-	return true;
+	//”­Œ©‚Å‚«‚È‚¢
+	return -1;
+}
+
+/*------------------------------------------------------------------------------
+	“o˜^‚ğ‰ğœ
+------------------------------------------------------------------------------*/
+bool Model::UnregisterVertex( Vertex* vertex)
+{
+	int size = m_Vertices.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Vertices[i] == vertex)
+		{
+			m_Vertices[i] = NULL;
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/*------------------------------------------------------------------------------
+	•Ó‚ğæ“¾
+------------------------------------------------------------------------------*/
+Edge* Model::GetEdge(int id)
+{
+	if (m_Vertices.size() <= id)
+	{
+		return NULL;
+	}
+
+	return m_Edges[ id];
+}
+
+/*------------------------------------------------------------------------------
+	•Ó‚ÌID‚ğæ“¾
+------------------------------------------------------------------------------*/
+int Model::GetEdgeID( Edge* edge)
+{
+	int size = m_Edges.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Edges[i] == edge)
+		{
+			return i;
+		}
+	}
+
+	//”­Œ©‚Å‚«‚È‚¢
+	return -1;
+}
+
+/*------------------------------------------------------------------------------
+	“o˜^‚ğ‰ğœ
+------------------------------------------------------------------------------*/
+bool Model::UnregisterEdge( Edge* edge)
+{
+	int size = m_Edges.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Edges[i] == edge)
+		{
+			m_Edges[i] = NULL;
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/*------------------------------------------------------------------------------
+	–Ê‚ğæ“¾
+------------------------------------------------------------------------------*/
+Face* Model::GetFace(int id)
+{
+	if (m_Vertices.size() <= id)
+	{
+		return NULL;
+	}
+
+	return m_Faces[ id];
+}
+
+/*------------------------------------------------------------------------------
+	–Ê‚ÌID‚ğæ“¾
+------------------------------------------------------------------------------*/
+int Model::GetFaceID( Face* face)
+{
+	int size = m_Faces.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Faces[i] == face)
+		{
+			return i;
+		}
+	}
+
+	//”­Œ©‚Å‚«‚È‚¢
+	return -1;
+}
+
+/*------------------------------------------------------------------------------
+	“o˜^‚ğ‰ğœ
+------------------------------------------------------------------------------*/
+bool Model::UnregisterFace( Face* face)
+{
+	int size = m_Faces.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Faces[i] == face)
+		{
+			m_Faces[i] = NULL;
+			return true;
+		}
+	}
+
+	return false;
 }

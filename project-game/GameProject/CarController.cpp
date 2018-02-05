@@ -14,7 +14,7 @@
 
 #include "TrafficRoad.h"
 #include "TrafficJunction.h"
-#include "TrafficBuilding.h"
+#include "TrafficLand.h"
 
 /*------------------------------------------------------------------------------
 	マクロ定義
@@ -41,7 +41,7 @@ CarController::CarController( GameObject* pGameObject) : m_Speed( 0.0f)
 
 	m_CurrentRoad = NULL;
 	m_NextJunction = NULL;
-	m_TargetBuilding = NULL;
+	m_TargetLand = NULL;
 
 	//ステートの設定
 	m_States[ eCarStateNeutral] = new CarStateNeutral( this);
@@ -59,11 +59,11 @@ CarController::CarController( GameObject* pGameObject) : m_Speed( 0.0f)
 /*------------------------------------------------------------------------------
 	初期化
 ------------------------------------------------------------------------------*/
-void CarController::Init(TrafficRoad* currentRoad, TrafficJunction* nextJunction, TrafficBuilding* targetBuilding)
+void CarController::Init(TrafficRoad* currentRoad, TrafficJunction* nextJunction, TrafficLand* targetLand)
 {
 	m_CurrentRoad = currentRoad;
 	m_NextJunction = nextJunction;
-	m_TargetBuilding = targetBuilding;
+	m_TargetLand = targetLand;
 }
 
 

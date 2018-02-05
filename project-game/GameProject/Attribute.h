@@ -17,6 +17,7 @@
 ------------------------------------------------------------------------------*/
 namespace HalfEdgeDataStructure
 {
+	class Model;
 	class Vertex;
 	class Edge;
 	class Face;
@@ -31,51 +32,46 @@ namespace HalfEdgeDataStructure
 	class VertexAttribute
 	{
 	public:
-		VertexAttribute(){ m_Vertex = NULL;}
+		VertexAttribute( Model* model, int id);
 		virtual ~VertexAttribute() {}
-		void SetVertex( Vertex* vertex) { if( !m_Vertex) m_Vertex = vertex; }
-		virtual void Init( void){}
+		virtual void Init(){}
 		virtual void Update( void){}
-		Vertex* GetVertex( void) { return m_Vertex;}
-
+		void OnDeleteVertex( void);
+		Vertex* GetVertex( void);
+		
 	private:
-		Vertex* m_Vertex;
+		int m_ID;
+		Model* m_Model;
 	};
 
 	class EdgeAttribute
 	{
 	public:
-		EdgeAttribute() { m_Edge = NULL;}
+		EdgeAttribute( Model* model, int id);
 		virtual ~EdgeAttribute() {}
-		void SetEdge( Edge* edge) { if( !m_Edge) m_Edge = edge; }
 		virtual void Init( void){}
 		virtual void Update( void){}
-		Edge* GetEdge( void) { return m_Edge;}
+		void OnDeleteEdge( void);
+		Edge* GetEdge( void);
 
 	private:
-		Edge* m_Edge;
+		int m_ID;
+		Model* m_Model;
 	};
 
 	class FaceAttribute
 	{
 	public:
-		FaceAttribute() { m_Face = NULL;}
+		FaceAttribute( Model* model, int id);
 		virtual ~FaceAttribute() {}
-		void SetFace( Face* face) { if( !m_Face) m_Face = face; }
 		virtual void Init( void){}
 		virtual void Update( void){}
-		Face* GetFace( void) { return m_Face;}
+		void OnDeleteFace( void);
+		Face* GetFace( void);
 
 	private:
-		Face* m_Face;
-	};
-
-	class AttributeFactory
-	{
-	public:
-		virtual VertexAttribute* CreateVertexAttribute( void) = 0;
-		virtual EdgeAttribute* CreateEdgeAttribute( void) = 0;
-		virtual FaceAttribute* CreateFaceAttribute( void) = 0;
+		int m_ID;
+		Model* m_Model;
 	};
 }
 

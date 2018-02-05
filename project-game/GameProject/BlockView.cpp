@@ -36,9 +36,6 @@ BlockView::BlockView( GameObject* pGameObject)
 	
 	m_Attribute = NULL;
 	m_IsUpdatedAttribute = false;
-
-	//ƒ‚ƒfƒ‹‚ÌÝ’è
-	m_BlockModel = m_pGameObject->AddComponent<BlockModel>();
 }
 
 /*------------------------------------------------------------------------------
@@ -46,7 +43,7 @@ BlockView::BlockView( GameObject* pGameObject)
 ------------------------------------------------------------------------------*/
 void BlockView::Uninit( void)
 {
-	m_Attribute->UnregisterView();
+	
 }
 
 /*------------------------------------------------------------------------------
@@ -69,8 +66,6 @@ void BlockView::UpdateAttribute(void)
 {
 	m_IsUpdatedAttribute = true;
 	
-	//Œš•¨‚Ì¶¬
-	m_BlockModel->CreateBuilding( m_Attribute);
 }
 
 /*------------------------------------------------------------------------------

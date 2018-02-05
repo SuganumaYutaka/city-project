@@ -25,7 +25,6 @@ namespace HalfEdgeDataStructure
 	class Face;
 	class HalfEdge;
 	class Rule;
-	class AttributeFactory;
 }
 
 /*------------------------------------------------------------------------------
@@ -41,15 +40,11 @@ namespace HalfEdgeDataStructure
 	class Model
 	{
 	private:
-		std::list<Vertex*> m_Vertices;
-		std::list<Edge*> m_Edges;
-		std::list<Face*> m_Faces;
+		std::vector<Vertex*> m_Vertices;
+		std::vector<Edge*> m_Edges;
+		std::vector<Face*> m_Faces;
 		
-		Rule* m_Rule;
-		AttributeFactory* m_AttributeFactory;
-
 	public:
-		Model( Rule* rule, AttributeFactory* attributeFactory) : m_Rule( rule), m_AttributeFactory( attributeFactory){}
 		~Model();
 
 		Vertex* CreateVertex( const Vector3& position);
@@ -62,52 +57,27 @@ namespace HalfEdgeDataStructure
 			const Vector3& topLeftPosition, const Vector3& topRightPosition, 
 			const Vector3& bottomLeftPosition, const Vector3& bottomRightPosition);
 
-		bool DivideAllFaces( void);
-
-		const std::list<Vertex*>& GetVertices( void){ return m_Vertices;}
+		Vertex* GetVertex( int id);
+		int GetVertexID( Vertex* vertex);
+		int GetVertexCount( void){ return (int)m_Vertices.size();}
+		const std::vector<Vertex*>& GetVertices( void){ return m_Vertices;}
 		void RegisterVertex( Vertex* vertex){ m_Vertices.push_back( vertex);}
-		bool UnregisterDeleteVertex( Vertex* vertex)
-		{
-			for (auto ite = m_Vertices.begin(); ite != m_Vertices.end(); ++ite)
-			{
-				if (*ite == vertex)
-				{
-					m_Vertices.erase( ite);
-					return true;
-				}
-			}
-			return false;
-		}
+		bool UnregisterVertex( Vertex* vertex);
 
-		const std::list<Edge*>& GetEdges( void){ return m_Edges;}
+		Edge* GetEdge( int id);
+		int GetEdgeID( Edge* edge);
+		int GetEdgeCount( void){ return (int)m_Edges.size();}
+		const std::vector<Edge*>& GetEdges( void){ return m_Edges;}
 		void RegisterEdge( Edge* edge){ m_Edges.push_back( edge);}
-		bool UnregisterDeleteEdge( Edge* edge)
-		{
-			for (auto ite = m_Edges.begin(); ite != m_Edges.end(); ++ite)
-			{
-				if (*ite == edge)
-				{
-					m_Edges.erase( ite);
-					return true;
-				}
-			}
-			return false;
-		}
+		bool UnregisterEdge( Edge* edge);
 
-		const std::list<Face*>& GetFaces( void){ return m_Faces;}
+		Face* GetFace( int id);
+		int GetFaceID( Face* face);
+		int GetFaceCount( void){ return (int)m_Faces.size(); }
+		const std::vector<Face*>& GetFaces( void){ return m_Faces;}
 		void RegisterFace( Face* face){ m_Faces.push_back( face);}
-		bool UnregisterDeleteFace( Face* face)
-		{
-			for (auto ite = m_Faces.begin(); ite != m_Faces.end(); ++ite)
-			{
-				if (*ite == face)
-				{
-					m_Faces.erase( ite);
-					return true;
-				}
-			}
-			return false;
-		}
+		bool UnregisterFace( Face* face);
+
 	};
 }
 

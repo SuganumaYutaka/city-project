@@ -50,7 +50,7 @@ JunctionView::JunctionView( GameObject* pGameObject)
 ------------------------------------------------------------------------------*/
 void JunctionView::Uninit( void)
 {
-	m_Attribute->UnregisterView();
+	
 }
 
 /*------------------------------------------------------------------------------

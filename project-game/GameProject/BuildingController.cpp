@@ -38,7 +38,6 @@ BuildingController::BuildingController( GameObject* pGameObject)
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 
 	m_Geometry = NULL;
-	m_TrafficBuilding = NULL;
 }
 
 /*------------------------------------------------------------------------------
@@ -55,7 +54,7 @@ void BuildingController::Uninit( void)
 /*------------------------------------------------------------------------------
 	初期化処理
 ------------------------------------------------------------------------------*/
-bool BuildingController::Init( const std::vector<Vector3>& vertices, BuildingRule* rule, std::list<RoadAttribute*> roads, BuildingManager* buildingManager, CarManager* carManager)
+bool BuildingController::Init( Land* land, BuildingRule* rule, std::list<RoadAttribute*> roads, BuildingManager* buildingManager, CarManager* carManager)
 {
 	m_BuildingManager = buildingManager;
 	m_BuildingManager->Register( this);
@@ -65,14 +64,14 @@ bool BuildingController::Init( const std::vector<Vector3>& vertices, BuildingRul
 	{
 		m_Geometry = m_pGameObject->AddComponent<BuildingGeometry>();
 	}
-	m_Geometry->Init( vertices, rule);
+	m_Geometry->Init( land, rule);
 
-	//交通プログラムの建物の初期化
-	if (!m_TrafficBuilding)
-	{
-		m_TrafficBuilding = m_pGameObject->AddComponent<TrafficBuilding>();
-	}
-	m_TrafficBuilding->Init( roads, carManager);
+	////交通プログラムの建物の初期化
+	//if (!m_TrafficBuilding)
+	//{
+	//	m_TrafficBuilding = m_pGameObject->AddComponent<TrafficBuilding>();
+	//}
+	//m_TrafficBuilding->Init( roads, carManager);
 
 	return true;
 }
@@ -109,3 +108,4 @@ void BuildingController::OnBuildingManagerDelete()
 	m_BuildingManager = NULL;
 	m_pGameObject->ReleaseReserve();
 }
+
