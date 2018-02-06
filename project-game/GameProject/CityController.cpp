@@ -25,7 +25,6 @@
 #include "BuildingController.h"
 
 #include "CarController.h"
-#include "CarManager.h"
 #include "WallRenderer.h"
 
 using namespace HalfEdgeDataStructure;

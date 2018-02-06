@@ -429,9 +429,6 @@
     <ClCompile Include="TrafficLand.cpp">
       <Filter>CityEngine\Traffic</Filter>
     </ClCompile>
-    <ClCompile Include="LandCreateRule.cpp">
-      <Filter>CityEngine\City</Filter>
-    </ClCompile>
     <ClCompile Include="Land.cpp">
       <Filter>CityEngine\City</Filter>
     </ClCompile>
@@ -449,6 +446,12 @@
     </ClCompile>
     <ClCompile Include="Builder.cpp">
       <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="LandSpawner.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="Car.cpp">
+      <Filter>CityEngine\Traffic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -794,9 +797,6 @@
     <ClInclude Include="TrafficLand.h">
       <Filter>CityEngine\Traffic</Filter>
     </ClInclude>
-    <ClInclude Include="LandCreateRule.h">
-      <Filter>CityEngine\City</Filter>
-    </ClInclude>
     <ClInclude Include="Land.h">
       <Filter>CityEngine\City</Filter>
     </ClInclude>
@@ -814,6 +814,12 @@
     </ClInclude>
     <ClInclude Include="Builder.h">
       <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="LandSpawner.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="Car.h">
+      <Filter>CityEngine\Traffic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

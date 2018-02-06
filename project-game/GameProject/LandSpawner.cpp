@@ -1,14 +1,14 @@
 /*==============================================================================
 
-    LandCreateRule.h - 町の自動生成ー土地生成ルールの関数オブジェクト
+    LandSpawner.cpp - 町の自動生成ー土地生成関数オブジェクト
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2018/2/4
+                                                       Date   : 2018/2/6
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "LandCreateRule.h"
+#include "LandSpawner.h"
 #include "GameObject.h"
 #include "Vertex.h"
 #include "Edge.h"
@@ -33,7 +33,7 @@ using namespace HalfEdgeDataStructure;
 	土地の生成
 	※　四角形の区画のみ対応
 ------------------------------------------------------------------------------*/
-std::vector<Land*> LandCreateRule::operator()( LandManager* manager, BlockAttribute* attribute, GameObject* parent)
+std::vector<Land*> LandSpawner::operator()( LandManager* manager, BlockAttribute* attribute, GameObject* parent)
 {
 	std::vector<Land*> lands;
 
@@ -269,7 +269,7 @@ std::vector<Land*> LandCreateRule::operator()( LandManager* manager, BlockAttrib
 /*------------------------------------------------------------------------------
 	土地を狭める
 ------------------------------------------------------------------------------*/
-bool LandCreateRule::NarrowLand(Vector3& start, Vector3& end, float value)
+bool LandSpawner::NarrowLand(Vector3& start, Vector3& end, float value)
 {
 	Vector3 vector;
 	vector = end - start;
@@ -286,7 +286,7 @@ bool LandCreateRule::NarrowLand(Vector3& start, Vector3& end, float value)
 /*------------------------------------------------------------------------------
 	土地を移動させる
 ------------------------------------------------------------------------------*/
-bool LandCreateRule::MoveLand(Vector3& start, Vector3& end, float value)
+bool LandSpawner::MoveLand(Vector3& start, Vector3& end, float value)
 {
 	Vector3 vector;
 	vector = end - start;
@@ -304,7 +304,7 @@ bool LandCreateRule::MoveLand(Vector3& start, Vector3& end, float value)
 /*------------------------------------------------------------------------------
 	区画の角から道路情報を設定→BlockEdgeに保存
 ------------------------------------------------------------------------------*/
-bool LandCreateRule::SetRoadsFromCorner(Vertex* corner, Vertex* next, BlockEdge* blockedge, BlockAttribute* attribute)
+bool LandSpawner::SetRoadsFromCorner(Vertex* corner, Vertex* next, BlockEdge* blockedge, BlockAttribute* attribute)
 {
 	float blockedgeLength = Vector3::Distance( next->GetPosition(), corner->GetPosition());
 
@@ -352,7 +352,7 @@ bool LandCreateRule::SetRoadsFromCorner(Vertex* corner, Vertex* next, BlockEdge*
 /*------------------------------------------------------------------------------
 	土地と土地の衝突判定
 ------------------------------------------------------------------------------*/
-bool LandCreateRule::CollisionLand(const BlockLand& source, const BlockLand& dest)
+bool LandSpawner::CollisionLand(const BlockLand& source, const BlockLand& dest)
 {
 	//ある頂点がすべての辺に対して右側にある（外積で判定）→衝突あり
 	for (auto& vertex : source.vertices)

@@ -1,6 +1,6 @@
 /*==============================================================================
 	
-	CarManager.cpp - 交通システムー車マネージャー
+	CarManager.cpp - 交通システムー車管理
 														Author : Yutaka Suganuma
 														Date   : 2017/12/28
 ==============================================================================*/
@@ -9,67 +9,71 @@
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "CarManager.h"
-#include "GameObject.h"
-#include "ComponentInclude.h"
-#include "CarController.h"
-#include "TrafficRoad.h"
-#include "TrafficJunction.h"
-#include "TrafficLand.h"
+#include "Car.h"
 
 /*------------------------------------------------------------------------------
-	コンポーネント生成
+	デストラクタ
 ------------------------------------------------------------------------------*/
-Component* CarManager::Create(GameObject* gameObject)
+CarManager::~CarManager()
 {
-	return gameObject->AddComponent<CarManager>();
+	for (auto land : m_Cars)
+	{
+		if(land)
+		{
+			delete land;
+		}
+	}
+	m_Cars.clear();
+	m_Cars.shrink_to_fit();
 }
 
 /*------------------------------------------------------------------------------
-	コンストラクタ
+	車を取得
 ------------------------------------------------------------------------------*/
-CarManager::CarManager( GameObject* pGameObject)
+Car* CarManager::GetCar(int id)
 {
-	m_pGameObject = pGameObject;
-	m_pTransform = m_pGameObject->GetComponent<Transform>();
+	if (m_Cars.size() <= id)
+	{
+		return NULL;
+	}
 
-
+	return m_Cars[ id];
 }
 
 /*------------------------------------------------------------------------------
-	終了処理
+	車のIDを取得
 ------------------------------------------------------------------------------*/
-void CarManager::Uninit( void)
+int CarManager::GetCarID( Car* land)
 {
-	
+	int size = m_Cars.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Cars[i] == land)
+		{
+			return i;
+		}
+	}
+
+	//発見できない
+	return -1;
 }
 
 /*------------------------------------------------------------------------------
-	更新処理
+	登録を解除
 ------------------------------------------------------------------------------*/
-void CarManager::Update( void)
+bool CarManager::UnregisterCar( Car* land)
 {
-	
+	int size = m_Cars.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Cars[i] == land)
+		{
+			m_Cars[i] = NULL;
+			return true;
+		}
+	}
+
+	return false;
 }
 
-/*------------------------------------------------------------------------------
-	すべてのCarControllerを取得
-------------------------------------------------------------------------------*/
-std::list<CarController*> CarManager::GetAllCarControllers(void)
-{
-	return m_pGameObject->GetComponentListInChildren<CarController>();
-}
 
-/*------------------------------------------------------------------------------
-	CarController生成
-------------------------------------------------------------------------------*/
-CarController* CarManager::CreateCarController(const Vector3& position, const D3DXQUATERNION& rotation
-	, TrafficRoad* currentRoad, TrafficJunction* nextJunction, TrafficLand* targetLand)
-{
-	auto carObject = new GameObject( m_pGameObject);
-	carObject->m_pTransform->SetWorldPosition( position);
-	carObject->m_pTransform->SetWorldRotation( rotation);
-	auto carController = carObject->AddComponent<CarController>();
-	carController->Init( currentRoad, nextJunction, targetLand);
-
-	return carController;
-}

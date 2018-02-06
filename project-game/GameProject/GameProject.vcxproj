@@ -172,6 +172,7 @@
     <ClCompile Include="BuildingSurfacePattern.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraController.cpp" />
+    <ClCompile Include="Car.cpp" />
     <ClCompile Include="CarController.cpp" />
     <ClCompile Include="CarManager.cpp" />
     <ClCompile Include="CarState.cpp" />
@@ -205,8 +206,8 @@
     <ClCompile Include="InputMouse.cpp" />
     <ClCompile Include="JunctionView.cpp" />
     <ClCompile Include="Land.cpp" />
-    <ClCompile Include="LandCreateRule.cpp" />
     <ClCompile Include="LandManager.cpp" />
+    <ClCompile Include="LandSpawner.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
@@ -334,6 +335,7 @@
     <ClInclude Include="BuildingSurfacePattern.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraController.h" />
+    <ClInclude Include="Car.h" />
     <ClInclude Include="CarController.h" />
     <ClInclude Include="CarManager.h" />
     <ClInclude Include="CarState.h" />
@@ -369,8 +371,8 @@
     <ClInclude Include="InputMouse.h" />
     <ClInclude Include="JunctionView.h" />
     <ClInclude Include="Land.h" />
-    <ClInclude Include="LandCreateRule.h" />
     <ClInclude Include="LandManager.h" />
+    <ClInclude Include="LandSpawner.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Material.h" />

@@ -41,6 +41,7 @@ public:
 	CarController* PopBackCar( void);
 	int GetCarCount( void){ return m_Cars.size(); }
 	bool IsCarInLand( CarController* car);
+	const std::list<TrafficRoad*>& GetTrafficRoad( void){ return m_Roads;}
 
 private:
 	void Update(void);

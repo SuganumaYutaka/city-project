@@ -68,36 +68,6 @@ void TrafficLand::Update( void)
 	
 }
 
-///*------------------------------------------------------------------------------
-//	ŽÔ‚ð¶¬
-//------------------------------------------------------------------------------*/
-//CarController* TrafficLand::CreateCar(void)
-//{
-//	if (!m_CarManager)
-//	{
-//		return NULL;
-//	}
-//
-//	if (m_Roads.size() == 0)
-//	{
-//		return NULL;
-//	}
-//
-//	//ŽÔ‚ð¶¬
-//	auto road = m_Roads.front();
-//	auto junction = road->GetJunctions().front();
-//	auto carController = m_CarManager->CreateCarController( m_pTransform->GetWorldPosition(), m_pTransform->GetWorldRotation()
-//		,road, junction, NULL);
-//
-//	//“üŒÉ‚³‚¹‚é
-//	//EnterCar( carController);
-//
-//	//‚·‚®‚ÉoŒÉ‚³‚¹‚é
-//	road->RegisterCar( carController);
-//
-//	return carController;
-//}
-
 /*------------------------------------------------------------------------------
 	ŽÔ‚ð“üŒÉ‚³‚¹‚é
 ------------------------------------------------------------------------------*/

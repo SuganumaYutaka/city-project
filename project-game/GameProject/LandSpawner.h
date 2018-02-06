@@ -1,11 +1,11 @@
 /*==============================================================================
 
-    LandCreateRule.h - 町の自動生成ー土地生成ルールの関数オブジェクト
+    LandSpawner.h - 町の自動生成ー土地生成関数オブジェクト
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2018/2/4
+                                                       Date   : 2018/2/6
 ==============================================================================*/
-#ifndef _LAND_CREATE_RULE_H_
-#define _LAND_CREATE_RULE_H_
+#ifndef _LAND_SPAWNER_H_
+#define _LAND_SPAWNER_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -29,7 +29,7 @@ namespace HalfEdgeDataStructure
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class LandCreateRule
+class LandSpawner
 {
 public:
 	std::vector<Land*> operator()( LandManager* manager, BlockAttribute* attribute, GameObject* parent);

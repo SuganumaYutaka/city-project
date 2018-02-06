@@ -17,7 +17,6 @@
 	‘O•ûéŒ¾
 ------------------------------------------------------------------------------*/
 class GameObject;
-class BuildingRuleFactory;
 class BuildingManager;
 class CarManager;
 
@@ -44,7 +43,6 @@ private:
 	void Update();
 
 	HalfEdgeDataStructure::Model* m_Model;
-	BuildingRuleFactory* m_BuildingRuleFactory;
 	BuildingManager* m_BuildingManager;
 	CarManager* m_CarManager;
 
