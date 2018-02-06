@@ -1,46 +1,49 @@
 /*==============================================================================
 
-    ShapeBox.h - 建物の自動生成ーボックス
+    Building.h - 町の自動生成ー建物
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/8
+                                                       Date   : 2018/2/5
 ==============================================================================*/
-#ifndef _SHAPE_BOX_H_
-#define _SHAPE_BOX_H_
+#ifndef _BUILDING_H_
+#define _BUILDING_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-#include "Shape.h"
+#include "BuildingParameter.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
 class GameObject;
-class Roof;
-class Wall;
+class Land;
+class LandManager;
+class BuildingGeometry;
+class BuildingManager;
+class GeometryParameter;
+
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class ShapeBox : public Shape
+class Building
 {
 public:
-	ShapeBox( GameObject* buildingObject);
-	~ShapeBox() override;
-
-	void Init( const Vector3& position, float rotation, const Vector3& size);
-	void CreateWalls( void);
-
-	void Move( const Vector3& value) override;
-	void Rotate( float value) override;
-	void ScaleUpDown( const Vector3& value) override;
-	void ScaleRate( float rate) override;
-	void ScaleRate( const Vector3& rate) override;
-	void ConfirmShape( void) override;
-	bool CollisionPoint( const Vector3& point) override;
+	Building( BuildingManager* manager, GameObject* parent);
+	~Building();
+	void OnDeleteBlock( void);
+	void LinkLand( LandManager* landManager, int landID);
+	void ConfirmGeometry(void);
+	void InitGeometry( GeometryParameter* parameter);
 	
 private:
-	Vector3 m_Size;
+	BuildingManager* m_Manager;
+
+	GameObject* m_GameObject;
+	BuildingGeometry* m_Geometry;
+
+	LandManager* m_LandManager;
+	int m_LandID;
 };
 
 #endif

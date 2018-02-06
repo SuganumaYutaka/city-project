@@ -11,14 +11,25 @@
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-#include "BuildingRuleFactory.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
 class Tile;
-class BuildingRule;
 class TileSplit;
+
+/*------------------------------------------------------------------------------
+	列挙型定義
+------------------------------------------------------------------------------*/
+//フロアの種類
+enum E_FLOOR_TYPE
+{
+	eFloorDefault = 0,
+	eFloorGround,
+	eFloorMargin,
+	eFloorBorder,
+	eFloorTypeCount
+};
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -28,8 +39,8 @@ class Floor
 public:
 	Floor();
 	~Floor();
-	void InitDefault( float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, E_FLOOR_TYPE type, BuildingRule* rule);
-	void InitCurve( float height, float width, const Vector3& bottomLeftPosition, E_FLOOR_TYPE type, BuildingRule* rule);
+	void InitDefault( float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, E_FLOOR_TYPE type);
+	void InitCurve( float height, float width, const Vector3& bottomLeftPosition, E_FLOOR_TYPE type);
 	void Transform(D3DXMATRIX shapeMatrix);
 	void SetTile( Tile* tile){ m_Tile = tile;}
 	Tile* GetTile( void) { return m_Tile;}

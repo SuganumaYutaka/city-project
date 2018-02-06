@@ -19,6 +19,8 @@
 #include "TileSplit.h"
 #include "WallRenderer.h"
 #include "BuildingSurfacePattern.h"
+#include "BuildingParameter.h"
+#include "Builder.h"
 
 /*------------------------------------------------------------------------------
 	マクロ定義
@@ -40,8 +42,6 @@ BuildingGeometry::BuildingGeometry( GameObject* pGameObject)
 {
 	m_pGameObject = pGameObject;
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
-
-	m_Land = NULL;
 }
 
 /*------------------------------------------------------------------------------
@@ -49,11 +49,6 @@ BuildingGeometry::BuildingGeometry( GameObject* pGameObject)
 ------------------------------------------------------------------------------*/
 void BuildingGeometry::Uninit( void)
 {
-	if (m_Rule)
-	{
-		delete m_Rule;
-	}
-	
 	for (Shape* shape : m_Shapes)
 	{
 		delete shape;
@@ -62,28 +57,15 @@ void BuildingGeometry::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	初期化処理
+	初期化
 ------------------------------------------------------------------------------*/
-bool BuildingGeometry::Init( Land* land, BuildingRule* rule)
+void BuildingGeometry::Init(GeometryParameter* parameter)
 {
-	m_Land = land;
-	auto vertices = land->GetVertices();
+	m_Parameter = parameter;
 
-	//Position(World座標)を土地の中心（対角線の中点）に
-	Vector3 vec02 = vertices[2] - vertices[0];
-	auto center = vertices[0] + vec02 * 0.5f;
-	m_pTransform->SetWorldPosition( center);
-
-	//道路と平行となるように回転
-	Vector3 vec21 = vertices[1] - vertices[2];
-	m_pTransform->SetWorldRotationLookDirection( vec21);
-
-	//形状の生成
-	rule->ProceduralShape( this);
-
-	m_Rule = rule;
-
-	return true;
+	//建物の建築
+	Builder builder;
+	builder(this, parameter);
 }
 
 /*------------------------------------------------------------------------------
@@ -219,7 +201,7 @@ void BuildingGeometry::ConfirmGeometry(void)
 
 	//WallRendererを設定
 	auto wallRenderer = m_pGameObject->AddComponent<WallRenderer>();
-	wallRenderer->LoadTexture( m_Rule->GetSurfacePattern()->GetTextureFileName());
+	wallRenderer->LoadTexture(m_Parameter->m_SurfacePattern->GetTextureFileName());
 	auto pVtx = wallRenderer->StartSetVertexBuffer( vertexCount + 1, polygonCount);
 	for (auto start : tiles)
 	{

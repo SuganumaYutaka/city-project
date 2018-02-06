@@ -18,7 +18,6 @@
 class Floor;
 class WallRenderer;
 class GameObject;
-class BuildingRule;
 class Texture;
 class Tile;
 
@@ -30,8 +29,8 @@ class Wall
 public:
 	Wall( GameObject* buildingObject);
 	~Wall();
-	void InitDefault( D3DXMATRIX shapeMatrix, float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, BuildingRule* rule);
-	void InitCurve( D3DXMATRIX shapeMatrix, float height, float width, const Vector3& bottomLeftPosition, BuildingRule* rule);
+	void InitDefault( D3DXMATRIX shapeMatrix, float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal);
+	void InitCurve( D3DXMATRIX shapeMatrix, float height, float width, const Vector3& bottomLeftPosition);
 
 	bool UpdateView( D3DXMATRIX shapeMatrix);
 	

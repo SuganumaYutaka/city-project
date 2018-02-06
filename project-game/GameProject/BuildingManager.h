@@ -15,7 +15,7 @@
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class BuildingController;
+class Building;
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -23,16 +23,18 @@ class BuildingController;
 class BuildingManager
 {
 public:
-	BuildingManager();
 	~BuildingManager();
 
-	void Register( BuildingController* buildingController);
-	void Unregister( BuildingController* buildingController);
+	Building* GetBuilding( int id);
+	int GetBuildingID( Building* building);
+	int GetBuildingCount( void){ return (int)m_Buildings.size();}
+	const std::vector<Building*>& GetBuildings( void){ return m_Buildings;}
+	void Register( Building* building){ m_Buildings.push_back( building); }
+	bool Unregister( Building* building);
 
-	const std::list<BuildingController*>& GetAllBuildings( void){ return m_Buildings;}
-
+	
 private:
-	std::list<BuildingController*> m_Buildings;
+	std::vector<Building*> m_Buildings;
 
 };
 

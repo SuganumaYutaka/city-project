@@ -20,7 +20,6 @@
 class GameObject;
 class Roof;
 class Wall;
-class BuildingRule;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -31,7 +30,7 @@ public:
 	ShapeCylinder( GameObject* buildingObject);
 	~ShapeCylinder() override;
 
-	void Init( const Vector3& position, float rotation, float height, float radius, BuildingRule* rule);
+	void Init( const Vector3& position, float rotation, float height, float radius);
 	void CreateWalls( void);
 
 	void Move( const Vector3& value) override;

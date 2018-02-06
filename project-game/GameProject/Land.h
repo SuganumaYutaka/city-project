@@ -19,6 +19,9 @@ class GameObject;
 class MeshPolygonRenderer;
 class TrafficLand;
 class RoadAttribute;
+class CityAttributeManager;
+class LandManager;
+class Building;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -26,7 +29,7 @@ class RoadAttribute;
 class Land
 {
 public:
-	Land( GameObject* parent);
+	Land( LandManager* manager, GameObject* parent);
 	~Land();
 	void Init( const std::vector<Vector3>& vertices);
 	void OnDeleteBlock( void);
@@ -34,15 +37,24 @@ public:
 	const std::vector<Vector3>& GetVertices( void) { return m_Vertices;}
 	Vector3 CulcCenterPosition( void);
 
+	void LinkAttribute( CityAttributeManager* attributeManager, int blockID);
 	void SetTraffic( std::list<RoadAttribute*> roadAttributes);
 
-private:
-	std::vector<Vector3> m_Vertices;
+	int LinkBuilding( Building* building);
+	void UnlinkBuilding( Building* building);
+	void UnlinkBuilding( int buildingID);
 
+private:
+	LandManager* m_Manager;
+
+	std::vector<Vector3> m_Vertices;
 	GameObject* m_GameObject;
 	MeshPolygonRenderer* m_Renderer;
 	TrafficLand* m_TrafficLand;
+	std::vector<Building*> m_Buildings;
 	
+	CityAttributeManager* m_AttributeManager;
+	int m_BlockID;
 };
 
 #endif

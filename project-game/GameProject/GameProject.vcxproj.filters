@@ -387,16 +387,7 @@
     <ClCompile Include="Shape.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
-    <ClCompile Include="BuildingRuleFactory.cpp">
-      <Filter>CityEngine\Building</Filter>
-    </ClCompile>
-    <ClCompile Include="BuildingRuleSimple.cpp">
-      <Filter>CityEngine\Building</Filter>
-    </ClCompile>
     <ClCompile Include="BuildingSurfacePattern.cpp">
-      <Filter>CityEngine\Building</Filter>
-    </ClCompile>
-    <ClCompile Include="BlockModel.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
     <ClCompile Include="Roof.cpp">
@@ -405,9 +396,6 @@
     <ClCompile Include="Random.cpp">
       <Filter>Engine\Generic</Filter>
     </ClCompile>
-    <ClCompile Include="BuildingController.cpp">
-      <Filter>CityEngine\Building</Filter>
-    </ClCompile>
     <ClCompile Include="BuildingManager.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
@@ -415,9 +403,6 @@
       <Filter>CityEngine\Traffic</Filter>
     </ClCompile>
     <ClCompile Include="TrafficRoad.cpp">
-      <Filter>CityEngine\Traffic</Filter>
-    </ClCompile>
-    <ClCompile Include="TrafficBuilding.cpp">
       <Filter>CityEngine\Traffic</Filter>
     </ClCompile>
     <ClCompile Include="CarManager.cpp">
@@ -435,16 +420,10 @@
     <ClCompile Include="TileDefault.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
-    <ClCompile Include="BuildingRuleCylinder.cpp">
-      <Filter>CityEngine\Building</Filter>
-    </ClCompile>
     <ClCompile Include="ShapeCylinder.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
     <ClCompile Include="TileSplit.cpp">
-      <Filter>CityEngine\Building</Filter>
-    </ClCompile>
-    <ClCompile Include="BuildingRuleMultiShape.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
     <ClCompile Include="TrafficLand.cpp">
@@ -461,6 +440,15 @@
     </ClCompile>
     <ClCompile Include="CityAttributeManager.cpp">
       <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="LandManager.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="Building.cpp">
+      <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="Builder.cpp">
+      <Filter>CityEngine\Building</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -767,26 +755,11 @@
     <ClInclude Include="WallRenderer.h">
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
-    <ClInclude Include="BuildingRuleFactory.h">
-      <Filter>CityEngine\Building</Filter>
-    </ClInclude>
-    <ClInclude Include="BuildingRule.h">
-      <Filter>CityEngine\Building</Filter>
-    </ClInclude>
-    <ClInclude Include="BuildingRuleSimple.h">
-      <Filter>CityEngine\Building</Filter>
-    </ClInclude>
     <ClInclude Include="BuildingSurfacePattern.h">
-      <Filter>CityEngine\Building</Filter>
-    </ClInclude>
-    <ClInclude Include="BlockModel.h">
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
     <ClInclude Include="Random.h">
       <Filter>Engine\Generic</Filter>
-    </ClInclude>
-    <ClInclude Include="BuildingController.h">
-      <Filter>CityEngine\Building</Filter>
     </ClInclude>
     <ClInclude Include="BuildingManager.h">
       <Filter>CityEngine\Building</Filter>
@@ -795,9 +768,6 @@
       <Filter>CityEngine\Traffic</Filter>
     </ClInclude>
     <ClInclude Include="TrafficRoad.h">
-      <Filter>CityEngine\Traffic</Filter>
-    </ClInclude>
-    <ClInclude Include="TrafficBuilding.h">
       <Filter>CityEngine\Traffic</Filter>
     </ClInclude>
     <ClInclude Include="CarManager.h">
@@ -815,16 +785,10 @@
     <ClInclude Include="TileDefault.h">
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
-    <ClInclude Include="BuildingRuleCylinder.h">
-      <Filter>CityEngine\Building</Filter>
-    </ClInclude>
     <ClInclude Include="ShapeCylinder.h">
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
     <ClInclude Include="TileSplit.h">
-      <Filter>CityEngine\Building</Filter>
-    </ClInclude>
-    <ClInclude Include="BuildingRuleMultiShape.h">
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
     <ClInclude Include="TrafficLand.h">
@@ -838,6 +802,18 @@
     </ClInclude>
     <ClInclude Include="CityAttributeManager.h">
       <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="LandManager.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="Building.h">
+      <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingParameter.h">
+      <Filter>CityEngine\Building</Filter>
+    </ClInclude>
+    <ClInclude Include="Builder.h">
+      <Filter>CityEngine\Building</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

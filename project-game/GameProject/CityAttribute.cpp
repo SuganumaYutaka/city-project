@@ -242,3 +242,28 @@ int BlockAttribute::LinkLand(Land* land)
 	m_Lands.push_back( land);
 	return m_Lands.size() - 1;
 }
+
+/*------------------------------------------------------------------------------
+	区画ー土地のリンクの解除
+------------------------------------------------------------------------------*/
+void BlockAttribute::UnlinkLand(Land* land)
+{
+	int size = m_Lands.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Lands[i] == land)
+		{
+			m_Lands[i] = NULL;
+		}
+	}
+}
+
+/*------------------------------------------------------------------------------
+	区画ー土地のリンクの解除
+------------------------------------------------------------------------------*/
+void BlockAttribute::UnlinkLand(int landID)
+{
+	m_Lands[ landID] = NULL;
+}
+
+

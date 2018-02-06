@@ -1,52 +1,54 @@
 /*==============================================================================
 
-    BuildingManager.cpp - 建物の自動生成ー建物オブザーバー
+    LandManager.cpp - 町の自動生成ー土地情報管理
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/24
+                                                       Date   : 2018/2/5
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "BuildingManager.h"
-#include "Building.h"
+#include "LandManager.h"
+#include "Land.h"
 
 /*------------------------------------------------------------------------------
 	デストラクタ
 ------------------------------------------------------------------------------*/
-BuildingManager::~BuildingManager()
+LandManager::~LandManager()
 {
-	for (auto building : m_Buildings)
+	for (auto land : m_Lands)
 	{
-		if( building)
+		if(land)
 		{
-			delete building;
+			delete land;
 		}
 	}
+	m_Lands.clear();
+	m_Lands.shrink_to_fit();
 }
 
 /*------------------------------------------------------------------------------
-	建物を取得
+	土地を取得
 ------------------------------------------------------------------------------*/
-Building* BuildingManager::GetBuilding(int id)
+Land* LandManager::GetLand(int id)
 {
-	if (m_Buildings.size() <= id)
+	if (m_Lands.size() <= id)
 	{
 		return NULL;
 	}
 
-	return m_Buildings[ id];
+	return m_Lands[ id];
 }
 
 /*------------------------------------------------------------------------------
-	建物のIDを取得
+	土地のIDを取得
 ------------------------------------------------------------------------------*/
-int BuildingManager::GetBuildingID( Building* building)
+int LandManager::GetLandID( Land* land)
 {
-	int size = m_Buildings.size();
+	int size = m_Lands.size();
 	for (int i = 0; i < size; i++)
 	{
-		if (m_Buildings[i] == building)
+		if (m_Lands[i] == land)
 		{
 			return i;
 		}
@@ -57,16 +59,16 @@ int BuildingManager::GetBuildingID( Building* building)
 }
 
 /*------------------------------------------------------------------------------
-	建物の解除
+	登録を解除
 ------------------------------------------------------------------------------*/
-bool BuildingManager::Unregister(Building* building)
+bool LandManager::UnregisterLand( Land* land)
 {
-	int size = m_Buildings.size();
+	int size = m_Lands.size();
 	for (int i = 0; i < size; i++)
 	{
-		if (m_Buildings[i] == building)
+		if (m_Lands[i] == land)
 		{
-			m_Buildings[i] = NULL;
+			m_Lands[i] = NULL;
 			return true;
 		}
 	}

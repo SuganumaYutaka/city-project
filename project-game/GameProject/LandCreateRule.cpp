@@ -33,7 +33,7 @@ using namespace HalfEdgeDataStructure;
 	土地の生成
 	※　四角形の区画のみ対応
 ------------------------------------------------------------------------------*/
-std::vector<Land*> LandCreateRule::operator()( BlockAttribute* attribute, GameObject* parent)
+std::vector<Land*> LandCreateRule::operator()( LandManager* manager, BlockAttribute* attribute, GameObject* parent)
 {
 	std::vector<Land*> lands;
 
@@ -237,10 +237,13 @@ std::vector<Land*> LandCreateRule::operator()( BlockAttribute* attribute, GameOb
 		if (preland.canCreateBuilding)
 		{
 			//土地の生成
-			Land* land = new Land( parent);
+			Land* land = new Land( manager, parent);
 			land->Init( preland.vertices);
 			lands.push_back( land);
 
+			//区画とリンク
+			attribute->LinkLand( land);
+			
 			//交通システムを設定
 			land->SetTraffic( preland.roads);
 		}

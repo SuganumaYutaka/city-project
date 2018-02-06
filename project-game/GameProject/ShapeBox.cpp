@@ -13,8 +13,6 @@
 #include "Roof.h"
 #include "DebugLog.h"
 
-#include "BuildingRule.h"
-
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
@@ -34,12 +32,11 @@ ShapeBox::~ShapeBox()
 /*------------------------------------------------------------------------------
 	初期化
 ------------------------------------------------------------------------------*/
-void ShapeBox::Init(const Vector3& position, float rotation, const Vector3& size, BuildingRule* rule)
+void ShapeBox::Init(const Vector3& position, float rotation, const Vector3& size)
 {
 	SetPosition( position);
 	SetRotation( rotation);
 	m_Size = size;
-	m_Rule = rule;
 
 	//屋根の生成
 	auto roof = new Roof(GetBuildingObject());
@@ -71,22 +68,22 @@ void ShapeBox::CreateWalls(void)
 
 	//手前
 	auto frontWall = new Wall( GetBuildingObject());
-	frontWall->InitDefault( matrix, m_Size.y, m_Size.x, leftFront, Vector3(0.0f, 0.0f, -1.0f), m_Rule);
+	frontWall->InitDefault( matrix, m_Size.y, m_Size.x, leftFront, Vector3(0.0f, 0.0f, -1.0f));
 	AddWall( frontWall);
 
 	//右
 	auto rightWall = new Wall( GetBuildingObject());
-	rightWall->InitDefault( matrix, m_Size.y, m_Size.z, rightFront, Vector3(1.0f, 0.0f, 0.0f), m_Rule);
+	rightWall->InitDefault( matrix, m_Size.y, m_Size.z, rightFront, Vector3(1.0f, 0.0f, 0.0f));
 	AddWall( rightWall);
 
 	//奥
 	auto backWall = new Wall( GetBuildingObject());
-	backWall->InitDefault( matrix, m_Size.y, m_Size.x, rightBack, Vector3(0.0f, 0.0f, 1.0f), m_Rule);
+	backWall->InitDefault( matrix, m_Size.y, m_Size.x, rightBack, Vector3(0.0f, 0.0f, 1.0f));
 	AddWall( backWall);
 
 	//左
 	auto leftWall = new Wall( GetBuildingObject());
-	leftWall->InitDefault( matrix, m_Size.y, m_Size.z, leftBack, Vector3(-1.0f, 0.0f, 0.0f), m_Rule);
+	leftWall->InitDefault( matrix, m_Size.y, m_Size.z, leftBack, Vector3(-1.0f, 0.0f, 0.0f));
 	AddWall( leftWall);
 }
 

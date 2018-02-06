@@ -1,47 +1,41 @@
 /*==============================================================================
 
-    ShapeBox.h - 建物の自動生成ーボックス
+    LandManager.h - 町の自動生成ー土地情報管理
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/8
+                                                       Date   : 2018/2/5
 ==============================================================================*/
-#ifndef _SHAPE_BOX_H_
-#define _SHAPE_BOX_H_
+#ifndef _LAND_MANAGER_H_
+#define _LAND_MANAGER_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-#include "Shape.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class GameObject;
-class Roof;
-class Wall;
+class Land;
+
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class ShapeBox : public Shape
+class LandManager
 {
-public:
-	ShapeBox( GameObject* buildingObject);
-	~ShapeBox() override;
-
-	void Init( const Vector3& position, float rotation, const Vector3& size);
-	void CreateWalls( void);
-
-	void Move( const Vector3& value) override;
-	void Rotate( float value) override;
-	void ScaleUpDown( const Vector3& value) override;
-	void ScaleRate( float rate) override;
-	void ScaleRate( const Vector3& rate) override;
-	void ConfirmShape( void) override;
-	bool CollisionPoint( const Vector3& point) override;
-	
 private:
-	Vector3 m_Size;
+	std::vector<Land*> m_Lands;
+	
+public:
+	~LandManager();
+
+	Land* GetLand( int id);
+	int GetLandID( Land* land);
+	int GetLandCount( void){ return (int)m_Lands.size();}
+	const std::vector<Land*>& GetLands( void){ return m_Lands;}
+	void RegisterLand( Land* land){ m_Lands.push_back( land); }
+	bool UnregisterLand( Land* land);
 };
+
 
 #endif
 

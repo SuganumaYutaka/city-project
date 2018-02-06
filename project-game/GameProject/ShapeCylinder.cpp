@@ -13,8 +13,6 @@
 #include "Roof.h"
 #include "DebugLog.h"
 
-#include "BuildingRule.h"
-
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
@@ -34,13 +32,12 @@ ShapeCylinder::~ShapeCylinder()
 /*------------------------------------------------------------------------------
 	初期化
 ------------------------------------------------------------------------------*/
-void ShapeCylinder::Init(const Vector3& position, float rotation, float height, float radius, BuildingRule* rule)
+void ShapeCylinder::Init(const Vector3& position, float rotation, float height, float radius)
 {
 	SetPosition( position);
 	SetRotation( rotation);
 	m_Height = height;
 	m_Radius = radius;
-	m_Rule = rule;
 
 	Vector3 size = Vector3( radius * 2.0f, height, radius * 2.0f);
 
@@ -68,7 +65,7 @@ void ShapeCylinder::CreateWalls(void)
 
 	Vector3 bottomLeft = Vector3( 0.0f, 0.0f, m_Radius);
 	auto wall = new Wall( GetBuildingObject());
-	wall->InitCurve( matrix, m_Height, m_Radius * 2 * D3DX_PI, bottomLeft, m_Rule);
+	wall->InitCurve( matrix, m_Height, m_Radius * 2 * D3DX_PI, bottomLeft);
 	AddWall( wall);
 }
 

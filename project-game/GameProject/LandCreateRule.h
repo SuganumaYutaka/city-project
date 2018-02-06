@@ -19,6 +19,7 @@ class GameObject;
 class BlockAttribute;
 class RoadAttribute;
 class Land;
+class LandManager;
 
 namespace HalfEdgeDataStructure
 {
@@ -31,7 +32,7 @@ namespace HalfEdgeDataStructure
 class LandCreateRule
 {
 public:
-	std::vector<Land*> operator()( BlockAttribute* attribute, GameObject* parent);
+	std::vector<Land*> operator()( LandManager* manager, BlockAttribute* attribute, GameObject* parent);
 
 private:
 	//Œš•¨‚Ì¶¬—p\‘¢‘Ì’è‹`

@@ -16,10 +16,9 @@
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class Land;
 class Shape;
-class BuildingRule;
 class Tile;
+class GeometryParameter;
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -32,21 +31,17 @@ public:
 	BuildingGeometry( GameObject* pGameObject);
 	void Uninit( void);
 
-	bool Init( Land* land, BuildingRule* rule);
-
-	Land* GetLand( void) { return m_Land;}
+	void Init( GeometryParameter* parameter);
 	void AddShape( Shape* shape){ m_Shapes.push_back( shape); }
 	const std::list< Shape*>& GetShape( void){ return m_Shapes;}
-
 	void ConfirmGeometry(void);
 
 private:
 	void Update(void);
 
-	Land* m_Land;
+	GeometryParameter* m_Parameter;
 	std::list< Shape*> m_Shapes;
-	BuildingRule* m_Rule;
-
+	
 	Tile* SearchStartTile( Shape* shape, int floorCount);
 	bool CanLookTile( Tile* tile, Shape* owner);
 

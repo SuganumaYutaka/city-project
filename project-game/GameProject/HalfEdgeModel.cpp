@@ -24,21 +24,30 @@ Model::~Model()
 {
 	for (auto face : m_Faces)
 	{
-		delete face;
+		if( face)
+		{
+			delete face;
+		}
 	}
 	m_Faces.clear();
 	m_Faces.shrink_to_fit();
 
 	for (auto edge : m_Edges)
 	{
-		delete edge;
+		if( edge)
+		{
+			delete edge;
+		}
 	}
 	m_Edges.clear();
 	m_Edges.shrink_to_fit();
 	
 	for (auto vertex : m_Vertices)
 	{
-		delete vertex;
+		if( vertex)
+		{
+			delete vertex;
+		}
 	}
 	m_Vertices.clear();
 	m_Vertices.shrink_to_fit();

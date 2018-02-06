@@ -18,21 +18,30 @@ CityAttributeManager::~CityAttributeManager()
 {
 	for (auto block : m_Blocks)
 	{
-		delete block;
+		if( block)
+		{
+			delete block;
+		}
 	}
 	m_Blocks.clear();
 	m_Blocks.shrink_to_fit();
 
 	for (auto road : m_Roads)
 	{
-		delete road;
+		if( road)
+		{
+			delete road;
+		}
 	}
 	m_Roads.clear();
 	m_Roads.shrink_to_fit();
 
 	for (auto junction : m_Junctions)
 	{
-		delete junction;
+		if( junction)
+		{
+			delete junction;
+		}
 	}
 	m_Junctions.clear();
 	m_Junctions.shrink_to_fit();

@@ -1,46 +1,48 @@
 /*==============================================================================
 
-    ShapeBox.h - 建物の自動生成ーボックス
+    Builder.h - 建物の自動生成ー建物組み立て
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/12/8
+                                                       Date   : 2018/2/5
 ==============================================================================*/
-#ifndef _SHAPE_BOX_H_
-#define _SHAPE_BOX_H_
+#ifndef _BUILDER_H_
+#define _BUILDER_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-#include "Shape.h"
+#include "BuildingParameter.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class GameObject;
-class Roof;
+class BuildingGeometry;
 class Wall;
+class Floor;
+class ShapeBox;
+class ShapeCylinder;
+
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class ShapeBox : public Shape
+class Builder
 {
 public:
-	ShapeBox( GameObject* buildingObject);
-	~ShapeBox() override;
+	bool operator() ( BuildingGeometry* geometry, GeometryParameter* parameter);
 
-	void Init( const Vector3& position, float rotation, const Vector3& size);
-	void CreateWalls( void);
-
-	void Move( const Vector3& value) override;
-	void Rotate( float value) override;
-	void ScaleUpDown( const Vector3& value) override;
-	void ScaleRate( float rate) override;
-	void ScaleRate( const Vector3& rate) override;
-	void ConfirmShape( void) override;
-	bool CollisionPoint( const Vector3& point) override;
-	
 private:
-	Vector3 m_Size;
+	BuildingGeometry* m_Geometry;
+	GeometryParameter* m_Parameter;
+
+	ShapeBox* CreateShapeBox( ShapeParameter* parameter);
+	ShapeCylinder* CreateShapeCylinder( ShapeParameter* parameter);
+	bool CreateFloor( Wall* wall);
+	bool CreateFloorCurve( Wall* wall);
+	bool CreateTile( Floor* floor);
+	bool CreateTileCurve( Floor* floor);
+
+	Vector3 MoveBottomLeftPosition( const Vector3& bottomLeftPosition, float angle);
+
 };
 
 #endif

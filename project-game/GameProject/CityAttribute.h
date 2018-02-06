@@ -105,6 +105,8 @@ public:
 	void UnregisterView( void){ m_View = NULL;}
 
 	int LinkLand( Land* land);
+	void UnlinkLand( Land* land);
+	void UnlinkLand( int landID);
 };
 
 #endif

@@ -21,39 +21,6 @@ class Land;
 class BlockAttribute;
 
 /*------------------------------------------------------------------------------
-	列挙型定義
-------------------------------------------------------------------------------*/
-//大きさの段階
-enum E_BUILDING_SIZE_LEVEL
-{
-	eBuildingSizeSmall = 0,
-	eBuildingSizeMiddle,
-	eBuildingSizeLarge,
-	eBuildingSizeLevelCount
-};
-
-//フロアの種類
-enum E_FLOOR_TYPE
-{
-	eFloorDefault = 0,
-	eFloorGround,
-	eFloorMargin,
-	eFloorBorder,
-	eFloorTypeCount
-};
-
-//タイルの種類
-enum E_TILE_TYPE
-{
-	eTileWall = 0,
-	eTileWindow,
-	eTileEntrance,
-	eTileBorder,
-	eTileSplit,
-	eTileTypeCount
-};
-
-/*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
 class BuildingRuleFactory
