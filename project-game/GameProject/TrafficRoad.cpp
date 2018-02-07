@@ -51,7 +51,15 @@ TrafficRoad::TrafficRoad( GameObject* pGameObject)
 ------------------------------------------------------------------------------*/
 void TrafficRoad::Uninit( void)
 {
-	
+	//Á‹Ž‚ð’Ê’m
+	for (auto car : m_LeftSideCars)
+	{
+		car->OnDeleteCurrentRoad();
+	}
+	for (auto car : m_RightSideCars)
+	{
+		car->OnDeleteCurrentRoad();
+	}
 }
 
 /*------------------------------------------------------------------------------

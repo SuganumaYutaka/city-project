@@ -1,11 +1,11 @@
 /*==============================================================================
 
-    Car.h - 町の自動生成ー交通システムー車
+    BuildingParameterSpawner.h - 建物の自動生成ー建物の生成に用いるパラメーターを生成
                                                        Author : Yutaka Suganuma
                                                        Date   : 2018/2/6
 ==============================================================================*/
-#ifndef _CAR_H_
-#define _CAR_H_
+#ifndef _BUILDING_PARAMETER_SPAWNER_H_
+#define _BUILDING_PARAMETER_SPAWNER_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -15,27 +15,31 @@
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class GameObject;
-class CarManager;
-class CarController;
-class TrafficLand;
+class ShapeParameter;
+class GeometryParameter;
+class BuildingSurfacePattern;
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class Car
+class GeometryParameterSpawner
 {
 public:
-	Car( CarManager* manager, GameObject* parent);
-	~Car();
-	void Delete( void);
-	void Init( TrafficLand* spawnLand, TrafficLand* targetLand);
+	GeometryParameter* operator()( const std::vector< BuildingSurfacePattern*>& surfacePatterns);
 
 private:
-	CarManager* m_Manager;
+	Random m_Random;
 
-	GameObject* m_GameObject;
-	CarController* m_CarController;
+};
+
+class ShapeParameterSpawner
+{
+public:
+	void operator()( const std::vector<Vector3>& vertices, GeometryParameter* geometryParameter);
+
+private:
+	Random m_Random;
+
 };
 
 #endif

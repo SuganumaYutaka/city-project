@@ -24,7 +24,6 @@ namespace HalfEdgeDataStructure
 	class Edge;
 	class Face;
 	class HalfEdge;
-	class Rule;
 }
 
 /*------------------------------------------------------------------------------

@@ -1,11 +1,11 @@
 /*==============================================================================
 
-    Car.h - 町の自動生成ー交通システムー車
+    FaceDivideFunc.h - 町の自動生成ー面を分割する処理
                                                        Author : Yutaka Suganuma
                                                        Date   : 2018/2/6
 ==============================================================================*/
-#ifndef _CAR_H_
-#define _CAR_H_
+#ifndef _FACE_DIVIDE_FUNC_H_
+#define _FACE_DIVIDE_FUNC_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -15,27 +15,25 @@
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class GameObject;
-class CarManager;
-class CarController;
-class TrafficLand;
+namespace HalfEdgeDataStructure
+{
+	class Vertex;
+	class Edge;
+	class Face;
+	class HalfEdge;
+	class Model;
+}
 
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class Car
+class FaceDivideFunc
 {
 public:
-	Car( CarManager* manager, GameObject* parent);
-	~Car();
-	void Delete( void);
-	void Init( TrafficLand* spawnLand, TrafficLand* targetLand);
+	bool operator() ( HalfEdgeDataStructure::Face* face);
 
 private:
-	CarManager* m_Manager;
-
-	GameObject* m_GameObject;
-	CarController* m_CarController;
+	
 };
 
 #endif

@@ -49,12 +49,13 @@ namespace HalfEdgeDataStructure
 	public:
 		Edge( Model* model, Vertex* start, Vertex* end);
 		~Edge();
+		void Delete( void);
 
 		Vertex* GetStart( void) const{ return m_Start;}
-		void SetStart( Vertex* vertex) { m_Start = vertex; m_Attribute->Update();}
+		void SetStart( Vertex* vertex) { m_Start = vertex; UpdateAttribute();}
 
 		Vertex* GetEnd( void) const{ return m_End;}
-		void SetEnd( Vertex* vertex) { m_End = vertex; m_Attribute->Update();}
+		void SetEnd( Vertex* vertex) { m_End = vertex; UpdateAttribute();}
 
 		HalfEdge* GetLeft( void) const { return m_Left;}
 		void SetLeft( HalfEdge* he) { m_Left = he;}
@@ -70,7 +71,7 @@ namespace HalfEdgeDataStructure
 		EdgeAttribute* GetAttribute( void) { return m_Attribute;}
 
 		void UpdateByMove( void);
-
+		void UpdateAttribute( void);
 		
 	};
 }

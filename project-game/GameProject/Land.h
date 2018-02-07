@@ -31,6 +31,7 @@ class Land
 public:
 	Land( LandManager* manager, GameObject* parent);
 	~Land();
+	void Delete( void);
 	void Init( const std::vector<Vector3>& vertices);
 	void OnDeleteBlock( void);
 
@@ -43,6 +44,8 @@ public:
 	int LinkBuilding( Building* building);
 	void UnlinkBuilding( Building* building);
 	void UnlinkBuilding( int buildingID);
+	GameObject* GetGameObject( void){ return m_GameObject;}
+	TrafficLand* GetTrafficLand( void){ return m_TrafficLand;}
 
 private:
 	LandManager* m_Manager;

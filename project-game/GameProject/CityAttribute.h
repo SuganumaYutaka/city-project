@@ -50,12 +50,15 @@ private:
 public:
 	JunctionAttribute( HalfEdgeDataStructure::Model* model, int id, CityAttributeManager* manager, GameObject* parent);
 	~JunctionAttribute();
+	void Delete( void);
 	void Init( void) override;
 	void Update( void) override;
 	void UnregisterView( void){ m_View = NULL;}
 
 	const Vector3& GetPosition(void);
 	TrafficJunction* GetTrafficJunction( void){ return m_TrafficJunction;}
+	GameObject* GetGameObject( void){ return m_GameObject;}
+
 };
 
 //辺（道路）
@@ -71,6 +74,7 @@ private:
 public:
 	RoadAttribute( HalfEdgeDataStructure::Model* model, int id, CityAttributeManager* manager, GameObject* parent);
 	~RoadAttribute();
+	void Delete( void);
 	void Init( void) override;
 	void Update( void) override;
 	void UnregisterView( void){ m_View = NULL;}
@@ -83,6 +87,8 @@ public:
 	Vector3 GetVector( void);
 	std::vector<Vector3> GetVertices( void);
 	TrafficRoad* GetTrafficRoad( void){ return m_TrafficRoad;}
+	GameObject* GetGameObject( void){ return m_GameObject;}
+
 };
 
 //面（区画）
@@ -97,6 +103,7 @@ private:
 public:
 	BlockAttribute( HalfEdgeDataStructure::Model* model, int id, CityAttributeManager* manager, GameObject* parent);
 	~BlockAttribute();
+	void Delete( void);
 	void Init( void) override;
 	void Update( void) override;
 	void UnregisterView( void){ m_View = NULL;}
@@ -104,6 +111,8 @@ public:
 	int LinkLand( Land* land);
 	void UnlinkLand( Land* land);
 	void UnlinkLand( int landID);
+	GameObject* GetGameObject( void){ return m_GameObject;}
+
 };
 
 #endif

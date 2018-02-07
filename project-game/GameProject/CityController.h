@@ -17,8 +17,11 @@
 	‘O•ûéŒ¾
 ------------------------------------------------------------------------------*/
 class GameObject;
+class CityAttributeManager;
+class LandManager;
 class BuildingManager;
 class CarManager;
+class BuildingSurfacePattern;
 
 namespace HalfEdgeDataStructure
 {
@@ -36,20 +39,19 @@ public:
 	CityController( GameObject* pGameObject);
 	void Uninit( void);
 	void Init( float cityWidth, float cityHeight, int countDivide, int countCar, bool doConfirmGeometry);
-	void CreateCars( int countCar);
-	void DeleteAllCars( void);
 
 private:
 	void Update();
 
 	HalfEdgeDataStructure::Model* m_Model;
+	CityAttributeManager* m_CityAttributeManager;
+	LandManager* m_LandManager;
 	BuildingManager* m_BuildingManager;
 	CarManager* m_CarManager;
+	std::vector< BuildingSurfacePattern*> m_BuildingSurfacePatterns;
 
 	float m_Width;
 	float m_Height;
-	int m_CountCar;
-	bool m_IsWireFrame;
 };
 
 

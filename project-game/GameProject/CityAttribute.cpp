@@ -43,6 +43,14 @@ JunctionAttribute::JunctionAttribute( Model* model, int id, CityAttributeManager
 ------------------------------------------------------------------------------*/
 JunctionAttribute::~JunctionAttribute()
 {
+	
+}
+
+/*------------------------------------------------------------------------------
+	交差点ー削除
+------------------------------------------------------------------------------*/
+void JunctionAttribute::Delete(void)
+{
 	m_GameObject->ReleaseReserve();
 
 	//リンクを解除
@@ -98,6 +106,14 @@ RoadAttribute::RoadAttribute( Model* model, int id, CityAttributeManager* manage
 	道路ーデストラクタ
 ------------------------------------------------------------------------------*/
 RoadAttribute::~RoadAttribute()
+{
+	
+}
+
+/*------------------------------------------------------------------------------
+	道路ー削除
+------------------------------------------------------------------------------*/
+void RoadAttribute::Delete(void)
 {
 	m_GameObject->ReleaseReserve();
 
@@ -195,8 +211,17 @@ BlockAttribute::BlockAttribute( Model* model, int id, CityAttributeManager* mana
 ------------------------------------------------------------------------------*/
 BlockAttribute::~BlockAttribute()
 {
+	
+}
+
+/*------------------------------------------------------------------------------
+	区画ー削除
+------------------------------------------------------------------------------*/
+void BlockAttribute::Delete(void)
+{
 	m_GameObject->ReleaseReserve();
 
+	//土地に消去を伝える
 	for (auto land : m_Lands)
 	{
 		if (land)

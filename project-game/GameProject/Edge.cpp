@@ -38,7 +38,13 @@ Edge::~Edge()
 	{
 		delete m_Left;
 	}
+}
 
+/*------------------------------------------------------------------------------
+	削除
+------------------------------------------------------------------------------*/
+void Edge::Delete(void)
+{
 	m_Model->UnregisterEdge( this);
 	if( m_Attribute)
 	{
@@ -130,10 +136,7 @@ bool Edge::Divide(float rateFromStart, Vertex** ppOut)
 ------------------------------------------------------------------------------*/
 void Edge::UpdateByMove(void)
 {
-	if( m_Attribute)
-	{
-		m_Attribute->Update();
-	}
+	UpdateAttribute();
 
 	//隣接する面に知らせる
 	//右
@@ -146,5 +149,16 @@ void Edge::UpdateByMove(void)
 	if (m_Left)
 	{
 		m_Left->GetFace()->UpdateByMove();
+	}
+}
+
+/*------------------------------------------------------------------------------
+	属性情報の更新
+------------------------------------------------------------------------------*/
+void Edge::UpdateAttribute(void)
+{
+	if( m_Attribute)
+	{
+		m_Attribute->Update();
 	}
 }

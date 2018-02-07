@@ -16,6 +16,7 @@
 #include "BuildingManager.h"
 #include "BuildingParameter.h"
 #include "WallRenderer.h"
+#include "Transform.h"
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -35,6 +36,14 @@ Building::Building(BuildingManager* manager, GameObject* parent)
 	デストラクタ
 ------------------------------------------------------------------------------*/
 Building::~Building()
+{
+	
+}
+
+/*------------------------------------------------------------------------------
+	消去
+------------------------------------------------------------------------------*/
+void Building::Delete(void)
 {
 	m_GameObject->ReleaseReserve();
 
@@ -89,6 +98,9 @@ void Building::LinkLand( LandManager* landManager, int landID)
 	m_LandID = landID;
 
 	m_LandManager->GetLand( m_LandID)->LinkBuilding( this);
+
+	//GameObjectを移動
+	m_GameObject->m_pTransform->SetWorldPosition( m_LandManager->GetLand( m_LandID)->GetGameObject()->m_pTransform->GetWorldPosition());
 }
 
 /*------------------------------------------------------------------------------

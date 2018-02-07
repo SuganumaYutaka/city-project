@@ -44,6 +44,7 @@ namespace HalfEdgeDataStructure
 	public:
 		Face( Model* model, HalfEdge* he);
 		~Face();
+		void Delete( void);
 
 		HalfEdge* GetHalfEdge( void) const{ return m_HalfEdge;}
 		void SetHalfEdge( HalfEdge* he) { m_HalfEdge = he;}
@@ -57,6 +58,7 @@ namespace HalfEdgeDataStructure
 		FaceAttribute* GetAttribute( void) { return m_Attribute;}
 
 		void UpdateByMove( void);
+		void UpdateAttribute( void);
 	};
 }
 

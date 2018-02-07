@@ -354,9 +354,6 @@
     <ClCompile Include="CityController.cpp">
       <Filter>CityEngine\City</Filter>
     </ClCompile>
-    <ClCompile Include="CityRule.cpp">
-      <Filter>CityEngine\City</Filter>
-    </ClCompile>
     <ClCompile Include="JunctionView.cpp">
       <Filter>CityEngine\City</Filter>
     </ClCompile>
@@ -452,6 +449,12 @@
     </ClCompile>
     <ClCompile Include="Car.cpp">
       <Filter>CityEngine\Traffic</Filter>
+    </ClCompile>
+    <ClCompile Include="FaceDivideFunc.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildingParameterSpawner.cpp">
+      <Filter>CityEngine\Building</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -653,9 +656,6 @@
     <ClInclude Include="HalfEdge.h">
       <Filter>CityEngine\HalfEdge</Filter>
     </ClInclude>
-    <ClInclude Include="Rule.h">
-      <Filter>CityEngine\HalfEdge</Filter>
-    </ClInclude>
     <ClInclude Include="Vertex.h">
       <Filter>CityEngine\HalfEdge</Filter>
     </ClInclude>
@@ -717,9 +717,6 @@
       <Filter>CityEngine\City</Filter>
     </ClInclude>
     <ClInclude Include="CityController.h">
-      <Filter>CityEngine\City</Filter>
-    </ClInclude>
-    <ClInclude Include="CityRule.h">
       <Filter>CityEngine\City</Filter>
     </ClInclude>
     <ClInclude Include="JunctionView.h">
@@ -820,6 +817,12 @@
     </ClInclude>
     <ClInclude Include="Car.h">
       <Filter>CityEngine\Traffic</Filter>
+    </ClInclude>
+    <ClInclude Include="FaceDivideFunc.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildingParameterSpawner.h">
+      <Filter>CityEngine\Building</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

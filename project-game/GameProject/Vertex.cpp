@@ -29,6 +29,14 @@ Vertex::Vertex( HalfEdgeDataStructure::Model* model, const Vector3& position)
 ------------------------------------------------------------------------------*/
 Vertex::~Vertex()
 {
+	
+}
+
+/*------------------------------------------------------------------------------
+	íœ
+------------------------------------------------------------------------------*/
+void Vertex::Delete(void)
+{
 	m_Model->UnregisterVertex( this);
 	if( m_Attribute)
 	{
@@ -132,14 +140,22 @@ HalfEdge* Vertex::SearchHalfEdgeOnFace(Face* face)
 ------------------------------------------------------------------------------*/
 void Vertex::UpdateByMove(void)
 {
-	if( m_Attribute)
-	{
-		m_Attribute->Update();
-	}
+	UpdateAttribute();
 
 	//—×Ú‚·‚é•Ó‚É’m‚ç‚¹‚é
 	for (auto edge : m_Edges)
 	{
 		edge->UpdateByMove();
+	}
+}
+
+/*------------------------------------------------------------------------------
+	‘®«î•ñ‚ÌXV
+------------------------------------------------------------------------------*/
+void Vertex::UpdateAttribute(void)
+{
+	if( m_Attribute)
+	{
+		m_Attribute->Update();
 	}
 }

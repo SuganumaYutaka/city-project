@@ -73,7 +73,10 @@ void CarController::Init(TrafficRoad* currentRoad, TrafficJunction* nextJunction
 void CarController::Uninit( void)
 {
 	//道路から外す
-	m_CurrentRoad->UnregisterCar(this);
+	if( m_CurrentRoad)
+	{
+		//m_CurrentRoad->UnregisterCar(this);
+	}
 
 	//ステートの解放
 	for (auto state : m_States)
@@ -345,4 +348,13 @@ void CarController::ChangeState(ECarState next)
 void CarController::BrakeSpeed(void)
 {
 	m_Speed -= ( m_Speed * BRAKE_SPEED_RATE);
+}
+
+/*------------------------------------------------------------------------------
+	走行中の道路消去時の処理
+------------------------------------------------------------------------------*/
+void CarController::OnDeleteCurrentRoad(void)
+{
+	m_CurrentRoad = NULL;
+	SetActive( false);
 }

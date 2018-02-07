@@ -103,7 +103,8 @@ ShapeCylinder* Builder::CreateShapeCylinder( ShapeParameter* parameter)
 {
 	//Œ`ó‚Ì¶¬
 	auto shape = new ShapeCylinder( m_Geometry->m_pGameObject);
-	shape->Init( parameter->m_Position, parameter->m_Rotation, parameter->m_Size.y, parameter->m_Size.x);
+	float radius = ( parameter->m_Size.x + parameter->m_Size.z) * 0.25f;
+	shape->Init( parameter->m_Position, parameter->m_Rotation, parameter->m_Size.y, radius);
 	m_Geometry->AddShape( shape);
 
 	return shape;

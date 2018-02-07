@@ -59,7 +59,8 @@ public:
 	bool TurnLeft( void);
 	bool GoStraight( void);
 	void ChangeState( ECarState next);
-	
+	void OnDeleteCurrentRoad(void);
+
 	float GetSpeed( void){ return m_Speed;}
 	void SetSpeed( float speed){ m_Speed = speed;}
 	void AddSpeed( float addSpeed){ m_Speed += addSpeed;}

@@ -169,6 +169,7 @@
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="BuildingGeometry.cpp" />
     <ClCompile Include="BuildingManager.cpp" />
+    <ClCompile Include="BuildingParameterSpawner.cpp" />
     <ClCompile Include="BuildingSurfacePattern.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraController.cpp" />
@@ -179,7 +180,6 @@
     <ClCompile Include="CityAttribute.cpp" />
     <ClCompile Include="CityAttributeManager.cpp" />
     <ClCompile Include="CityController.cpp" />
-    <ClCompile Include="CityRule.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -191,6 +191,7 @@
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EditSystem.cpp" />
     <ClCompile Include="Face.cpp" />
+    <ClCompile Include="FaceDivideFunc.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -332,6 +333,7 @@
     <ClInclude Include="BuildingGeometry.h" />
     <ClInclude Include="BuildingManager.h" />
     <ClInclude Include="BuildingParameter.h" />
+    <ClInclude Include="BuildingParameterSpawner.h" />
     <ClInclude Include="BuildingSurfacePattern.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraController.h" />
@@ -342,7 +344,6 @@
     <ClInclude Include="CityAttribute.h" />
     <ClInclude Include="CityAttributeManager.h" />
     <ClInclude Include="CityController.h" />
-    <ClInclude Include="CityRule.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
@@ -355,6 +356,7 @@
     <ClInclude Include="Edge.h" />
     <ClInclude Include="EditSystem.h" />
     <ClInclude Include="Face.h" />
+    <ClInclude Include="FaceDivideFunc.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Game.h" />
@@ -401,7 +403,6 @@
     <ClInclude Include="ResultController.h" />
     <ClInclude Include="RoadView.h" />
     <ClInclude Include="Roof.h" />
-    <ClInclude Include="Rule.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="ShadowVLShader.h" />

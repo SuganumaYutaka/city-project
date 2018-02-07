@@ -13,19 +13,23 @@
 #include "ComponentInclude.h"
 
 #include "HalfEdgeModel.h"
-#include "CityRule.h"
-#include "CityAttribute.h"
-
-#include "InputKeyboard.h"
-
-#include "BuildingRuleFactory.h"
+#include "CityAttributeManager.h"
+#include "LandManager.h"
 #include "BuildingManager.h"
 #include "CarManager.h"
 
-#include "BuildingController.h"
+#include "InputKeyboard.h"
 
-#include "CarController.h"
-#include "WallRenderer.h"
+#include "Face.h"
+#include "FaceDivideFunc.h"
+#include "CityAttribute.h"
+#include "LandSpawner.h"
+#include "BuildingSurfacePattern.h"
+#include "BuildingParameterSpawner.h"
+#include "Land.h"
+#include "Builder.h"
+#include "Building.h"
+#include "Car.h"
 
 using namespace HalfEdgeDataStructure;
 
@@ -35,7 +39,6 @@ using namespace HalfEdgeDataStructure;
 #define CITY_WIDTH (200.0f)
 #define CITY_HEIGHT (200.0f)
 #define DIVIDE_COUNT ( 3)
-#define CREATE_CAR_COUNT ( 20)
 
 /*------------------------------------------------------------------------------
 	コンポーネント生成
@@ -54,14 +57,17 @@ CityController::CityController( GameObject* pGameObject)
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 
 	m_Model = NULL;
-	/*m_BuildingRuleFactory = NULL;
+	m_CityAttributeManager = NULL;
+	m_LandManager = NULL;
 	m_BuildingManager = NULL;
-	m_CarManager = NULL;*/
+	m_CarManager = NULL;
 
 	m_Width = CITY_WIDTH;
 	m_Height = CITY_HEIGHT;
-	m_CountCar = CREATE_CAR_COUNT;
-	m_IsWireFrame = false;
+
+	//表面パターンの設定
+	m_BuildingSurfacePatterns.push_back( new BuildingSurfacePattern("data/SCRIPT/BuildingSurfacePattern/test02.txt"));
+	m_BuildingSurfacePatterns.push_back( new BuildingSurfacePattern("data/SCRIPT/BuildingSurfacePattern/test02.txt"));
 	
 	//Init( CITY_WIDTH, CITY_HEIGHT, DIVIDE_COUNT, CREATE_CAR_COUNT, true);
 }
@@ -73,53 +79,117 @@ void CityController::Init(float cityWidth, float cityHeight, int countDivide, in
 {
 	m_Width = cityWidth;
 	m_Height = cityHeight;
-	m_CountCar = countCar;
-
-	//車の消去
-	DeleteAllCars();
-
+	
 	//終了処理
-	Uninit();
+	//Uninit();
 
-	////建物管理オブジェクト生成
-	//m_BuildingManager = new BuildingManager();
+	//管理オブジェクトの生成
+	m_Model = new Model();
+	m_CityAttributeManager = new CityAttributeManager();
+	m_LandManager = new LandManager();
+	m_BuildingManager = new BuildingManager();
+	m_CarManager = new CarManager();
 
-	////建物の自動生成システムを生成
-	//m_BuildingRuleFactory = new BuildingRuleFactory();
+	//町のはじめの面を生成
+	Vector3 sizeHalf( cityWidth * 0.5f, 0.0f, cityHeight * 0.5f);
+	m_Model->CreateFirstFace( 
+		Vector3( -sizeHalf.x, 0.0f, +sizeHalf.z), Vector3( +sizeHalf.x, 0.0f, +sizeHalf.z),
+		Vector3( -sizeHalf.x, 0.0f, -sizeHalf.z), Vector3( +sizeHalf.x, 0.0f, -sizeHalf.z));
 
-	////車管理オブジェクト生成
-	//if( !m_CarManager)
-	//{
-	//	auto carManagerObject = new GameObject( m_pGameObject);
-	//	m_CarManager = carManagerObject->AddComponent<CarManager>();
-	//}
+	//区画の分割
+	FaceDivideFunc funcDivide;
+	for (int i = 0; i < countDivide; i++)
+	{
+		auto faces = m_Model->GetFaces();
+		for (auto face : faces)
+		{
+			funcDivide( face);
+		}
+	}
 
-	////町の自動生成システム設定のハーフエッジデータ構造を生成
-	//m_Model = new Model( new CityRule());
+	//属性情報の付与
+	auto vertices = m_Model->GetVertices();
+	int vertexCount = vertices.size();
+	for (int i = 0; i < vertexCount; i++)
+	{
+		auto attribute = new JunctionAttribute( m_Model, i, m_CityAttributeManager, m_pGameObject);
+	}
+	auto edges = m_Model->GetEdges();
+	int edgesCount = edges.size();
+	for (int i = 0; i < edgesCount; i++)
+	{
+		auto attribute = new RoadAttribute( m_Model, i, m_CityAttributeManager, m_pGameObject);
+	}
+	auto faces = m_Model->GetFaces();
+	int facesCount = faces.size();
+	for (int i = 0; i < facesCount; i++)
+	{
+		auto attribute = new BlockAttribute( m_Model, i, m_CityAttributeManager, m_pGameObject);
+	}
 
-	////はじめの面を生成
-	//Vector3 sizeHalf( cityWidth * 0.5f, 0.0f, cityHeight * 0.5f);
-	//m_Model->CreateFirstFace( 
-	//	Vector3( -sizeHalf.x, 0.0f, +sizeHalf.z), Vector3( +sizeHalf.x, 0.0f, +sizeHalf.z),
-	//	Vector3( -sizeHalf.x, 0.0f, -sizeHalf.z), Vector3( +sizeHalf.x, 0.0f, -sizeHalf.z));
+	//属性情報の初期化
+	for (auto junction : m_CityAttributeManager->GetJunctions())
+	{
+		junction->Init();
+	}
+	for (auto road : m_CityAttributeManager->GetRoads())
+	{
+		road->Init();
+	}
+	for (auto block : m_CityAttributeManager->GetBlocks())
+	{
+		block->Init();
+	}
 
-	////区画分割
-	//for( int count = 0; count < countDivide; count++)
-	//{
-	//	m_Model->DivideAllFaces();
-	//}
+	//土地の追加
+	LandSpawner landSpawner;
+	auto blocks = m_CityAttributeManager->GetBlocks();
+	for (auto block : blocks)
+	{
+		landSpawner( m_LandManager, block, m_pGameObject);
+	}
 
-	////車を生成
-	//CreateCars( countCar);
+	//土地情報から建物の生成
+	auto lands = m_LandManager->GetLands();
+	int landCount = lands.size();
+	GeometryParameterSpawner geometryParameterSpawner;
+	ShapeParameterSpawner shapeParameterSpawner;
+	for (int i = 0; i < landCount; i++)
+	{
+		//建物生成用のパラメーター生成
+		auto parameter = geometryParameterSpawner( m_BuildingSurfacePatterns);
+		shapeParameterSpawner( lands[i]->GetVertices(), parameter);
 
-	////建物ジオメトリ情報の削除
-	//if( doConfirmGeometry)
-	//{
-	//	for (auto building : m_BuildingManager->GetAllBuildings())
-	//	{
-	//		building->ConfirmGeometry();
-	//	}
-	//}
+		//パラメーターから建物を生成
+		auto building = new Building( m_BuildingManager, m_pGameObject);
+		building->InitGeometry( parameter);
+		building->LinkLand( m_LandManager, i);
+	}
+
+	//土地の最適化
+	for (auto building : m_BuildingManager->GetBuildings())
+	{
+		building->ConfirmGeometry();
+	}
+
+	//車の生成
+	int parCreate = landCount / countCar;
+	if (parCreate <= 0)
+	{
+		parCreate = 1;
+	}
+	for( int i = 0; i < landCount; i++)
+	{
+		if ( i % parCreate == 0)
+		{
+			auto traffic = lands[i]->GetTrafficLand();
+			if( traffic)
+			{
+				auto car = new Car( m_CarManager, m_pGameObject);
+				car->Init( traffic, NULL);
+			}
+		}
+	}
 }
 
 /*------------------------------------------------------------------------------
@@ -132,16 +202,34 @@ void CityController::Uninit( void)
 		delete m_Model;
 		m_Model = NULL;
 	}
-	/*if (m_BuildingRuleFactory)
+	if( m_CityAttributeManager)
 	{
-		delete m_BuildingRuleFactory;
-		m_BuildingRuleFactory = NULL;
+		delete m_CityAttributeManager;
+		m_CityAttributeManager = NULL;
+	}
+	if( m_LandManager)
+	{
+		delete m_LandManager;
+		m_LandManager = NULL;
 	}
 	if( m_BuildingManager)
 	{
 		delete m_BuildingManager;
 		m_BuildingManager = NULL;
-	}*/
+	}
+	if( m_CarManager)
+	{
+		delete m_CarManager;
+		m_CarManager = NULL;
+	}
+
+	for (auto surfacePattern : m_BuildingSurfacePatterns)
+	{
+		delete surfacePattern;
+	}
+	m_BuildingSurfacePatterns.clear();
+	m_BuildingSurfacePatterns.shrink_to_fit();
+
 }
 
 /*------------------------------------------------------------------------------
@@ -152,54 +240,3 @@ void CityController::Update()
 	
 }
 
-/*------------------------------------------------------------------------------
-	車を生成
-------------------------------------------------------------------------------*/
-void CityController::CreateCars(int countCar)
-{
-	if (countCar <= 0)
-	{
-		return;
-	}
-
-	if (!m_BuildingManager)
-	{
-		return;
-	}
-
-	////建物から車を生成
-	//auto buildings = m_BuildingManager->GetAllBuildings();
-	//if( buildings.size() == 0)
-	//{
-	//	return;
-	//}
-	//int parCreate = buildings.size() / countCar;
-	//if (parCreate <= 0)
-	//{
-	//	parCreate = 1;
-	//}
-	//int count = 0;
-	//for (auto ite = buildings.begin(); ite != buildings.end(); ++ite, ++count)
-	//{
-	//	if (count % parCreate == 0)
-	//	{
-	//		auto trafficBuilding = (*ite)->GetTrafficBuilding();
-	//		trafficBuilding->CreateCar();
-	//	}
-	//}
-}
-
-/*------------------------------------------------------------------------------
-	すべての車を消去
-------------------------------------------------------------------------------*/
-void CityController::DeleteAllCars(void)
-{
-	/*if (m_CarManager)
-	{
-		auto cars = m_CarManager->m_pGameObject->GetComponentListInChildren<CarController>();
-		for (auto car : cars)
-		{
-			car->m_pGameObject->ReleaseReserve();
-		}
-	}*/
-}

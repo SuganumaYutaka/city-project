@@ -115,9 +115,9 @@ bool Model::CreateFirstEdge(const Vector3& startPosition, const Vector3& endPosi
 	end->RegisterEdge( edge);
 
 	//属性情報の更新
-	start->GetAttribute()->Update();
-	end->GetAttribute()->Update();
-	edge->GetAttribute()->Update();
+	start->UpdateAttribute();
+	end->UpdateAttribute();
+	edge->UpdateAttribute();
 
 	return true;
 }
@@ -189,15 +189,15 @@ bool Model::CreateFirstFace(
 	heLeft->SetFace( face);
 
 	//属性情報の更新
-	topLeft->GetAttribute()->Update();
-	topRight->GetAttribute()->Update();
-	bottomLeft->GetAttribute()->Update();
-	bottomRight->GetAttribute()->Update();
-	top->GetAttribute()->Update();
-	right->GetAttribute()->Update();
-	bottom->GetAttribute()->Update();
-	left->GetAttribute()->Update();
-	face->GetAttribute()->Update();
+	topLeft->UpdateAttribute();
+	topRight->UpdateAttribute();
+	bottomLeft->UpdateAttribute();
+	bottomRight->UpdateAttribute();
+	top->UpdateAttribute();
+	right->UpdateAttribute();
+	bottom->UpdateAttribute();
+	left->UpdateAttribute();
+	face->UpdateAttribute();
 	
 	return true;
 }
@@ -256,7 +256,7 @@ bool Model::UnregisterVertex( Vertex* vertex)
 ------------------------------------------------------------------------------*/
 Edge* Model::GetEdge(int id)
 {
-	if (m_Vertices.size() <= id)
+	if (m_Edges.size() <= id)
 	{
 		return NULL;
 	}
@@ -305,7 +305,7 @@ bool Model::UnregisterEdge( Edge* edge)
 ------------------------------------------------------------------------------*/
 Face* Model::GetFace(int id)
 {
-	if (m_Vertices.size() <= id)
+	if (m_Faces.size() <= id)
 	{
 		return NULL;
 	}

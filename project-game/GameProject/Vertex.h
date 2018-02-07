@@ -44,11 +44,11 @@ namespace HalfEdgeDataStructure
 		std::list<Edge*> m_Edges;
 		Model* m_Model;
 		VertexAttribute* m_Attribute;
-		void UpdateByMove( void);
 
 	public:
 		Vertex( Model* model, const Vector3& position);
 		~Vertex();
+		void Delete( void);
 
 		const Vector3& GetPosition( void) const { return m_Position;}
 		void SetPosition( Vector3 position) { m_Position = position; UpdateByMove();}
@@ -62,6 +62,9 @@ namespace HalfEdgeDataStructure
 
 		void LinkAttribute( VertexAttribute* attribute){ m_Attribute = attribute;}
 		VertexAttribute* GetAttribute( void) { return m_Attribute;}
+
+		void UpdateByMove( void);
+		void UpdateAttribute( void);
 	};
 }
 

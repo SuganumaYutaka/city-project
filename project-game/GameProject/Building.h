@@ -31,6 +31,7 @@ class Building
 public:
 	Building( BuildingManager* manager, GameObject* parent);
 	~Building();
+	void Delete( void);
 	void OnDeleteBlock( void);
 	void LinkLand( LandManager* landManager, int landID);
 	void ConfirmGeometry(void);

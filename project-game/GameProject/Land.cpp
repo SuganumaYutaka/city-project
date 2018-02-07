@@ -38,6 +38,14 @@ Land::Land( LandManager* manager, GameObject* parent)
 ------------------------------------------------------------------------------*/
 Land::~Land()
 {
+	
+}
+
+/*------------------------------------------------------------------------------
+	消去
+------------------------------------------------------------------------------*/
+void Land::Delete(void)
+{
 	m_GameObject->ReleaseReserve();
 
 	m_Vertices.clear();
@@ -56,9 +64,20 @@ Land::~Land()
 ------------------------------------------------------------------------------*/
 void Land::Init( const std::vector<Vector3>& vertices)
 {
+	//中心位置を設定
+	Vector3 vec02 = vertices[2] - vertices[0];
+	Vector3 center = vertices[0] + vec02 * 0.5f;
+
+	//全頂点を中心からの相対座標にする
 	m_Vertices.clear();
-	m_Vertices = vertices;
-	m_Renderer->SetVertices( vertices);
+	for (auto vertex : vertices)
+	{
+		m_Vertices.push_back( vertex - center);
+	}
+	m_Renderer->SetVertices( m_Vertices);
+
+	//GameObjectを移動
+	m_GameObject->m_pTransform->SetWorldPosition( center);
 }
 
 /*------------------------------------------------------------------------------
