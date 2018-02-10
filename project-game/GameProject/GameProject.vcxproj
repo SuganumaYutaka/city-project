@@ -374,6 +374,7 @@
     <ClInclude Include="JunctionView.h" />
     <ClInclude Include="Land.h" />
     <ClInclude Include="LandManager.h" />
+    <ClInclude Include="LandParameter.h" />
     <ClInclude Include="LandSpawner.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Manager.h" />

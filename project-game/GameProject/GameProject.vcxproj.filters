@@ -824,5 +824,8 @@
     <ClInclude Include="BuildingParameterSpawner.h">
       <Filter>CityEngine\Building</Filter>
     </ClInclude>
+    <ClInclude Include="LandParameter.h">
+      <Filter>CityEngine\City</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

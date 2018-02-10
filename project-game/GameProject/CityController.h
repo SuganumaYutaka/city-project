@@ -22,6 +22,8 @@ class LandManager;
 class BuildingManager;
 class CarManager;
 class BuildingSurfacePattern;
+class LandParameter;
+class GeometryParameter;
 
 namespace HalfEdgeDataStructure
 {
@@ -49,6 +51,13 @@ private:
 	BuildingManager* m_BuildingManager;
 	CarManager* m_CarManager;
 	std::vector< BuildingSurfacePattern*> m_BuildingSurfacePatterns;
+
+	void CreateFirstFace( float width, float height);
+	void Divide( int count);
+	void CreateAttribute( void);
+	void CreateLand( LandParameter* parameter, int blockID);
+	void CreateBuilding( GeometryParameter* parameter, int landID);
+	void CreateCar( int spawnLandID, int targetLandID);
 
 	float m_Width;
 	float m_Height;

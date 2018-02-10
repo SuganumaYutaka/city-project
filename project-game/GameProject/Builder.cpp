@@ -93,6 +93,9 @@ ShapeBox* Builder::CreateShapeBox( ShapeParameter* parameter)
 	shape->Init( parameter->m_Position, parameter->m_Rotation, parameter->m_Size);
 	m_Geometry->AddShape( shape);
 
+	//表面パターンのランダムのシード値を設定
+	m_Parameter->m_SurfacePattern->SetSeed( m_Parameter->m_RandomSeed);
+
 	return shape;
 }
 
@@ -106,6 +109,9 @@ ShapeCylinder* Builder::CreateShapeCylinder( ShapeParameter* parameter)
 	float radius = ( parameter->m_Size.x + parameter->m_Size.z) * 0.25f;
 	shape->Init( parameter->m_Position, parameter->m_Rotation, parameter->m_Size.y, radius);
 	m_Geometry->AddShape( shape);
+
+	//表面パターンのランダムのシード値を設定
+	m_Parameter->m_SurfacePattern->SetSeed( m_Parameter->m_RandomSeed);
 
 	return shape;
 }
@@ -207,7 +213,7 @@ bool Builder::CreateTile( Floor* floor)
 	float width = floor->GetWidth();
 	TileDefault* tile = NULL;
 	TileDefault* tileNext = NULL;
-	
+
 	//幅が窓より足りない場合壁のみ設定
 	if (width < m_Parameter->m_WindowWidth)
 	{
@@ -323,7 +329,7 @@ bool Builder::CreateTileCurve( Floor* floor)
 	float width = floor->GetWidth();
 	TileCurve* tile = NULL;
 	TileCurve* tileNext = NULL;
-	
+
 	//幅が窓より足りない場合壁のみ設定
 	if (width < m_Parameter->m_WindowWidth)
 	{

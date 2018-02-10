@@ -24,6 +24,7 @@
 #include "FaceDivideFunc.h"
 #include "CityAttribute.h"
 #include "LandSpawner.h"
+#include "LandParameter.h"
 #include "BuildingSurfacePattern.h"
 #include "BuildingParameterSpawner.h"
 #include "Land.h"
@@ -91,62 +92,25 @@ void CityController::Init(float cityWidth, float cityHeight, int countDivide, in
 	m_CarManager = new CarManager();
 
 	//町のはじめの面を生成
-	Vector3 sizeHalf( cityWidth * 0.5f, 0.0f, cityHeight * 0.5f);
-	m_Model->CreateFirstFace( 
-		Vector3( -sizeHalf.x, 0.0f, +sizeHalf.z), Vector3( +sizeHalf.x, 0.0f, +sizeHalf.z),
-		Vector3( -sizeHalf.x, 0.0f, -sizeHalf.z), Vector3( +sizeHalf.x, 0.0f, -sizeHalf.z));
+	CreateFirstFace( cityWidth, cityHeight);
 
 	//区画の分割
-	FaceDivideFunc funcDivide;
-	for (int i = 0; i < countDivide; i++)
-	{
-		auto faces = m_Model->GetFaces();
-		for (auto face : faces)
-		{
-			funcDivide( face);
-		}
-	}
+	Divide( countDivide);
 
 	//属性情報の付与
-	auto vertices = m_Model->GetVertices();
-	int vertexCount = vertices.size();
-	for (int i = 0; i < vertexCount; i++)
-	{
-		auto attribute = new JunctionAttribute( m_Model, i, m_CityAttributeManager, m_pGameObject);
-	}
-	auto edges = m_Model->GetEdges();
-	int edgesCount = edges.size();
-	for (int i = 0; i < edgesCount; i++)
-	{
-		auto attribute = new RoadAttribute( m_Model, i, m_CityAttributeManager, m_pGameObject);
-	}
-	auto faces = m_Model->GetFaces();
-	int facesCount = faces.size();
-	for (int i = 0; i < facesCount; i++)
-	{
-		auto attribute = new BlockAttribute( m_Model, i, m_CityAttributeManager, m_pGameObject);
-	}
-
-	//属性情報の初期化
-	for (auto junction : m_CityAttributeManager->GetJunctions())
-	{
-		junction->Init();
-	}
-	for (auto road : m_CityAttributeManager->GetRoads())
-	{
-		road->Init();
-	}
-	for (auto block : m_CityAttributeManager->GetBlocks())
-	{
-		block->Init();
-	}
+	CreateAttribute();
 
 	//土地の追加
 	LandSpawner landSpawner;
 	auto blocks = m_CityAttributeManager->GetBlocks();
 	for (auto block : blocks)
 	{
-		landSpawner( m_LandManager, block, m_pGameObject);
+		//土地生成用のパラメーター生成
+		auto landParameters = landSpawner( block, m_CityAttributeManager);
+		for (auto landParameter : landParameters)
+		{
+			CreateLand( landParameter, m_CityAttributeManager->GetBlockID( block));
+		}
 	}
 
 	//土地情報から建物の生成
@@ -161,9 +125,7 @@ void CityController::Init(float cityWidth, float cityHeight, int countDivide, in
 		shapeParameterSpawner( lands[i]->GetVertices(), parameter);
 
 		//パラメーターから建物を生成
-		auto building = new Building( m_BuildingManager, m_pGameObject);
-		building->InitGeometry( parameter);
-		building->LinkLand( m_LandManager, i);
+		CreateBuilding( parameter, i);
 	}
 
 	//土地の最適化
@@ -185,8 +147,7 @@ void CityController::Init(float cityWidth, float cityHeight, int countDivide, in
 			auto traffic = lands[i]->GetTrafficLand();
 			if( traffic)
 			{
-				auto car = new Car( m_CarManager, m_pGameObject);
-				car->Init( traffic, NULL);
+				CreateCar( i, -1);
 			}
 		}
 	}
@@ -237,6 +198,156 @@ void CityController::Uninit( void)
 ------------------------------------------------------------------------------*/
 void CityController::Update()
 {
-	
+	////1キー 区画の分割
+	//if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_1))
+	//{
+
+	//}
+
+	////2キー 建物の最適化
+	//if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_2))
+	//{
+	//	for (auto building : m_BuildingManager->GetBuildings())
+	//	{
+	//		building->ConfirmGeometry();
+	//	}
+	//}
+	//
+	////3キー 建物の表示On/Off
+	//if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_3))
+	//{
+
+	//}
+	//
+	////4キー 建物のタイルを１枚ずつ表示
+	//if (Manager::GetInputKeyboard()->GetKeyPress(DIK_4))
+	//{
+
+	//}
+	//
+	////5キー 車のOn/Off
+	//if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_5))
+	//{
+
+	//}
+	//
+	////6キー リセット ※メンテナンス中
+	//if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_6))
+	//{
+
+	//}
+	//
+	////7キー 建物のワイヤーフレーム表示On/Off
+	//if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_7))
+	//{
+
+	//}
+}
+
+/*------------------------------------------------------------------------------
+	はじめの面を生成
+------------------------------------------------------------------------------*/
+void CityController::CreateFirstFace(float width, float height)
+{
+	Vector3 sizeHalf( width * 0.5f, 0.0f, height * 0.5f);
+	m_Model->CreateFirstFace( 
+		Vector3( -sizeHalf.x, 0.0f, +sizeHalf.z), Vector3( +sizeHalf.x, 0.0f, +sizeHalf.z),
+		Vector3( -sizeHalf.x, 0.0f, -sizeHalf.z), Vector3( +sizeHalf.x, 0.0f, -sizeHalf.z));
+}
+
+/*------------------------------------------------------------------------------
+	区画の分割
+------------------------------------------------------------------------------*/
+void CityController::Divide(int count)
+{
+	FaceDivideFunc funcDivide;
+	for (int i = 0; i < count; i++)
+	{
+		auto faces = m_Model->GetFaces();
+		for (auto face : faces)
+		{
+			funcDivide( face);
+		}
+	}
+}
+
+/*------------------------------------------------------------------------------
+	属性情報の付与
+------------------------------------------------------------------------------*/
+void CityController::CreateAttribute(void)
+{
+	auto vertices = m_Model->GetVertices();
+	int vertexCount = vertices.size();
+	for (int i = 0; i < vertexCount; i++)
+	{
+		auto attribute = new JunctionAttribute( m_Model, i, m_CityAttributeManager, m_pGameObject);
+	}
+	auto edges = m_Model->GetEdges();
+	int edgesCount = edges.size();
+	for (int i = 0; i < edgesCount; i++)
+	{
+		auto attribute = new RoadAttribute( m_Model, i, m_CityAttributeManager, m_pGameObject);
+	}
+	auto faces = m_Model->GetFaces();
+	int facesCount = faces.size();
+	for (int i = 0; i < facesCount; i++)
+	{
+		auto attribute = new BlockAttribute( m_Model, i, m_CityAttributeManager, m_pGameObject);
+	}
+
+	//属性情報の初期化
+	for (auto junction : m_CityAttributeManager->GetJunctions())
+	{
+		junction->Init();
+	}
+	for (auto road : m_CityAttributeManager->GetRoads())
+	{
+		road->Init();
+	}
+	for (auto block : m_CityAttributeManager->GetBlocks())
+	{
+		block->Init();
+	}
+}
+
+/*------------------------------------------------------------------------------
+	土地の生成
+------------------------------------------------------------------------------*/
+void CityController::CreateLand(LandParameter* parameter, int blockID)
+{
+	//土地の生成
+	Land* land = new Land( m_LandManager, m_pGameObject);
+	land->Init( parameter->vertices);
+
+	//区画とリンク
+	m_CityAttributeManager->GetBlock(blockID)->LinkLand( land);
+
+	//交通システムを設定
+	std::list< RoadAttribute*> roadList;
+	for (auto id : parameter->roadIDs)
+	{
+		roadList.push_back( m_CityAttributeManager->GetRoad(id));
+	}
+	land->SetTraffic( roadList);
+}
+
+/*------------------------------------------------------------------------------
+	建物の生成
+------------------------------------------------------------------------------*/
+void CityController::CreateBuilding(GeometryParameter* parameter, int landID)
+{
+	auto building = new Building( m_BuildingManager, m_pGameObject);
+	building->InitGeometry( parameter);
+	building->LinkLand( m_LandManager, landID);
+}
+
+/*------------------------------------------------------------------------------
+	車の生成
+------------------------------------------------------------------------------*/
+void CityController::CreateCar(int spawnLandID, int targetLandID)
+{
+	auto car = new Car( m_CarManager, m_pGameObject);
+	//car->Init( m_LandManager->GetLand( spawnLandID)->GetTrafficLand(), m_LandManager->GetLand( targetLandID)->GetTrafficLand());
+	car->Init( m_LandManager->GetLand( spawnLandID)->GetTrafficLand(), NULL);
 }
 

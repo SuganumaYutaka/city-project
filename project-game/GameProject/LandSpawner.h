@@ -20,6 +20,8 @@ class BlockAttribute;
 class RoadAttribute;
 class Land;
 class LandManager;
+class LandParameter;
+class CityAttributeManager;
 
 namespace HalfEdgeDataStructure
 {
@@ -32,7 +34,7 @@ namespace HalfEdgeDataStructure
 class LandSpawner
 {
 public:
-	std::vector<Land*> operator()( LandManager* manager, BlockAttribute* attribute, GameObject* parent);
+	std::vector<LandParameter*> operator()( BlockAttribute* attribute, CityAttributeManager* attributeManager);
 
 private:
 	//Œš•¨‚Ì¶¬—p\‘¢‘Ì’è‹`

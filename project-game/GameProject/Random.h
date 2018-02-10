@@ -72,6 +72,8 @@ public:
 
 	void UninitDevice();
 
+	int GetSeed( void){ return m_Seed;}
+	void SetSeed( int seed);
 	void ResetSeed( void);
 	void SetDefault( void);
 	void SetRangeInt( int min, int max);

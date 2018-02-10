@@ -19,7 +19,7 @@ GeometryParameter* GeometryParameterSpawner::operator()( const std::vector< Buil
 {
 	//ランダムの初期化
 	m_Random.ResetSeed();
-
+	
 	//パラメーター生成
 	auto parameter = new GeometryParameter();
 	
@@ -43,6 +43,9 @@ GeometryParameter* GeometryParameterSpawner::operator()( const std::vector< Buil
 	m_Random.SetRangeInt( 0, surfacePatterns.size() - 1);
 	parameter->m_SurfacePattern = surfacePatterns[ m_Random.GetInt()];
 
+	//ランダムのシード値
+	parameter->m_RandomSeed = m_Random.GetSeed();
+
 	return parameter;
 }
 
@@ -53,7 +56,7 @@ void ShapeParameterSpawner::operator()(const std::vector<Vector3>& vertices, Geo
 {
 	//ランダムの初期化
 	m_Random.ResetSeed();
-
+	
 	//土地の大きさ
 	Vector3 vec01 = vertices[1] - vertices[0];
 	Vector3 vec03 = vertices[3] - vertices[0];

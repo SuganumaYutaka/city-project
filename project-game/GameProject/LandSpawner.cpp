@@ -16,10 +16,12 @@
 #include "HalfEdge.h"
 #include "CityAttribute.h"
 #include "Land.h"
+#include "LandParameter.h"
 
 #include "BuildingController.h"
 #include "BuildingRuleFactory.h"
 #include "BuildingManager.h"
+#include "CityAttributeManager.h"
 
 using namespace HalfEdgeDataStructure;
 
@@ -33,9 +35,9 @@ using namespace HalfEdgeDataStructure;
 	土地の生成
 	※　四角形の区画のみ対応
 ------------------------------------------------------------------------------*/
-std::vector<Land*> LandSpawner::operator()( LandManager* manager, BlockAttribute* attribute, GameObject* parent)
+std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, CityAttributeManager* attributeManager)
 {
-	std::vector<Land*> lands;
+	std::vector<LandParameter*> lands;
 
 	//区画から角にあたる4頂点を抽出
 	std::vector<Vertex*> corners;
@@ -236,16 +238,28 @@ std::vector<Land*> LandSpawner::operator()( LandManager* manager, BlockAttribute
 	{
 		if (preland.canCreateBuilding)
 		{
-			//土地の生成
-			Land* land = new Land( manager, parent);
-			land->Init( preland.vertices);
+			auto land = new LandParameter();
+			for( auto vertex : preland.vertices)
+			{
+				land->vertices.push_back( vertex);
+			}
+
+			for( auto road : preland.roads)
+			{
+				land->roadIDs.push_back( attributeManager->GetRoadID( road));
+			}
 			lands.push_back( land);
 
-			//区画とリンク
-			attribute->LinkLand( land);
-			
-			//交通システムを設定
-			land->SetTraffic( preland.roads);
+			////土地の生成
+			//Land* land = new Land( manager, parent);
+			//land->Init( preland.vertices);
+			//lands.push_back( land);
+
+			////区画とリンク
+			//attribute->LinkLand( land);
+			//
+			////交通システムを設定
+			//land->SetTraffic( preland.roads);
 		}
 	}
 

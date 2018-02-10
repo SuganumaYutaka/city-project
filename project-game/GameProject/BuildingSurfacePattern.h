@@ -58,6 +58,7 @@ public:
 	int GetBorderCount( void) { m_Borders.size(); }
 
 	std::string GetTextureFileName( void) { return m_TextureFileName;}
+	void SetSeed( int seed){ m_Random->SetSeed( seed); }
 	
 private:
 	bool Load( std::string fileName);
