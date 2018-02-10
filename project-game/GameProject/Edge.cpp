@@ -18,12 +18,10 @@ using namespace HalfEdgeDataStructure;
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
-Edge::Edge( HalfEdgeDataStructure::Model* model, Vertex* start, Vertex* end, EdgeAttribute* attribute)
-	: m_Model(model), m_Start(start), m_End(end), m_Left(NULL), m_Right(NULL), m_Attribute(attribute)
+Edge::Edge( HalfEdgeDataStructure::Model* model, Vertex* start, Vertex* end)
+	: m_Model(model), m_Start(start), m_End(end), m_Left(NULL), m_Right(NULL), m_Attribute(NULL)
 {
 	model->RegisterEdge(this); 
-	m_Attribute->SetEdge(this);
-	m_Attribute->Init();
 }
 
 /*------------------------------------------------------------------------------
@@ -31,11 +29,6 @@ Edge::Edge( HalfEdgeDataStructure::Model* model, Vertex* start, Vertex* end, Edg
 ------------------------------------------------------------------------------*/
 Edge::~Edge()
 { 
-	if( m_Attribute)
-	{
-		delete m_Attribute;
-	}
-
 	//ハーフエッジの削除
 	if (m_Right)
 	{
@@ -44,6 +37,18 @@ Edge::~Edge()
 	if (m_Left)
 	{
 		delete m_Left;
+	}
+}
+
+/*------------------------------------------------------------------------------
+	削除
+------------------------------------------------------------------------------*/
+void Edge::Delete(void)
+{
+	m_Model->UnregisterEdge( this);
+	if( m_Attribute)
+	{
+		m_Attribute->OnDeleteEdge();
 	}
 }
 
@@ -131,7 +136,7 @@ bool Edge::Divide(float rateFromStart, Vertex** ppOut)
 ------------------------------------------------------------------------------*/
 void Edge::UpdateByMove(void)
 {
-	m_Attribute->Update();
+	UpdateAttribute();
 
 	//隣接する面に知らせる
 	//右
@@ -144,5 +149,16 @@ void Edge::UpdateByMove(void)
 	if (m_Left)
 	{
 		m_Left->GetFace()->UpdateByMove();
+	}
+}
+
+/*------------------------------------------------------------------------------
+	属性情報の更新
+------------------------------------------------------------------------------*/
+void Edge::UpdateAttribute(void)
+{
+	if( m_Attribute)
+	{
+		m_Attribute->Update();
 	}
 }

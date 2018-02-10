@@ -20,11 +20,15 @@ class JunctionView;
 class RoadView;
 class BlockView;
 class GameObject;
-class BuildingRuleFactory;
-class BuildingManager;
-class CarManager;
 class TrafficJunction;
 class TrafficRoad;
+class Land;
+class CityAttributeManager;
+
+namespace HalfEdgeDataStructure
+{
+	class Model;
+}
 
 /*------------------------------------------------------------------------------
 	マクロ定義
@@ -38,31 +42,39 @@ class TrafficRoad;
 class JunctionAttribute : public HalfEdgeDataStructure::VertexAttribute
 {
 private:
+	CityAttributeManager* m_Manager;
+	GameObject* m_GameObject;
 	JunctionView* m_View;
 	TrafficJunction* m_TrafficJunction;
 
 public:
-	JunctionAttribute( GameObject* parent);
+	JunctionAttribute( HalfEdgeDataStructure::Model* model, int id, CityAttributeManager* manager, GameObject* parent);
 	~JunctionAttribute();
+	void Delete( void);
 	void Init( void) override;
 	void Update( void) override;
 	void UnregisterView( void){ m_View = NULL;}
 
 	const Vector3& GetPosition(void);
 	TrafficJunction* GetTrafficJunction( void){ return m_TrafficJunction;}
+	GameObject* GetGameObject( void){ return m_GameObject;}
+
 };
 
 //辺（道路）
 class RoadAttribute : public HalfEdgeDataStructure::EdgeAttribute
 {
 private:
+	CityAttributeManager* m_Manager;
+	GameObject* m_GameObject;
 	RoadView* m_View;
 	TrafficRoad* m_TrafficRoad;
 	float Width;
 
 public:
-	RoadAttribute( GameObject* parent);
+	RoadAttribute( HalfEdgeDataStructure::Model* model, int id, CityAttributeManager* manager, GameObject* parent);
 	~RoadAttribute();
+	void Delete( void);
 	void Init( void) override;
 	void Update( void) override;
 	void UnregisterView( void){ m_View = NULL;}
@@ -75,45 +87,32 @@ public:
 	Vector3 GetVector( void);
 	std::vector<Vector3> GetVertices( void);
 	TrafficRoad* GetTrafficRoad( void){ return m_TrafficRoad;}
+	GameObject* GetGameObject( void){ return m_GameObject;}
+
 };
 
 //面（区画）
 class BlockAttribute : public HalfEdgeDataStructure::FaceAttribute
 {
 private:
+	CityAttributeManager* m_Manager;
+	GameObject* m_GameObject;
 	BlockView* m_View;
-	BuildingRuleFactory* m_BuildingRuleFactory;
-	BuildingManager* m_BuildingManager;
-	CarManager* m_CarManager;
+	std::vector<Land*> m_Lands;
 
 public:
-	BlockAttribute( GameObject* parent, BuildingRuleFactory* buildingRuleFactory, BuildingManager* buildingManager, CarManager* carManager);
+	BlockAttribute( HalfEdgeDataStructure::Model* model, int id, CityAttributeManager* manager, GameObject* parent);
 	~BlockAttribute();
+	void Delete( void);
 	void Init( void) override;
 	void Update( void) override;
 	void UnregisterView( void){ m_View = NULL;}
 
-	BuildingRuleFactory* GetBuildingRuleFactory( void) { return m_BuildingRuleFactory;}
-	BuildingManager* GetBuildingManager( void) { return m_BuildingManager;}
-	CarManager* GetCarManager( void){ return m_CarManager;}
-};
+	int LinkLand( Land* land);
+	void UnlinkLand( Land* land);
+	void UnlinkLand( int landID);
+	GameObject* GetGameObject( void){ return m_GameObject;}
 
-//ファクトリー
-class CityAttributeFactory : public HalfEdgeDataStructure::AttributeFactory
-{
-private:
-	GameObject* m_Parent;
-	BuildingRuleFactory* m_BuildingRuleFactory;
-	BuildingManager* m_BuildingManager;
-	CarManager* m_CarManager;
-
-public:
-	CityAttributeFactory( GameObject* parent, BuildingRuleFactory* buildingRuleFactory, BuildingManager* buildingManager, CarManager* carManager)
-		: m_Parent( parent), m_BuildingRuleFactory(buildingRuleFactory), m_BuildingManager( buildingManager), m_CarManager( carManager) {}
-
-	virtual HalfEdgeDataStructure::VertexAttribute* CreateVertexAttribute( void) { return new JunctionAttribute( m_Parent); }
-	virtual HalfEdgeDataStructure::EdgeAttribute* CreateEdgeAttribute( void) { return new RoadAttribute( m_Parent); }
-	virtual HalfEdgeDataStructure::FaceAttribute* CreateFaceAttribute( void){ return new BlockAttribute( m_Parent, m_BuildingRuleFactory, m_BuildingManager, m_CarManager); }
 };
 
 #endif

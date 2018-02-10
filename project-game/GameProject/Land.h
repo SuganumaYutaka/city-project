@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    Land.h - 建物の自動生成ー土地
+    Land.h - 町の自動生成ー土地
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/12/7
 ==============================================================================*/
@@ -15,8 +15,13 @@
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
-class MeshPolygonRenderer;
 class GameObject;
+class MeshPolygonRenderer;
+class TrafficLand;
+class RoadAttribute;
+class CityAttributeManager;
+class LandManager;
+class Building;
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -24,20 +29,35 @@ class GameObject;
 class Land
 {
 public:
-	Land( GameObject* buildingObject);
+	Land( LandManager* manager, GameObject* parent);
 	~Land();
+	void Delete( void);
 	void Init( const std::vector<Vector3>& vertices);
+	void OnDeleteBlock( void);
 
 	const std::vector<Vector3>& GetVertices( void) { return m_Vertices;}
-
 	Vector3 CulcCenterPosition( void);
 
-	//TODO:面積を求める
+	void LinkAttribute( CityAttributeManager* attributeManager, int blockID);
+	void SetTraffic( std::list<RoadAttribute*> roadAttributes);
+
+	int LinkBuilding( Building* building);
+	void UnlinkBuilding( Building* building);
+	void UnlinkBuilding( int buildingID);
+	GameObject* GetGameObject( void){ return m_GameObject;}
+	TrafficLand* GetTrafficLand( void){ return m_TrafficLand;}
 
 private:
-	std::vector<Vector3> m_Vertices;
-	MeshPolygonRenderer* m_Renderer;
+	LandManager* m_Manager;
 
+	std::vector<Vector3> m_Vertices;
+	GameObject* m_GameObject;
+	MeshPolygonRenderer* m_Renderer;
+	TrafficLand* m_TrafficLand;
+	std::vector<Building*> m_Buildings;
+	
+	CityAttributeManager* m_AttributeManager;
+	int m_BlockID;
 };
 
 #endif

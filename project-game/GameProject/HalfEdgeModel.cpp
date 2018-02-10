@@ -24,31 +24,33 @@ Model::~Model()
 {
 	for (auto face : m_Faces)
 	{
-		delete face;
+		if( face)
+		{
+			delete face;
+		}
 	}
 	m_Faces.clear();
+	m_Faces.shrink_to_fit();
 
 	for (auto edge : m_Edges)
 	{
-		delete edge;
+		if( edge)
+		{
+			delete edge;
+		}
 	}
 	m_Edges.clear();
+	m_Edges.shrink_to_fit();
 	
 	for (auto vertex : m_Vertices)
 	{
-		delete vertex;
+		if( vertex)
+		{
+			delete vertex;
+		}
 	}
 	m_Vertices.clear();
-
-	if (m_Rule)
-	{
-		delete m_Rule;
-	}
-
-	if (m_AttributeFactory)
-	{
-		delete m_AttributeFactory;
-	}
+	m_Vertices.shrink_to_fit();
 }
 
 /*------------------------------------------------------------------------------
@@ -56,7 +58,7 @@ Model::~Model()
 ------------------------------------------------------------------------------*/
 Vertex* Model::CreateVertex(const Vector3& position)
 {
-	return new Vertex( this, position, m_AttributeFactory->CreateVertexAttribute());
+	return new Vertex( this, position);
 }
 
 /*------------------------------------------------------------------------------
@@ -64,7 +66,7 @@ Vertex* Model::CreateVertex(const Vector3& position)
 ------------------------------------------------------------------------------*/
 Edge* Model::CreateEdge( Vertex* start, Vertex* end)
 {
-	return new Edge( this, start, end, m_AttributeFactory->CreateEdgeAttribute());
+	return new Edge( this, start, end);
 }
 
 /*------------------------------------------------------------------------------
@@ -72,7 +74,7 @@ Edge* Model::CreateEdge( Vertex* start, Vertex* end)
 ------------------------------------------------------------------------------*/
 Face* Model::CreateFace( HalfEdge* he)
 {
-	return new Face( this, he, m_AttributeFactory->CreateFaceAttribute());
+	return new Face( this, he);
 }
 
 /*------------------------------------------------------------------------------
@@ -113,9 +115,9 @@ bool Model::CreateFirstEdge(const Vector3& startPosition, const Vector3& endPosi
 	end->RegisterEdge( edge);
 
 	//属性情報の更新
-	start->GetAttribute()->Update();
-	end->GetAttribute()->Update();
-	edge->GetAttribute()->Update();
+	start->UpdateAttribute();
+	end->UpdateAttribute();
+	edge->UpdateAttribute();
 
 	return true;
 }
@@ -187,40 +189,162 @@ bool Model::CreateFirstFace(
 	heLeft->SetFace( face);
 
 	//属性情報の更新
-	topLeft->GetAttribute()->Update();
-	topRight->GetAttribute()->Update();
-	bottomLeft->GetAttribute()->Update();
-	bottomRight->GetAttribute()->Update();
-	top->GetAttribute()->Update();
-	right->GetAttribute()->Update();
-	bottom->GetAttribute()->Update();
-	left->GetAttribute()->Update();
-	face->GetAttribute()->Update();
+	topLeft->UpdateAttribute();
+	topRight->UpdateAttribute();
+	bottomLeft->UpdateAttribute();
+	bottomRight->UpdateAttribute();
+	top->UpdateAttribute();
+	right->UpdateAttribute();
+	bottom->UpdateAttribute();
+	left->UpdateAttribute();
+	face->UpdateAttribute();
 	
 	return true;
 }
 
 /*------------------------------------------------------------------------------
-	すべての面を分割
+	頂点を取得
 ------------------------------------------------------------------------------*/
-bool Model::DivideAllFaces(void)
+Vertex* Model::GetVertex(int id)
 {
-	if (m_Faces.size() == 0)
+	if (m_Vertices.size() <= id)
 	{
-		return false;
+		return NULL;
 	}
 
-	auto faces = m_Faces;
+	return m_Vertices[ id];
+}
 
-	for (auto face : faces)
+/*------------------------------------------------------------------------------
+	頂点のIDを取得
+------------------------------------------------------------------------------*/
+int Model::GetVertexID(Vertex* vertex)
+{
+	int size = m_Vertices.size();
+	for (int i = 0; i < size; i++)
 	{
-		//正方形・長方形と仮定して分割ルールを設定
-
-		if (!m_Rule->DivideFace( face))
+		if (m_Vertices[i] == vertex)
 		{
-			continue;
+			return i;
 		}
 	}
 
-	return true;
+	//発見できない
+	return -1;
+}
+
+/*------------------------------------------------------------------------------
+	登録を解除
+------------------------------------------------------------------------------*/
+bool Model::UnregisterVertex( Vertex* vertex)
+{
+	int size = m_Vertices.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Vertices[i] == vertex)
+		{
+			m_Vertices[i] = NULL;
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/*------------------------------------------------------------------------------
+	辺を取得
+------------------------------------------------------------------------------*/
+Edge* Model::GetEdge(int id)
+{
+	if (m_Edges.size() <= id)
+	{
+		return NULL;
+	}
+
+	return m_Edges[ id];
+}
+
+/*------------------------------------------------------------------------------
+	辺のIDを取得
+------------------------------------------------------------------------------*/
+int Model::GetEdgeID( Edge* edge)
+{
+	int size = m_Edges.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Edges[i] == edge)
+		{
+			return i;
+		}
+	}
+
+	//発見できない
+	return -1;
+}
+
+/*------------------------------------------------------------------------------
+	登録を解除
+------------------------------------------------------------------------------*/
+bool Model::UnregisterEdge( Edge* edge)
+{
+	int size = m_Edges.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Edges[i] == edge)
+		{
+			m_Edges[i] = NULL;
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/*------------------------------------------------------------------------------
+	面を取得
+------------------------------------------------------------------------------*/
+Face* Model::GetFace(int id)
+{
+	if (m_Faces.size() <= id)
+	{
+		return NULL;
+	}
+
+	return m_Faces[ id];
+}
+
+/*------------------------------------------------------------------------------
+	面のIDを取得
+------------------------------------------------------------------------------*/
+int Model::GetFaceID( Face* face)
+{
+	int size = m_Faces.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Faces[i] == face)
+		{
+			return i;
+		}
+	}
+
+	//発見できない
+	return -1;
+}
+
+/*------------------------------------------------------------------------------
+	登録を解除
+------------------------------------------------------------------------------*/
+bool Model::UnregisterFace( Face* face)
+{
+	int size = m_Faces.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Faces[i] == face)
+		{
+			m_Faces[i] = NULL;
+			return true;
+		}
+	}
+
+	return false;
 }

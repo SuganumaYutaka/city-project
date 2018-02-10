@@ -18,12 +18,30 @@ using namespace HalfEdgeDataStructure;
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
-Vertex::Vertex( HalfEdgeDataStructure::Model* model, const Vector3& position, VertexAttribute* attribute)
-	: m_Model( model), m_Position(position), m_Attribute( attribute)
+Vertex::Vertex( HalfEdgeDataStructure::Model* model, const Vector3& position)
+	: m_Model( model), m_Position(position), m_Attribute( NULL)
 { 
-	model->RegisterVertex(this); 
-	m_Attribute->SetVertex(this);
-	m_Attribute->Init();
+	model->RegisterVertex(this);
+}
+
+/*------------------------------------------------------------------------------
+	デストラクタ
+------------------------------------------------------------------------------*/
+Vertex::~Vertex()
+{
+	
+}
+
+/*------------------------------------------------------------------------------
+	削除
+------------------------------------------------------------------------------*/
+void Vertex::Delete(void)
+{
+	m_Model->UnregisterVertex( this);
+	if( m_Attribute)
+	{
+		m_Attribute->OnDeleteVertex();
+	}
 }
 
 /*------------------------------------------------------------------------------
@@ -41,7 +59,10 @@ bool Vertex::RegisterEdge(Edge* edge)
 
 	m_Edges.push_back( edge);
 
-	m_Attribute->Update();
+	if( m_Attribute)
+	{
+		m_Attribute->Update();
+	}
 
 	return true;
 }
@@ -56,7 +77,10 @@ bool Vertex::UnregisterEdge(Edge* edge)
 		if (*ite == edge)
 		{
 			m_Edges.erase( ite);
-			m_Attribute->Update();
+			if( m_Attribute)
+			{
+				m_Attribute->Update();
+			}
 			return true;
 		}
 	}
@@ -116,11 +140,22 @@ HalfEdge* Vertex::SearchHalfEdgeOnFace(Face* face)
 ------------------------------------------------------------------------------*/
 void Vertex::UpdateByMove(void)
 {
-	m_Attribute->Update();
+	UpdateAttribute();
 
 	//隣接する辺に知らせる
 	for (auto edge : m_Edges)
 	{
 		edge->UpdateByMove();
+	}
+}
+
+/*------------------------------------------------------------------------------
+	属性情報の更新
+------------------------------------------------------------------------------*/
+void Vertex::UpdateAttribute(void)
+{
+	if( m_Attribute)
+	{
+		m_Attribute->Update();
 	}
 }

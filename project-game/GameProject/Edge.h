@@ -22,6 +22,8 @@ namespace HalfEdgeDataStructure
 	class Vertex;
 	class Face;
 	class HalfEdge;
+	class Model;
+	class EdgeAttribute;
 }
 
 /*------------------------------------------------------------------------------
@@ -41,18 +43,19 @@ namespace HalfEdgeDataStructure
 		Vertex* m_End;
 		HalfEdge* m_Left;
 		HalfEdge* m_Right;
-		HalfEdgeDataStructure::Model* m_Model;
+		Model* m_Model;
 		EdgeAttribute* m_Attribute;
 
 	public:
-		Edge( HalfEdgeDataStructure::Model* model, Vertex* start, Vertex* end, EdgeAttribute* attribute);
+		Edge( Model* model, Vertex* start, Vertex* end);
 		~Edge();
+		void Delete( void);
 
 		Vertex* GetStart( void) const{ return m_Start;}
-		void SetStart( Vertex* vertex) { m_Start = vertex; m_Attribute->Update();}
+		void SetStart( Vertex* vertex) { m_Start = vertex; UpdateAttribute();}
 
 		Vertex* GetEnd( void) const{ return m_End;}
-		void SetEnd( Vertex* vertex) { m_End = vertex; m_Attribute->Update();}
+		void SetEnd( Vertex* vertex) { m_End = vertex; UpdateAttribute();}
 
 		HalfEdge* GetLeft( void) const { return m_Left;}
 		void SetLeft( HalfEdge* he) { m_Left = he;}
@@ -64,9 +67,12 @@ namespace HalfEdgeDataStructure
 
 		bool Divide( float rateFromStart, Vertex** ppOut = NULL);
 
+		void LinkAttribute( EdgeAttribute* attribute){ m_Attribute = attribute;}
 		EdgeAttribute* GetAttribute( void) { return m_Attribute;}
 
 		void UpdateByMove( void);
+		void UpdateAttribute( void);
+		
 	};
 }
 

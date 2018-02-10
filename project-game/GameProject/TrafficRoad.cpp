@@ -51,7 +51,15 @@ TrafficRoad::TrafficRoad( GameObject* pGameObject)
 ------------------------------------------------------------------------------*/
 void TrafficRoad::Uninit( void)
 {
-	m_Attribute->UnregisterView();
+	//Á‹Ž‚ð’Ê’m
+	for (auto car : m_LeftSideCars)
+	{
+		car->OnDeleteCurrentRoad();
+	}
+	for (auto car : m_RightSideCars)
+	{
+		car->OnDeleteCurrentRoad();
+	}
 }
 
 /*------------------------------------------------------------------------------
@@ -61,11 +69,9 @@ void TrafficRoad::Update( void)
 {
 	if (m_IsUpdatedAttribute)
 	{
-
 		m_IsUpdatedAttribute = false;
 	}
 
-	
 
 }
 

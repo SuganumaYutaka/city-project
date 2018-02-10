@@ -13,7 +13,6 @@
 #include "WallRenderer.h"
 #include "GameObject.h"
 #include "ComponentInclude.h"
-#include "BuildingRule.h"
 #include "TileSplit.h"
 #include <math.h>
 
@@ -51,7 +50,7 @@ Wall::~Wall()
 /*------------------------------------------------------------------------------
 	初期化
 ------------------------------------------------------------------------------*/
-void Wall::InitDefault( D3DXMATRIX shapeMatrix, float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, BuildingRule* rule)
+void Wall::InitDefault( D3DXMATRIX shapeMatrix, float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal)
 {
 	m_Height = height;
 	m_Width = width;
@@ -59,16 +58,13 @@ void Wall::InitDefault( D3DXMATRIX shapeMatrix, float height, float width, const
 	m_Normal = normal;
 	m_IsCurve = false;
 
-	//フロアの生成
-	rule->ProceduralFloor( this);
-
-	UpdateView( shapeMatrix);
+	//UpdateView( shapeMatrix);
 }
 
 /*------------------------------------------------------------------------------
 	初期化（円に沿って曲げる）
 ------------------------------------------------------------------------------*/
-void Wall::InitCurve( D3DXMATRIX shapeMatrix, float height, float width, const Vector3& bottomLeftPosition,  BuildingRule* rule)
+void Wall::InitCurve( D3DXMATRIX shapeMatrix, float height, float width, const Vector3& bottomLeftPosition)
 {
 	m_Height = height;
 	m_Width = width;
@@ -76,10 +72,7 @@ void Wall::InitCurve( D3DXMATRIX shapeMatrix, float height, float width, const V
 	m_Normal = bottomLeftPosition.Normalize();
 	m_IsCurve = true;
 
-	//フロアの生成
-	rule->ProceduralFloorCurve( this);
-
-	UpdateView( shapeMatrix);
+	//UpdateView( shapeMatrix);
 }
 
 /*------------------------------------------------------------------------------

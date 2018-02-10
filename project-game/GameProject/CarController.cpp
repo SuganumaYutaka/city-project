@@ -14,7 +14,7 @@
 
 #include "TrafficRoad.h"
 #include "TrafficJunction.h"
-#include "TrafficBuilding.h"
+#include "TrafficLand.h"
 
 /*------------------------------------------------------------------------------
 	マクロ定義
@@ -41,7 +41,7 @@ CarController::CarController( GameObject* pGameObject) : m_Speed( 0.0f)
 
 	m_CurrentRoad = NULL;
 	m_NextJunction = NULL;
-	m_TargetBuilding = NULL;
+	m_TargetLand = NULL;
 
 	//ステートの設定
 	m_States[ eCarStateNeutral] = new CarStateNeutral( this);
@@ -59,11 +59,11 @@ CarController::CarController( GameObject* pGameObject) : m_Speed( 0.0f)
 /*------------------------------------------------------------------------------
 	初期化
 ------------------------------------------------------------------------------*/
-void CarController::Init(TrafficRoad* currentRoad, TrafficJunction* nextJunction, TrafficBuilding* targetBuilding)
+void CarController::Init(TrafficRoad* currentRoad, TrafficJunction* nextJunction, TrafficLand* targetLand)
 {
 	m_CurrentRoad = currentRoad;
 	m_NextJunction = nextJunction;
-	m_TargetBuilding = targetBuilding;
+	m_TargetLand = targetLand;
 }
 
 
@@ -73,7 +73,10 @@ void CarController::Init(TrafficRoad* currentRoad, TrafficJunction* nextJunction
 void CarController::Uninit( void)
 {
 	//道路から外す
-	m_CurrentRoad->UnregisterCar(this);
+	if( m_CurrentRoad)
+	{
+		//m_CurrentRoad->UnregisterCar(this);
+	}
 
 	//ステートの解放
 	for (auto state : m_States)
@@ -345,4 +348,13 @@ void CarController::ChangeState(ECarState next)
 void CarController::BrakeSpeed(void)
 {
 	m_Speed -= ( m_Speed * BRAKE_SPEED_RATE);
+}
+
+/*------------------------------------------------------------------------------
+	走行中の道路消去時の処理
+------------------------------------------------------------------------------*/
+void CarController::OnDeleteCurrentRoad(void)
+{
+	m_CurrentRoad = NULL;
+	SetActive( false);
 }

@@ -17,7 +17,6 @@
 	ëOï˚êÈåæ
 ------------------------------------------------------------------------------*/
 class BlockAttribute;
-class BlockModel;
 class Polygon3DRenderer;
 
 /*------------------------------------------------------------------------------
@@ -42,7 +41,6 @@ private:
 	BlockAttribute* m_Attribute;
 	bool m_IsUpdatedAttribute;
 
-	BlockModel* m_BlockModel;
 };
 
 #endif

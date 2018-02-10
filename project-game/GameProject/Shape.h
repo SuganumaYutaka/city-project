@@ -18,7 +18,6 @@
 class GameObject;
 class Roof;
 class Wall;
-class BuildingRule;
 class Tile;
 
 /*------------------------------------------------------------------------------
@@ -64,8 +63,7 @@ protected:
 	void SetRotation( float rotation){ m_Rotation = rotation;}
 	void UpdatePosition( const Vector3& value){ m_Position += value;}
 	void UpdateRotation( float value){ m_Rotation += value;}
-	BuildingRule* m_Rule;
-
+	
 private:
 	std::list< Roof*> m_Roofs;
 	std::list< Wall*> m_Walls;

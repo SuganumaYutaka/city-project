@@ -14,24 +14,28 @@
 #include "Vertex.h"
 #include "Face.h"
 #include "HalfEdge.h"
+
 #include "JunctionView.h"
 #include "RoadView.h"
 #include "BlockView.h"
-
 #include "TrafficJunction.h"
 #include "TrafficRoad.h"
+#include "Land.h"
+#include "CityAttributeManager.h"
 
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
 	交差点ーコンストラクタ
 ------------------------------------------------------------------------------*/
-JunctionAttribute::JunctionAttribute( GameObject* parent)
+JunctionAttribute::JunctionAttribute( Model* model, int id, CityAttributeManager* manager, GameObject* parent) : VertexAttribute( model, id), m_Manager( manager)
 {
-	auto gameObject = new GameObject( parent);
-	gameObject->IsCreatedByOtherComponent = true;
-	m_View = gameObject->AddComponent<JunctionView>();
-	m_TrafficJunction = gameObject->AddComponent<TrafficJunction>();
+	m_GameObject = new GameObject( parent);
+	m_GameObject->IsCreatedByOtherComponent = true;
+	m_View = m_GameObject->AddComponent<JunctionView>();
+	m_TrafficJunction = m_GameObject->AddComponent<TrafficJunction>();
+
+	m_Manager->RegisterJunction( this);
 }
 
 /*------------------------------------------------------------------------------
@@ -39,10 +43,24 @@ JunctionAttribute::JunctionAttribute( GameObject* parent)
 ------------------------------------------------------------------------------*/
 JunctionAttribute::~JunctionAttribute()
 {
-	if( m_View)
+	
+}
+
+/*------------------------------------------------------------------------------
+	交差点ー削除
+------------------------------------------------------------------------------*/
+void JunctionAttribute::Delete(void)
+{
+	m_GameObject->ReleaseReserve();
+
+	//リンクを解除
+	auto vertex = GetVertex();
+	if (vertex)
 	{
-		m_View->m_pGameObject->ReleaseReserve();
+		vertex->LinkAttribute( NULL);
 	}
+
+	m_Manager->UnregisterJunction( this);
 }
 
 /*------------------------------------------------------------------------------
@@ -74,12 +92,14 @@ const Vector3& JunctionAttribute::GetPosition(void)
 /*------------------------------------------------------------------------------
 	道路ーコンストラクタ
 ------------------------------------------------------------------------------*/
-RoadAttribute::RoadAttribute( GameObject* parent) : Width( DEFAULT_ROAD_WIDTH)
+RoadAttribute::RoadAttribute( Model* model, int id, CityAttributeManager* manager, GameObject* parent) : EdgeAttribute( model, id), m_Manager( manager), Width( DEFAULT_ROAD_WIDTH)
 {
-	auto gameObject = new GameObject( parent);
-	gameObject->IsCreatedByOtherComponent = true;
-	m_View = gameObject->AddComponent<RoadView>();
-	m_TrafficRoad = gameObject->AddComponent<TrafficRoad>();
+	m_GameObject = new GameObject( parent);
+	m_GameObject->IsCreatedByOtherComponent = true;
+	m_View = m_GameObject->AddComponent<RoadView>();
+	m_TrafficRoad = m_GameObject->AddComponent<TrafficRoad>();
+
+	m_Manager->RegisterRoad( this);
 }
 
 /*------------------------------------------------------------------------------
@@ -87,10 +107,24 @@ RoadAttribute::RoadAttribute( GameObject* parent) : Width( DEFAULT_ROAD_WIDTH)
 ------------------------------------------------------------------------------*/
 RoadAttribute::~RoadAttribute()
 {
-	if( m_View)
+	
+}
+
+/*------------------------------------------------------------------------------
+	道路ー削除
+------------------------------------------------------------------------------*/
+void RoadAttribute::Delete(void)
+{
+	m_GameObject->ReleaseReserve();
+
+	//リンクを解除
+	auto edge = GetEdge();
+	if (edge)
 	{
-		m_View->m_pGameObject->ReleaseReserve();
+		edge->LinkAttribute( NULL);
 	}
+
+	m_Manager->UnregisterRoad( this);
 }
 
 /*------------------------------------------------------------------------------
@@ -162,14 +196,14 @@ std::vector<Vector3> RoadAttribute::GetVertices(void)
 /*------------------------------------------------------------------------------
 	区画ーコンストラクタ
 ------------------------------------------------------------------------------*/
-BlockAttribute::BlockAttribute( GameObject* parent, BuildingRuleFactory* buildingRuleFactory, BuildingManager* buildingManager, CarManager* carManager)
+BlockAttribute::BlockAttribute( Model* model, int id, CityAttributeManager* manager, GameObject* parent) : FaceAttribute( model, id), m_Manager( manager)
 {
-	auto gameObject = new GameObject( parent);
-	gameObject->IsCreatedByOtherComponent = true;
-	m_View = gameObject->AddComponent<BlockView>();
-	m_BuildingRuleFactory = buildingRuleFactory;
-	m_BuildingManager = buildingManager;
-	m_CarManager = carManager;
+	m_GameObject = new GameObject( parent);
+	m_GameObject->IsCreatedByOtherComponent = true;
+	m_View = m_GameObject->AddComponent<BlockView>();
+	m_Lands.clear();
+
+	m_Manager->RegisterBlock( this);
 }
 
 /*------------------------------------------------------------------------------
@@ -177,10 +211,36 @@ BlockAttribute::BlockAttribute( GameObject* parent, BuildingRuleFactory* buildin
 ------------------------------------------------------------------------------*/
 BlockAttribute::~BlockAttribute()
 {
-	if( m_View)
+	
+}
+
+/*------------------------------------------------------------------------------
+	区画ー削除
+------------------------------------------------------------------------------*/
+void BlockAttribute::Delete(void)
+{
+	m_GameObject->ReleaseReserve();
+
+	//土地に消去を伝える
+	for (auto land : m_Lands)
 	{
-		m_View->m_pGameObject->ReleaseReserve();
+		if (land)
+		{
+			//区画消去イベント
+			land->OnDeleteBlock();
+		}
 	}
+	m_Lands.clear();
+	m_Lands.shrink_to_fit();
+
+	//リンクを解除
+	auto face = GetFace();
+	if (face)
+	{
+		face->LinkAttribute( NULL);
+	}
+
+	m_Manager->UnregisterBlock( this);
 }
 
 /*------------------------------------------------------------------------------
@@ -198,3 +258,37 @@ void BlockAttribute::Update(void)
 {
 	m_View->UpdateAttribute();
 }
+
+/*------------------------------------------------------------------------------
+	区画ー土地をリンク
+------------------------------------------------------------------------------*/
+int BlockAttribute::LinkLand(Land* land)
+{
+	m_Lands.push_back( land);
+	return m_Lands.size() - 1;
+}
+
+/*------------------------------------------------------------------------------
+	区画ー土地のリンクの解除
+------------------------------------------------------------------------------*/
+void BlockAttribute::UnlinkLand(Land* land)
+{
+	int size = m_Lands.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Lands[i] == land)
+		{
+			m_Lands[i] = NULL;
+		}
+	}
+}
+
+/*------------------------------------------------------------------------------
+	区画ー土地のリンクの解除
+------------------------------------------------------------------------------*/
+void BlockAttribute::UnlinkLand(int landID)
+{
+	m_Lands[ landID] = NULL;
+}
+
+

@@ -20,7 +20,7 @@
 class GameObject;
 class TrafficJunction;
 class TrafficRoad;
-class TrafficBuilding;
+class TrafficLand;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -33,14 +33,14 @@ public:
 	CarController( GameObject* pGameObject);
 	void Uninit( void);
 
-	void Init( TrafficRoad* currentRoad, TrafficJunction* nextJunction, TrafficBuilding* targetBuilding);
+	void Init( TrafficRoad* currentRoad, TrafficJunction* nextJunction, TrafficLand* targetLand);
 
 	void SetCurrentRoad( TrafficRoad* road){ m_CurrentRoad = road;}
 	TrafficRoad* GetCurrentRoad( void){ return m_CurrentRoad;}
 	void SetNextJunction( TrafficJunction* junction){ m_NextJunction = junction;}
 	TrafficJunction* GetNextJunction( void){ return m_NextJunction;}
-	void SetTargetBuilding( TrafficBuilding* building){ m_TargetBuilding = building;}
-	TrafficBuilding* GetTargetBuilding( void){ return m_TargetBuilding;}
+	void SetTargetLand( TrafficLand* building){ m_TargetLand = building;}
+	TrafficLand* GetTargetLand( void){ return m_TargetLand;}
 	Vector3 GetCurrentRoadVector( void);
 	CarController* GetFrontCar(void);
 	bool CheckOnRoad( void);
@@ -59,7 +59,8 @@ public:
 	bool TurnLeft( void);
 	bool GoStraight( void);
 	void ChangeState( ECarState next);
-	
+	void OnDeleteCurrentRoad(void);
+
 	float GetSpeed( void){ return m_Speed;}
 	void SetSpeed( float speed){ m_Speed = speed;}
 	void AddSpeed( float addSpeed){ m_Speed += addSpeed;}
@@ -70,7 +71,7 @@ private:
 
 	TrafficRoad* m_CurrentRoad;
 	TrafficJunction* m_NextJunction;
-	TrafficBuilding* m_TargetBuilding;
+	TrafficLand* m_TargetLand;
 	CarState* m_CurrentState;
 	std::unordered_map<ECarState, CarState*> m_States;
 

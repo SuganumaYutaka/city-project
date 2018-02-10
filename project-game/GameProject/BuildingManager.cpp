@@ -9,15 +9,7 @@
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "BuildingManager.h"
-#include "BuildingController.h"
-
-/*------------------------------------------------------------------------------
-	コンストラクタ
-------------------------------------------------------------------------------*/
-BuildingManager::BuildingManager()
-{
-	m_Buildings.clear();
-}
+#include "Building.h"
 
 /*------------------------------------------------------------------------------
 	デストラクタ
@@ -26,37 +18,58 @@ BuildingManager::~BuildingManager()
 {
 	for (auto building : m_Buildings)
 	{
-		building->OnBuildingManagerDelete();
+		if( building)
+		{
+			delete building;
+		}
 	}
 }
 
 /*------------------------------------------------------------------------------
-	建物の登録
+	建物を取得
 ------------------------------------------------------------------------------*/
-void BuildingManager::Register(BuildingController* buildingController)
+Building* BuildingManager::GetBuilding(int id)
 {
-	for (auto building : m_Buildings)
+	if (m_Buildings.size() <= id)
 	{
-		if (buildingController == building)
+		return NULL;
+	}
+
+	return m_Buildings[ id];
+}
+
+/*------------------------------------------------------------------------------
+	建物のIDを取得
+------------------------------------------------------------------------------*/
+int BuildingManager::GetBuildingID( Building* building)
+{
+	int size = m_Buildings.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Buildings[i] == building)
 		{
-			return;
+			return i;
 		}
 	}
 
-	m_Buildings.push_back( buildingController);
+	//発見できない
+	return -1;
 }
 
 /*------------------------------------------------------------------------------
 	建物の解除
 ------------------------------------------------------------------------------*/
-void BuildingManager::Unregister(BuildingController* buildingController)
+bool BuildingManager::Unregister(Building* building)
 {
-	for (auto ite = m_Buildings.begin(); ite != m_Buildings.end(); ++ite)
+	int size = m_Buildings.size();
+	for (int i = 0; i < size; i++)
 	{
-		if (*ite == buildingController)
+		if (m_Buildings[i] == building)
 		{
-			m_Buildings.erase( ite);
-			return;
+			m_Buildings[i] = NULL;
+			return true;
 		}
 	}
+
+	return false;
 }

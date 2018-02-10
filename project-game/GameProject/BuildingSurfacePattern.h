@@ -11,12 +11,23 @@
 	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
-#include "BuildingRuleFactory.h"
 
 /*------------------------------------------------------------------------------
 	前方宣言
 ------------------------------------------------------------------------------*/
 class Texture;
+
+/*------------------------------------------------------------------------------
+	列挙型定義
+------------------------------------------------------------------------------*/
+//大きさの段階
+enum E_BUILDING_SIZE_LEVEL
+{
+	eBuildingSizeSmall = 0,
+	eBuildingSizeMiddle,
+	eBuildingSizeLarge,
+	eBuildingSizeLevelCount
+};
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -47,6 +58,7 @@ public:
 	int GetBorderCount( void) { m_Borders.size(); }
 
 	std::string GetTextureFileName( void) { return m_TextureFileName;}
+	void SetSeed( int seed){ m_Random->SetSeed( seed); }
 	
 private:
 	bool Load( std::string fileName);

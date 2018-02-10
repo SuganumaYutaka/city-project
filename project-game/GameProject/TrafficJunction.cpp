@@ -60,7 +60,7 @@ TrafficJunction::TrafficJunction( GameObject* pGameObject)
 ------------------------------------------------------------------------------*/
 void TrafficJunction::Uninit( void)
 {
-	m_Attribute->UnregisterView();
+	
 }
 
 /*------------------------------------------------------------------------------

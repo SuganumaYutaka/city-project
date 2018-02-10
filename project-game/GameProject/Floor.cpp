@@ -10,7 +10,6 @@
 ------------------------------------------------------------------------------*/
 #include "Floor.h"
 #include "Tile.h"
-#include "BuildingRule.h"
 #include "TileSplit.h"
 
 /*------------------------------------------------------------------------------
@@ -56,31 +55,25 @@ Floor::~Floor()
 /*------------------------------------------------------------------------------
 	初期化
 ------------------------------------------------------------------------------*/
-void Floor::InitDefault( float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, E_FLOOR_TYPE type, BuildingRule* rule)
+void Floor::InitDefault( float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, E_FLOOR_TYPE type)
 {
 	m_Height = height;
 	m_Width = width;
 	m_BottomLeftPosition = bottomLeftPosition;
 	m_Normal = normal;
 	m_Type = type;
-
-	//タイルの生成
-	rule->ProceduralTile( this);
 }
 
 /*------------------------------------------------------------------------------
 	初期化（円に沿って曲げる）
 ------------------------------------------------------------------------------*/
-void Floor::InitCurve( float height, float width, const Vector3& bottomLeftPosition, E_FLOOR_TYPE type, BuildingRule* rule)
+void Floor::InitCurve( float height, float width, const Vector3& bottomLeftPosition, E_FLOOR_TYPE type)
 {
 	m_Height = height;
 	m_Width = width;
 	m_BottomLeftPosition = bottomLeftPosition;
 	m_Normal = bottomLeftPosition.Normalize();
 	m_Type = type;
-
-	//タイルの生成
-	rule->ProceduralTileCurve( this);
 }
 
 /*------------------------------------------------------------------------------

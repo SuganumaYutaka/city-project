@@ -19,6 +19,8 @@
 namespace HalfEdgeDataStructure
 {
 	class HalfEdge;
+	class Model;
+	class FaceAttribute;
 }
 
 /*------------------------------------------------------------------------------
@@ -35,13 +37,14 @@ namespace HalfEdgeDataStructure
 	{
 	private:
 		HalfEdge* m_HalfEdge;
-		HalfEdgeDataStructure::Model* m_Model;
+		Model* m_Model;
 		HalfEdge* SearchStartHalfEdgeForDivide(Vertex* start, Vertex* end);
 		FaceAttribute* m_Attribute;
 
 	public:
-		Face( HalfEdgeDataStructure::Model* model, HalfEdge* he, FaceAttribute* attribute);
-		~Face(){ if( m_Attribute) delete m_Attribute; }
+		Face( Model* model, HalfEdge* he);
+		~Face();
+		void Delete( void);
 
 		HalfEdge* GetHalfEdge( void) const{ return m_HalfEdge;}
 		void SetHalfEdge( HalfEdge* he) { m_HalfEdge = he;}
@@ -51,9 +54,11 @@ namespace HalfEdgeDataStructure
 		HalfEdge* SearchLongestHalfEdge( void);
 		HalfEdge* SeachStraightLine( HalfEdge* startHalfEdge);
 
+		void LinkAttribute( FaceAttribute* attribute){ m_Attribute = attribute;}
 		FaceAttribute* GetAttribute( void) { return m_Attribute;}
 
 		void UpdateByMove( void);
+		void UpdateAttribute( void);
 	};
 }
 
