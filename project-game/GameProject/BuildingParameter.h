@@ -42,15 +42,18 @@ public:
 	Vector3 m_Position;
 	float m_Rotation;
 	Vector3 m_Size;
+
+	std::string Save( void);
+	void Load( Text& text);
 };
 
 class GeometryParameter
 {
 public:
-	GeometryParameter() : m_GroundFloorHeight( 0.0f), m_FloorHeight( 0.0f), m_EntranceWidth( 0.0f), m_WindowWidth( 0.0f), m_SurfacePattern( NULL), m_RandomSeed(0){}
-	GeometryParameter( float groundFloorHeight, float floorHeight, float entranceWidth, float windowWidth, BuildingSurfacePattern* surfacePattern, int randomSeed)
+	GeometryParameter() : m_GroundFloorHeight( 0.0f), m_FloorHeight( 0.0f), m_EntranceWidth( 0.0f), m_WindowWidth( 0.0f), m_SurfacePatternID( 0), m_RandomSeed(0){}
+	GeometryParameter( float groundFloorHeight, float floorHeight, float entranceWidth, float windowWidth, int surfacePatternID, int randomSeed)
 		: m_GroundFloorHeight( groundFloorHeight), m_FloorHeight( floorHeight), m_EntranceWidth( entranceWidth), m_WindowWidth( windowWidth)
-		, m_SurfacePattern( surfacePattern), m_RandomSeed( randomSeed){}
+		, m_SurfacePatternID( surfacePatternID), m_RandomSeed( randomSeed){}
 
 	void AddShapeParameter( ShapeParameter* parameter){ m_ShapeParameters.push_back(parameter); }
 
@@ -58,9 +61,12 @@ public:
 	float m_FloorHeight;
 	float m_EntranceWidth;
 	float m_WindowWidth;
-	BuildingSurfacePattern* m_SurfacePattern;
+	int m_SurfacePatternID;
 	std::list<ShapeParameter*> m_ShapeParameters;
 	int m_RandomSeed;
+
+	std::string Save( void);
+	void Load( Text& text);
 };
 
 #endif

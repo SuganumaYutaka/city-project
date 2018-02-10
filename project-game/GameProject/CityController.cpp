@@ -70,7 +70,8 @@ CityController::CityController( GameObject* pGameObject)
 	m_BuildingSurfacePatterns.push_back( new BuildingSurfacePattern("data/SCRIPT/BuildingSurfacePattern/test02.txt"));
 	m_BuildingSurfacePatterns.push_back( new BuildingSurfacePattern("data/SCRIPT/BuildingSurfacePattern/test02.txt"));
 	
-	//Init( CITY_WIDTH, CITY_HEIGHT, DIVIDE_COUNT, CREATE_CAR_COUNT, true);
+	//手続きの保存フォーマットの初期化
+	m_ProcedualSaveData.ClearTextStrage();
 }
 
 /*------------------------------------------------------------------------------
@@ -78,18 +79,14 @@ CityController::CityController( GameObject* pGameObject)
 ------------------------------------------------------------------------------*/
 void CityController::Init(float cityWidth, float cityHeight, int countDivide, int countCar, bool doConfirmGeometry)
 {
+	//手続きの保存フォーマットの初期化
+	m_ProcedualSaveData.ClearTextStrage();
+
 	m_Width = cityWidth;
 	m_Height = cityHeight;
 	
-	//終了処理
-	//Uninit();
-
-	//管理オブジェクトの生成
-	m_Model = new Model();
-	m_CityAttributeManager = new CityAttributeManager();
-	m_LandManager = new LandManager();
-	m_BuildingManager = new BuildingManager();
-	m_CarManager = new CarManager();
+	//管理オブジェクトの再生成
+	ResetManagers();
 
 	//町のはじめの面を生成
 	CreateFirstFace( cityWidth, cityHeight);
@@ -151,6 +148,9 @@ void CityController::Init(float cityWidth, float cityHeight, int countDivide, in
 			}
 		}
 	}
+
+	//手続きの保存
+	m_ProcedualSaveData.Save( "data/SCRIPT/Procedual/test.txt");
 }
 
 /*------------------------------------------------------------------------------
@@ -191,6 +191,46 @@ void CityController::Uninit( void)
 	m_BuildingSurfacePatterns.clear();
 	m_BuildingSurfacePatterns.shrink_to_fit();
 
+}
+
+/*------------------------------------------------------------------------------
+	マネージャーのリセット
+------------------------------------------------------------------------------*/
+void CityController::ResetManagers(void)
+{
+	//終了処理
+	if( m_Model)
+	{
+		delete m_Model;
+		m_Model = NULL;
+	}
+	if( m_CityAttributeManager)
+	{
+		delete m_CityAttributeManager;
+		m_CityAttributeManager = NULL;
+	}
+	if( m_LandManager)
+	{
+		delete m_LandManager;
+		m_LandManager = NULL;
+	}
+	if( m_BuildingManager)
+	{
+		delete m_BuildingManager;
+		m_BuildingManager = NULL;
+	}
+	if( m_CarManager)
+	{
+		delete m_CarManager;
+		m_CarManager = NULL;
+	}
+
+	//管理オブジェクトの生成
+	m_Model = new Model();
+	m_CityAttributeManager = new CityAttributeManager();
+	m_LandManager = new LandManager();
+	m_BuildingManager = new BuildingManager();
+	m_CarManager = new CarManager();
 }
 
 /*------------------------------------------------------------------------------
@@ -249,6 +289,9 @@ void CityController::Update()
 ------------------------------------------------------------------------------*/
 void CityController::CreateFirstFace(float width, float height)
 {
+	//手続きの保存
+	m_ProcedualSaveData += " CreateFirstFace " + std::to_string( width) + ' ' + std::to_string( height) + "\n";
+
 	Vector3 sizeHalf( width * 0.5f, 0.0f, height * 0.5f);
 	m_Model->CreateFirstFace( 
 		Vector3( -sizeHalf.x, 0.0f, +sizeHalf.z), Vector3( +sizeHalf.x, 0.0f, +sizeHalf.z),
@@ -260,6 +303,9 @@ void CityController::CreateFirstFace(float width, float height)
 ------------------------------------------------------------------------------*/
 void CityController::Divide(int count)
 {
+	//手続きの保存
+	m_ProcedualSaveData += " Divide " + std::to_string( count) + "\n";
+
 	FaceDivideFunc funcDivide;
 	for (int i = 0; i < count; i++)
 	{
@@ -276,6 +322,9 @@ void CityController::Divide(int count)
 ------------------------------------------------------------------------------*/
 void CityController::CreateAttribute(void)
 {
+	//手続きの保存
+	m_ProcedualSaveData += " CreateAttribute\n";
+
 	auto vertices = m_Model->GetVertices();
 	int vertexCount = vertices.size();
 	for (int i = 0; i < vertexCount; i++)
@@ -315,16 +364,19 @@ void CityController::CreateAttribute(void)
 ------------------------------------------------------------------------------*/
 void CityController::CreateLand(LandParameter* parameter, int blockID)
 {
+	//手続きの保存
+	m_ProcedualSaveData += " CreateLand " + parameter->Save() + ' ' + std::to_string( blockID) + ' ' + "\n";
+
 	//土地の生成
 	Land* land = new Land( m_LandManager, m_pGameObject);
-	land->Init( parameter->vertices);
+	land->Init( parameter->m_Vertices);
 
 	//区画とリンク
 	m_CityAttributeManager->GetBlock(blockID)->LinkLand( land);
 
 	//交通システムを設定
 	std::list< RoadAttribute*> roadList;
-	for (auto id : parameter->roadIDs)
+	for (auto id : parameter->m_RoadIDs)
 	{
 		roadList.push_back( m_CityAttributeManager->GetRoad(id));
 	}
@@ -336,8 +388,12 @@ void CityController::CreateLand(LandParameter* parameter, int blockID)
 ------------------------------------------------------------------------------*/
 void CityController::CreateBuilding(GeometryParameter* parameter, int landID)
 {
+	//手続きの保存
+	m_ProcedualSaveData += " CreateBuilding " + parameter->Save() + ' ' + std::to_string( landID) + ' ' + "\n";
+
 	auto building = new Building( m_BuildingManager, m_pGameObject);
-	building->InitGeometry( parameter);
+	auto surfacePattern = m_BuildingSurfacePatterns[ parameter->m_SurfacePatternID];
+	building->InitGeometry( parameter, surfacePattern);
 	building->LinkLand( m_LandManager, landID);
 }
 
@@ -346,8 +402,95 @@ void CityController::CreateBuilding(GeometryParameter* parameter, int landID)
 ------------------------------------------------------------------------------*/
 void CityController::CreateCar(int spawnLandID, int targetLandID)
 {
+	//手続きの保存
+	m_ProcedualSaveData += " CreateCar " + std::to_string( spawnLandID) + ' ' + std::to_string( targetLandID) + ' ' + "\n";
+
 	auto car = new Car( m_CarManager, m_pGameObject);
 	//car->Init( m_LandManager->GetLand( spawnLandID)->GetTrafficLand(), m_LandManager->GetLand( targetLandID)->GetTrafficLand());
 	car->Init( m_LandManager->GetLand( spawnLandID)->GetTrafficLand(), NULL);
 }
 
+/*------------------------------------------------------------------------------
+	ロード
+------------------------------------------------------------------------------*/
+void CityController::Load(std::string filename)
+{
+	Text saveData;
+	saveData.Load( filename);
+
+	if (!saveData.Load(filename))
+	{
+		MessageBox( NULL, "CityControllerのロードに失敗", "error", MB_OK);
+		return;
+	}
+
+	//管理オブジェクトの再生成
+	ResetManagers();
+
+	for (;;)
+	{
+		auto CurrentWord = saveData.GetWord();
+
+		//はじめの面を生成
+		if (saveData.GetWord() == "CreateFirstFace")
+		{
+			saveData.ForwardPositionToNextWord();
+			m_Width = std::stof( saveData.GetWord());
+			saveData.ForwardPositionToNextWord();
+			m_Height = std::stof( saveData.GetWord());
+			CreateFirstFace( m_Width, m_Height);
+		}
+
+		//区画の分割
+		else if (saveData.GetWord() == "Divide")
+		{
+			saveData.ForwardPositionToNextWord();
+			int count = std::stoi( saveData.GetWord());
+			
+			Divide( count);
+		}
+
+		//属性情報の付与
+		else if (saveData.GetWord() == "CreateAttribute")
+		{
+			CreateAttribute();
+		}
+
+		else if (saveData.GetWord() == "CreateLand")
+		{
+			saveData.ForwardPositionToNextWord();
+			LandParameter parameter;
+			parameter.Load( saveData);
+			saveData.ForwardPositionToNextWord();
+			int blockID = std::stoi( saveData.GetWord());
+
+			CreateLand( &parameter, blockID);
+		}
+
+		else if (saveData.GetWord() == "CreateBuilding")
+		{
+			saveData.ForwardPositionToNextWord();
+			GeometryParameter parameter;
+			parameter.Load( saveData);
+			saveData.ForwardPositionToNextWord();
+			int landID = std::stoi( saveData.GetWord());
+
+			CreateBuilding( &parameter, landID);
+		}
+
+		else if (saveData.GetWord() == "CreateCar")
+		{
+			saveData.ForwardPositionToNextWord();
+			int spawnLandID = std::stoi( saveData.GetWord());
+			saveData.ForwardPositionToNextWord();
+			int targetLandID = std::stoi( saveData.GetWord());
+
+			CreateCar( spawnLandID, targetLandID);
+		}
+
+		if (saveData.ForwardPositionToNextWord() == Text::EoF)
+		{
+			return;
+		}
+	}
+}

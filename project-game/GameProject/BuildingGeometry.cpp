@@ -59,13 +59,14 @@ void BuildingGeometry::Uninit( void)
 /*------------------------------------------------------------------------------
 	‰Šú‰»
 ------------------------------------------------------------------------------*/
-void BuildingGeometry::Init(GeometryParameter* parameter)
+void BuildingGeometry::Init(GeometryParameter* parameter, BuildingSurfacePattern* surfacePattern)
 {
 	m_Parameter = parameter;
+	m_SurfacePattern = surfacePattern;
 
 	//Œš•¨‚ÌŒš’z
 	Builder builder;
-	builder(this, parameter);
+	builder(this, parameter, surfacePattern);
 }
 
 /*------------------------------------------------------------------------------
@@ -201,7 +202,7 @@ void BuildingGeometry::ConfirmGeometry(void)
 
 	//WallRenderer‚ðÝ’è
 	auto wallRenderer = m_pGameObject->AddComponent<WallRenderer>();
-	wallRenderer->LoadTexture(m_Parameter->m_SurfacePattern->GetTextureFileName());
+	wallRenderer->LoadTexture(m_SurfacePattern->GetTextureFileName());
 	auto pVtx = wallRenderer->StartSetVertexBuffer( vertexCount + 1, polygonCount);
 	for (auto start : tiles)
 	{

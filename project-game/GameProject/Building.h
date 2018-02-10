@@ -22,6 +22,7 @@ class LandManager;
 class BuildingGeometry;
 class BuildingManager;
 class GeometryParameter;
+class BuildingSurfacePattern;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -35,7 +36,7 @@ public:
 	void OnDeleteBlock( void);
 	void LinkLand( LandManager* landManager, int landID);
 	void ConfirmGeometry(void);
-	void InitGeometry( GeometryParameter* parameter);
+	void InitGeometry( GeometryParameter* parameter, BuildingSurfacePattern* surfacePattern);
 	
 private:
 	BuildingManager* m_Manager;

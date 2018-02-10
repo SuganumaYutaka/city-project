@@ -41,7 +41,7 @@ GeometryParameter* GeometryParameterSpawner::operator()( const std::vector< Buil
 
 	//表面パターン
 	m_Random.SetRangeInt( 0, surfacePatterns.size() - 1);
-	parameter->m_SurfacePattern = surfacePatterns[ m_Random.GetInt()];
+	parameter->m_SurfacePatternID = m_Random.GetInt();
 
 	//ランダムのシード値
 	parameter->m_RandomSeed = m_Random.GetSeed();

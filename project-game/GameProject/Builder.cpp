@@ -23,10 +23,11 @@
 /*------------------------------------------------------------------------------
 	建物組み立て
 ------------------------------------------------------------------------------*/
-bool Builder::operator() (BuildingGeometry* geometry, GeometryParameter* parameter)
+bool Builder::operator() (BuildingGeometry* geometry, GeometryParameter* parameter, BuildingSurfacePattern* surfacePattern)
 {
 	m_Geometry = geometry;
 	m_Parameter = parameter;
+	m_SurfacePattern = surfacePattern;
 
 	//形状の生成
 	auto shapeParameters = parameter->m_ShapeParameters;
@@ -94,7 +95,7 @@ ShapeBox* Builder::CreateShapeBox( ShapeParameter* parameter)
 	m_Geometry->AddShape( shape);
 
 	//表面パターンのランダムのシード値を設定
-	m_Parameter->m_SurfacePattern->SetSeed( m_Parameter->m_RandomSeed);
+	m_SurfacePattern->SetSeed( m_Parameter->m_RandomSeed);
 
 	return shape;
 }
@@ -111,7 +112,7 @@ ShapeCylinder* Builder::CreateShapeCylinder( ShapeParameter* parameter)
 	m_Geometry->AddShape( shape);
 
 	//表面パターンのランダムのシード値を設定
-	m_Parameter->m_SurfacePattern->SetSeed( m_Parameter->m_RandomSeed);
+	m_SurfacePattern->SetSeed( m_Parameter->m_RandomSeed);
 
 	return shape;
 }
@@ -122,7 +123,7 @@ ShapeCylinder* Builder::CreateShapeCylinder( ShapeParameter* parameter)
 bool Builder::CreateFloor( Wall* wall)
 {
 	//テクスチャの設定
-	wall->LoadTexture( m_Parameter->m_SurfacePattern->GetTextureFileName());
+	wall->LoadTexture( m_SurfacePattern->GetTextureFileName());
 
 	float height = wall->GetHeight();
 	float width = wall->GetWidth();
@@ -165,7 +166,7 @@ bool Builder::CreateFloor( Wall* wall)
 bool Builder::CreateFloorCurve( Wall* wall)
 {
 	//テクスチャの設定
-	wall->LoadTexture( m_Parameter->m_SurfacePattern->GetTextureFileName());
+	wall->LoadTexture( m_SurfacePattern->GetTextureFileName());
 
 	float height = wall->GetHeight();
 	float width = wall->GetWidth();
@@ -219,7 +220,7 @@ bool Builder::CreateTile( Floor* floor)
 	{
 		tile = new TileDefault();
 		floor->SetTile( tile);
-		tile->Init( height, width, bottomLeftPosition, normal, eTileWall, m_Parameter->m_SurfacePattern->GetWall());
+		tile->Init( height, width, bottomLeftPosition, normal, eTileWall, m_SurfacePattern->GetWall());
 		return true;
 	}
 
@@ -228,7 +229,7 @@ bool Builder::CreateTile( Floor* floor)
 	{
 		tile = new TileDefault();
 		floor->SetTile( tile);
-		tile->Init( height, width, bottomLeftPosition, normal, eTileBorder, m_Parameter->m_SurfacePattern->GetBorder());
+		tile->Init( height, width, bottomLeftPosition, normal, eTileBorder, m_SurfacePattern->GetBorder());
 		return true;
 	}
 
@@ -245,12 +246,12 @@ bool Builder::CreateTile( Floor* floor)
 
 			tile = new TileDefault();
 			floor->SetTile( tile);
-			tile->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, m_Parameter->m_SurfacePattern->GetWall());
+			tile->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, m_SurfacePattern->GetWall());
 			bottomLeftPosition += vector * wallWidth;
 
 			tileNext = new TileDefault();
 			tile->SetNext( tileNext);
-			tileNext->Init( height, m_Parameter->m_EntranceWidth, bottomLeftPosition, normal, eTileEntrance, m_Parameter->m_SurfacePattern->GetEntrance());
+			tileNext->Init( height, m_Parameter->m_EntranceWidth, bottomLeftPosition, normal, eTileEntrance, m_SurfacePattern->GetEntrance());
 			bottomLeftPosition += vector * m_Parameter->m_EntranceWidth;
 			tile = tileNext;
 			
@@ -258,14 +259,14 @@ bool Builder::CreateTile( Floor* floor)
 			{
 				tileNext = new TileDefault();
 				tile->SetNext( tileNext);
-				tileNext->Init( height, m_Parameter->m_WindowWidth, bottomLeftPosition, normal, eTileWindow, m_Parameter->m_SurfacePattern->GetWindow());
+				tileNext->Init( height, m_Parameter->m_WindowWidth, bottomLeftPosition, normal, eTileWindow, m_SurfacePattern->GetWindow());
 				bottomLeftPosition += vector * m_Parameter->m_WindowWidth;
 				tile = tileNext;
 			}
 			
 			tileNext = new TileDefault();
 			tile->SetNext( tileNext);
-			tileNext->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, m_Parameter->m_SurfacePattern->GetWall());
+			tileNext->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, m_SurfacePattern->GetWall());
 			bottomLeftPosition += vector * wallWidth;
 
 			return true;
@@ -277,21 +278,21 @@ bool Builder::CreateTile( Floor* floor)
 	{
 		tile = new TileDefault();
 		floor->SetTile( tile);
-		tile->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, m_Parameter->m_SurfacePattern->GetWall());
+		tile->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, m_SurfacePattern->GetWall());
 		bottomLeftPosition += vector * wallWidth;
 
 		for (int i = 0; i < countWindow; i++)
 		{
 			tileNext = new TileDefault();
 			tile->SetNext( tileNext);
-			tileNext->Init( height, m_Parameter->m_WindowWidth, bottomLeftPosition, normal, eTileWall, m_Parameter->m_SurfacePattern->GetWall());
+			tileNext->Init( height, m_Parameter->m_WindowWidth, bottomLeftPosition, normal, eTileWall, m_SurfacePattern->GetWall());
 			bottomLeftPosition += vector * m_Parameter->m_WindowWidth;
 			tile = tileNext;
 		}
 			
 		tileNext = new TileDefault();
 		tile->SetNext( tileNext);
-		tileNext->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, m_Parameter->m_SurfacePattern->GetWall());
+		tileNext->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, m_SurfacePattern->GetWall());
 		bottomLeftPosition += vector * wallWidth;
 		return true;
 	}
@@ -299,21 +300,21 @@ bool Builder::CreateTile( Floor* floor)
 	//デフォルトの設定（窓と両端に壁）
 	tile = new TileDefault();
 	floor->SetTile( tile);
-	tile->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, m_Parameter->m_SurfacePattern->GetWall());
+	tile->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, m_SurfacePattern->GetWall());
 	bottomLeftPosition += vector * wallWidth;
 
 	for (int i = 0; i < countWindow; i++)
 	{
 		tileNext = new TileDefault();
 		tile->SetNext( tileNext);
-		tileNext->Init( height, m_Parameter->m_WindowWidth, bottomLeftPosition, normal, eTileWindow, m_Parameter->m_SurfacePattern->GetWindow());
+		tileNext->Init( height, m_Parameter->m_WindowWidth, bottomLeftPosition, normal, eTileWindow, m_SurfacePattern->GetWindow());
 		bottomLeftPosition += vector * m_Parameter->m_WindowWidth;
 		tile = tileNext;
 	}
 			
 	tileNext = new TileDefault();
 	tile->SetNext( tileNext);
-	tileNext->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, m_Parameter->m_SurfacePattern->GetWall());
+	tileNext->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, m_SurfacePattern->GetWall());
 	bottomLeftPosition += vector * wallWidth;
 
 	return true;
@@ -335,7 +336,7 @@ bool Builder::CreateTileCurve( Floor* floor)
 	{
 		tile = new TileCurve();
 		floor->SetTile( tile);
-		tile->Init( height, width, bottomLeftPosition, eTileWall, m_Parameter->m_SurfacePattern->GetWall());
+		tile->Init( height, width, bottomLeftPosition, eTileWall, m_SurfacePattern->GetWall());
 		return true;
 	}
 
@@ -344,7 +345,7 @@ bool Builder::CreateTileCurve( Floor* floor)
 	{
 		tile = new TileCurve();
 		floor->SetTile( tile);
-		tile->Init( height, width, bottomLeftPosition, eTileBorder, m_Parameter->m_SurfacePattern->GetBorder());
+		tile->Init( height, width, bottomLeftPosition, eTileBorder, m_SurfacePattern->GetBorder());
 		return true;
 	}
 
@@ -361,12 +362,12 @@ bool Builder::CreateTileCurve( Floor* floor)
 
 			tile = new TileCurve();
 			floor->SetTile( tile);
-			tile->Init( height, wallWidth, bottomLeftPosition, eTileWall, m_Parameter->m_SurfacePattern->GetWall());
+			tile->Init( height, wallWidth, bottomLeftPosition, eTileWall, m_SurfacePattern->GetWall());
 			bottomLeftPosition = MoveBottomLeftPosition( bottomLeftPosition, tile->CulcAngle());
 
 			tileNext = new TileCurve();
 			tile->SetNext( tileNext);
-			tileNext->Init( height, m_Parameter->m_EntranceWidth, bottomLeftPosition, eTileEntrance, m_Parameter->m_SurfacePattern->GetEntrance());
+			tileNext->Init( height, m_Parameter->m_EntranceWidth, bottomLeftPosition, eTileEntrance, m_SurfacePattern->GetEntrance());
 			bottomLeftPosition = MoveBottomLeftPosition( bottomLeftPosition, tileNext->CulcAngle());
 			tile = tileNext;
 			
@@ -374,14 +375,14 @@ bool Builder::CreateTileCurve( Floor* floor)
 			{
 				tileNext = new TileCurve();
 				tile->SetNext( tileNext);
-				tileNext->Init( height, m_Parameter->m_WindowWidth, bottomLeftPosition, eTileWindow, m_Parameter->m_SurfacePattern->GetWindow());
+				tileNext->Init( height, m_Parameter->m_WindowWidth, bottomLeftPosition, eTileWindow, m_SurfacePattern->GetWindow());
 				bottomLeftPosition = MoveBottomLeftPosition( bottomLeftPosition, tileNext->CulcAngle());
 				tile = tileNext;
 			}
 			
 			tileNext = new TileCurve();
 			tile->SetNext( tileNext);
-			tileNext->Init( height, wallWidth, bottomLeftPosition, eTileWall, m_Parameter->m_SurfacePattern->GetWall());
+			tileNext->Init( height, wallWidth, bottomLeftPosition, eTileWall, m_SurfacePattern->GetWall());
 			bottomLeftPosition = MoveBottomLeftPosition( bottomLeftPosition, tileNext->CulcAngle());
 
 			return true;
@@ -393,21 +394,21 @@ bool Builder::CreateTileCurve( Floor* floor)
 	{
 		tile = new TileCurve();
 		floor->SetTile( tile);
-		tile->Init( height, wallWidth, bottomLeftPosition, eTileWall, m_Parameter->m_SurfacePattern->GetWall());
+		tile->Init( height, wallWidth, bottomLeftPosition, eTileWall, m_SurfacePattern->GetWall());
 		bottomLeftPosition = MoveBottomLeftPosition( bottomLeftPosition, tile->CulcAngle());
 
 		for (int i = 0; i < countWindow; i++)
 		{
 			tileNext = new TileCurve();
 			tile->SetNext( tileNext);
-			tileNext->Init( height, m_Parameter->m_WindowWidth, bottomLeftPosition, eTileWall, m_Parameter->m_SurfacePattern->GetWall());
+			tileNext->Init( height, m_Parameter->m_WindowWidth, bottomLeftPosition, eTileWall, m_SurfacePattern->GetWall());
 			bottomLeftPosition = MoveBottomLeftPosition( bottomLeftPosition, tileNext->CulcAngle());
 			tile = tileNext;
 		}
 			
 		tileNext = new TileCurve();
 		tile->SetNext( tileNext);
-		tileNext->Init( height, wallWidth, bottomLeftPosition, eTileWall, m_Parameter->m_SurfacePattern->GetWall());
+		tileNext->Init( height, wallWidth, bottomLeftPosition, eTileWall, m_SurfacePattern->GetWall());
 		bottomLeftPosition = MoveBottomLeftPosition( bottomLeftPosition, tileNext->CulcAngle());
 		return true;
 	}
@@ -417,14 +418,14 @@ bool Builder::CreateTileCurve( Floor* floor)
 
 	tile = new TileCurve();
 	floor->SetTile( tile);
-	tile->Init( height, windowWidth, bottomLeftPosition, eTileWindow, m_Parameter->m_SurfacePattern->GetWindow());
+	tile->Init( height, windowWidth, bottomLeftPosition, eTileWindow, m_SurfacePattern->GetWindow());
 	bottomLeftPosition = MoveBottomLeftPosition( bottomLeftPosition, tile->CulcAngle());
 
 	for (int i = 0; i < countWindow - 1; i++)
 	{
 		tileNext = new TileCurve();
 		tile->SetNext( tileNext);
-		tileNext->Init( height, windowWidth, bottomLeftPosition, eTileWindow, m_Parameter->m_SurfacePattern->GetWindow());
+		tileNext->Init( height, windowWidth, bottomLeftPosition, eTileWindow, m_SurfacePattern->GetWindow());
 		bottomLeftPosition = MoveBottomLeftPosition( bottomLeftPosition, tileNext->CulcAngle());
 		tile = tileNext;
 	}

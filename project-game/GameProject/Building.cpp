@@ -17,6 +17,7 @@
 #include "BuildingParameter.h"
 #include "WallRenderer.h"
 #include "Transform.h"
+#include "BuildingSurfacePattern.h"
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -58,7 +59,7 @@ void Building::Delete(void)
 /*------------------------------------------------------------------------------
 	ジオメトリの初期化
 ------------------------------------------------------------------------------*/
-void Building::InitGeometry(GeometryParameter* parameter)
+void Building::InitGeometry(GeometryParameter* parameter, BuildingSurfacePattern* surfacePattern)
 {
 	//すでにあるジオメトリと描画情報を削除
 	if (m_Geometry)
@@ -73,7 +74,7 @@ void Building::InitGeometry(GeometryParameter* parameter)
 	}
 
 	m_Geometry = m_GameObject->AddComponent<BuildingGeometry>();
-	m_Geometry->Init( parameter);
+	m_Geometry->Init( parameter, surfacePattern);
 }
 
 /*------------------------------------------------------------------------------

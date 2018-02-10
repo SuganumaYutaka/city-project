@@ -21,6 +21,7 @@ class Wall;
 class Floor;
 class ShapeBox;
 class ShapeCylinder;
+class BuildingSurfacePattern;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -28,11 +29,12 @@ class ShapeCylinder;
 class Builder
 {
 public:
-	bool operator() ( BuildingGeometry* geometry, GeometryParameter* parameter);
+	bool operator() ( BuildingGeometry* geometry, GeometryParameter* parameter, BuildingSurfacePattern* surfacePattern);
 
 private:
 	BuildingGeometry* m_Geometry;
 	GeometryParameter* m_Parameter;
+	BuildingSurfacePattern* m_SurfacePattern;
 
 	ShapeBox* CreateShapeBox( ShapeParameter* parameter);
 	ShapeCylinder* CreateShapeCylinder( ShapeParameter* parameter);

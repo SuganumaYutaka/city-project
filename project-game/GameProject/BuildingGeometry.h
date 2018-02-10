@@ -19,6 +19,7 @@
 class Shape;
 class Tile;
 class GeometryParameter;
+class BuildingSurfacePattern;
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -31,7 +32,7 @@ public:
 	BuildingGeometry( GameObject* pGameObject);
 	void Uninit( void);
 
-	void Init( GeometryParameter* parameter);
+	void Init( GeometryParameter* parameter, BuildingSurfacePattern* surfacePattern);
 	void AddShape( Shape* shape){ m_Shapes.push_back( shape); }
 	const std::list< Shape*>& GetShape( void){ return m_Shapes;}
 	void ConfirmGeometry(void);
@@ -39,6 +40,7 @@ public:
 private:
 	void Update(void);
 
+	BuildingSurfacePattern* m_SurfacePattern;
 	GeometryParameter* m_Parameter;
 	std::list< Shape*> m_Shapes;
 	

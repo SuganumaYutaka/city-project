@@ -18,9 +18,11 @@
 class LandParameter
 {
 public:
-	std::vector<Vector3> vertices;
-	std::list<int> roadIDs;
+	std::vector<Vector3> m_Vertices;
+	std::list<int> m_RoadIDs;
 
+	std::string Save( void);
+	void Load( Text& text);
 };
 
 

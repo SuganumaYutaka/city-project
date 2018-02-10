@@ -456,6 +456,12 @@
     <ClCompile Include="BuildingParameterSpawner.cpp">
       <Filter>CityEngine\Building</Filter>
     </ClCompile>
+    <ClCompile Include="LandParameter.cpp">
+      <Filter>CityEngine\City</Filter>
+    </ClCompile>
+    <ClCompile Include="BuildingParameter.cpp">
+      <Filter>CityEngine\Building</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModeTitle.h">

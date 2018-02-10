@@ -41,6 +41,8 @@ public:
 	CityController( GameObject* pGameObject);
 	void Uninit( void);
 	void Init( float cityWidth, float cityHeight, int countDivide, int countCar, bool doConfirmGeometry);
+	void Load( std::string filename);
+	void ResetManagers( void);
 
 private:
 	void Update();
@@ -61,6 +63,8 @@ private:
 
 	float m_Width;
 	float m_Height;
+
+	Text m_ProcedualSaveData;
 };
 
 

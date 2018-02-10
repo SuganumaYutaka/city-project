@@ -241,12 +241,12 @@ std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, 
 			auto land = new LandParameter();
 			for( auto vertex : preland.vertices)
 			{
-				land->vertices.push_back( vertex);
+				land->m_Vertices.push_back( vertex);
 			}
 
 			for( auto road : preland.roads)
 			{
-				land->roadIDs.push_back( attributeManager->GetRoadID( road));
+				land->m_RoadIDs.push_back( attributeManager->GetRoadID( road));
 			}
 			lands.push_back( land);
 

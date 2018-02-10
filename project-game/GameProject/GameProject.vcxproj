@@ -169,6 +169,7 @@
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="BuildingGeometry.cpp" />
     <ClCompile Include="BuildingManager.cpp" />
+    <ClCompile Include="BuildingParameter.cpp" />
     <ClCompile Include="BuildingParameterSpawner.cpp" />
     <ClCompile Include="BuildingSurfacePattern.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -208,6 +209,7 @@
     <ClCompile Include="JunctionView.cpp" />
     <ClCompile Include="Land.cpp" />
     <ClCompile Include="LandManager.cpp" />
+    <ClCompile Include="LandParameter.cpp" />
     <ClCompile Include="LandSpawner.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
