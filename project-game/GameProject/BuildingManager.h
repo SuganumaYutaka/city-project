@@ -33,7 +33,7 @@ public:
 	Building* CreateBuilding( GeometryParameter* parameter, BuildingSurfacePattern* surfacePattern);
 	Building* GetBuilding( int id);
 	int GetBuildingID( Building* building);
-	int GetBuildingCount( void){ return (int)m_Buildings.size();}
+	int GetBuildingCount( void);
 	const std::vector<Building*>& GetBuildings( void){ return m_Buildings;}
 	void Register( Building* building){ m_Buildings.push_back( building); }
 	bool Unregister( Building* building);

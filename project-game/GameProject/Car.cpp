@@ -41,8 +41,11 @@ Car::~Car()
 ------------------------------------------------------------------------------*/
 void Car::Delete(void)
 {
+	m_CarController->OutRoad();
 	m_GameObject->ReleaseReserve();
 	m_Manager->UnregisterCar( this);
+
+	delete this;
 }
 
 /*------------------------------------------------------------------------------

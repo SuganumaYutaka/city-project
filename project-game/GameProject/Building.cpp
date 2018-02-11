@@ -54,6 +54,8 @@ void Building::Delete(void)
 		m_LandManager->GetLand( m_LandID)->UnlinkBuilding( this);
 	}
 	m_Manager->Unregister( this);
+
+	delete this;
 }
 
 /*------------------------------------------------------------------------------
@@ -80,14 +82,14 @@ void Building::InitGeometry(GeometryParameter* parameter, BuildingSurfacePattern
 /*------------------------------------------------------------------------------
 	土地消去時の処理
 ------------------------------------------------------------------------------*/
-void Building::OnDeleteBlock(void)
+void Building::OnDeleteLand(void)
 {
-	//デストラクタ時にリンクの解除をしない
+	//消去時にリンクの解除をしない
 	m_LandManager = NULL;
 	m_LandID = -1;
 
 	//消去する
-	delete this;
+	Delete();
 }
 
 /*------------------------------------------------------------------------------

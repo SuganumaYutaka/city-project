@@ -40,6 +40,7 @@ private:
 public:
 	CityAttributeManager( GameObject* parent);
 	~CityAttributeManager();
+	void Clear(void);
 	void DeleteGameObject( void);
 
 	JunctionAttribute* CreateJunctionAttribute( HalfEdgeDataStructure::Model* model, int modelID);

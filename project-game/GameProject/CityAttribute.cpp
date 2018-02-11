@@ -61,6 +61,8 @@ void JunctionAttribute::Delete(void)
 	}
 
 	m_Manager->UnregisterJunction( this);
+
+	delete this;
 }
 
 /*------------------------------------------------------------------------------
@@ -125,6 +127,8 @@ void RoadAttribute::Delete(void)
 	}
 
 	m_Manager->UnregisterRoad( this);
+
+	delete this;
 }
 
 /*------------------------------------------------------------------------------
@@ -222,12 +226,12 @@ void BlockAttribute::Delete(void)
 	m_GameObject->ReleaseReserve();
 
 	//土地に消去を伝える
-	for (auto land : m_Lands)
+	int count = m_Lands.size();
+	for (int i = 0; i < count; i++)
 	{
-		if (land)
+		if (m_Lands[i])
 		{
-			//区画消去イベント
-			land->OnDeleteBlock();
+			m_Lands[i]->OnDeleteBlock();
 		}
 	}
 	m_Lands.clear();
@@ -241,6 +245,8 @@ void BlockAttribute::Delete(void)
 	}
 
 	m_Manager->UnregisterBlock( this);
+
+	delete this;
 }
 
 /*------------------------------------------------------------------------------

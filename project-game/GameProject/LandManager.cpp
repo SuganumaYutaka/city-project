@@ -107,3 +107,21 @@ bool LandManager::UnregisterLand( Land* land)
 
 	return false;
 }
+
+/*------------------------------------------------------------------------------
+	“y’n‚Ì”‚ğæ“¾
+------------------------------------------------------------------------------*/
+int LandManager::GetLandCount(void)
+{
+	int size = m_Lands.size();
+	int count = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Lands[i])
+		{
+			count++;
+		}
+	}
+
+	return count;
+}

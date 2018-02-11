@@ -60,6 +60,42 @@ CityAttributeManager::~CityAttributeManager()
 }
 
 /*------------------------------------------------------------------------------
+	ëÆê´èÓïÒÇÃÉNÉäÉA
+------------------------------------------------------------------------------*/
+void CityAttributeManager::Clear(void)
+{
+	for (auto block : m_Blocks)
+	{
+		if( block)
+		{
+			block->Delete();
+		}
+	}
+	m_Blocks.clear();
+	m_Blocks.shrink_to_fit();
+
+	for (auto road : m_Roads)
+	{
+		if( road)
+		{
+			road->Delete();
+		}
+	}
+	m_Roads.clear();
+	m_Roads.shrink_to_fit();
+
+	for (auto junction : m_Junctions)
+	{
+		if( junction)
+		{
+			junction->Delete();
+		}
+	}
+	m_Junctions.clear();
+	m_Junctions.shrink_to_fit();
+}
+
+/*------------------------------------------------------------------------------
 	GameObjectÇÃè¡ãé
 ------------------------------------------------------------------------------*/
 void CityAttributeManager::DeleteGameObject(void)

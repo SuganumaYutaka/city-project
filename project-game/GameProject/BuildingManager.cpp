@@ -105,3 +105,21 @@ bool BuildingManager::Unregister(Building* building)
 
 	return false;
 }
+
+/*------------------------------------------------------------------------------
+	Œš•¨‚Ì”‚ğæ“¾
+------------------------------------------------------------------------------*/
+int BuildingManager::GetBuildingCount(void)
+{
+	int size = m_Buildings.size();
+	int count = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Buildings[i])
+		{
+			count++;
+		}
+	}
+
+	return count;
+}

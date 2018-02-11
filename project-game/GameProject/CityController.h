@@ -59,10 +59,12 @@ private:
 	void CreateAttribute( void);
 	void CreateLand( LandParameter* parameter, int blockID);
 	void CreateBuilding( GeometryParameter* parameter, int landID);
+	void ConfirmBuilding( void);
 	void CreateCar( int spawnLandID, int targetLandID);
 
 	float m_Width;
 	float m_Height;
+	bool m_IsWireFrame;
 
 	Text m_ProcedualSaveData;
 };
