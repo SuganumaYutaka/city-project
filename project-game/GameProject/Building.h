@@ -33,10 +33,11 @@ public:
 	Building( BuildingManager* manager, GameObject* parent);
 	~Building();
 	void Delete( void);
-	void OnDeleteBlock( void);
+	void OnDeleteLand( void);
 	void LinkLand( LandManager* landManager, int landID);
 	void ConfirmGeometry(void);
 	void InitGeometry( GeometryParameter* parameter, BuildingSurfacePattern* surfacePattern);
+	GameObject* GetGameObject( void){ return m_GameObject;}
 	
 private:
 	BuildingManager* m_Manager;

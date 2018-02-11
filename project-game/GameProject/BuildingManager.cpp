@@ -10,6 +10,15 @@
 ------------------------------------------------------------------------------*/
 #include "BuildingManager.h"
 #include "Building.h"
+#include "GameObject.h"
+
+/*------------------------------------------------------------------------------
+	コンストラクタ
+------------------------------------------------------------------------------*/
+BuildingManager::BuildingManager(GameObject* parent)
+{
+	m_GameObject = new GameObject( parent);
+}
 
 /*------------------------------------------------------------------------------
 	デストラクタ
@@ -23,6 +32,29 @@ BuildingManager::~BuildingManager()
 			delete building;
 		}
 	}
+}
+
+/*------------------------------------------------------------------------------
+	GameObjectの消去
+------------------------------------------------------------------------------*/
+void BuildingManager::DeleteGameObject(void)
+{
+	if (m_GameObject)
+	{
+		m_GameObject->ReleaseReserve();
+		m_GameObject = NULL;
+	}
+}
+
+/*------------------------------------------------------------------------------
+	建物を生成
+------------------------------------------------------------------------------*/
+Building* BuildingManager::CreateBuilding(GeometryParameter* parameter, BuildingSurfacePattern* surfacePattern)
+{
+	auto building = new Building( this, m_GameObject);
+	building->InitGeometry( parameter, surfacePattern);
+
+	return building;
 }
 
 /*------------------------------------------------------------------------------
@@ -72,4 +104,22 @@ bool BuildingManager::Unregister(Building* building)
 	}
 
 	return false;
+}
+
+/*------------------------------------------------------------------------------
+	建物の数を取得
+------------------------------------------------------------------------------*/
+int BuildingManager::GetBuildingCount(void)
+{
+	int size = m_Buildings.size();
+	int count = 0;
+	for (int i = 0; i < size; i++)
+	{
+		if (m_Buildings[i])
+		{
+			count++;
+		}
+	}
+
+	return count;
 }

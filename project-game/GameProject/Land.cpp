@@ -17,6 +17,7 @@
 #include "CityAttributeManager.h"
 #include "CityAttribute.h"
 #include "LandManager.h"
+#include "Building.h"
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
@@ -38,7 +39,8 @@ Land::Land( LandManager* manager, GameObject* parent)
 ------------------------------------------------------------------------------*/
 Land::~Land()
 {
-	
+	m_Vertices.clear();
+	m_Vertices.shrink_to_fit();
 }
 
 /*------------------------------------------------------------------------------
@@ -48,8 +50,17 @@ void Land::Delete(void)
 {
 	m_GameObject->ReleaseReserve();
 
-	m_Vertices.clear();
-	m_Vertices.shrink_to_fit();
+	//建物に消去を伝える
+	int count = m_Buildings.size();
+	for (int i = 0; i < count; i++)
+	{
+		if (m_Buildings[i])
+		{
+			m_Buildings[i]->OnDeleteLand();
+		}
+	}
+	m_Buildings.clear();
+	m_Buildings.shrink_to_fit();
 
 	//リンクを解除
 	if (m_AttributeManager)
@@ -57,6 +68,8 @@ void Land::Delete(void)
 		m_AttributeManager->GetBlock( m_BlockID)->UnlinkLand( this);
 	}
 	m_Manager->UnregisterLand( this);
+
+	delete this;
 }
 
 /*------------------------------------------------------------------------------
@@ -85,12 +98,12 @@ void Land::Init( const std::vector<Vector3>& vertices)
 ------------------------------------------------------------------------------*/
 void Land::OnDeleteBlock(void)
 {
-	//デストラクタ時にリンクの解除をしない
+	//消去時にリンクの解除をしない
 	m_AttributeManager = NULL;
 	m_BlockID = -1;
 
 	//消去する
-	delete this;
+	Delete();
 }
 
 /*------------------------------------------------------------------------------

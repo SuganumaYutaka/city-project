@@ -66,6 +66,8 @@ public:
 	void AddSpeed( float addSpeed){ m_Speed += addSpeed;}
 	void BrakeSpeed( void);
 
+	void OutRoad( void);
+
 private:
 	void Update(void);
 

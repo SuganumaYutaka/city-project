@@ -18,6 +18,12 @@
 class JunctionAttribute;
 class RoadAttribute;
 class BlockAttribute;
+class GameObject;
+
+namespace HalfEdgeDataStructure
+{
+	class Model;
+}
 
 /*------------------------------------------------------------------------------
 	ƒNƒ‰ƒX’è‹`
@@ -29,9 +35,15 @@ private:
 	std::vector<RoadAttribute*> m_Roads;
 	std::vector<BlockAttribute*> m_Blocks;
 
-public:
-	~CityAttributeManager();
+	GameObject* m_GameObject;
 
+public:
+	CityAttributeManager( GameObject* parent);
+	~CityAttributeManager();
+	void Clear(void);
+	void DeleteGameObject( void);
+
+	JunctionAttribute* CreateJunctionAttribute( HalfEdgeDataStructure::Model* model, int modelID);
 	JunctionAttribute* GetJunction( int id);
 	int GetJunctionID( JunctionAttribute* junction);
 	int GetJunctionCount( void){ return (int)m_Junctions.size();}
@@ -39,6 +51,7 @@ public:
 	void RegisterJunction( JunctionAttribute* junction){ m_Junctions.push_back( junction); }
 	bool UnregisterJunction( JunctionAttribute* junction);
 
+	RoadAttribute* CreateRoadAttribute( HalfEdgeDataStructure::Model* model, int modelID);
 	RoadAttribute* GetRoad( int id);
 	int GetRoadID( RoadAttribute* road);
 	int GetRoadCount( void){ return (int)m_Roads.size();}
@@ -46,6 +59,7 @@ public:
 	void RegisterRoad( RoadAttribute* road){ m_Roads.push_back( road); }
 	bool UnregisterRoad( RoadAttribute* road);
 
+	BlockAttribute* CreateBlockAttribute( HalfEdgeDataStructure::Model* model, int modelID);
 	BlockAttribute* GetBlock( int id);
 	int GetBlockID( BlockAttribute* block);
 	int GetBlockCount( void){ return (int)m_Blocks.size();}

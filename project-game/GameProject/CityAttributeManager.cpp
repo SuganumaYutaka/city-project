@@ -10,6 +10,18 @@
 ------------------------------------------------------------------------------*/
 #include "CityAttributeManager.h"
 #include "CityAttribute.h"
+#include "GameObject.h"
+#include "HalfEdgeModel.h"
+
+using namespace HalfEdgeDataStructure;
+
+/*------------------------------------------------------------------------------
+	コンストラクタ
+------------------------------------------------------------------------------*/
+CityAttributeManager::CityAttributeManager(GameObject* parent)
+{
+	m_GameObject = new GameObject( parent);
+}
 
 /*------------------------------------------------------------------------------
 	デストラクタ
@@ -47,6 +59,62 @@ CityAttributeManager::~CityAttributeManager()
 	m_Junctions.shrink_to_fit();
 }
 
+/*------------------------------------------------------------------------------
+	属性情報のクリア
+------------------------------------------------------------------------------*/
+void CityAttributeManager::Clear(void)
+{
+	for (auto block : m_Blocks)
+	{
+		if( block)
+		{
+			block->Delete();
+		}
+	}
+	m_Blocks.clear();
+	m_Blocks.shrink_to_fit();
+
+	for (auto road : m_Roads)
+	{
+		if( road)
+		{
+			road->Delete();
+		}
+	}
+	m_Roads.clear();
+	m_Roads.shrink_to_fit();
+
+	for (auto junction : m_Junctions)
+	{
+		if( junction)
+		{
+			junction->Delete();
+		}
+	}
+	m_Junctions.clear();
+	m_Junctions.shrink_to_fit();
+}
+
+/*------------------------------------------------------------------------------
+	GameObjectの消去
+------------------------------------------------------------------------------*/
+void CityAttributeManager::DeleteGameObject(void)
+{
+	if (m_GameObject)
+	{
+		m_GameObject->ReleaseReserve();
+		m_GameObject = NULL;
+	}
+}
+
+/*------------------------------------------------------------------------------
+	交差点を生成
+------------------------------------------------------------------------------*/
+JunctionAttribute* CityAttributeManager::CreateJunctionAttribute(HalfEdgeDataStructure::Model* model, int modelID)
+{
+	auto junction = new JunctionAttribute( model, modelID, this, m_GameObject);
+	return junction;
+}
 
 /*------------------------------------------------------------------------------
 	交差点を取得
@@ -98,6 +166,15 @@ bool CityAttributeManager::UnregisterJunction( JunctionAttribute* junction)
 }
 
 /*------------------------------------------------------------------------------
+	道路を生成
+------------------------------------------------------------------------------*/
+RoadAttribute* CityAttributeManager::CreateRoadAttribute(HalfEdgeDataStructure::Model* model, int modelID)
+{
+	auto road = new RoadAttribute( model, modelID, this, m_GameObject);
+	return road;
+}
+
+/*------------------------------------------------------------------------------
 	道路を取得
 ------------------------------------------------------------------------------*/
 RoadAttribute* CityAttributeManager::GetRoad(int id)
@@ -144,6 +221,15 @@ bool CityAttributeManager::UnregisterRoad( RoadAttribute* road)
 	}
 
 	return false;
+}
+
+/*------------------------------------------------------------------------------
+	区画を生成
+------------------------------------------------------------------------------*/
+BlockAttribute* CityAttributeManager::CreateBlockAttribute(HalfEdgeDataStructure::Model* model, int modelID)
+{
+	auto block = new BlockAttribute( model, modelID, this, m_GameObject);
+	return block;
 }
 
 /*------------------------------------------------------------------------------
