@@ -16,6 +16,7 @@
 	前方宣言
 ------------------------------------------------------------------------------*/
 class Land;
+class GameObject;
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -24,10 +25,14 @@ class LandManager
 {
 private:
 	std::vector<Land*> m_Lands;
-	
-public:
-	~LandManager();
+	GameObject* m_GameObject;
 
+public:
+	LandManager( GameObject* parent);
+	~LandManager();
+	void DeleteGameObject( void);
+
+	Land* CreateLand( const std::vector<Vector3>& vertices);
 	Land* GetLand( int id);
 	int GetLandID( Land* land);
 	int GetLandCount( void){ return (int)m_Lands.size();}

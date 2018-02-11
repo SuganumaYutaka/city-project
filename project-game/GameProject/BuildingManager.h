@@ -16,6 +16,9 @@
 	前方宣言
 ------------------------------------------------------------------------------*/
 class Building;
+class GameObject;
+class GeometryParameter;
+class BuildingSurfacePattern;
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -23,8 +26,11 @@ class Building;
 class BuildingManager
 {
 public:
+	BuildingManager( GameObject* parent);
 	~BuildingManager();
+	void DeleteGameObject( void);
 
+	Building* CreateBuilding( GeometryParameter* parameter, BuildingSurfacePattern* surfacePattern);
 	Building* GetBuilding( int id);
 	int GetBuildingID( Building* building);
 	int GetBuildingCount( void){ return (int)m_Buildings.size();}
@@ -35,6 +41,7 @@ public:
 	
 private:
 	std::vector<Building*> m_Buildings;
+	GameObject* m_GameObject;
 
 };
 

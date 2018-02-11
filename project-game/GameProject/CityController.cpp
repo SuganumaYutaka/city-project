@@ -206,31 +206,35 @@ void CityController::ResetManagers(void)
 	}
 	if( m_CityAttributeManager)
 	{
+		m_CityAttributeManager->DeleteGameObject();
 		delete m_CityAttributeManager;
 		m_CityAttributeManager = NULL;
 	}
 	if( m_LandManager)
 	{
+		m_LandManager->DeleteGameObject();
 		delete m_LandManager;
 		m_LandManager = NULL;
 	}
 	if( m_BuildingManager)
 	{
+		m_BuildingManager->DeleteGameObject();
 		delete m_BuildingManager;
 		m_BuildingManager = NULL;
 	}
 	if( m_CarManager)
 	{
+		m_CarManager->DeleteGameObject();
 		delete m_CarManager;
 		m_CarManager = NULL;
 	}
 
 	//管理オブジェクトの生成
 	m_Model = new Model();
-	m_CityAttributeManager = new CityAttributeManager();
-	m_LandManager = new LandManager();
-	m_BuildingManager = new BuildingManager();
-	m_CarManager = new CarManager();
+	m_CityAttributeManager = new CityAttributeManager( m_pGameObject);
+	m_LandManager = new LandManager( m_pGameObject);
+	m_BuildingManager = new BuildingManager( m_pGameObject);
+	m_CarManager = new CarManager( m_pGameObject);
 }
 
 /*------------------------------------------------------------------------------
@@ -329,19 +333,19 @@ void CityController::CreateAttribute(void)
 	int vertexCount = vertices.size();
 	for (int i = 0; i < vertexCount; i++)
 	{
-		auto attribute = new JunctionAttribute( m_Model, i, m_CityAttributeManager, m_pGameObject);
+		m_CityAttributeManager->CreateJunctionAttribute( m_Model, i);
 	}
 	auto edges = m_Model->GetEdges();
 	int edgesCount = edges.size();
 	for (int i = 0; i < edgesCount; i++)
 	{
-		auto attribute = new RoadAttribute( m_Model, i, m_CityAttributeManager, m_pGameObject);
+		m_CityAttributeManager->CreateRoadAttribute( m_Model, i);
 	}
 	auto faces = m_Model->GetFaces();
 	int facesCount = faces.size();
 	for (int i = 0; i < facesCount; i++)
 	{
-		auto attribute = new BlockAttribute( m_Model, i, m_CityAttributeManager, m_pGameObject);
+		m_CityAttributeManager->CreateBlockAttribute( m_Model, i);
 	}
 
 	//属性情報の初期化
@@ -368,11 +372,14 @@ void CityController::CreateLand(LandParameter* parameter, int blockID)
 	m_ProcedualSaveData += " CreateLand " + parameter->Save() + ' ' + std::to_string( blockID) + ' ' + "\n";
 
 	//土地の生成
-	Land* land = new Land( m_LandManager, m_pGameObject);
-	land->Init( parameter->m_Vertices);
-
+	auto land = m_LandManager->CreateLand( parameter->m_Vertices);
+	
 	//区画とリンク
-	m_CityAttributeManager->GetBlock(blockID)->LinkLand( land);
+	if( blockID >= 0)
+	{
+		land->LinkAttribute( m_CityAttributeManager, blockID);
+		m_CityAttributeManager->GetBlock(blockID)->LinkLand( land);
+	}
 
 	//交通システムを設定
 	std::list< RoadAttribute*> roadList;
@@ -391,10 +398,16 @@ void CityController::CreateBuilding(GeometryParameter* parameter, int landID)
 	//手続きの保存
 	m_ProcedualSaveData += " CreateBuilding " + parameter->Save() + ' ' + std::to_string( landID) + ' ' + "\n";
 
-	auto building = new Building( m_BuildingManager, m_pGameObject);
+	//建物の生成
 	auto surfacePattern = m_BuildingSurfacePatterns[ parameter->m_SurfacePatternID];
-	building->InitGeometry( parameter, surfacePattern);
-	building->LinkLand( m_LandManager, landID);
+	auto building = m_BuildingManager->CreateBuilding( parameter, surfacePattern);
+	
+	//土地とリンク
+	if( landID >= 0)
+	{
+		building->LinkLand( m_LandManager, landID);
+		m_LandManager->GetLand( landID)->LinkBuilding( building);
+	}
 }
 
 /*------------------------------------------------------------------------------
@@ -405,9 +418,15 @@ void CityController::CreateCar(int spawnLandID, int targetLandID)
 	//手続きの保存
 	m_ProcedualSaveData += " CreateCar " + std::to_string( spawnLandID) + ' ' + std::to_string( targetLandID) + ' ' + "\n";
 
-	auto car = new Car( m_CarManager, m_pGameObject);
-	//car->Init( m_LandManager->GetLand( spawnLandID)->GetTrafficLand(), m_LandManager->GetLand( targetLandID)->GetTrafficLand());
-	car->Init( m_LandManager->GetLand( spawnLandID)->GetTrafficLand(), NULL);
+	auto car = m_CarManager->CreateCar();
+	if( targetLandID >= 0)
+	{
+		car->Init( m_LandManager->GetLand( spawnLandID)->GetTrafficLand(), m_LandManager->GetLand( targetLandID)->GetTrafficLand());
+	}
+	else
+	{
+		car->Init( m_LandManager->GetLand( spawnLandID)->GetTrafficLand(), NULL);
+	}
 }
 
 /*------------------------------------------------------------------------------

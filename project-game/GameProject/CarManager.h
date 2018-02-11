@@ -16,6 +16,7 @@
 	前方宣言
 ------------------------------------------------------------------------------*/
 class Car;
+class GameObject;
 
 /*------------------------------------------------------------------------------
 	クラス定義
@@ -24,10 +25,14 @@ class CarManager
 {
 private:
 	std::vector<Car*> m_Cars;
-	
-public:
-	~CarManager();
+	GameObject* m_GameObject;
 
+public:
+	CarManager( GameObject* parent);
+	~CarManager();
+	void DeleteGameObject( void);
+
+	Car* CreateCar( void);
 	Car* GetCar( int id);
 	int GetCarID( Car* land);
 	int GetCarCount( void){ return (int)m_Cars.size();}
