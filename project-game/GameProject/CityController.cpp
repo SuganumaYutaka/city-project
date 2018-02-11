@@ -425,6 +425,18 @@ void CityController::Update()
 			wall->ChangeWireFrame( m_IsWireFrame);
 		}
 	}
+
+	//8キー 手続きの保存
+	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_8))
+	{
+		m_ProcedualSaveData.Save( "data/SCRIPT/Procedual/test.txt");
+	}
+
+	//9キー 手続きの読み込み
+	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_9))
+	{
+		Load("data/SCRIPT/Procedual/test.txt");
+	}
 }
 
 /*------------------------------------------------------------------------------

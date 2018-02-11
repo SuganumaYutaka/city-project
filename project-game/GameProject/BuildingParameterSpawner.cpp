@@ -79,6 +79,7 @@ void ShapeParameterSpawner::operator()(const std::vector<Vector3>& vertices, Geo
 	int shapeCount = m_Random.GetInt();
 
 	//Œ`ó‚Ìí—Ş
+	m_Random.ResetSeed();
 	m_Random.SetRangeInt( 0, eShapeTypeCount - 1);
 	E_SHAPE_TYPE type = (E_SHAPE_TYPE)m_Random.GetInt();
 
