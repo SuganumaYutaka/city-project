@@ -41,7 +41,7 @@ public:
 	
 	void SetColor( float R, float G, float B, float A) { m_Color = D3DXCOLOR( R, G, B, A); SetVtxBuffer();}
 	void SetAlpha( float A) { m_Color.a = A; SetVtxBuffer();}
-
+	Material* GetMaterial( void){ return m_pMaterial;}
 	void SetVertices( const std::vector<Vector3>& vertices);
 
 	void SetShader( EShaderType Type);

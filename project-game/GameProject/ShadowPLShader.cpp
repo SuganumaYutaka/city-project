@@ -1,24 +1,25 @@
 /*==============================================================================
 
-    PerPixelLightingShader.cpp - パーピクセルライティングシェーダー
+    ShadowPLShader.cpp - 影付きパーピクセルライティングシェーダー
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/8/08
+                                                       Date   : 2018/2/13
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
 ------------------------------------------------------------------------------*/
-#include "PerPixelLightingShader.h"
+#include "ShadowPLShader.h"
 #include "Renderer.h"
 #include "ComponentInclude.h"
 #include "Material.h"
 #include "Texture.h"
 #include "Light.h"
+#include "TextureManager.h"
 
 /*------------------------------------------------------------------------------
 	コンストラクタ
 ------------------------------------------------------------------------------*/
-PerPixelLightingShader::PerPixelLightingShader()
+ShadowPLShader::ShadowPLShader()
 {
 	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//デバイスのポインタ
 	
@@ -36,7 +37,7 @@ PerPixelLightingShader::PerPixelLightingShader()
 	//シェーダの読み込み
 	HRESULT hr;
 	ID3DXBuffer *pError;		//コンパイルエラー情報格納バッファ
-	hr = D3DXCreateEffectFromFile(pDevice, "data/SHADER/PerPixelLightingShader.cso", NULL, NULL, D3DXSHADER_SKIPVALIDATION, NULL, &m_pEffect, &pError);
+	hr = D3DXCreateEffectFromFile(pDevice, "data/SHADER/ShadowPLShader.cso", NULL, NULL, D3DXSHADER_SKIPVALIDATION, NULL, &m_pEffect, &pError);
 	if( FAILED( hr))
 	{
 		MessageBox( NULL, "シェーダーの読み込みに失敗しました\n", "エラー", MB_OK);
@@ -59,12 +60,16 @@ PerPixelLightingShader::PerPixelLightingShader()
 	m_hPosEyeW = m_pEffect->GetParameterByName( 0, "g_posEyeW");
 	m_hSpeclarPower = m_pEffect->GetParameterByName( 0, "g_speclarPower");
 
+	m_hShadowBuf = m_pEffect->GetParameterByName( 0, "g_shadowBuf");
+	m_hMtxLightWVP = m_pEffect->GetParameterByName( 0, "g_mtxLightWVP");
+	m_hMtxLightWV = m_pEffect->GetParameterByName( 0, "g_mtxLightWV");
+	m_hFar = m_pEffect->GetParameterByName( 0, "g_far");
 }
 
 /*------------------------------------------------------------------------------
 	デストラクタ
 ------------------------------------------------------------------------------*/
-PerPixelLightingShader::~PerPixelLightingShader()
+ShadowPLShader::~ShadowPLShader()
 {
 	Uninit();
 
@@ -74,10 +79,36 @@ PerPixelLightingShader::~PerPixelLightingShader()
 /*------------------------------------------------------------------------------
 	シェーダーをセット
 ------------------------------------------------------------------------------*/
-void PerPixelLightingShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial, bool isAlreadySet)
+void ShadowPLShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial, bool isAlreadySet)
 {
 	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//デバイスのポインタ
 
+	auto mtxWorld = pRenderer->m_pTransform->WorldMatrix();
+	
+	D3DXMATRIX mtxWVP = mtxWorld * *pCamera->GetViewMatrix() * *pCamera->GetProjectionMatrix();
+	D3DXMATRIX mtxWIT;
+	D3DXMatrixInverse( &mtxWIT, NULL, &mtxWorld);
+	D3DXMatrixTranspose( &mtxWIT, &mtxWIT);
+
+	//ライト行列の設定
+	Camera* pLightCamera = NULL;
+	auto listCamera = Manager::GetRenderManager()->GetCameraList();
+	for (auto camera : listCamera)
+	{
+		if (camera != Manager::GetRenderManager()->GetMainCamera())
+		{
+			pLightCamera = camera;
+			break;
+		}
+	}
+	if (pLightCamera == NULL)
+	{
+		MessageBox( NULL, "ライトカメラがありません\n", "エラー", MB_OK);
+		assert(false);
+	}
+	auto mtxLightWVP = pRenderer->m_pTransform->WorldMatrix() * *pLightCamera->GetViewMatrix() * *pLightCamera->GetProjectionMatrix();
+	auto mtxLightWV = pRenderer->m_pTransform->WorldMatrix() * *pLightCamera->GetViewMatrix();
+	
 	//if( !isAlreadySet)
 	{
 		//頂点宣言
@@ -87,13 +118,6 @@ void PerPixelLightingShader::Set(Camera* pCamera, Renderer* pRenderer, Material*
 		m_pEffect->SetTechnique( m_hTech);
 	}
 
-	auto mtxWorld = pRenderer->m_pTransform->WorldMatrix();
-	
-	D3DXMATRIX mtxWVP = mtxWorld * *pCamera->GetViewMatrix() * *pCamera->GetProjectionMatrix();
-	D3DXMATRIX mtxWIT;
-	D3DXMatrixInverse( &mtxWIT, NULL, &mtxWorld);
-	D3DXMatrixTranspose( &mtxWIT, &mtxWIT);
-	
 	//定数をシェーダに伝える
 	m_pEffect->SetMatrix( m_hMtxWorld, &mtxWorld);
 	m_pEffect->SetMatrix( m_hMtxWVP, &mtxWVP);
@@ -102,20 +126,21 @@ void PerPixelLightingShader::Set(Camera* pCamera, Renderer* pRenderer, Material*
 	m_pEffect->SetVector( m_hMaterialAmb, pMaterial->GetAmbient());
 	m_pEffect->SetVector( m_hMaterialDif, pMaterial->GetDiffuse());
 	m_pEffect->SetVector( m_hMaterialSpe, pMaterial->GetSpecular());
+
+	m_pEffect->SetTexture( m_hShadowBuf, Manager::GetTextureManager()->Load("shadow")->GetTexture());
+	m_pEffect->SetMatrix( m_hMtxLightWVP, &mtxLightWVP);
+	m_pEffect->SetMatrix( m_hMtxLightWV, &mtxLightWV);
+	m_pEffect->SetFloat( m_hFar, pLightCamera->GetFar());
 	
 	//ライトの取得
 	auto list = Light::GetList();
 	for (auto light : list)
 	{
 		D3DXVECTOR4 lightDir( light->GetDirection().ConvertToDX());
-		lightDir.w = 1.0f;
 		m_pEffect->SetVector( m_hLightDirW, &lightDir);
 		m_pEffect->SetVector( m_hLightAmb, light->GetAmbient());
 		m_pEffect->SetVector( m_hLightDif, light->GetDiffuse());
 		m_pEffect->SetVector( m_hLightSpe, light->GetSpecular());
-		
-		//今は一つだけ
-		break;
 	}
 
 	//スペキュラーパワー

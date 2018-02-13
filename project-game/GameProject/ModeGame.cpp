@@ -46,17 +46,25 @@ void ModeGame::Init()
 	//街全体の大きさ
 	Vector2 citySize( 350.0f, 350.0f);
 
+	//太陽
+	auto sunObj = new GameObject( m_pRoot);
+	auto sun = sunObj->AddComponent<Sun>();
+	sunObj->m_pTransform->SetWorldPosition( citySize.x * -0.5f, 250.0f, citySize.y * -0.5f);
+	sunObj->m_pTransform->SetWorldRotationLookAt( Vector3( citySize.x * 0.5f, 0.0f, citySize.y * 0.5f));
+
 	//カメラ
 	GameObject *pCamera = new GameObject( m_pRoot);
 	auto cameraComponent = pCamera->AddComponent<Camera>();
+	cameraComponent->SetMainCamera();
 	pCamera->m_pTransform->SetLocalPosition( Vector3( 0.0f, 150.0f, citySize.y * -0.8f));
 	cameraComponent->SetFar( 2000.0f);
 	pCamera->AddComponent<CameraController>();
 
-	//ライト
-	auto cameraObj = new GameObject( m_pRoot);
-	cameraObj->AddComponent<Light>();
-	cameraObj->m_pTransform->SetWorldRotationLookDirection( Vector3( 0.0f, -1.0f, 1.0f));
+	////ライト
+	//auto cameraObj = new GameObject( m_pRoot);
+	//cameraObj->AddComponent<Light>();
+	//cameraObj->m_pTransform->SetWorldPosition( citySize.x * -0.5f, 150.0f, citySize.y * -0.2f);
+	//cameraObj->m_pTransform->SetWorldRotationLookAt( Vector3( citySize.x * 0.5f, 0.0f, citySize.y * 0.2f));
 
 	//スカイドーム
 	auto pSky = new GameObject( m_pRoot);
@@ -64,7 +72,8 @@ void ModeGame::Init()
 	meshDome->SetDome( 30, 10, citySize.x * 1.1f, citySize.y * 1.1f);
 	meshDome->m_nLayer = eLayerSky;
 	meshDome->SetShader( eShaderSky);
-	meshDome->LoadTexture( "data/TEXTURE/sky01.jpg");
+	meshDome->LoadTexture( "data/TEXTURE/sky00.jpg");
+	//meshDome->LoadTexture( "data/TEXTURE/sky01.jpg");
 	
 	//床
 	auto groundObject = new GameObject( m_pRoot);
@@ -81,6 +90,13 @@ void ModeGame::Init()
 	cityController->Load("data/SCRIPT/Procedual/test.txt");
 
 	////shadowtest
+	//auto spriteObj = new GameObject( m_pRoot);
+	//auto sprite = spriteObj->AddComponent<SpriteRenderer>();
+	//sprite->LoadTexture("shadow");
+	//Vector2 size = Vector2( 300.0f, 300.0f);
+	//spriteObj->m_pTransform->SetLocalPosition( SCREEN_WIDTH - size.x * 0.5f, size.y * 0.5f, 0.0f);
+	//spriteObj->m_pTransform->SetLocalScale( size.x, size.y, 1.0f);
+	//
 	//auto sunObj = new GameObject( m_pRoot);
 	//auto sun = sunObj->AddComponent<Sun>();
 	//sunObj->m_pTransform->SetWorldPosition( Vector3( 250.0f, 250.0f, 250.0f));
@@ -94,13 +110,6 @@ void ModeGame::Init()
 	//auto groundObject = new GameObject( m_pRoot);
 	//auto groundRenderer = groundObject->AddComponent<MeshField>();
 	//groundRenderer->SetSize( 500.0f, 500.0f);
-
-	//auto spriteObj = new GameObject( m_pRoot);
-	//auto sprite = spriteObj->AddComponent<SpriteRenderer>();
-	//sprite->LoadTexture("shadow");
-	//Vector2 size = Vector2( 500.0f, 500.0f);
-	//spriteObj->m_pTransform->SetLocalPosition( SCREEN_WIDTH - size.x * 0.5f, size.y * 0.5f, 0.0f);
-	//spriteObj->m_pTransform->SetLocalScale( size.x, size.y, 1.0f);
 }
 
 /*------------------------------------------------------------------------------

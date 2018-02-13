@@ -30,6 +30,8 @@ public:
 	Sun( GameObject* pGameObject);
 	void Uninit( void);
 
+	void SetFieldSize( const Vector3& size);
+
 	virtual void Save( Text& text);
 	virtual void Load( Text& text);
 	

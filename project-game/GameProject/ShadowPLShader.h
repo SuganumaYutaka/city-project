@@ -1,11 +1,11 @@
 /*==============================================================================
 
-    PerPixelLightingShader.h - パーピクセルライティングシェーダー
+    ShadowPLShader.h - 影付きパーピクセルライティングシェーダー
                                                        Author : Yutaka Suganuma
-                                                       Date   : 2017/8/08
+                                                       Date   : 2018/2/13
 ==============================================================================*/
-#ifndef _PER_PIXEL_LIGHTING_SHADER_H_
-#define _PER_PIXEL_LIGHTING_SHADER_H_
+#ifndef _SHADOW_PL_SHADER_H_
+#define _SHADOW_PL_SHADER_H_
 
 /*------------------------------------------------------------------------------
 	インクルードファイル
@@ -16,11 +16,11 @@
 /*------------------------------------------------------------------------------
 	クラス定義
 ------------------------------------------------------------------------------*/
-class PerPixelLightingShader : public Shader
+class ShadowPLShader : public Shader
 {
 public:
-	PerPixelLightingShader();
-	~PerPixelLightingShader();
+	ShadowPLShader();
+	~ShadowPLShader();
 	void Set( Camera* pCamera, Renderer* pRenderer, Material* pMaterial, bool isAlreadySet);
 private:
 	D3DXHANDLE m_hTech;
@@ -37,6 +37,11 @@ private:
 	D3DXHANDLE m_hLightDirW;
 	D3DXHANDLE m_hPosEyeW;
 	D3DXHANDLE m_hSpeclarPower;
+
+	D3DXHANDLE m_hShadowBuf;
+	D3DXHANDLE m_hMtxLightWVP;
+	D3DXHANDLE m_hMtxLightWV;
+	D3DXHANDLE m_hFar;
 
 };
 

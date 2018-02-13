@@ -17,6 +17,7 @@
 #include "SpriteShader.h"
 #include "DepthShader.h"
 #include "ShadowVLShader.h"
+#include "ShadowPLShader.h"
 #include "ParticleShader.h"
 #include "SkinMeshShader.h"
 
@@ -36,14 +37,19 @@ ShaderManager::ShaderManager() : m_CurrentShader( NULL)
 	//シェーダーの読み込み
 	//デフォルト
 	m_mapShaderLoad[ "def_Default"] = new DefaultShader();
-	m_mapShaderLoad[ "def_Billboard"] = new BillboardShader();
 	m_mapShaderLoad[ "def_XModel"] = new VertexLightingShader();
+	m_mapShaderLoad[ "def_Billboard"] = new BillboardShader();
 	m_mapShaderLoad[ "def_Sprite"] = new SpriteShader();
 	m_mapShaderLoad[ "particle"] = new ParticleShader();
 	m_mapShaderLoad[ "skinmesh"] = new SkinMeshShader();
 
+	//高品質
+	m_mapShaderLoad[ "high_Default"] = new PerPixelLightingShader();
+	m_mapShaderLoad[ "high_XModel"] = new PerPixelLightingShader();
+	
 	//影あり
-	m_mapShaderLoad[ "shadowVL"] = new ShadowVLShader();
+	m_mapShaderLoad[ "shadowPL"] = new ShadowPLShader();
+	m_mapShaderLoad[ "shadowPL"] = new ShadowPLShader();
 
 	//デプス情報設定
 	m_mapShaderLoad[ "depth"] = new DepthShader();
@@ -114,10 +120,12 @@ Shader *ShaderManager::Load( EShaderType Type)
 ------------------------------------------------------------------------------*/
 void ShaderManager::SetDefault(void)
 {
-	m_vecShaderSet[ eShaderDefault]		= m_mapShaderLoad[ "def_Default"];
-	m_vecShaderSet[ eShaderXModel]		= m_mapShaderLoad[ "def_XModel"];
-	//m_vecShaderSet[ eShaderDefault]		= m_mapShaderLoad[ "shadowVL"];
-	//m_vecShaderSet[ eShaderXModel]		= m_mapShaderLoad[ "shadowVL"];
+	//m_vecShaderSet[ eShaderDefault]		= m_mapShaderLoad[ "def_Default"];
+	//m_vecShaderSet[ eShaderXModel]		= m_mapShaderLoad[ "def_XModel"];
+	//m_vecShaderSet[ eShaderDefault]			= m_mapShaderLoad[ "high_Default"];
+	//m_vecShaderSet[ eShaderXModel]			= m_mapShaderLoad[ "high_XModel"];
+	m_vecShaderSet[ eShaderDefault]		= m_mapShaderLoad[ "shadowPL"];
+	m_vecShaderSet[ eShaderXModel]		= m_mapShaderLoad[ "shadowPL"];
 	
 	m_vecShaderSet[ eShaderBillboard]	= m_mapShaderLoad[ "def_Billboard"];
 	m_vecShaderSet[ eShaderSprite]		= m_mapShaderLoad[ "def_Sprite"];

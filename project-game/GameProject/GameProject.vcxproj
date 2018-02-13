@@ -241,6 +241,7 @@
     <ClCompile Include="Roof.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="ShadowPLShader.cpp" />
     <ClCompile Include="ShadowVLShader.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="ShapeBox.cpp" />
@@ -302,6 +303,7 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">data\SHADER\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
+    <FxCompile Include="ShadowPLShader.hlsl" />
     <FxCompile Include="ShadowVLShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
@@ -408,6 +410,7 @@
     <ClInclude Include="Roof.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="ShadowPLShader.h" />
     <ClInclude Include="ShadowVLShader.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="ShapeBox.h" />

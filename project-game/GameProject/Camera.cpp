@@ -175,8 +175,8 @@ void Camera::SetCamera(void)
 	pDevice->SetDepthStencilSurface( m_RenderTarget->GetDepthBuffer());
 
 	//レンダーターゲットの初期化
-	//pDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA( 255, 255, 255, 255), 1.0f, 0);
-	pDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA( 0, 0, 0, 0), 1.0f, 0);
+	pDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA( 255, 255, 255, 255), 1.0f, 0);
+	//pDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA( 0, 0, 0, 0), 1.0f, 0);
 
 	//シェーダーの設定
 	if (m_Type == eCameraDefault)
@@ -298,12 +298,15 @@ bool Camera::ChangeLightCameraFormat(Vector3 fieldSize)
 	m_RenderTarget->ChangeDepthRenderFormat();
 
 	//Orthoの設定
-	float length = max( fieldSize.x, fieldSize.z) * 1.4142f;
+	float length = max( fieldSize.x, fieldSize.z);
 	SetOrtho( length, length, 0.1f, length);
 
 	//ビューポートの設定
 	auto textureSize = m_RenderTarget->GetTextureSize();
 	SetViewPort( 0, 0, (int)textureSize.x, (int)textureSize.y, 0.0f, 1.0f);
+
+	//farの設定
+	m_fFar = length * 2.0f;
 
 	return true;
 }

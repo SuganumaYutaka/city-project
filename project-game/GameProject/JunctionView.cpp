@@ -18,6 +18,7 @@
 #include "Edge.h"
 #include "Vertex.h"
 #include "HalfEdge.h"
+#include "Material.h"
 
 using namespace HalfEdgeDataStructure;
 
@@ -43,6 +44,7 @@ JunctionView::JunctionView( GameObject* pGameObject)
 	//ƒŒƒ“ƒ_ƒ‰[‚ÌÝ’è
 	m_Renderer = m_pGameObject->AddComponent<Polygon3DRenderer>();
 	m_Renderer->LoadTexture( "data/TEXTURE/junction_+.png");
+	m_Renderer->GetMaterial()->SetSpecular( 0.2f, 0.2f, 0.2f, 1.0f);
 }
 
 /*------------------------------------------------------------------------------

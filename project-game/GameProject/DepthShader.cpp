@@ -64,7 +64,7 @@ void DepthShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial,
 {
 	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//デバイスのポインタ
 
-	if( !isAlreadySet)
+	//if( !isAlreadySet)
 	{
 		//頂点宣言
 		pDevice->SetVertexDeclaration( m_pVertexDec);
