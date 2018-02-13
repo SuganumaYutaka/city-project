@@ -42,15 +42,9 @@ public:
 	void Update( void);
 	void SetCamera( void);
 
-	static Camera* GetMainCamera() { return MainCamera;}
-	bool IsMainCamera()
-	{
-		if (MainCamera == this)
-		{
-			return true;
-		}
-		return false;
-	}
+	static Camera* GetMainCamera();
+	void SetMainCamera( void);
+	bool IsMainCamera( void);
 
 	void SetPosAt( const Vector3& Pos) { m_PosAt = Pos;}
 	Vector3 GetPosAt( void) const { return m_PosAt;}
@@ -101,8 +95,6 @@ public:
 	virtual void Load( Text& text);
 
 private:
-	static Camera* MainCamera;
-
 	Vector3 m_PosAt;					//注視点（ワールド座標）
 	Vector3 m_VecUp;					//カメラの上方向
 	float m_fFovY;						//画角（視野角）

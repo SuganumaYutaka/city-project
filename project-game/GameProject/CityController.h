@@ -24,6 +24,9 @@ class CarManager;
 class BuildingSurfacePattern;
 class LandParameter;
 class GeometryParameter;
+class Camera;
+class Car;
+class CameraController;
 
 namespace HalfEdgeDataStructure
 {
@@ -65,6 +68,12 @@ private:
 	float m_Width;
 	float m_Height;
 	bool m_IsWireFrame;
+
+	Camera* m_CarCamera;
+	CameraController* m_CarCameraController;
+	Camera* m_MainCamera;
+	void SetCarCamera( Car* car);
+	void SetMainCamera( void);
 
 	Text m_ProcedualSaveData;
 };

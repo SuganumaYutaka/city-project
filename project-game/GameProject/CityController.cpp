@@ -33,6 +33,8 @@
 #include "Car.h"
 #include "WallRenderer.h"
 
+#include "RenderManager.h"
+
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
@@ -68,6 +70,15 @@ CityController::CityController( GameObject* pGameObject)
 	m_Width = CITY_WIDTH;
 	m_Height = CITY_HEIGHT;
 	m_IsWireFrame = false;
+	
+	//カーカメラの生成
+	auto gameObject = new GameObject( m_pGameObject);
+	m_CarCamera = gameObject->AddComponent<Camera>();
+	m_CarCamera->SetFar( 2000.0f);
+	m_CarCamera->SetActive( false);
+	m_CarCameraController = gameObject->AddComponent<CameraController>();
+	m_CarCameraController->SetActive(false);
+	m_MainCamera = NULL;
 
 	//表面パターンの設定
 	m_BuildingSurfacePatterns.push_back( new BuildingSurfacePattern("data/SCRIPT/BuildingSurfacePattern/test02.txt"));
@@ -245,6 +256,15 @@ void CityController::ResetManagers(void)
 ------------------------------------------------------------------------------*/
 void CityController::Update()
 {
+	//カービューモード時に車が存在するか確認
+	if (m_MainCamera)
+	{
+		if (m_CarManager->GetCarCount() <= 0)
+		{
+			SetMainCamera();
+		}
+	}
+
 	//デモ操作
 
 	//1キー 区画の分割
@@ -436,6 +456,23 @@ void CityController::Update()
 	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_9))
 	{
 		Load("data/SCRIPT/Procedual/test.txt");
+	}
+
+	//0キー カーカメラの設定
+	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_0))
+	{
+		if (!m_MainCamera)
+		{
+			if( m_CarManager->GetCarCount() > 0)
+			{
+				auto car = m_CarManager->GetCar( 0);
+				SetCarCamera( car);
+			}
+		}
+		else
+		{
+			SetMainCamera();
+		}
 	}
 }
 
@@ -697,4 +734,56 @@ void CityController::Load(std::string filename)
 			return;
 		}
 	}
+}
+
+/*------------------------------------------------------------------------------
+	カーカメラの設定
+------------------------------------------------------------------------------*/
+void CityController::SetCarCamera(Car* car)
+{
+	if (m_MainCamera)
+	{
+		return;
+	}
+	
+	//メインカメラを切る
+	m_MainCamera = Camera::GetMainCamera();
+	m_MainCamera->SetActive(false);
+
+	//カーカメラの設定
+	m_CarCamera->SetMainCamera();
+	m_CarCamera->SetActive( true);
+	m_CarCameraController->SetActive( true);
+	auto posAt = car->GetGameObject();
+	auto posEye = new GameObject( posAt);
+	auto vec = posAt->m_pTransform->GetForward() * -8.0f;
+	vec.y += 5.0f;
+	posEye->m_pTransform->Move( vec);
+	m_CarCameraController->SetTargetPosAt( posAt->m_pTransform);
+	m_CarCameraController->SetTargetPosEye( posEye->m_pTransform);
+	m_CarCamera->m_pTransform->SetWorldPosition( posEye->m_pTransform->GetWorldPosition());
+}
+
+/*------------------------------------------------------------------------------
+	メインカメラの設定
+------------------------------------------------------------------------------*/
+void CityController::SetMainCamera(void)
+{
+	if (!m_MainCamera)
+	{
+		return;
+	}
+
+	//メインカメラの設定
+	m_MainCamera->SetActive( true);
+	m_MainCamera->SetMainCamera();
+	m_MainCamera->m_pTransform->SetWorldPosition( 0.0f, 150.0f, -300.0f);
+	m_MainCamera->m_pTransform->SetWorldRotationLookAt( Vector3());
+	m_MainCamera = NULL;
+
+	//カーカメラを切る
+	m_CarCamera->SetActive( false);
+	m_CarCameraController->SetActive( false);
+	m_CarCameraController->SetTargetPosAt( NULL);
+	m_CarCameraController->SetTargetPosEye( NULL);
 }
