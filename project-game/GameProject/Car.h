@@ -30,6 +30,7 @@ public:
 	~Car();
 	void Delete( void);
 	void Init( TrafficLand* spawnLand, TrafficLand* targetLand);
+	GameObject* GetGameObject( void){ return m_GameObject;}
 
 private:
 	CarManager* m_Manager;
