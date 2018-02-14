@@ -24,6 +24,8 @@ class RenderTexture;
 typedef enum
 {
 	eCameraDefault = 0,
+	eCameraLow,
+	eCameraHigh,
 	eCameraLight,
 	eNumCameraType
 }ECameraType;
@@ -78,6 +80,7 @@ public:
 		m_listRenderLayer.push_back( nLayer);
 	}
 	void SetType( ECameraType Type) { m_Type = Type;}
+	ECameraType GetType( void){ return m_Type;}
 
 	void Move( const Vector3& Value);
 

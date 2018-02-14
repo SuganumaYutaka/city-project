@@ -179,13 +179,26 @@ void Camera::SetCamera(void)
 	//pDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA( 0, 0, 0, 0), 1.0f, 0);
 
 	//シェーダーの設定
-	if (m_Type == eCameraDefault)
+	switch (m_Type)
 	{
+	case eCameraDefault:
 		Manager::GetShaderManager()->SetDefault();
-	}
-	else if (m_Type == eCameraLight)
-	{
+		break;
+
+	case eCameraLow:
+		Manager::GetShaderManager()->SetLow();
+		break;
+
+	case eCameraHigh:
+		Manager::GetShaderManager()->SetHigh();
+		break;
+
+	case eCameraLight:
 		Manager::GetShaderManager()->SetDepth();
+		break;
+
+	default:
+		break;
 	}
 }
 

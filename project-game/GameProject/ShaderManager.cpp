@@ -36,22 +36,15 @@ ShaderManager::ShaderManager() : m_CurrentShader( NULL)
 
 	//シェーダーの読み込み
 	//デフォルト
-	m_mapShaderLoad[ "def_Default"] = new DefaultShader();
-	m_mapShaderLoad[ "def_XModel"] = new VertexLightingShader();
-	m_mapShaderLoad[ "def_Billboard"] = new BillboardShader();
-	m_mapShaderLoad[ "def_Sprite"] = new SpriteShader();
+	m_mapShaderLoad[ "default"] = new DefaultShader();
+	m_mapShaderLoad[ "vertexLighting"] = new VertexLightingShader();
+	m_mapShaderLoad[ "perpixel"] = new PerPixelLightingShader();
+	m_mapShaderLoad[ "billboard"] = new BillboardShader();
+	m_mapShaderLoad[ "sprite"] = new SpriteShader();
 	m_mapShaderLoad[ "particle"] = new ParticleShader();
 	m_mapShaderLoad[ "skinmesh"] = new SkinMeshShader();
-
-	//高品質
-	m_mapShaderLoad[ "high_Default"] = new PerPixelLightingShader();
-	m_mapShaderLoad[ "high_XModel"] = new PerPixelLightingShader();
-	
-	//影あり
+	m_mapShaderLoad[ "shadowVL"] = new ShadowVLShader();
 	m_mapShaderLoad[ "shadowPL"] = new ShadowPLShader();
-	m_mapShaderLoad[ "shadowPL"] = new ShadowPLShader();
-
-	//デプス情報設定
 	m_mapShaderLoad[ "depth"] = new DepthShader();
 
 	//シェーダーセット
@@ -73,7 +66,7 @@ ShaderManager::~ShaderManager()
 }
 
 /*------------------------------------------------------------------------------
-	シェーダーをロード
+	シェーダーをセット
 ------------------------------------------------------------------------------*/
 void ShaderManager::SetShader( Camera* pCamera, Renderer* pRenderer, Material* pMaterial, EShaderType Type)
 {
@@ -120,30 +113,36 @@ Shader *ShaderManager::Load( EShaderType Type)
 ------------------------------------------------------------------------------*/
 void ShaderManager::SetDefault(void)
 {
-	//m_vecShaderSet[ eShaderDefault]		= m_mapShaderLoad[ "def_Default"];
-	//m_vecShaderSet[ eShaderXModel]		= m_mapShaderLoad[ "def_XModel"];
-	//m_vecShaderSet[ eShaderDefault]			= m_mapShaderLoad[ "high_Default"];
-	//m_vecShaderSet[ eShaderXModel]			= m_mapShaderLoad[ "high_XModel"];
-	m_vecShaderSet[ eShaderDefault]		= m_mapShaderLoad[ "shadowPL"];
-	m_vecShaderSet[ eShaderXModel]		= m_mapShaderLoad[ "shadowPL"];
-	
-	m_vecShaderSet[ eShaderBillboard]	= m_mapShaderLoad[ "def_Billboard"];
-	m_vecShaderSet[ eShaderSprite]		= m_mapShaderLoad[ "def_Sprite"];
+	m_vecShaderSet[ eShaderDefault]		= m_mapShaderLoad[ "vertexLighting"];
+	m_vecShaderSet[ eShaderXModel]		= m_mapShaderLoad[ "perpixel"];
+	m_vecShaderSet[ eShaderBillboard]	= m_mapShaderLoad[ "billboard"];
+	m_vecShaderSet[ eShaderSkinMesh]	= m_mapShaderLoad[ "skinmesh"];
+	m_vecShaderSet[ eShaderSprite]		= m_mapShaderLoad[ "sprite"];
 	m_vecShaderSet[ eShaderParticle]	= m_mapShaderLoad[ "particle"];
-	m_vecShaderSet[ eShaderSky]			= m_mapShaderLoad[ "def_Default"];
+	m_vecShaderSet[ eShaderSky]			= m_mapShaderLoad[ "default"];
+	
+}
 
+/*------------------------------------------------------------------------------
+	シェーダー切り替え（低品質）
+------------------------------------------------------------------------------*/
+void ShaderManager::SetLow(void)
+{
+	m_vecShaderSet[ eShaderDefault]		= m_mapShaderLoad[ "default"];
+	m_vecShaderSet[ eShaderXModel]		= m_mapShaderLoad[ "default"];
+	m_vecShaderSet[ eShaderBillboard]	= m_mapShaderLoad[ "billboard"];
 	m_vecShaderSet[ eShaderSkinMesh]	= m_mapShaderLoad[ "skinmesh"];
 }
 
 /*------------------------------------------------------------------------------
-	シェーダー切り替え（影あり）
+	シェーダー切り替え（高品質）
 ------------------------------------------------------------------------------*/
-void ShaderManager::SetOnShadow(void)
+void ShaderManager::SetHigh(void)
 {
-	/*m_vecShaderSet[ eShaderDefault]		= m_mapShaderLoad[ "shadow_Default"];
-	m_vecShaderSet[ eShaderBillboard]	= m_mapShaderLoad[ "shadow_Billboard"];
-	m_vecShaderSet[ eShaderXModel]		= m_mapShaderLoad[ "shadow_XModel"];
-	m_vecShaderSet[ eShaderSprite]		= m_mapShaderLoad[ "shadow_Sprite"];*/
+	m_vecShaderSet[ eShaderDefault]		= m_mapShaderLoad[ "shadowPL"];
+	m_vecShaderSet[ eShaderXModel]		= m_mapShaderLoad[ "shadowPL"];
+	m_vecShaderSet[ eShaderBillboard]	= m_mapShaderLoad[ "billboard"];
+	m_vecShaderSet[ eShaderSkinMesh]	= m_mapShaderLoad[ "skinmesh"];
 }
 
 /*------------------------------------------------------------------------------
@@ -152,8 +151,8 @@ void ShaderManager::SetOnShadow(void)
 void ShaderManager::SetDepth(void)
 {
 	m_vecShaderSet[ eShaderDefault]		= m_mapShaderLoad[ "depth"];
-	m_vecShaderSet[ eShaderBillboard]	= m_mapShaderLoad[ "depth"];
 	m_vecShaderSet[ eShaderXModel]		= m_mapShaderLoad[ "depth"];
+	m_vecShaderSet[ eShaderBillboard]	= m_mapShaderLoad[ "depth"];
 	m_vecShaderSet[ eShaderSkinMesh]	= m_mapShaderLoad[ "depth"];
 }
 

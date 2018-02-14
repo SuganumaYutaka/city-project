@@ -56,7 +56,7 @@ PS_INPUT vs(VS_INPUT input)
 OM_INPUT ps(PS_INPUT input)
 {
 	OM_INPUT output;
-	output.col = tex2D(TextureSampler, input.tex) * input.col;
+	output.col = tex2D(TextureSampler, input.tex);
 	return output;
 }
 
