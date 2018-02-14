@@ -196,7 +196,7 @@ void RenderManager::Draw()
 				for (int nCntLayer = 0; nCntLayer < eLayerNum; nCntLayer++)
 				{
 					//“o˜^‚³‚ê‚½ƒŒƒ“ƒ_ƒ‰[‚ð•`‰æ
-					DrawRenderer( nCntLayer);
+					DrawRenderer( pCamera, nCntLayer);
 				}
 			}
 
@@ -207,7 +207,7 @@ void RenderManager::Draw()
 				for (auto nLayer : List)
 				{
 					//“o˜^‚³‚ê‚½ƒŒƒ“ƒ_ƒ‰[‚ð•`‰æ
-					DrawRenderer( nLayer);
+					DrawRenderer( pCamera, nLayer);
 				}
 			}
 
@@ -230,7 +230,7 @@ void RenderManager::Draw()
 		for (int nCntLayer = 0; nCntLayer < eLayerNum; nCntLayer++)
 		{
 			//“o˜^‚³‚ê‚½ƒŒƒ“ƒ_ƒ‰[‚ð•`‰æ
-			DrawRenderer( nCntLayer);
+			DrawRenderer( m_pMainCamera, nCntLayer);
 		}
 
 		//ƒfƒoƒbƒO•\Ž¦
@@ -253,7 +253,7 @@ void RenderManager::Draw()
 /*------------------------------------------------------------------------------
 	“o˜^‚³‚ê‚½Renderer‚ðƒŒƒCƒ„[‚²‚Æ‚É•`‰æ
 ------------------------------------------------------------------------------*/
-void RenderManager::DrawRenderer(int layer)
+void RenderManager::DrawRenderer( Camera* camera, int layer)
 {
 	//ƒŒƒCƒ„[‚²‚Æ‚ÌÝ’è
 	//ƒƒCƒ„[ƒtƒŒ[ƒ€
@@ -268,9 +268,9 @@ void RenderManager::DrawRenderer(int layer)
 		{
 			if( pRenderer->GetActive() == true)
 			{
-				if( pRenderer->CheckFrustumCulling(m_pMainCamera))
+				if( pRenderer->CheckFrustumCulling(camera))
 				{
-					pRenderer->Draw( m_pMainCamera);
+					pRenderer->Draw( camera);
 				}
 			}
 		}

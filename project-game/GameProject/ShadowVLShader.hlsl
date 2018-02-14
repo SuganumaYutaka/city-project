@@ -2,17 +2,19 @@
 struct VS_INPUT
 {
 	float3 pos : POSITION0;
-	float3 normal : NORMAL;
+	float3 normal : NORMAL0;
+	float4 color : COLOR0;
 	float2 tex : TEXCOORD0;
 };
 
 struct PS_INPUT
 {
-	float4 pos : SV_Position;
-	float4 col : COLOR0;
-	float2 tex : TEXCOORD0;
-	float4 lightPosH : TEXCOORD1;
-	float depthWV : TEXCOORD2;
+	float4 posH : POSITION0;
+	float4 color : COLOR0;
+	float3 normalW : TEXCOORD0;
+	float2 tex : TEXCOORD1;
+	float4 lightPosH : TEXCOORD2;
+	float depthWV : TEXCOORD3;
 };
 
 struct OM_INPUT
@@ -21,16 +23,14 @@ struct OM_INPUT
 };
 
 //グローバル変数定義
-float4x4 g_mtxWorld;
-float4x4 g_mtxWorldInv;
-float4x4 g_mtxView;
-float4x4 g_mtxProj;
+float4x4 g_mtxWVP;
+float4x4 g_mtxWIT;
 
-float4 g_LightAmb;
+float4 g_lightDirW;
 float4 g_LightDif;
-float4 g_MaterialAmb;
+float4 g_LightAmb;
 float4 g_MaterialDif;
-float4 g_DirLight;
+float4 g_MaterialAmb;
 
 texture g_texture;
 
@@ -74,17 +74,10 @@ sampler_state
 PS_INPUT vs(VS_INPUT input)
 {
 	PS_INPUT output;
-	float4 PosWorld;
-	PosWorld = mul(float4( input.pos, 1.0), g_mtxWorld);
-	output.pos = mul( PosWorld, g_mtxView);
-	output.pos = mul( output.pos, g_mtxProj);
-
+	output.posH = mul( float4(input.pos, 1.0f), g_mtxWVP);
+	output.normalW = mul( float4(input.normal, 0.0f), g_mtxWIT);
+	output.color = input.color;
 	output.tex = input.tex;
-	
-	//拡散反射光
-	float4 LocalLight = normalize( mul( g_DirLight, g_mtxWorldInv));
-	LocalLight = -LocalLight;
-	output.col = saturate( ( g_LightAmb * g_MaterialAmb) + ( g_LightDif * g_MaterialDif) * max( 0, dot( LocalLight.xyz, input.normal)));
 
 	//影
 	output.lightPosH = mul( float4(input.pos, 1.0f), g_mtxLightWVP);
@@ -98,8 +91,27 @@ OM_INPUT ps(PS_INPUT input)
 {
 	//カラーの計算
 	OM_INPUT output;
-	float4 color = tex2D(TextureSampler, input.tex) * input.col;
-	output.col = color;
+	float4 tex = tex2D(TextureSampler, input.tex);
+	
+	//ライティング
+	//法線の正規化
+	input.normalW = normalize( input.normalW);
+
+	//平行光源
+	//float diff = max( dot( input.normalW, -g_lightDirW), 0.0f) * 0.6f;
+
+	//平行光源（ハーフランバート）
+	float diff = max( (dot( input.normalW, -g_lightDirW) + 1) * 0.5f, 0.0f) * 0.8f;
+
+	//環境光
+	float amb = 0.7f;
+
+	//ライトとマテリアルのカラーを乗算
+	float3 diffColor = diff * g_LightDif * g_MaterialDif;
+	float3 ambColor = amb * g_LightAmb * g_MaterialAmb;
+	
+	//カラーの決定
+	float4 color = float4( tex.rgb * ( diffColor + ambColor) , tex.a);
 
 	//影
 	//テクスチャ座標を算出
@@ -111,7 +123,7 @@ OM_INPUT ps(PS_INPUT input)
 	float lightDepthWV = tex2D(ShadowBufSampler, input.lightPosH.xy).r;
 
 	//カラーの決定(黒くするかそのままか)
-	float s = lightDepthWV + SHADOW_EPSILON < input.depthWV ? 0.2f : 1.0f;
+	float s = lightDepthWV + SHADOW_EPSILON < input.depthWV ? 0.6f : 1.0f;
 	//output.col = float4( color.rgb * s, color.a);
 	output.col = float4( color.r * s, color.g * s, color.b * s, color.a);
 
@@ -132,9 +144,9 @@ technique TShader
 		VertexShader = compile vs_3_0 vs();
 		PixelShader = compile ps_3_0 ps();
 
-		/*AlphaBlendEnable = True;
+		AlphaBlendEnable = True;
 		SrcBlend = SRCALPHA;
-		DestBlend = INVSRCALPHA;*/
+		DestBlend = INVSRCALPHA;
 	}
 
 	pass P2		//加算合成

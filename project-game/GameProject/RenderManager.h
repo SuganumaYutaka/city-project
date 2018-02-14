@@ -77,7 +77,7 @@ private:
 
 	std::list< Camera *> m_listCamera;				//カメラリスト
 
-	void DrawRenderer( int layer);
+	void DrawRenderer( Camera* camera, int layer);
 	
 #ifdef _DEBUG
 	DebugRenderer *m_pDebugRenderer;				//デバッグ表示

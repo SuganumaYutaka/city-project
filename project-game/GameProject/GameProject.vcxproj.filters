@@ -112,6 +112,9 @@
     <FxCompile Include="SkinMeshShader.hlsl">
       <Filter>HLSL</Filter>
     </FxCompile>
+    <FxCompile Include="ShadowPLShader.hlsl">
+      <Filter>HLSL</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -461,6 +464,9 @@
     </ClCompile>
     <ClCompile Include="BuildingParameter.cpp">
       <Filter>CityEngine\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowPLShader.cpp">
+      <Filter>Engine\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -832,6 +838,9 @@
     </ClInclude>
     <ClInclude Include="LandParameter.h">
       <Filter>CityEngine\City</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowPLShader.h">
+      <Filter>Engine\Shader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

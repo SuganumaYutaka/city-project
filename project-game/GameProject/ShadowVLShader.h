@@ -24,16 +24,14 @@ public:
 	void Set( Camera* pCamera, Renderer* pRenderer, Material* pMaterial, bool isAlreadySet);
 private:
 	D3DXHANDLE m_hTech;
-	D3DXHANDLE m_hMtxWorld;
-	D3DXHANDLE m_hMtxWorldInv;
-	D3DXHANDLE m_hMtxView;
-	D3DXHANDLE m_hMtxProj;
+	D3DXHANDLE m_hMtxWVP;
+	D3DXHANDLE m_hMtxWIT;
 	D3DXHANDLE m_hTexture;
 	D3DXHANDLE m_hLightAmb;
 	D3DXHANDLE m_hLightDif;
 	D3DXHANDLE m_hMaterialAmb;
 	D3DXHANDLE m_hMaterialDif;
-	D3DXHANDLE m_hDirLight;
+	D3DXHANDLE m_hLightDirW;
 
 	D3DXHANDLE m_hShadowBuf;
 	D3DXHANDLE m_hMtxLightWVP;

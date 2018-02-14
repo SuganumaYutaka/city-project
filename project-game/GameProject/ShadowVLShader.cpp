@@ -46,16 +46,15 @@ ShadowVLShader::ShadowVLShader()
 
 	//ハンドルの取得
 	m_hTech = m_pEffect->GetTechnique(0);
-	m_hMtxWorld = m_pEffect->GetParameterByName(0, "g_mtxWorld");
-	m_hMtxWorldInv = m_pEffect->GetParameterByName(0, "g_mtxWorldInv");
-	m_hMtxView = m_pEffect->GetParameterByName(0, "g_mtxView");
-	m_hMtxProj = m_pEffect->GetParameterByName(0, "g_mtxProj");
+	m_hMtxWVP = m_pEffect->GetParameterByName(0, "g_mtxWVP");
+	m_hMtxWIT = m_pEffect->GetParameterByName(0, "g_mtxWIT");
 	m_hTexture = m_pEffect->GetParameterByName( 0, "g_texture");
 	m_hLightAmb = m_pEffect->GetParameterByName( 0, "g_LightAmb");
 	m_hLightDif = m_pEffect->GetParameterByName( 0, "g_LightDif");
 	m_hMaterialAmb = m_pEffect->GetParameterByName( 0, "g_MaterialAmb");
 	m_hMaterialDif = m_pEffect->GetParameterByName( 0, "g_MaterialDif");
-	m_hDirLight = m_pEffect->GetParameterByName( 0, "g_DirLight");
+	m_hLightDirW = m_pEffect->GetParameterByName( 0, "g_lightDirW");
+
 	m_hShadowBuf = m_pEffect->GetParameterByName( 0, "g_shadowBuf");
 	m_hMtxLightWVP = m_pEffect->GetParameterByName( 0, "g_mtxLightWVP");
 	m_hMtxLightWV = m_pEffect->GetParameterByName( 0, "g_mtxLightWV");
@@ -77,9 +76,14 @@ ShadowVLShader::~ShadowVLShader()
 ------------------------------------------------------------------------------*/
 void ShadowVLShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial, bool isAlreadySet)
 {
-	//逆行列の設定
-	D3DXMATRIX mtxWorldInv = pRenderer->m_pTransform->WorldMatrix();
-	D3DXMatrixInverse( &mtxWorldInv, NULL, &mtxWorldInv);
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//デバイスのポインタ
+
+	auto mtxWorld = pRenderer->m_pTransform->WorldMatrix();
+	
+	D3DXMATRIX mtxWVP = mtxWorld * *pCamera->GetViewMatrix() * *pCamera->GetProjectionMatrix();
+	D3DXMATRIX mtxWIT;
+	D3DXMatrixInverse( &mtxWIT, NULL, &mtxWorld);
+	D3DXMatrixTranspose( &mtxWIT, &mtxWIT);
 
 	//ライト行列の設定
 	Camera* pLightCamera = NULL;
@@ -100,9 +104,7 @@ void ShadowVLShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMateri
 	auto mtxLightWVP = pRenderer->m_pTransform->WorldMatrix() * *pLightCamera->GetViewMatrix() * *pLightCamera->GetProjectionMatrix();
 	auto mtxLightWV = pRenderer->m_pTransform->WorldMatrix() * *pLightCamera->GetViewMatrix();
 	
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//デバイスのポインタ
-
-	if( !isAlreadySet)
+	//if( !isAlreadySet)
 	{
 		//頂点宣言
 		pDevice->SetVertexDeclaration( m_pVertexDec);
@@ -112,10 +114,8 @@ void ShadowVLShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMateri
 	}
 
 	//定数をシェーダに伝える
-	m_pEffect->SetMatrix( m_hMtxWorld, &pRenderer->m_pTransform->WorldMatrix());
-	m_pEffect->SetMatrix( m_hMtxWorldInv, &mtxWorldInv);
-	m_pEffect->SetMatrix( m_hMtxView, pCamera->GetViewMatrix());
-	m_pEffect->SetMatrix( m_hMtxProj, pCamera->GetProjectionMatrix());
+	m_pEffect->SetMatrix( m_hMtxWVP, &mtxWVP);
+	m_pEffect->SetMatrix( m_hMtxWIT, &mtxWIT);
 	m_pEffect->SetTexture( m_hTexture, pMaterial->GetTexture());
 	m_pEffect->SetVector( m_hMaterialAmb, pMaterial->GetAmbient());
 	m_pEffect->SetVector( m_hMaterialDif, pMaterial->GetDiffuse());
@@ -130,7 +130,7 @@ void ShadowVLShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMateri
 	for (auto light : list)
 	{
 		D3DXVECTOR4 lightDir( light->GetDirection().ConvertToDX());
-		m_pEffect->SetVector( m_hDirLight, &lightDir);
+		m_pEffect->SetVector( m_hLightDirW, &lightDir);
 		m_pEffect->SetVector( m_hLightAmb, light->GetAmbient());
 		m_pEffect->SetVector( m_hLightDif, light->GetDiffuse());
 	}

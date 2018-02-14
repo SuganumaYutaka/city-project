@@ -48,7 +48,8 @@ public:
 	Shader* Load( EShaderType Type);
 
 	void SetDefault( void);
-	void SetOnShadow( void);
+	void SetLow( void);
+	void SetHigh( void);
 	void SetDepth( void);
 
 private:

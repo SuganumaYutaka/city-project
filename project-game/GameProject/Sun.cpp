@@ -120,3 +120,11 @@ void Sun::Save(Text& text)
 
 	EndSave( text);
 }
+
+/*------------------------------------------------------------------------------
+	フィールドの大きさを設定
+------------------------------------------------------------------------------*/
+void Sun::SetFieldSize(const Vector3& size)
+{
+	m_pCamera->ChangeLightCameraFormat( size);
+}

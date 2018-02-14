@@ -474,6 +474,20 @@ void CityController::Update()
 			SetMainCamera();
 		}
 	}
+
+	//シェーダーの切り替え
+	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_Q))
+	{
+		Camera::GetMainCamera()->SetType( eCameraLow);
+	}
+	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_W))
+	{
+		Camera::GetMainCamera()->SetType( eCameraDefault);
+	}
+	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_E))
+	{
+		Camera::GetMainCamera()->SetType( eCameraHigh);
+	}
 }
 
 /*------------------------------------------------------------------------------
@@ -754,6 +768,7 @@ void CityController::SetCarCamera(Car* car)
 	m_CarCamera->SetMainCamera();
 	m_CarCamera->SetActive( true);
 	m_CarCameraController->SetActive( true);
+	m_CarCamera->SetType( m_MainCamera->GetType());
 	auto posAt = car->GetGameObject();
 	auto posEye = new GameObject( posAt);
 	auto vec = posAt->m_pTransform->GetForward() * -8.0f;
@@ -776,6 +791,7 @@ void CityController::SetMainCamera(void)
 
 	//メインカメラの設定
 	m_MainCamera->SetActive( true);
+	m_MainCamera->SetType( m_CarCamera->GetType());
 	m_MainCamera->SetMainCamera();
 	m_MainCamera->m_pTransform->SetWorldPosition( 0.0f, 150.0f, -300.0f);
 	m_MainCamera->m_pTransform->SetWorldRotationLookAt( Vector3());

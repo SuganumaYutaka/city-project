@@ -10,9 +10,12 @@ struct VS_INPUT
 struct PS_INPUT
 {
 	float4 posH : POSITION0;
+	float4 color : COLOR0;
 	float3 normalW : TEXCOORD0;
 	float3 posW : TEXCOORD1;
 	float2 tex : TEXCOORD2;
+	float4 lightPosH : TEXCOORD3;
+	float depthWV : TEXCOORD4;
 };
 
 struct OM_INPUT
@@ -37,6 +40,13 @@ float4 g_MaterialSpe;
 
 texture g_texture;
 
+texture g_shadowBuf;
+float4x4 g_mtxLightWVP;
+float4x4 g_mtxLightWV;
+float g_far;
+
+static const float SHADOW_EPSILON = 0.00094f;
+
 //テクスチャサンプラ
 sampler TextureSampler = 
 sampler_state
@@ -52,26 +62,45 @@ sampler_state
 	
 };
 
+sampler ShadowBufSampler = 
+sampler_state
+{
+	Texture = <g_shadowBuf>;
+
+	AddressU = CLAMP;
+	AddressV = CLAMP;
+
+	MinFilter = POINT;
+	MagFilter = POINT;
+	MipFilter = NONE;
+	
+};
+
 //頂点シェーダー
 PS_INPUT vs(VS_INPUT input)
 {
 	PS_INPUT output;
-	
 	output.posH = mul( float4(input.pos, 1.0f), g_mtxWVP);
 	output.posW = mul( float4(input.pos, 1.0f), g_mtxWorld);
 	output.normalW = mul( float4(input.normal, 0.0f), g_mtxWIT);
+	output.color = input.color;
 	output.tex = input.tex;
-	
+
+	//影
+	output.lightPosH = mul( float4(input.pos, 1.0f), g_mtxLightWVP);
+	output.depthWV = mul( float4(input.pos, 1.0f), g_mtxLightWV).z / g_far;
+
 	return output;
 }
 
 //ピクセルシェーダー
 OM_INPUT ps(PS_INPUT input)
 {
+	//カラーの計算
 	OM_INPUT output;
-
 	float4 tex = tex2D(TextureSampler, input.tex);
-
+	
+	//ライティング
 	//法線の正規化
 	input.normalW = normalize( input.normalW);
 
@@ -100,9 +129,23 @@ OM_INPUT ps(PS_INPUT input)
 	float3 limColor = lim * g_LightSpe * g_MaterialSpe;
 
 	//カラーの決定
-	//output.col = float4( tex.rgb * ( diffColor + ambColor + speColor) , tex.a);
-	output.col = float4( tex.xyz * ( diffColor + ambColor + speColor + limColor) , tex.a);
-	
+	//float4 color = float4( tex.rgb * ( diffColor + ambColor + speColor) , tex.a);
+	float4 color = float4( tex.xyz * ( diffColor + ambColor + speColor + limColor) , tex.a);
+
+	//影
+	//テクスチャ座標を算出
+	input.lightPosH.xy /= input.lightPosH.w;
+	input.lightPosH.x = input.lightPosH.x * +0.5f + 0.5f;
+	input.lightPosH.y = input.lightPosH.y * -0.5f + 0.5f;
+
+	//深度バッファから深度を得る
+	float lightDepthWV = tex2D(ShadowBufSampler, input.lightPosH.xy).r;
+
+	//カラーの決定(黒くするかそのままか)
+	float s = lightDepthWV + SHADOW_EPSILON < input.depthWV ? 0.6f : 1.0f;
+	//output.col = float4( color.rgb * s, color.a);
+	output.col = float4( color.r * s, color.g * s, color.b * s, color.a);
+
 	return output;
 }
 

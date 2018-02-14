@@ -14,6 +14,7 @@
 
 #include "Polygon3DRenderer.h"
 #include "CityAttribute.h"
+#include "Material.h"
 
 using namespace HalfEdgeDataStructure;
 
@@ -39,10 +40,12 @@ RoadView::RoadView( GameObject* pGameObject)
 	//ƒŒƒ“ƒ_ƒ‰[‚ÌÝ’è
 	m_GrayRenderer = m_pGameObject->AddComponent<MeshPolygonRenderer>();
 	m_GrayRenderer->LoadTexture( "data/TEXTURE/gray.jpg");
+	m_GrayRenderer->GetMaterial()->SetSpecular( 0.2f, 0.2f, 0.2f, 1.0f);
 
 	m_WhiteLineRenderer = m_pGameObject->AddComponent<MeshPolygonRenderer>();
 	m_WhiteLineRenderer->LoadTexture( "data/TEXTURE/whiteline.png");
 	m_WhiteLineRenderer->SetPass( 1);
+	m_WhiteLineRenderer->GetMaterial()->SetSpecular( 0.2f, 0.2f, 0.2f, 1.0f);
 }
 
 /*------------------------------------------------------------------------------
