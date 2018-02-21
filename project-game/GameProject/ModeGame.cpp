@@ -89,6 +89,13 @@ void ModeGame::Init()
 	//cityController->Init( citySize.x, citySize.y, 0, 40, false);
 	cityController->Load("data/SCRIPT/Procedual/test.txt");
 
+	//UI
+	auto sousaObj = new GameObject( m_pRoot);
+	auto sousaRanderer = sousaObj->AddComponent<SpriteRenderer>();
+	sousaRanderer->LoadTexture( "data/TEXTURE/sousa00.png");
+	sousaObj->m_pTransform->SetWorldPosition( 200.0f, 230.0f, 0.0f);
+	sousaObj->m_pTransform->SetLocalScale( 400.0f, 460.0f, 1.0f);
+
 	////shadowtest
 	//auto spriteObj = new GameObject( m_pRoot);
 	//auto sprite = spriteObj->AddComponent<SpriteRenderer>();
