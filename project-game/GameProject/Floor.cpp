@@ -1,24 +1,24 @@
 /*==============================================================================
 
-    Floor.cpp - Œš•¨‚Ì©“®¶¬[ƒtƒƒAiŠK‘wj
+    Floor.cpp - å»ºç‰©ã®è‡ªå‹•ç”Ÿæˆãƒ¼ãƒ•ãƒ­ã‚¢ï¼ˆéšå±¤ï¼‰
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/12/7
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Floor.h"
 #include "Tile.h"
 #include "TileSplit.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
 #define INSERT_PERMIT_RANGE (0.01f)
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Floor::Floor() : m_Tile( NULL)
 {
@@ -28,7 +28,7 @@ Floor::Floor() : m_Tile( NULL)
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Floor::~Floor()
 {
@@ -37,7 +37,7 @@ Floor::~Floor()
 		return;
 	}
 
-	//ƒ^ƒCƒ‹‚ÌÁ‹
+	//ã‚¿ã‚¤ãƒ«ã®æ¶ˆå»
 	Tile* targetTile = m_Tile;
 	Tile* nextTile;
 	for (;;)
@@ -53,7 +53,7 @@ Floor::~Floor()
 }
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»
+	åˆæœŸåŒ–
 ------------------------------------------------------------------------------*/
 void Floor::InitDefault( float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, E_FLOOR_TYPE type)
 {
@@ -65,7 +65,7 @@ void Floor::InitDefault( float height, float width, const Vector3& bottomLeftPos
 }
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»i‰~‚É‰ˆ‚Á‚Ä‹È‚°‚éj
+	åˆæœŸåŒ–ï¼ˆå††ã«æ²¿ã£ã¦æ›²ã’ã‚‹ï¼‰
 ------------------------------------------------------------------------------*/
 void Floor::InitCurve( float height, float width, const Vector3& bottomLeftPosition, E_FLOOR_TYPE type)
 {
@@ -77,11 +77,11 @@ void Floor::InitCurve( float height, float width, const Vector3& bottomLeftPosit
 }
 
 /*------------------------------------------------------------------------------
-	ˆÊ’u‚Æ–@ü‚ÌXV
+	ä½ç½®ã¨æ³•ç·šã®æ›´æ–°
 ------------------------------------------------------------------------------*/
 void Floor::Transform(D3DXMATRIX shapeMatrix)
 {
-	//ƒtƒƒA‚ÌXV
+	//ãƒ•ãƒ­ã‚¢ã®æ›´æ–°
 	auto position = m_BottomLeftPosition.ConvertToDX();
 	auto normal = m_Normal.ConvertToDX();
 
@@ -91,7 +91,7 @@ void Floor::Transform(D3DXMATRIX shapeMatrix)
 	m_BottomLeftPosition = Vector3::ConvertFromDX( position);
 	m_Normal = Vector3::ConvertFromDX( normal);
 
-	//ƒ^ƒCƒ‹‚ÌXV
+	//ã‚¿ã‚¤ãƒ«ã®æ›´æ–°
 	if (!m_Tile)
 	{
 		return;
@@ -110,11 +110,11 @@ void Floor::Transform(D3DXMATRIX shapeMatrix)
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_ƒoƒbƒtƒ@‚Ìİ’è
+	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
 ------------------------------------------------------------------------------*/
 bool Floor::SetVertexBuffer(VERTEX_3D* pVtx)
 {
-	//ƒŠƒXƒgó‚Ìƒ^ƒCƒ‹‚Éİ’è‚³‚¹‚é
+	//ãƒªã‚¹ãƒˆçŠ¶ã®ã‚¿ã‚¤ãƒ«ã«è¨­å®šã•ã›ã‚‹
 	Tile* tile = m_Tile;
 	for (;;)
 	{	
@@ -126,7 +126,7 @@ bool Floor::SetVertexBuffer(VERTEX_3D* pVtx)
 			break;
 		}
 
-		//‘¼‚ÌShape‚Æ‚Ì‚Â‚È‚¬–Ú‚ª‚ ‚é‚Æ‚«‘¼‚ÌShape‚Ìƒ^ƒCƒ‹‚ÉƒWƒƒƒ“ƒv‚·‚é
+		//ä»–ã®Shapeã¨ã®ã¤ãªãç›®ãŒã‚ã‚‹ã¨ãä»–ã®Shapeã®ã‚¿ã‚¤ãƒ«ã«ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹
 		if (tile->GetType() == eTileSplit)
 		{
 			auto split = dynamic_cast<TileSplit*>( tile);
@@ -141,7 +141,7 @@ bool Floor::SetVertexBuffer(VERTEX_3D* pVtx)
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_”‚ğZo
+	é ‚ç‚¹æ•°ã‚’ç®—å‡º
 ------------------------------------------------------------------------------*/
 int Floor::CulcCountVertex(void)
 {
@@ -156,7 +156,7 @@ int Floor::CulcCountVertex(void)
 			break;
 		}
 
-		//‘¼‚ÌShape‚Æ‚Ì‚Â‚È‚¬–Ú‚ª‚ ‚é‚Æ‚«‘¼‚ÌShape‚Ìƒ^ƒCƒ‹‚ÉƒWƒƒƒ“ƒv‚·‚é
+		//ä»–ã®Shapeã¨ã®ã¤ãªãç›®ãŒã‚ã‚‹ã¨ãä»–ã®Shapeã®ã‚¿ã‚¤ãƒ«ã«ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹
 		if (tile->GetType() == eTileSplit)
 		{
 			auto split = dynamic_cast<TileSplit*>( tile);
@@ -171,7 +171,7 @@ int Floor::CulcCountVertex(void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ|ƒŠƒSƒ“”‚ğZo
+	ãƒãƒªã‚´ãƒ³æ•°ã‚’ç®—å‡º
 ------------------------------------------------------------------------------*/
 int Floor::CulcCountPolygon(void)
 {
@@ -186,7 +186,7 @@ int Floor::CulcCountPolygon(void)
 			break;
 		}
 
-		//‘¼‚ÌShape‚Æ‚Ì‚Â‚È‚¬–Ú‚ª‚ ‚é‚Æ‚«‘¼‚ÌShape‚Ìƒ^ƒCƒ‹‚ÉƒWƒƒƒ“ƒv‚·‚é
+		//ä»–ã®Shapeã¨ã®ã¤ãªãç›®ãŒã‚ã‚‹ã¨ãä»–ã®Shapeã®ã‚¿ã‚¤ãƒ«ã«ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹
 		if (tile->GetType() == eTileSplit)
 		{
 			auto split = dynamic_cast<TileSplit*>( tile);
@@ -201,27 +201,27 @@ int Floor::CulcCountPolygon(void)
 }
 
 /*------------------------------------------------------------------------------
-	“¯ˆêShape‚ÌFloor‚Æ—Z‡‚·‚é
+	åŒä¸€Shapeã®Floorã¨èåˆã™ã‚‹
 ------------------------------------------------------------------------------*/
 void Floor::FusionSameShape(Floor* other)
 {
-	//ÅŒã‚ÌTile‚ÌNext‚ğother‚ÌÅ‰‚ÌTile‚É‚·‚é
+	//æœ€å¾Œã®Tileã®Nextã‚’otherã®æœ€åˆã®Tileã«ã™ã‚‹
 	auto tile = GetBackTile();
 	tile->SetNext( other->m_Tile);
 
-	//Tile‚ªÁ‹‚³‚ê‚È‚¢‚æ‚¤‚Éother‚ÌTile‚ğNULL‚É
+	//TileãŒæ¶ˆå»ã•ã‚Œãªã„ã‚ˆã†ã«otherã®Tileã‚’NULLã«
 	other->m_Tile = NULL;
 }
 
 /*------------------------------------------------------------------------------
-	I’[‚Ìƒ^ƒCƒ‹‚Ìæ“¾
+	çµ‚ç«¯ã®ã‚¿ã‚¤ãƒ«ã®å–å¾—
 ------------------------------------------------------------------------------*/
 Tile* Floor::GetBackTile(void)
 {
 	auto tile = m_Tile;
 	for (;;)
 	{
-		//Next‚ªNULL‚ÌêŠ‚ğI’[‚Æ‚µ‚Ä•Ô‚·
+		//NextãŒNULLã®å ´æ‰€ã‚’çµ‚ç«¯ã¨ã—ã¦è¿”ã™
 		if (!tile->GetNext())
 		{
 			return tile;
@@ -229,7 +229,7 @@ Tile* Floor::GetBackTile(void)
 
 		tile = tile->GetNext();
 
-		//ŠÂóƒŠƒXƒg‚Ì‚Æ‚«NULL‚ğ•Ô‚·
+		//ç’°çŠ¶ãƒªã‚¹ãƒˆã®ã¨ãNULLã‚’è¿”ã™
 		if (tile == m_Tile)
 		{
 			break;
@@ -240,11 +240,11 @@ Tile* Floor::GetBackTile(void)
 }
 
 /*------------------------------------------------------------------------------
-	ŠÂóƒŠƒXƒg‚É•ÏX
+	ç’°çŠ¶ãƒªã‚¹ãƒˆã«å¤‰æ›´
 ------------------------------------------------------------------------------*/
 bool Floor::ChangeRingList(void)
 {
-	//I’[Tile‚ÌNext‚Éæ“ªTile‚ğİ’è
+	//çµ‚ç«¯Tileã®Nextã«å…ˆé ­Tileã‚’è¨­å®š
 	auto back = GetBackTile();
 	if (!back)
 	{
@@ -256,19 +256,19 @@ bool Floor::ChangeRingList(void)
 }
 
 /*------------------------------------------------------------------------------
-	‹«–Ú‚Ì‘}“ü
+	å¢ƒç›®ã®æŒ¿å…¥
 ------------------------------------------------------------------------------*/
 bool Floor::InsertSplit(TileSplit* split, float lengthFromBottomLeft)
 {
-	//BottomLeftPosition‚©‚ç³‚µ‚¢ˆÊ’u‚É‘}“ü
+	//BottomLeftPositionã‹ã‚‰æ­£ã—ã„ä½ç½®ã«æŒ¿å…¥
 	Tile* tile = m_Tile;
 	float length = 0.0f;
 	for (;;)
 	{
-		//n“_‚©‚ç‚Ì‹——£‚ğƒ^ƒCƒ‹‚Ì••ª‘«‚·
+		//å§‹ç‚¹ã‹ã‚‰ã®è·é›¢ã‚’ã‚¿ã‚¤ãƒ«ã®å¹…åˆ†è¶³ã™
 		length += tile->GetWidth();
 		
-		//n“_‚©‚ç‹——£‚ª‹«–Ú‚æ‚è‚à‰“‚¢‚Æ‚«Aƒ^ƒCƒ‹‚ÆŸ‚Ìƒ^ƒCƒ‹‚ÌŠÔ‚É‘}“ü
+		//å§‹ç‚¹ã‹ã‚‰è·é›¢ãŒå¢ƒç›®ã‚ˆã‚Šã‚‚é ã„ã¨ãã€ã‚¿ã‚¤ãƒ«ã¨æ¬¡ã®ã‚¿ã‚¤ãƒ«ã®é–“ã«æŒ¿å…¥
 		if (length + 0.001f >= lengthFromBottomLeft)
 		{
 			split->SetNext( tile->GetNext());
@@ -284,7 +284,7 @@ bool Floor::InsertSplit(TileSplit* split, float lengthFromBottomLeft)
 		}
 	}
 
-	////Œë·‚Ì”ÍˆÍ‚Ì‚Æ‚«ÅŒã‚Ìƒ^ƒCƒ‹‚ÌNext‚Éİ’è
+	////èª¤å·®ã®ç¯„å›²ã®ã¨ãæœ€å¾Œã®ã‚¿ã‚¤ãƒ«ã®Nextã«è¨­å®š
 	//if (lengthFromBottomLeft - length < INSERT_PERMIT_RANGE)
 	//{
 	//	auto tile = GetBackTile();
@@ -294,6 +294,6 @@ bool Floor::InsertSplit(TileSplit* split, float lengthFromBottomLeft)
 	//	return true;
 	//}
 
-	//‘}“ü‰ÓŠ‚È‚µ
+	//æŒ¿å…¥ç®‡æ‰€ãªã—
 	return false;
 }

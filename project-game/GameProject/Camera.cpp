@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    Camera.cpp - ƒJƒƒ‰
+    Camera.cpp - ã‚«ãƒ¡ãƒ©
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/7
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Camera.h"
 #include "GameObject.h"
@@ -17,13 +17,13 @@
 #include "ShaderManager.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
 #define TEXTURE_WIDTH (1024)
 #define TEXTURE_HEIGHT (1024)
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* Camera::Create(GameObject* gameObject)
 {
@@ -31,7 +31,7 @@ Component* Camera::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Camera::Camera( GameObject *pGameObject)
 {
@@ -46,49 +46,49 @@ Camera::Camera( GameObject *pGameObject)
 	m_fFar = 100.0f;
 	m_Type = eCameraDefault;
 
-	////ƒrƒ…[À•W•ÏŠ·s—ñì¬
+	////ãƒ“ãƒ¥ãƒ¼åº§æ¨™å¤‰æ›è¡Œåˆ—ä½œæˆ
 	D3DXVECTOR3 PosEye = m_pTransform->GetWorldPosition().ConvertToDX();
 	D3DXVECTOR3 PosAt = m_PosAt.ConvertToDX();
 	D3DXVECTOR3 VecUp = m_VecUp.ConvertToDX();
 
 	D3DXMatrixLookAtLH( &m_mtxView, &PosEye, &PosAt, &VecUp);
 
-	//ƒvƒƒWƒFƒNƒVƒ‡ƒ“À•W•ÏŠ·s—ñì¬
+	//ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³åº§æ¨™å¤‰æ›è¡Œåˆ—ä½œæˆ
 	D3DXMatrixPerspectiveFovLH( 
-		&m_mtxProj,								//ƒvƒƒWƒFƒNƒVƒ‡ƒ“À•W•ÏŠ·s—ñƒ|ƒCƒ“ƒ^
-		m_fFovY,								//‰æŠpi‹–ìŠpj
-		m_fAspect,								//ƒAƒXƒyƒNƒg‰»
-		m_fNear,								//near	¦ 0.0f < near
+		&m_mtxProj,								//ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³åº§æ¨™å¤‰æ›è¡Œåˆ—ãƒã‚¤ãƒ³ã‚¿
+		m_fFovY,								//ç”»è§’ï¼ˆè¦–é‡è§’ï¼‰
+		m_fAspect,								//ã‚¢ã‚¹ãƒšã‚¯ãƒˆåŒ–
+		m_fNear,								//near	â€» 0.0f < near
 		m_fFar);								//far
 
-	//ƒrƒ…[ƒ|[ƒgİ’è
+	//ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆè¨­å®š
 	m_ViewPort = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, 1.0f};
 
-	//ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒgiƒfƒtƒHƒ‹ƒg‚ÍƒoƒbƒNƒoƒbƒtƒ@j
+	//ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã¯ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ï¼‰
 	m_RenderTarget = Manager::GetTextureManager()->CreateRenderTexture( "BuckBuffer", true);
 
-	//•`‰æ‚·‚éƒŒƒCƒ„[iƒfƒtƒHƒ‹ƒg‚Í‚·‚×‚Ä•`‰æj
+	//æç”»ã™ã‚‹ãƒ¬ã‚¤ãƒ¤ãƒ¼ï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã¯ã™ã¹ã¦æç”»ï¼‰
 	m_listRenderLayer.clear();
 
-	//ƒJƒƒ‰‚ğƒ}ƒl[ƒWƒƒ[‚É’Ç‰Á
+	//ã‚«ãƒ¡ãƒ©ã‚’ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã«è¿½åŠ 
 	Manager::GetRenderManager()->SetCamera( this);
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void Camera::Uninit( void)
 {
-	//ƒ}ƒl[ƒWƒƒ[‚©‚çíœ
+	//ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‹ã‚‰å‰Šé™¤
 	Manager::GetRenderManager()->ReleaseCamera( this);
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void Camera::Update()
 {
-	////ƒrƒ…[À•W•ÏŠ·s—ñì¬
+	////ãƒ“ãƒ¥ãƒ¼åº§æ¨™å¤‰æ›è¡Œåˆ—ä½œæˆ
 	D3DXVECTOR3 PosEye = m_pTransform->GetWorldPosition().ConvertToDX();
 	D3DXVECTOR3 PosAt = m_PosAt.ConvertToDX();
 	D3DXVECTOR3 VecUp = m_VecUp.ConvertToDX();
@@ -97,7 +97,7 @@ void Camera::Update()
 }
 
 /*------------------------------------------------------------------------------
-	ƒƒCƒ“ƒJƒƒ‰‚ğæ“¾
+	ãƒ¡ã‚¤ãƒ³ã‚«ãƒ¡ãƒ©ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 Camera* Camera::GetMainCamera()
 {
@@ -105,7 +105,7 @@ Camera* Camera::GetMainCamera()
 }
 
 /*------------------------------------------------------------------------------
-	ƒƒCƒ“ƒJƒƒ‰‚ğİ’è
+	ãƒ¡ã‚¤ãƒ³ã‚«ãƒ¡ãƒ©ã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void Camera::SetMainCamera()
 {
@@ -113,7 +113,7 @@ void Camera::SetMainCamera()
 }
 
 /*------------------------------------------------------------------------------
-	ƒƒCƒ“ƒJƒƒ‰‚©‚Ç‚¤‚©
+	ãƒ¡ã‚¤ãƒ³ã‚«ãƒ¡ãƒ©ã‹ã©ã†ã‹
 ------------------------------------------------------------------------------*/
 bool Camera::IsMainCamera()
 {
@@ -126,7 +126,7 @@ bool Camera::IsMainCamera()
 }
 
 /*------------------------------------------------------------------------------
-	ƒJƒƒ‰•ûŒü‚ğæ“¾
+	ã‚«ãƒ¡ãƒ©æ–¹å‘ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 Vector3 Camera::GetCameraVec( void) const
 {
@@ -134,7 +134,7 @@ Vector3 Camera::GetCameraVec( void) const
 }
 
 /*------------------------------------------------------------------------------
-	ƒJƒƒ‰•½sˆÚ“®
+	ã‚«ãƒ¡ãƒ©å¹³è¡Œç§»å‹•
 ------------------------------------------------------------------------------*/
 void Camera::Move( const Vector3& Value)
 {
@@ -143,7 +143,7 @@ void Camera::Move( const Vector3& Value)
 }
 
 /*------------------------------------------------------------------------------
-	ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg‚Ìİ’è
+	ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è¨­å®š
 ------------------------------------------------------------------------------*/
 void Camera::SetRenderTarget(std::string TextureName, bool isBuckBuffer)
 {
@@ -153,32 +153,32 @@ void Camera::SetRenderTarget(std::string TextureName, bool isBuckBuffer)
 	{
 		auto size = m_RenderTarget->GetTextureSize();
 
-		//ƒvƒƒWƒFƒNƒVƒ‡ƒ“À•W•ÏŠ·
+		//ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³åº§æ¨™å¤‰æ›
 		m_fAspect = size.x / size.y;
 		D3DXMatrixPerspectiveFovLH( &m_mtxProj, m_fFovY, m_fAspect, m_fNear, m_fFar);
 
-		//ƒrƒ…[ƒ|[ƒg•ÏŠ·
+		//ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆå¤‰æ›
 		SetViewPort( 0, 0, (int)size.x, (int)size.y, 0.0f, 1.0f);
 	}
 }
 
 /*------------------------------------------------------------------------------
-	ƒJƒƒ‰‚Ìİ’èiƒrƒ…[ƒ|[ƒgAƒŒƒ“ƒ_[ƒ^[ƒQƒbƒgA[“xƒoƒbƒtƒ@j
+	ã‚«ãƒ¡ãƒ©ã®è¨­å®šï¼ˆãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆã€ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã€æ·±åº¦ãƒãƒƒãƒ•ã‚¡ï¼‰
 ------------------------------------------------------------------------------*/
 void Camera::SetCamera(void)
 {
 	auto pDevice = Manager::GetDevice();
 
-	//ƒJƒƒ‰‚Ìİ’è
+	//ã‚«ãƒ¡ãƒ©ã®è¨­å®š
 	pDevice->SetViewport( &m_ViewPort);
 	pDevice->SetRenderTarget( 0, m_RenderTarget->GetRenderTarget());
 	pDevice->SetDepthStencilSurface( m_RenderTarget->GetDepthBuffer());
 
-	//ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg‚Ì‰Šú‰»
+	//ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®åˆæœŸåŒ–
 	pDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA( 255, 255, 255, 255), 1.0f, 0);
 	//pDevice->Clear( 0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_RGBA( 0, 0, 0, 0), 1.0f, 0);
 
-	//ƒVƒF[ƒ_[‚Ìİ’è
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®è¨­å®š
 	switch (m_Type)
 	{
 	case eCameraDefault:
@@ -203,7 +203,7 @@ void Camera::SetCamera(void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒjƒA‚Ìİ’è
+	ãƒ‹ã‚¢ã®è¨­å®š
 ------------------------------------------------------------------------------*/
 void Camera::SetNear(float Near)
 {
@@ -212,7 +212,7 @@ void Camera::SetNear(float Near)
 }
 
 /*------------------------------------------------------------------------------
-	ƒtƒ@[‚Ìİ’è
+	ãƒ•ã‚¡ãƒ¼ã®è¨­å®š
 ------------------------------------------------------------------------------*/
 void Camera::SetFar(float Far)
 {
@@ -221,7 +221,7 @@ void Camera::SetFar(float Far)
 }
 
 /*------------------------------------------------------------------------------
-	ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ‚Ìİ’èiPerspectivej
+	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—ã®è¨­å®šï¼ˆPerspectiveï¼‰
 ------------------------------------------------------------------------------*/
 void Camera::SetPerspective( float FovY, float Aspect, float Near, float Far)
 {
@@ -234,7 +234,7 @@ void Camera::SetPerspective( float FovY, float Aspect, float Near, float Far)
 }
 
 /*------------------------------------------------------------------------------
-	ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ‚Ìİ’èiPerspectivej
+	ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—ã®è¨­å®šï¼ˆPerspectiveï¼‰
 ------------------------------------------------------------------------------*/
 void Camera::SetOrtho( float Width, float Height, float Near, float Far)
 {
@@ -244,38 +244,38 @@ void Camera::SetOrtho( float Width, float Height, float Near, float Far)
 }
 
 /*------------------------------------------------------------------------------
-	ƒXƒNƒŠ[ƒ“À•W‚©‚çƒŒƒCi’¼üj‚ğZo
+	ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ã‹ã‚‰ãƒ¬ã‚¤ï¼ˆç›´ç·šï¼‰ã‚’ç®—å‡º
 ------------------------------------------------------------------------------*/
 Ray Camera::CalcScreenPointToRay(Vector2 screenPoint)
 {
-	//ƒXƒNƒŠ[ƒ“À•W‚©‚çƒ[ƒ‹ƒhÀ•W‚É•ÏŠ·
-	Vector3 nearPos = CalcScreenPointToWorldPosition( screenPoint, 0.0f);		//ƒJƒƒ‰‚©‚çÅ‚à‹ß‚¢À•W
-	Vector3 farPos = CalcScreenPointToWorldPosition( screenPoint, 1.0f);		//ƒJƒƒ‰‚©‚çÅ‚à‰“‚¢À•W
+	//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ã‹ã‚‰ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã«å¤‰æ›
+	Vector3 nearPos = CalcScreenPointToWorldPosition( screenPoint, 0.0f);		//ã‚«ãƒ¡ãƒ©ã‹ã‚‰æœ€ã‚‚è¿‘ã„åº§æ¨™
+	Vector3 farPos = CalcScreenPointToWorldPosition( screenPoint, 1.0f);		//ã‚«ãƒ¡ãƒ©ã‹ã‚‰æœ€ã‚‚é ã„åº§æ¨™
 
-	//ƒJ[ƒ\ƒ‹‚Ìü•ªZo
+	//ã‚«ãƒ¼ã‚½ãƒ«ã®ç·šåˆ†ç®—å‡º
 	Ray ray;
-	ray.Direction = (farPos - nearPos).Normalize();		//ƒJ[ƒ\ƒ‹‚Ìü•ª
+	ray.Direction = (farPos - nearPos).Normalize();		//ã‚«ãƒ¼ã‚½ãƒ«ã®ç·šåˆ†
 	ray.Position = m_pTransform->GetWorldPosition();
 
 	return ray;
 }
 
 /*------------------------------------------------------------------------------
-	ƒXƒNƒŠ[ƒ“À•W‚©‚çƒ[ƒ‹ƒhÀ•W‚ğZo
+	ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ã‹ã‚‰ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’ç®—å‡º
 ------------------------------------------------------------------------------*/
 Vector3 Camera::CalcScreenPointToWorldPosition( Vector2 screenPoint, float positionZ)
 {
-	//•Ï”éŒ¾
-	D3DXMATRIX mtxWorld;				//ƒ[ƒ‹ƒhÀ•W•ÏŠ·s—ñ
-	D3DXVECTOR3 worldPos;				//ƒ[ƒ‹ƒhÀ•W
+	//å¤‰æ•°å®£è¨€
+	D3DXMATRIX mtxWorld;				//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™å¤‰æ›è¡Œåˆ—
+	D3DXVECTOR3 worldPos;				//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™
 
-	//‹ts—ñ‚ğİ’è
-	D3DXMATRIX mtxViewInv;		//ƒrƒ…[À•W•ÏŠ·s—ñ‚Ì‹ts—ñ
-	D3DXMATRIX mtxProjInv;		//ƒvƒƒWƒFƒNƒVƒ‡ƒ“À•W•ÏŠ·s—ñ‚Ì‹ts—ñ
+	//é€†è¡Œåˆ—ã‚’è¨­å®š
+	D3DXMATRIX mtxViewInv;		//ãƒ“ãƒ¥ãƒ¼åº§æ¨™å¤‰æ›è¡Œåˆ—ã®é€†è¡Œåˆ—
+	D3DXMATRIX mtxProjInv;		//ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³åº§æ¨™å¤‰æ›è¡Œåˆ—ã®é€†è¡Œåˆ—
 	D3DXMatrixInverse( &mtxViewInv, NULL, &m_mtxView);
 	D3DXMatrixInverse( &mtxProjInv, NULL, &m_mtxProj);
 	
-	//ƒrƒ…[ƒ|[ƒgiE‚¢•¨j
+	//ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆï¼ˆæ‹¾ã„ç‰©ï¼‰
 	D3DXMATRIX VP, InvViewport;
 	D3DXMatrixIdentity( &VP );
 	VP._11 = SCREEN_WIDTH / 2.0f;
@@ -284,52 +284,52 @@ Vector3 Camera::CalcScreenPointToWorldPosition( Vector2 screenPoint, float posit
 	VP._42 = SCREEN_HEIGHT / 2.0f;
 	D3DXMatrixInverse( &InvViewport, NULL, &VP );
 
-	//‹ts—ñ‚ğ‚©‚¯‚Ä‚¢‚«ƒ[ƒ‹ƒhÀ•W•ÏŠ·s—ñ‚É•ÏŠ·
-	D3DXMatrixIdentity( &mtxWorld);		//’PˆÊs—ñ‰»
+	//é€†è¡Œåˆ—ã‚’ã‹ã‘ã¦ã„ããƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™å¤‰æ›è¡Œåˆ—ã«å¤‰æ›
+	D3DXMatrixIdentity( &mtxWorld);		//å˜ä½è¡Œåˆ—åŒ–
 	mtxWorld = mtxWorld * InvViewport * mtxProjInv * mtxViewInv;
 	
-	//ƒ[ƒ‹ƒhÀ•W‚ğZo
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’ç®—å‡º
 	D3DXVec3TransformCoord( &worldPos, &D3DXVECTOR3( screenPoint.x, screenPoint.y, positionZ), &mtxWorld);
 
 	return worldPos;
 }
 
 /*------------------------------------------------------------------------------
-	ƒ‰ƒCƒgƒJƒƒ‰—p‚Ìİ’è
+	ãƒ©ã‚¤ãƒˆã‚«ãƒ¡ãƒ©ç”¨ã®è¨­å®š
 ------------------------------------------------------------------------------*/
 bool Camera::ChangeLightCameraFormat(Vector3 fieldSize)
 {
-	//ƒJƒƒ‰‚Ìí—Ş‚Ìİ’è
+	//ã‚«ãƒ¡ãƒ©ã®ç¨®é¡ã®è¨­å®š
 	SetType( eCameraLight);
 
-	//•`‰æƒŒƒCƒ„[‚Ìİ’è
+	//æç”»ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¨­å®š
 	SetRenderLayer( eLayerBack);
 	SetRenderLayer( eLayerDefault);
 	
-	//ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg‚Ìİ’è
+	//ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è¨­å®š
 	SetRenderTarget( "shadow", false);
 	m_RenderTarget->ChangeDepthRenderFormat();
 
-	//Ortho‚Ìİ’è
+	//Orthoã®è¨­å®š
 	float length = max( fieldSize.x, fieldSize.z);
 	SetOrtho( length, length, 0.1f, length);
 
-	//ƒrƒ…[ƒ|[ƒg‚Ìİ’è
+	//ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆã®è¨­å®š
 	auto textureSize = m_RenderTarget->GetTextureSize();
 	SetViewPort( 0, 0, (int)textureSize.x, (int)textureSize.y, 0.0f, 1.0f);
 
-	//far‚Ìİ’è
+	//farã®è¨­å®š
 	m_fFar = length * 2.0f;
 
 	return true;
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void Camera::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -378,25 +378,25 @@ void Camera::Load(Text& text)
 			}
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
 		}
 	}
 
-	//ƒrƒ…[À•W•ÏŠ·s—ñì¬
+	//ãƒ“ãƒ¥ãƒ¼åº§æ¨™å¤‰æ›è¡Œåˆ—ä½œæˆ
 	D3DXVECTOR3 PosEye = m_pTransform->GetWorldPosition().ConvertToDX();
 	D3DXVECTOR3 PosAt = m_PosAt.ConvertToDX();
 	D3DXVECTOR3 VecUp = m_VecUp.ConvertToDX();
 	D3DXMatrixLookAtLH( &m_mtxView, &PosEye, &PosAt, &VecUp);
 
-	//ƒvƒƒWƒFƒNƒVƒ‡ƒ“À•W•ÏŠ·s—ñì¬
+	//ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³åº§æ¨™å¤‰æ›è¡Œåˆ—ä½œæˆ
 	SetPerspective( m_fFovY, m_fAspect, m_fNear, m_fFar);
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void Camera::Save(Text& text)
 {

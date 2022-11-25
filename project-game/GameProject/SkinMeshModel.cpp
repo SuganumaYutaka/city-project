@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    SkinMeshModel.cpp - ƒXƒLƒ“ƒƒbƒVƒ…ƒ‚ƒfƒ‹
+    SkinMeshModel.cpp - ã‚¹ã‚­ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ãƒ¢ãƒ‡ãƒ«
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/10/09
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "SkinMeshModel.h"
 #include "Material.h"
@@ -16,12 +16,12 @@
 #include "SkinMeshRenderer.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
 
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* SkinMeshModel::Create(GameObject* gameObject)
 {
@@ -29,7 +29,7 @@ Component* SkinMeshModel::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 SkinMeshModel::SkinMeshModel( GameObject *pGameObject)
 {
@@ -45,7 +45,7 @@ SkinMeshModel::SkinMeshModel( GameObject *pGameObject)
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void SkinMeshModel::Uninit( void)
 {
@@ -53,24 +53,24 @@ void SkinMeshModel::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+	ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
 ------------------------------------------------------------------------------*/
 void SkinMeshModel::LoadModel( std::string FileName, float scaleRate)
 {
-	//ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
+	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ¼ãƒ—ãƒ³
 	FILE* pFile;
 	pFile = fopen( FileName.c_str(), "rb");
 	if (!pFile)
 	{
-		MessageBox(NULL, "SkinMeshModel.cpp ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“‚É¸”s‚µ‚Ü‚µ‚½", "ƒGƒ‰[", MB_OK);
+		MessageBox(NULL, "SkinMeshModel.cpp ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ¼ãƒ—ãƒ³ã«å¤±æ•—ã—ã¾ã—ãŸ", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		return;
 	}
 	m_FileName = FileName;
 
-	//ƒ‚ƒfƒ‹ƒf[ƒ^‚ğ“Ç‚İ‚İ
-	//ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv
-	int size;					//Ši”[ƒTƒCƒY
-	char fileName[MAX_PATH];	//ƒtƒ@ƒCƒ‹–¼
+	//ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã¿
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—
+	int size;					//æ ¼ç´ã‚µã‚¤ã‚º
+	char fileName[MAX_PATH];	//ãƒ•ã‚¡ã‚¤ãƒ«å
 
 	fread(&size, sizeof(int), 1, pFile);
 	vecAnimationClip.resize(size);
@@ -87,11 +87,11 @@ void SkinMeshModel::LoadModel( std::string FileName, float scaleRate)
 	}
 	m_AnimationState = 0;
 
-	//ƒƒbƒVƒ…”
+	//ãƒ¡ãƒƒã‚·ãƒ¥æ•°
 	int NumMesh = 0;
 	fread(&NumMesh, sizeof(int), 1, pFile);
 
-	//ƒƒbƒVƒ…‚ğì¬
+	//ãƒ¡ãƒƒã‚·ãƒ¥ã‚’ä½œæˆ
 	GameObject* pObject = NULL;
 	for( int nCnt = 0; nCnt < NumMesh; nCnt++)
 	{
@@ -102,12 +102,12 @@ void SkinMeshModel::LoadModel( std::string FileName, float scaleRate)
 		mesh->LoadMeshData(pFile, this);
 	}
 
-	//ƒtƒ@ƒCƒ‹ƒNƒ[ƒY
+	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚¯ãƒ­ãƒ¼ã‚º
 	fclose( pFile);
 
 	m_bLoad = true;
 
-	//ƒXƒP[ƒ‹‚ğXV
+	//ã‚¹ã‚±ãƒ¼ãƒ«ã‚’æ›´æ–°
 	if( scaleRate != 1.0f)
 	{
 		SetScale(scaleRate);
@@ -116,7 +116,7 @@ void SkinMeshModel::LoadModel( std::string FileName, float scaleRate)
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void SkinMeshModel::Update( void)
 {
@@ -129,14 +129,14 @@ void SkinMeshModel::Update( void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒXƒP[ƒ‹‚Ìİ’è
+	ã‚¹ã‚±ãƒ¼ãƒ«ã®è¨­å®š
 ------------------------------------------------------------------------------*/
 void SkinMeshModel::SetScale( float rate)
 {
-	//ƒƒbƒVƒ…ƒf[ƒ^‚ğæ“¾
+	//ãƒ¡ãƒƒã‚·ãƒ¥ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
 	auto SkinMeshs = m_pGameObject->GetComponentListInChildren<SkinMeshRenderer>();
 
-	//ƒƒbƒVƒ…ƒf[ƒ^‚ğXV
+	//ãƒ¡ãƒƒã‚·ãƒ¥ãƒ‡ãƒ¼ã‚¿ã‚’æ›´æ–°
 	for (auto mesh : SkinMeshs)
 	{
 		mesh->SetScale(rate);
@@ -144,11 +144,11 @@ void SkinMeshModel::SetScale( float rate)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void SkinMeshModel::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -167,7 +167,7 @@ void SkinMeshModel::Load(Text& text)
 			ScaleRate = std::stof(text.GetWord());
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
@@ -177,7 +177,7 @@ void SkinMeshModel::Load(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void SkinMeshModel::Save(Text& text)
 {

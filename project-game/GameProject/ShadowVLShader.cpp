@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    ShadowVLShader.cpp - ‰e•t‚«’¸“_ƒ‰ƒCƒeƒBƒ“ƒOƒVƒF[ƒ_[
+    ShadowVLShader.cpp - å½±ä»˜ãé ‚ç‚¹ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/8/15
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "ShadowVLShader.h"
 #include "Renderer.h"
@@ -17,13 +17,13 @@
 #include "TextureManager.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 ShadowVLShader::ShadowVLShader()
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//ƒfƒoƒCƒX‚Ìƒ|ƒCƒ“ƒ^
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//ãƒ‡ãƒã‚¤ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
 	
-	//’¸“_éŒ¾Ši”[ƒCƒ“ƒ^[ƒtƒFƒCƒXì¬
+	//é ‚ç‚¹å®£è¨€æ ¼ç´ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ä½œæˆ
 	D3DVERTEXELEMENT9 g_Dec1[] =
 	{
 		{ 0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
@@ -34,17 +34,17 @@ ShadowVLShader::ShadowVLShader()
 	};
 	pDevice->CreateVertexDeclaration( g_Dec1, &m_pVertexDec);
 
-	//ƒVƒF[ƒ_‚Ì“Ç‚İ‚İ
+	//ã‚·ã‚§ãƒ¼ãƒ€ã®èª­ã¿è¾¼ã¿
 	HRESULT hr;
-	ID3DXBuffer *pError;		//ƒRƒ“ƒpƒCƒ‹ƒGƒ‰[î•ñŠi”[ƒoƒbƒtƒ@
+	ID3DXBuffer *pError;		//ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã‚¨ãƒ©ãƒ¼æƒ…å ±æ ¼ç´ãƒãƒƒãƒ•ã‚¡
 	hr = D3DXCreateEffectFromFile(pDevice, "data/SHADER/ShadowVLShader.cso", NULL, NULL, D3DXSHADER_SKIPVALIDATION, NULL, &m_pEffect, &pError);
 	if( FAILED( hr))
 	{
-		MessageBox( NULL, "ƒVƒF[ƒ_[‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½\n", "ƒGƒ‰[", MB_OK);
+		MessageBox( NULL, "ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		return;
 	}
 
-	//ƒnƒ“ƒhƒ‹‚Ìæ“¾
+	//ãƒãƒ³ãƒ‰ãƒ«ã®å–å¾—
 	m_hTech = m_pEffect->GetTechnique(0);
 	m_hMtxWVP = m_pEffect->GetParameterByName(0, "g_mtxWVP");
 	m_hMtxWIT = m_pEffect->GetParameterByName(0, "g_mtxWIT");
@@ -62,7 +62,7 @@ ShadowVLShader::ShadowVLShader()
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 ShadowVLShader::~ShadowVLShader()
 {
@@ -72,11 +72,11 @@ ShadowVLShader::~ShadowVLShader()
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[‚ğƒZƒbƒg
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’ã‚»ãƒƒãƒˆ
 ------------------------------------------------------------------------------*/
 void ShadowVLShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial, bool isAlreadySet)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//ƒfƒoƒCƒX‚Ìƒ|ƒCƒ“ƒ^
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//ãƒ‡ãƒã‚¤ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
 
 	auto mtxWorld = pRenderer->m_pTransform->WorldMatrix();
 	
@@ -85,7 +85,7 @@ void ShadowVLShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMateri
 	D3DXMatrixInverse( &mtxWIT, NULL, &mtxWorld);
 	D3DXMatrixTranspose( &mtxWIT, &mtxWIT);
 
-	//ƒ‰ƒCƒgs—ñ‚Ìİ’è
+	//ãƒ©ã‚¤ãƒˆè¡Œåˆ—ã®è¨­å®š
 	Camera* pLightCamera = NULL;
 	auto listCamera = Manager::GetRenderManager()->GetCameraList();
 	for (auto camera : listCamera)
@@ -98,7 +98,7 @@ void ShadowVLShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMateri
 	}
 	if (pLightCamera == NULL)
 	{
-		MessageBox( NULL, "ƒ‰ƒCƒgƒJƒƒ‰‚ª‚ ‚è‚Ü‚¹‚ñ\n", "ƒGƒ‰[", MB_OK);
+		MessageBox( NULL, "ãƒ©ã‚¤ãƒˆã‚«ãƒ¡ãƒ©ãŒã‚ã‚Šã¾ã›ã‚“\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		assert(false);
 	}
 	auto mtxLightWVP = pRenderer->m_pTransform->WorldMatrix() * *pLightCamera->GetViewMatrix() * *pLightCamera->GetProjectionMatrix();
@@ -106,14 +106,14 @@ void ShadowVLShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMateri
 	
 	//if( !isAlreadySet)
 	{
-		//’¸“_éŒ¾
+		//é ‚ç‚¹å®£è¨€
 		pDevice->SetVertexDeclaration( m_pVertexDec);
 
-		//ƒeƒNƒjƒbƒN‚Ìİ’è
+		//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯ã®è¨­å®š
 		m_pEffect->SetTechnique( m_hTech);
 	}
 
-	//’è”‚ğƒVƒF[ƒ_‚É“`‚¦‚é
+	//å®šæ•°ã‚’ã‚·ã‚§ãƒ¼ãƒ€ã«ä¼ãˆã‚‹
 	m_pEffect->SetMatrix( m_hMtxWVP, &mtxWVP);
 	m_pEffect->SetMatrix( m_hMtxWIT, &mtxWIT);
 	m_pEffect->SetTexture( m_hTexture, pMaterial->GetTexture());
@@ -125,7 +125,7 @@ void ShadowVLShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMateri
 	m_pEffect->SetMatrix( m_hMtxLightWV, &mtxLightWV);
 	m_pEffect->SetFloat( m_hFar, pLightCamera->GetFar());
 	
-	//ƒ‰ƒCƒg‚Ìæ“¾
+	//ãƒ©ã‚¤ãƒˆã®å–å¾—
 	auto list = Light::GetList();
 	for (auto light : list)
 	{

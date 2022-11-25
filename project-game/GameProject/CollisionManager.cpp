@@ -1,20 +1,20 @@
 /*==============================================================================
 
-    CollisionManager.h - Õ“Ë”»’èiƒRƒ‰ƒCƒ_[jŠÇ—
+    CollisionManager.h - è¡çªåˆ¤å®šï¼ˆã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ï¼‰ç®¡ç†
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/7
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "CollisionManager.h"
 #include "GameObject.h"
 #include "ComponentInclude.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	ˆø”
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	å¼•æ•°
 		HWND hWnd
 		BOOL bWindow
 ------------------------------------------------------------------------------*/
@@ -24,7 +24,7 @@ CollisionManager::CollisionManager()
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 CollisionManager::~CollisionManager()
 {
@@ -32,9 +32,9 @@ CollisionManager::~CollisionManager()
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ‰ƒCƒ_[ƒŠƒXƒg‚É’Ç‰Á
-	ˆø”
-		Collider *pCollider			ƒRƒ‰ƒCƒ_[
+	ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒªã‚¹ãƒˆã«è¿½åŠ 
+	å¼•æ•°
+		Collider *pCollider			ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼
 ------------------------------------------------------------------------------*/
 void CollisionManager::AddCollider( Collider *pCollider)
 {
@@ -42,9 +42,9 @@ void CollisionManager::AddCollider( Collider *pCollider)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ‰ƒCƒ_[ƒŠƒXƒg‚©‚çÁ‹
-	ˆø”
-		Collider *pCollider			ƒRƒ‰ƒCƒ_[
+	ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒªã‚¹ãƒˆã‹ã‚‰æ¶ˆå»
+	å¼•æ•°
+		Collider *pCollider			ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼
 ------------------------------------------------------------------------------*/
 void CollisionManager::ReleaseCollider( Collider *pCollider)
 {
@@ -52,7 +52,7 @@ void CollisionManager::ReleaseCollider( Collider *pCollider)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ‰ƒCƒ_[ƒŠƒXƒg‚ğƒ\[ƒg
+	ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒªã‚¹ãƒˆã‚’ã‚½ãƒ¼ãƒˆ
 ------------------------------------------------------------------------------*/
 void CollisionManager::Sort()
 {
@@ -60,11 +60,11 @@ void CollisionManager::Sort()
 }
 
 /*------------------------------------------------------------------------------
-	Õ“Ë”»’è
+	è¡çªåˆ¤å®š
 ------------------------------------------------------------------------------*/
 void CollisionManager::Collision()
 {
-	//ƒRƒ‰ƒCƒ_[ƒŠƒXƒg‚©‚çíœ
+	//ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤
 	for (auto Col : m_listReleaseCollider)
 	{
 		for (auto ite = m_listCollider.begin(); ite != m_listCollider.end(); ++ite)
@@ -78,7 +78,7 @@ void CollisionManager::Collision()
 	}
 	m_listReleaseCollider.clear();
 
-	//“®“IƒIƒuƒWƒFƒNƒg“¯m
+	//å‹•çš„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåŒå£«
 	for( std::list< Collider *>::iterator Source = m_listCollider.begin(); Source != m_listCollider.end(); ++Source)
 	{
 		for( std::list< Collider *>::iterator Dest = Source; Dest != m_listCollider.end(); ++Dest)
@@ -87,7 +87,7 @@ void CollisionManager::Collision()
 			{
 				if( IsCollision( Source, Dest) == true)
 				{
-					//‚¨Œİ‚¢‚ÌƒRƒ‰ƒCƒ_[‚ÉÕ“Ë‚ğ’m‚ç‚¹‚é
+					//ãŠäº’ã„ã®ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã«è¡çªã‚’çŸ¥ã‚‰ã›ã‚‹
 					dynamic_cast< Collider *>( *Source)->GetGameObject()->OnCollision( *Dest);
 					dynamic_cast< Collider *>( *Dest)->GetGameObject()->OnCollision( *Source);
 				}
@@ -95,7 +95,7 @@ void CollisionManager::Collision()
 		}
 	}
 
-	//ˆÊ’u‚ğXV
+	//ä½ç½®ã‚’æ›´æ–°
 	for (auto Col : m_listCollider)
 	{
 		if (Col->GetActive() == true)
@@ -106,13 +106,13 @@ void CollisionManager::Collision()
 }
 
 /*------------------------------------------------------------------------------
-	Õ“Ë‚µ‚Ä‚¢‚é‚©
-	ˆø”
-		std::list< Collider *>::iterator Source		ƒCƒeƒŒ[ƒ^i‚P‚Â–Új
-		std::list< Collider *>::iterator Dest		ƒCƒeƒŒ[ƒ^i‚Q‚Â–Új
-	–ß‚è’l
-		true		Õ“Ë‚ ‚è
-		false		Õ“Ë‚È‚µ
+	è¡çªã—ã¦ã„ã‚‹ã‹
+	å¼•æ•°
+		std::list< Collider *>::iterator Source		ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ï¼ˆï¼‘ã¤ç›®ï¼‰
+		std::list< Collider *>::iterator Dest		ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ï¼ˆï¼’ã¤ç›®ï¼‰
+	æˆ»ã‚Šå€¤
+		true		è¡çªã‚ã‚Š
+		false		è¡çªãªã—
 ------------------------------------------------------------------------------*/
 bool CollisionManager::IsCollision( std::list< Collider *>::iterator Source, std::list< Collider *>::iterator Dest)
 {
@@ -124,22 +124,22 @@ bool CollisionManager::IsCollision( std::list< Collider *>::iterator Source, std
 		return false;
 	}
 
-	//ƒ{ƒbƒNƒXƒRƒ‰ƒCƒ_[“¯m
+	//ãƒœãƒƒã‚¯ã‚¹ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼åŒå£«
 	if( pSource->GetColType() == eColBox && pDest->GetColType() == eColBox)
 	{
 		if (BoxBox((BoxCollider*)pSource, (BoxCollider*)pDest))
 		{
-			//Õ“Ë‚ ‚è
+			//è¡çªã‚ã‚Š
 			return true;
 		}
 	}
 
-	//ƒ{ƒbƒNƒX‚ÆƒƒbƒVƒ…ƒtƒB[ƒ‹ƒh
+	//ãƒœãƒƒã‚¯ã‚¹ã¨ãƒ¡ãƒƒã‚·ãƒ¥ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰
 	else if (pSource->GetColType() == eColBox && pDest->GetColType() == eColMeshField)
 	{
 		if (BoxMeshField((BoxCollider*)pSource, (MeshFieldCollider*)pDest))
 		{
-			//Õ“Ë‚ ‚è
+			//è¡çªã‚ã‚Š
 			return true;
 		}
 	}
@@ -148,19 +148,19 @@ bool CollisionManager::IsCollision( std::list< Collider *>::iterator Source, std
 	{
 		if (BoxMeshField((BoxCollider*)pDest, (MeshFieldCollider*)pSource))
 		{
-			//Õ“Ë‚ ‚è
+			//è¡çªã‚ã‚Š
 			return true;
 		}
 	}
 
-	//Õ“Ë‚È‚µ
+	//è¡çªãªã—
 	return false;
 }
 
 /*------------------------------------------------------------------------------
-	ƒŒƒC‚ÆÕ“Ë‚·‚éƒRƒ‰ƒCƒ_[‚ğ”»’è
-	ˆø”	RaycastHit* pOut	Å‚à‹ß‚¢ƒIƒuƒWƒFƒNƒg‚Ìî•ñ
-	–ß‚è’l	true ƒIƒuƒWƒFƒNƒg‚ ‚è	false ƒIƒuƒWƒFƒNƒg‚È‚µ
+	ãƒ¬ã‚¤ã¨è¡çªã™ã‚‹ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’åˆ¤å®š
+	å¼•æ•°	RaycastHit* pOut	æœ€ã‚‚è¿‘ã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æƒ…å ±
+	æˆ»ã‚Šå€¤	true ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚ã‚Š	false ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãªã—
 ------------------------------------------------------------------------------*/
 bool CollisionManager::Raycast(const Ray& ray, float maxDistance, RaycastHit* pOut)
 {
@@ -179,9 +179,9 @@ bool CollisionManager::Raycast(const Ray& ray, float maxDistance, RaycastHit* pO
 }
 
 /*------------------------------------------------------------------------------
-	ƒŒƒC‚ÆÕ“Ë‚·‚éƒRƒ‰ƒCƒ_[‚ğ”»’è
-	ˆø”	RaycastHit* pOut	Å‚à‹ß‚¢ƒIƒuƒWƒFƒNƒg‚Ìî•ñ
-	–ß‚è’l	true ƒIƒuƒWƒFƒNƒg‚ ‚è	false ƒIƒuƒWƒFƒNƒg‚È‚µ
+	ãƒ¬ã‚¤ã¨è¡çªã™ã‚‹ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’åˆ¤å®š
+	å¼•æ•°	RaycastHit* pOut	æœ€ã‚‚è¿‘ã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æƒ…å ±
+	æˆ»ã‚Šå€¤	true ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚ã‚Š	false ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãªã—
 ------------------------------------------------------------------------------*/
 bool CollisionManager::Raycast(const Vector3& position, const Vector3& direction, float maxDistance, RaycastHit* pOut)
 {
@@ -200,7 +200,7 @@ bool CollisionManager::Raycast(const Vector3& position, const Vector3& direction
 }
 
 /*------------------------------------------------------------------------------
-	ƒŒƒC‚ÆÕ“Ë‚·‚éƒRƒ‰ƒCƒ_[‚ğ”»’èiÕ“Ë‚µ‚½ƒRƒ‰ƒCƒ_[‚ğ‚·‚×‚Äæ“¾j
+	ãƒ¬ã‚¤ã¨è¡çªã™ã‚‹ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’åˆ¤å®šï¼ˆè¡çªã—ãŸã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’ã™ã¹ã¦å–å¾—ï¼‰
 ------------------------------------------------------------------------------*/
 std::list<RaycastHit> CollisionManager::RaycastAll(const Vector3& position, const Vector3& direction, float maxDistance)
 {
@@ -217,7 +217,7 @@ std::list<RaycastHit> CollisionManager::RaycastAll(const Vector3& position, cons
 		}
 	}
 
-	//ƒ\[ƒg
+	//ã‚½ãƒ¼ãƒˆ
 	if( hits.size() > 0)
 	{
 		hits.sort([](RaycastHit a, RaycastHit b){ return a.Distance < b.Distance;});
@@ -227,23 +227,23 @@ std::list<RaycastHit> CollisionManager::RaycastAll(const Vector3& position, cons
 }
 
 /*------------------------------------------------------------------------------
-	ƒ{ƒbƒNƒX‚Æƒ{ƒbƒNƒX
-	ˆø”
+	ãƒœãƒƒã‚¯ã‚¹ã¨ãƒœãƒƒã‚¯ã‚¹
+	å¼•æ•°
 		BoxCollider *pSource
 		BoxCollider *pDest
-	–ß‚è’l
-		true		Õ“Ë‚ ‚è
-		false		Õ“Ë‚È‚µ
+	æˆ»ã‚Šå€¤
+		true		è¡çªã‚ã‚Š
+		false		è¡çªãªã—
 ------------------------------------------------------------------------------*/
 bool CollisionManager::BoxBox( BoxCollider *pSource, BoxCollider *pDest)
 {
-	//•Ï”éŒ¾
+	//å¤‰æ•°å®£è¨€
 	Vector3 SourcePos = pSource->GetTransform()->GetWorldPosition();
 	Vector3 SourceSize = pSource->GetSize() * 0.5f;
 	Vector3 DestPos = pDest->GetTransform()->GetWorldPosition();
 	Vector3 DestSize = pDest->GetSize() * 0.5f;
 
-	//’†SˆÊ’u‚ğ‚¸‚ç‚·
+	//ä¸­å¿ƒä½ç½®ã‚’ãšã‚‰ã™
 	D3DXVECTOR3 center;
 	D3DXMATRIX mtxRot;
 	center = pSource->GetCenter().ConvertToDX();
@@ -255,48 +255,48 @@ bool CollisionManager::BoxBox( BoxCollider *pSource, BoxCollider *pDest)
 	D3DXVec3TransformCoord( &center, &center, &mtxRot);
 	DestPos += Vector3::ConvertFromDX( center);
 
-	//Õ“Ë”»’è
+	//è¡çªåˆ¤å®š
 	if( SourcePos.x + SourceSize.x > DestPos.x - DestSize.x && SourcePos.x - SourceSize.x < DestPos.x + DestSize.x &&
 		SourcePos.y + SourceSize.y > DestPos.y - DestSize.y && SourcePos.y - SourceSize.y < DestPos.y + DestSize.y &&
 		SourcePos.z + SourceSize.z > DestPos.z - DestSize.z && SourcePos.z - SourceSize.z < DestPos.z + DestSize.z)
 	{
-		//ƒIƒuƒWƒFƒNƒg‚ğ‚Í‚¶‚­ˆ—
-		//pSource‚ªÃ“IƒIƒuƒWƒFƒNƒg‚ÅpDest‚ª“®“IƒIƒuƒWƒFƒNƒg
+		//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã¯ã˜ãå‡¦ç†
+		//pSourceãŒé™çš„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§pDestãŒå‹•çš„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		if( pSource->m_IsTrigger == false && pDest->m_IsTrigger == true)
 		{
 			Vector3 Pos = pDest->m_pTransform->GetWorldPosition();
 
-			//è‘O
+			//æ‰‹å‰
 			if ( SourcePos.z - SourceSize.z > pDest->m_OldPos.z + DestSize.z)
 			{
 				Pos.z = SourcePos.z - SourceSize.z - DestSize.z;
 			}
 
-			//‰œ
+			//å¥¥
 			else if( SourcePos.z + SourceSize.z < pDest->m_OldPos.z - DestSize.z)
 			{
 				Pos.z = SourcePos.z + SourceSize.z + DestSize.z;
 			}
 
-			//¶
+			//å·¦
 			if ( SourcePos.x - SourceSize.x > pDest->m_OldPos.x + DestSize.x)
 			{
 				Pos.x = SourcePos.x - SourceSize.x - DestSize.x;
 			}
 
-			//‰E
+			//å³
 			else if( SourcePos.x + SourceSize.x < pDest->m_OldPos.x - DestSize.x)
 			{
 				Pos.x = SourcePos.x + SourceSize.x + DestSize.x;
 			}
 
-			//‰º
+			//ä¸‹
 			if ( SourcePos.y - SourceSize.y > pDest->m_OldPos.y + DestSize.y)
 			{
 				Pos.y = SourcePos.y - SourceSize.y - DestSize.y;
 			}
 
-			//ã
+			//ä¸Š
 			else if( SourcePos.y + SourceSize.y < pDest->m_OldPos.y - DestSize.y)
 			{
 				Pos.y = SourcePos.y + SourceSize.y + DestSize.y;
@@ -308,42 +308,42 @@ bool CollisionManager::BoxBox( BoxCollider *pSource, BoxCollider *pDest)
 
 		}
 
-		//pSource‚ª“®“IƒIƒuƒWƒFƒNƒg‚ÅpDest‚ªÃ“IƒIƒuƒWƒFƒNƒg
+		//pSourceãŒå‹•çš„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§pDestãŒé™çš„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		else if (pSource->m_IsTrigger == true && pDest->m_IsTrigger == false)
 		{
 			Vector3 Pos = pSource->m_pTransform->GetWorldPosition();
 
-			//è‘O
+			//æ‰‹å‰
 			if ( DestPos.z - DestSize.z > pSource->m_OldPos.z + SourceSize.z)
 			{
 				Pos.z = DestPos.z - DestSize.z - SourceSize.z;
 			}
 
-			//‰œ
+			//å¥¥
 			else if( DestPos.z + DestSize.z < pSource->m_OldPos.z - SourceSize.z)
 			{
 				Pos.z = DestPos.z + DestSize.z + SourceSize.z;
 			}
 
-			//¶
+			//å·¦
 			if ( DestPos.x - DestSize.x > pSource->m_OldPos.x + SourceSize.x)
 			{
 				Pos.x = DestPos.x - DestSize.x - SourceSize.x;
 			}
 
-			//‰E
+			//å³
 			else if( DestPos.x + DestSize.x < pSource->m_OldPos.x - SourceSize.x)
 			{
 				Pos.x = DestPos.x + DestSize.x + SourceSize.x;
 			}
 
-			//‰º
+			//ä¸‹
 			if ( DestPos.y - DestSize.y > pSource->m_OldPos.y + SourceSize.y)
 			{
 				Pos.y = DestPos.y - DestSize.y - SourceSize.y;
 			}
 
-			//ã
+			//ä¸Š
 			else if( DestPos.y + DestSize.y < pSource->m_OldPos.y - SourceSize.y)
 			{
 				Pos.y = DestPos.y + DestSize.y + SourceSize.y;
@@ -356,26 +356,26 @@ bool CollisionManager::BoxBox( BoxCollider *pSource, BoxCollider *pDest)
 
 		else
 		{
-			//–¢‘Î‰
+			//æœªå¯¾å¿œ
 			//assert(false);
 		}
 
-		//Õ“Ë‚ ‚è
+		//è¡çªã‚ã‚Š
 		return true;
 	}
 
-	//Õ“Ë‚È‚µ
+	//è¡çªãªã—
 	return false;
 }
 
 /*------------------------------------------------------------------------------
-	ƒ{ƒbƒNƒX‚ÆƒƒbƒVƒ…ƒtƒB[ƒ‹ƒh
-	ˆø”
+	ãƒœãƒƒã‚¯ã‚¹ã¨ãƒ¡ãƒƒã‚·ãƒ¥ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰
+	å¼•æ•°
 		BoxCollider *pBox
 		MeshFieldCollider *pMeshField
-	–ß‚è’l
-		true		Õ“Ë‚ ‚è
-		false		Õ“Ë‚È‚µ
+	æˆ»ã‚Šå€¤
+		true		è¡çªã‚ã‚Š
+		false		è¡çªãªã—
 ------------------------------------------------------------------------------*/
 bool CollisionManager::BoxMeshField(BoxCollider *pBox, MeshFieldCollider *pMeshField)
 {
@@ -383,7 +383,7 @@ bool CollisionManager::BoxMeshField(BoxCollider *pBox, MeshFieldCollider *pMeshF
 	Pos.y -= pBox->GetSize().y * 0.5f;
 	float Height = pMeshField->GetHeight(Pos);
 
-	//’†SˆÊ’u‚ğ‚¸‚ç‚·
+	//ä¸­å¿ƒä½ç½®ã‚’ãšã‚‰ã™
 	D3DXVECTOR3 center;
 	D3DXMATRIX mtxRot;
 	center = pBox->GetCenter().ConvertToDX();
@@ -393,75 +393,75 @@ bool CollisionManager::BoxMeshField(BoxCollider *pBox, MeshFieldCollider *pMeshF
 
 	if (Pos.y < Height)
 	{
-		//ã‚ÉˆÚ“®
+		//ä¸Šã«ç§»å‹•
 		if (pMeshField->m_IsTrigger == false)
 		{
 			pBox->m_pTransform->SetWorldPositionY( Height + pBox->GetSize().y * 0.5f - pBox->GetCenter().y);
 		}
 
-		//Õ“Ë‚ ‚è
+		//è¡çªã‚ã‚Š
 		return true;
 	}
 
-	//Õ“Ë‚È‚µ
+	//è¡çªãªã—
 	return false;
 }
 
 /*------------------------------------------------------------------------------
-	ƒŒƒC‚Æƒ{ƒbƒNƒX
+	ãƒ¬ã‚¤ã¨ãƒœãƒƒã‚¯ã‚¹
 ------------------------------------------------------------------------------*/
 bool CollisionManager::RayBox( const Vector3& position, const Vector3& direction, float maxDistance, BoxCollider* pBox, RaycastHit* pOut)
 {
-	//’¼ü‚ğ—§•û‘Ì‚ÌˆÊ’u‚ÖˆÚ“®
-	D3DXMATRIX mtxInv;			//ƒ[ƒ‹ƒhÀ•W•ÏŠ·s—ñ‚Ì‹ts—ñ
+	//ç›´ç·šã‚’ç«‹æ–¹ä½“ã®ä½ç½®ã¸ç§»å‹•
+	D3DXMATRIX mtxInv;			//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™å¤‰æ›è¡Œåˆ—ã®é€†è¡Œåˆ—
 	D3DXMatrixInverse( &mtxInv, 0, &pBox->m_pTransform->WorldMatrix());
 
-	D3DXVECTOR3 posLocal, dirLocal;		//’¼ü‚Ìƒ[ƒJƒ‹À•WE•ûŒü
+	D3DXVECTOR3 posLocal, dirLocal;		//ç›´ç·šã®ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ãƒ»æ–¹å‘
 	D3DXVec3TransformCoord( &posLocal, &position.ConvertToDX(), &mtxInv);
 	mtxInv._41 = 0.0f;
 	mtxInv._42 = 0.0f;
 	mtxInv._43 = 0.0f;
 	D3DXVec3TransformCoord( &dirLocal, &direction.ConvertToDX(), &mtxInv);
 
-	//’†S‚Ì•ª‚¸‚ç‚·
+	//ä¸­å¿ƒã®åˆ†ãšã‚‰ã™
 	posLocal -= pBox->GetCenter().ConvertToDX();
 
-	//Œğ·”»’è
-	//•Ï”éŒ¾
-	float pos[ 3 ], dir[ 3 ], min[ 3 ], max[ 3 ];		//for•¶‚Å‰ñ‚·—p
+	//äº¤å·®åˆ¤å®š
+	//å¤‰æ•°å®£è¨€
+	float pos[ 3 ], dir[ 3 ], min[ 3 ], max[ 3 ];		//foræ–‡ã§å›ã™ç”¨
 	Vector3 size = pBox->GetSize();
 	memcpy( pos, &posLocal, sizeof( D3DXVECTOR3 ) );
 	memcpy( dir, &dirLocal, sizeof( D3DXVECTOR3 ) );
 	memcpy( min, &D3DXVECTOR3( -size.x * 0.5f, -size.y * 0.5f, -size.z * 0.5f), sizeof( D3DXVECTOR3));
 	memcpy( max, &D3DXVECTOR3( size.x * 0.5f, size.y * 0.5f, size.z * 0.5f), sizeof( D3DXVECTOR3));
 
-	//Å‘å’lEÅ¬’l‘ã“ü
-	float fDistMin = -FLT_MAX;	//Å‚à‹ß‚¢‹——£
-	float fDistMax = FLT_MAX;	//Å‚à‰“‚¢‹——£
+	//æœ€å¤§å€¤ãƒ»æœ€å°å€¤ä»£å…¥
+	float fDistMin = -FLT_MAX;	//æœ€ã‚‚è¿‘ã„è·é›¢
+	float fDistMax = FLT_MAX;	//æœ€ã‚‚é ã„è·é›¢
 	
-	//XYZ‚ÌŒğ·”»’è
+	//XYZã®äº¤å·®åˆ¤å®š
 	for( int nCnt = 0; nCnt < 3; nCnt++)
 	{
 		if ( abs( dir[ nCnt]) < FLT_EPSILON)
 		{
 			if ( pos[ nCnt] < min[ nCnt] || pos[ nCnt] > max[ nCnt] )
 			{
-				//Õ“Ë‚È‚µ
+				//è¡çªãªã—
 				return false;
 			}
 		}
 		else
 		{
-			//ƒXƒ‰ƒu‚Æ‚Ì‹——£‚ğZo
+			//ã‚¹ãƒ©ãƒ–ã¨ã®è·é›¢ã‚’ç®—å‡º
 			float odd = 1.0f / dir[ nCnt];
 			float t1 = ( min[ nCnt] - pos[ nCnt]) * odd;
 			float t2 = ( max[ nCnt] - pos[ nCnt]) * odd;
 			if ( t1 > t2)
 			{
-				float tmp = t1; t1 = t2; t2 = tmp;		//Å‘åEÅ¬‚ğ“ü‚ê‘Ö‚¦
+				float tmp = t1; t1 = t2; t2 = tmp;		//æœ€å¤§ãƒ»æœ€å°ã‚’å…¥ã‚Œæ›¿ãˆ
 			}
 	
-			//‹——£‚ğXV
+			//è·é›¢ã‚’æ›´æ–°
 			if ( t1 > fDistMin)
 			{
 				fDistMin = t1;
@@ -471,29 +471,29 @@ bool CollisionManager::RayBox( const Vector3& position, const Vector3& direction
 				fDistMax = t2;
 			}
 
-			// ƒXƒ‰ƒuŒğ·ƒ`ƒFƒbƒN
+			// ã‚¹ãƒ©ãƒ–äº¤å·®ãƒã‚§ãƒƒã‚¯
 			if ( fDistMin >= fDistMax )
 			{
-				//Õ“Ë‚È‚µ
+				//è¡çªãªã—
 				return false;
 			}
 		}
 	}
 
-	//‹——£”»’è
+	//è·é›¢åˆ¤å®š
 	if (maxDistance > 0.0f && fDistMin > maxDistance)
 	{
 		return false;
 	}
 
-	//Õ“Ëî•ño—Í
+	//è¡çªæƒ…å ±å‡ºåŠ›
 	if( pOut)
 	{
 		pOut->pGameObject = pBox->m_pGameObject;
 		pOut->Distance = fDistMin;
 	}
 	
-	//Õ“Ë‚ ‚è
+	//è¡çªã‚ã‚Š
 	return true;
 }
 

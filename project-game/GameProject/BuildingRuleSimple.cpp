@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    BuildingRuleSimple.cpp - Œš•¨‚Ì©“®¶¬[Œš•¨‚ğ¶¬‚·‚éƒ‹[ƒ‹[ƒVƒ“ƒvƒ‹‚ÈŒš•¨
+    BuildingRuleSimple.cpp - å»ºç‰©ã®è‡ªå‹•ç”Ÿæˆãƒ¼å»ºç‰©ã‚’ç”Ÿæˆã™ã‚‹ãƒ«ãƒ¼ãƒ«ãƒ¼ã‚·ãƒ³ãƒ—ãƒ«ãªå»ºç‰©
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/12/12
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "BuildingRuleSimple.h"
 #include "BuildingSurfacePattern.h"
@@ -21,45 +21,45 @@
 #include "ShapeBox.h"
 
 /*------------------------------------------------------------------------------
-	ƒ‹[ƒ‹‚Ì¶¬
+	ãƒ«ãƒ¼ãƒ«ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 BuildingRule* BuildingRuleSimple::Create( BuildingSurfacePattern* surfacePattern)
 {
-	//ƒ‹[ƒ‹‚Ì¶¬
+	//ãƒ«ãƒ¼ãƒ«ã®ç”Ÿæˆ
 	auto rule = new BuildingRuleSimple();
 
-	//ƒ‰ƒ“ƒ_ƒ€‚Ìİ’è
+	//ãƒ©ãƒ³ãƒ€ãƒ ã®è¨­å®š
 	auto random = new Random();
 	rule->m_Random = random;
 	
-	//Œ`ó‚Ì‚‚³
+	//å½¢çŠ¶ã®é«˜ã•
 	random->SetRangeFloat( 10.0f, 50.0f);
 	rule->m_ShapeHeight = random->GetFloat();
 
-	//1ŠK‚Ì‚‚³
+	//1éšã®é«˜ã•
 	random->SetRangeFloat( 2.0f, 2.5f);
 	rule->m_GroundFloorHeight = random->GetFloat();
 	
-	//ƒtƒƒA‚Ì‚‚³
+	//ãƒ•ãƒ­ã‚¢ã®é«˜ã•
 	random->SetRangeFloat( 1.0f, 2.0f);
 	rule->m_FloorHeight = random->GetFloat();
 
-	//‘‹‚Ì•
+	//çª“ã®å¹…
 	random->SetRangeFloat( 0.8f, 1.8f);
 	rule->m_WindowWidth = random->GetFloat();
 
-	//ŒºŠÖ‚Ì•
+	//ç„é–¢ã®å¹…
 	random->SetRangeFloat( 2.0f, 2.5f);
 	rule->m_EntranceWidth = random->GetFloat();
 
-	//•\–Êƒpƒ^[ƒ“
+	//è¡¨é¢ãƒ‘ã‚¿ãƒ¼ãƒ³
 	rule->SetSurfacePattern( surfacePattern);
 	
 	return rule;
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 BuildingRuleSimple::~BuildingRuleSimple()
 {
@@ -67,7 +67,7 @@ BuildingRuleSimple::~BuildingRuleSimple()
 }
 
 /*------------------------------------------------------------------------------
-	Œ`ó‚Ì¶¬
+	å½¢çŠ¶ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 bool BuildingRuleSimple::ProceduralShape(BuildingGeometry* geometry)
 {
@@ -80,7 +80,7 @@ bool BuildingRuleSimple::ProceduralShape(BuildingGeometry* geometry)
 	size.z = vec03.Length();
 	size.y = m_ShapeHeight;
 	
-	//ShapeBox‚Ì¶¬
+	//ShapeBoxã®ç”Ÿæˆ
 	auto shape = new ShapeBox( geometry->GetGameObject());
 	shape->Init( Vector3(0.0f, 0.0f, 0.0f), 0.0f, size, this);
 	geometry->AddShape( shape);
@@ -89,11 +89,11 @@ bool BuildingRuleSimple::ProceduralShape(BuildingGeometry* geometry)
 }
 
 /*------------------------------------------------------------------------------
-	ƒtƒƒA‚Ì¶¬
+	ãƒ•ãƒ­ã‚¢ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 bool BuildingRuleSimple::ProceduralFloor( Wall* wall)
 {
-	//ƒeƒNƒXƒ`ƒƒ‚Ìİ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è¨­å®š
 	wall->LoadTexture( GetSurfacePattern()->GetTextureFileName());
 
 	float height = wall->GetHeight();
@@ -102,14 +102,14 @@ bool BuildingRuleSimple::ProceduralFloor( Wall* wall)
 	auto normal = wall->GetNormal();
 	Floor* floor = NULL;
 
-	//1ŠK
+	//1éš
 	floor = new Floor();
 	floor->InitDefault( m_GroundFloorHeight, width, bottomLeft, normal, eFloorGround, this);
 	wall->AddFloor( floor);
 	height -= m_GroundFloorHeight;
 	bottomLeft.y += m_GroundFloorHeight;
 
-	//‚»‚êˆÈŠO‚ÌƒtƒƒA
+	//ãã‚Œä»¥å¤–ã®ãƒ•ãƒ­ã‚¢
 	for (;;)
 	{
 		if (height < m_FloorHeight)
@@ -123,7 +123,7 @@ bool BuildingRuleSimple::ProceduralFloor( Wall* wall)
 		bottomLeft.y += m_FloorHeight;
 	}
 
-	//ã•”‚É—]”’
+	//ä¸Šéƒ¨ã«ä½™ç™½
 	floor = new Floor();
 	floor->InitDefault( height, width, bottomLeft, normal, eFloorMargin, this);
 	wall->AddFloor( floor);
@@ -132,7 +132,7 @@ bool BuildingRuleSimple::ProceduralFloor( Wall* wall)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ^ƒCƒ‹‚Ì¶¬
+	ã‚¿ã‚¤ãƒ«ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 bool BuildingRuleSimple::ProceduralTile( Floor* floor)
 {
@@ -144,7 +144,7 @@ bool BuildingRuleSimple::ProceduralTile( Floor* floor)
 	TileDefault* tile = NULL;
 	TileDefault* tileNext = NULL;
 	
-	//•‚ª‘‹‚æ‚è‘«‚è‚È‚¢ê‡•Ç‚Ì‚İİ’è
+	//å¹…ãŒçª“ã‚ˆã‚Šè¶³ã‚Šãªã„å ´åˆå£ã®ã¿è¨­å®š
 	if (width < m_WindowWidth)
 	{
 		tile = new TileDefault();
@@ -153,7 +153,7 @@ bool BuildingRuleSimple::ProceduralTile( Floor* floor)
 		return true;
 	}
 
-	//‹«ŠE‚Ìİ’è
+	//å¢ƒç•Œã®è¨­å®š
 	if (floor->GetType() == eFloorBorder)
 	{
 		tile = new TileDefault();
@@ -165,7 +165,7 @@ bool BuildingRuleSimple::ProceduralTile( Floor* floor)
 	int countWindow = (int)( width / m_WindowWidth);
 	float wallWidth = ( width - countWindow * m_WindowWidth) * 0.5f;
 
-	//1ŠK‚Ìİ’èi•ÇA“üŒûA‘‹A•Çj
+	//1éšã®è¨­å®šï¼ˆå£ã€å…¥å£ã€çª“ã€å£ï¼‰
 	if (floor->GetType() == eFloorGround)
 	{
 		if (width > m_EntranceWidth + wallWidth * 2.0f)
@@ -202,7 +202,7 @@ bool BuildingRuleSimple::ProceduralTile( Floor* floor)
 		}
 	}
 
-	//—]”’‚Ìİ’èi‚·‚×‚Ä•Çj
+	//ä½™ç™½ã®è¨­å®šï¼ˆã™ã¹ã¦å£ï¼‰
 	if (floor->GetType() == eFloorMargin)
 	{
 		tile = new TileDefault();
@@ -226,7 +226,7 @@ bool BuildingRuleSimple::ProceduralTile( Floor* floor)
 		return true;
 	}
 
-	//ƒfƒtƒHƒ‹ƒg‚Ìİ’èi‘‹‚Æ—¼’[‚É•Çj
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®è¨­å®šï¼ˆçª“ã¨ä¸¡ç«¯ã«å£ï¼‰
 	tile = new TileDefault();
 	floor->SetTile( tile);
 	tile->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, GetSurfacePattern()->GetWall());
@@ -250,7 +250,7 @@ bool BuildingRuleSimple::ProceduralTile( Floor* floor)
 }
 
 /*------------------------------------------------------------------------------
-	ƒtƒƒA‚Ì¶¬i‰~‚É‰ˆ‚Á‚Ä‹È‚ª‚éj
+	ãƒ•ãƒ­ã‚¢ã®ç”Ÿæˆï¼ˆå††ã«æ²¿ã£ã¦æ›²ãŒã‚‹ï¼‰
 ------------------------------------------------------------------------------*/
 bool BuildingRuleSimple::ProceduralFloorCurve( Wall* wall)
 {
@@ -260,7 +260,7 @@ bool BuildingRuleSimple::ProceduralFloorCurve( Wall* wall)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ^ƒCƒ‹‚Ì¶¬i‰~‚É‰ˆ‚Á‚Ä‹È‚ª‚éj
+	ã‚¿ã‚¤ãƒ«ã®ç”Ÿæˆï¼ˆå††ã«æ²¿ã£ã¦æ›²ãŒã‚‹ï¼‰
 ------------------------------------------------------------------------------*/
 bool BuildingRuleSimple::ProceduralTileCurve( Floor* floor)
 {

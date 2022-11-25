@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    PerPixelLightingShader.cpp - ƒp[ƒsƒNƒZƒ‹ƒ‰ƒCƒeƒBƒ“ƒOƒVƒF[ƒ_[
+    PerPixelLightingShader.cpp - ãƒ‘ãƒ¼ãƒ”ã‚¯ã‚»ãƒ«ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/8/08
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "PerPixelLightingShader.h"
 #include "Renderer.h"
@@ -16,13 +16,13 @@
 #include "Light.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 PerPixelLightingShader::PerPixelLightingShader()
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//ƒfƒoƒCƒX‚Ìƒ|ƒCƒ“ƒ^
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//ãƒ‡ãƒã‚¤ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
 	
-	//’¸“_éŒ¾Ši”[ƒCƒ“ƒ^[ƒtƒFƒCƒXì¬
+	//é ‚ç‚¹å®£è¨€æ ¼ç´ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ä½œæˆ
 	D3DVERTEXELEMENT9 g_Dec1[] =
 	{
 		{ 0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
@@ -33,17 +33,17 @@ PerPixelLightingShader::PerPixelLightingShader()
 	};
 	pDevice->CreateVertexDeclaration( g_Dec1, &m_pVertexDec);
 
-	//ƒVƒF[ƒ_‚Ì“Ç‚Ýž‚Ý
+	//ã‚·ã‚§ãƒ¼ãƒ€ã®èª­ã¿è¾¼ã¿
 	HRESULT hr;
-	ID3DXBuffer *pError;		//ƒRƒ“ƒpƒCƒ‹ƒGƒ‰[î•ñŠi”[ƒoƒbƒtƒ@
+	ID3DXBuffer *pError;		//ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã‚¨ãƒ©ãƒ¼æƒ…å ±æ ¼ç´ãƒãƒƒãƒ•ã‚¡
 	hr = D3DXCreateEffectFromFile(pDevice, "data/SHADER/PerPixelLightingShader.cso", NULL, NULL, D3DXSHADER_SKIPVALIDATION, NULL, &m_pEffect, &pError);
 	if( FAILED( hr))
 	{
-		MessageBox( NULL, "ƒVƒF[ƒ_[‚Ì“Ç‚Ýž‚Ý‚ÉŽ¸”s‚µ‚Ü‚µ‚½\n", "ƒGƒ‰[", MB_OK);
+		MessageBox( NULL, "ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		return;
 	}
 
-	//ƒnƒ“ƒhƒ‹‚ÌŽæ“¾
+	//ãƒãƒ³ãƒ‰ãƒ«ã®å–å¾—
 	m_hTech = m_pEffect->GetTechnique(0);
 	m_hMtxWorld = m_pEffect->GetParameterByName(0, "g_mtxWorld");
 	m_hMtxWVP = m_pEffect->GetParameterByName(0, "g_mtxWVP");
@@ -62,7 +62,7 @@ PerPixelLightingShader::PerPixelLightingShader()
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 PerPixelLightingShader::~PerPixelLightingShader()
 {
@@ -72,18 +72,18 @@ PerPixelLightingShader::~PerPixelLightingShader()
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[‚ðƒZƒbƒg
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’ã‚»ãƒƒãƒˆ
 ------------------------------------------------------------------------------*/
 void PerPixelLightingShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial, bool isAlreadySet)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//ƒfƒoƒCƒX‚Ìƒ|ƒCƒ“ƒ^
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//ãƒ‡ãƒã‚¤ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
 
 	//if( !isAlreadySet)
 	{
-		//’¸“_éŒ¾
+		//é ‚ç‚¹å®£è¨€
 		pDevice->SetVertexDeclaration( m_pVertexDec);
 
-		//ƒeƒNƒjƒbƒN‚ÌÝ’è
+		//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯ã®è¨­å®š
 		m_pEffect->SetTechnique( m_hTech);
 	}
 
@@ -94,7 +94,7 @@ void PerPixelLightingShader::Set(Camera* pCamera, Renderer* pRenderer, Material*
 	D3DXMatrixInverse( &mtxWIT, NULL, &mtxWorld);
 	D3DXMatrixTranspose( &mtxWIT, &mtxWIT);
 	
-	//’è”‚ðƒVƒF[ƒ_‚É“`‚¦‚é
+	//å®šæ•°ã‚’ã‚·ã‚§ãƒ¼ãƒ€ã«ä¼ãˆã‚‹
 	m_pEffect->SetMatrix( m_hMtxWorld, &mtxWorld);
 	m_pEffect->SetMatrix( m_hMtxWVP, &mtxWVP);
 	m_pEffect->SetMatrix( m_hMtxWIT, &mtxWIT);
@@ -103,7 +103,7 @@ void PerPixelLightingShader::Set(Camera* pCamera, Renderer* pRenderer, Material*
 	m_pEffect->SetVector( m_hMaterialDif, pMaterial->GetDiffuse());
 	m_pEffect->SetVector( m_hMaterialSpe, pMaterial->GetSpecular());
 	
-	//ƒ‰ƒCƒg‚ÌŽæ“¾
+	//ãƒ©ã‚¤ãƒˆã®å–å¾—
 	auto list = Light::GetList();
 	for (auto light : list)
 	{
@@ -114,14 +114,14 @@ void PerPixelLightingShader::Set(Camera* pCamera, Renderer* pRenderer, Material*
 		m_pEffect->SetVector( m_hLightDif, light->GetDiffuse());
 		m_pEffect->SetVector( m_hLightSpe, light->GetSpecular());
 		
-		//¡‚Íˆê‚Â‚¾‚¯
+		//ä»Šã¯ä¸€ã¤ã ã‘
 		break;
 	}
 
-	//ƒXƒyƒLƒ…ƒ‰[ƒpƒ[
+	//ã‚¹ãƒšã‚­ãƒ¥ãƒ©ãƒ¼ãƒ‘ãƒ¯ãƒ¼
 	m_pEffect->SetFloat( m_hSpeclarPower, 5.0f);
 
-	//ƒJƒƒ‰‚ÌÝ’è
+	//ã‚«ãƒ¡ãƒ©ã®è¨­å®š
 	auto pos = pCamera->m_pTransform->GetWorldPosition();
 	D3DXVECTOR4 PosEye( pos.x, pos.y, pos.z, 0.0f);
 	m_pEffect->SetVector( m_hPosEyeW, &PosEye);

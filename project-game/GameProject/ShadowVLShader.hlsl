@@ -1,4 +1,4 @@
-//\‘¢‘Ì’è‹`
+//æ§‹é€ ä½“å®šç¾©
 struct VS_INPUT
 {
 	float3 pos : POSITION0;
@@ -22,7 +22,7 @@ struct OM_INPUT
 	float4 col : SV_Target0;
 };
 
-//ƒOƒ[ƒoƒ‹•Ï”’è‹`
+//ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°å®šç¾©
 float4x4 g_mtxWVP;
 float4x4 g_mtxWIT;
 
@@ -41,7 +41,7 @@ float g_far;
 
 static const float SHADOW_EPSILON = 0.00094f;
 
-//ƒeƒNƒXƒ`ƒƒƒTƒ“ƒvƒ‰
+//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µãƒ³ãƒ—ãƒ©
 sampler TextureSampler = 
 sampler_state
 {
@@ -70,7 +70,7 @@ sampler_state
 	
 };
 
-//’¸“_ƒVƒF[ƒ_[
+//é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 PS_INPUT vs(VS_INPUT input)
 {
 	PS_INPUT output;
@@ -79,50 +79,50 @@ PS_INPUT vs(VS_INPUT input)
 	output.color = input.color;
 	output.tex = input.tex;
 
-	//‰e
+	//å½±
 	output.lightPosH = mul( float4(input.pos, 1.0f), g_mtxLightWVP);
 	output.depthWV = mul( float4(input.pos, 1.0f), g_mtxLightWV).z / g_far;
 
 	return output;
 }
 
-//ƒsƒNƒZƒ‹ƒVƒF[ƒ_[
+//ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 OM_INPUT ps(PS_INPUT input)
 {
-	//ƒJƒ‰[‚ÌŒvZ
+	//ã‚«ãƒ©ãƒ¼ã®è¨ˆç®—
 	OM_INPUT output;
 	float4 tex = tex2D(TextureSampler, input.tex);
 	
-	//ƒ‰ƒCƒeƒBƒ“ƒO
-	//–@ü‚Ì³‹K‰»
+	//ãƒ©ã‚¤ãƒ†ã‚£ãƒ³ã‚°
+	//æ³•ç·šã®æ­£è¦åŒ–
 	input.normalW = normalize( input.normalW);
 
-	//•½sŒõŒ¹
+	//å¹³è¡Œå…‰æº
 	//float diff = max( dot( input.normalW, -g_lightDirW), 0.0f) * 0.6f;
 
-	//•½sŒõŒ¹iƒn[ƒtƒ‰ƒ“ƒo[ƒgj
+	//å¹³è¡Œå…‰æºï¼ˆãƒãƒ¼ãƒ•ãƒ©ãƒ³ãƒãƒ¼ãƒˆï¼‰
 	float diff = max( (dot( input.normalW, -g_lightDirW) + 1) * 0.5f, 0.0f) * 0.8f;
 
-	//ŠÂ‹«Œõ
+	//ç’°å¢ƒå…‰
 	float amb = 0.7f;
 
-	//ƒ‰ƒCƒg‚Æƒ}ƒeƒŠƒAƒ‹‚ÌƒJƒ‰[‚ğæZ
+	//ãƒ©ã‚¤ãƒˆã¨ãƒãƒ†ãƒªã‚¢ãƒ«ã®ã‚«ãƒ©ãƒ¼ã‚’ä¹—ç®—
 	float3 diffColor = diff * g_LightDif * g_MaterialDif;
 	float3 ambColor = amb * g_LightAmb * g_MaterialAmb;
 	
-	//ƒJƒ‰[‚ÌŒˆ’è
+	//ã‚«ãƒ©ãƒ¼ã®æ±ºå®š
 	float4 color = float4( tex.rgb * ( diffColor + ambColor) , tex.a);
 
-	//‰e
-	//ƒeƒNƒXƒ`ƒƒÀ•W‚ğZo
+	//å½±
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™ã‚’ç®—å‡º
 	input.lightPosH.xy /= input.lightPosH.w;
 	input.lightPosH.x = input.lightPosH.x * +0.5f + 0.5f;
 	input.lightPosH.y = input.lightPosH.y * -0.5f + 0.5f;
 
-	//[“xƒoƒbƒtƒ@‚©‚ç[“x‚ğ“¾‚é
+	//æ·±åº¦ãƒãƒƒãƒ•ã‚¡ã‹ã‚‰æ·±åº¦ã‚’å¾—ã‚‹
 	float lightDepthWV = tex2D(ShadowBufSampler, input.lightPosH.xy).r;
 
-	//ƒJƒ‰[‚ÌŒˆ’è(•‚­‚·‚é‚©‚»‚Ì‚Ü‚Ü‚©)
+	//ã‚«ãƒ©ãƒ¼ã®æ±ºå®š(é»’ãã™ã‚‹ã‹ãã®ã¾ã¾ã‹)
 	float s = lightDepthWV + SHADOW_EPSILON < input.depthWV ? 0.6f : 1.0f;
 	//output.col = float4( color.rgb * s, color.a);
 	output.col = float4( color.r * s, color.g * s, color.b * s, color.a);
@@ -130,7 +130,7 @@ OM_INPUT ps(PS_INPUT input)
 	return output;
 }
 
-//ƒeƒNƒjƒbƒN
+//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯
 technique TShader
 {
 	pass P0
@@ -139,7 +139,7 @@ technique TShader
 		PixelShader = compile ps_3_0 ps();
 	}
 
-	pass P1		//”¼“§–¾
+	pass P1		//åŠé€æ˜
 	{
 		VertexShader = compile vs_3_0 vs();
 		PixelShader = compile ps_3_0 ps();
@@ -149,7 +149,7 @@ technique TShader
 		DestBlend = INVSRCALPHA;
 	}
 
-	pass P2		//‰ÁZ‡¬
+	pass P2		//åŠ ç®—åˆæˆ
 	{
 		VertexShader = compile vs_3_0 vs();
 		PixelShader = compile ps_3_0 ps();

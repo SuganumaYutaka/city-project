@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    BuildingSurfacePattern.cpp - Œš•¨‚Ì©“®¶¬[Œš•¨‚Ì•\–Êƒpƒ^[ƒ“
+    BuildingSurfacePattern.cpp - å»ºç‰©ã®è‡ªå‹•ç”Ÿæˆãƒ¼å»ºç‰©ã®è¡¨é¢ãƒ‘ã‚¿ãƒ¼ãƒ³
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/12/12
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "BuildingSurfacePattern.h"
 #include "DebugLog.h"
@@ -14,23 +14,23 @@
 #include "TextureManager.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 BuildingSurfacePattern::BuildingSurfacePattern(std::string fileName)
 {
 	m_SizeLevel = eBuildingSizeMiddle;
 
-	//ƒXƒNƒŠƒvƒg‚ğ“Ç‚İ‚İ
+	//ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’èª­ã¿è¾¼ã¿
 	if (!Load(fileName))
 	{
-		DebugLog::Add( "BuildingSurfacePatternFƒXƒNƒŠƒvƒg‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½B" + fileName + '\n');
+		DebugLog::Add( "BuildingSurfacePatternï¼šã‚¹ã‚¯ãƒªãƒ—ãƒˆã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸã€‚" + fileName + '\n');
 	}
 
 	m_Random = new Random();
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 BuildingSurfacePattern::~BuildingSurfacePattern()
 {
@@ -50,7 +50,7 @@ BuildingSurfacePattern::~BuildingSurfacePattern()
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 bool BuildingSurfacePattern::Load(std::string fileName)
 {
@@ -124,14 +124,14 @@ bool BuildingSurfacePattern::Load(std::string fileName)
 			m_Borders.push_back( texUV);
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return false;
 		}
 	}
 
-	//ƒ`ƒFƒbƒN
+	//ãƒã‚§ãƒƒã‚¯
 	if (m_TextureFileName.size() == 0)
 	{
 		return false;
@@ -157,7 +157,7 @@ bool BuildingSurfacePattern::Load(std::string fileName)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ‰ƒ“ƒ_ƒ€‚ÅUVÀ•W‚ğæ“¾
+	ãƒ©ãƒ³ãƒ€ãƒ ã§UVåº§æ¨™ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 const TextureUV& BuildingSurfacePattern::GetWall()
 {
@@ -184,13 +184,13 @@ const TextureUV& BuildingSurfacePattern::GetBorder()
 }
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒfƒbƒNƒX‚©‚çUVÀ•W‚ğæ“¾
+	ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‹ã‚‰UVåº§æ¨™ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 const TextureUV& BuildingSurfacePattern::GetWall( unsigned int index)
 {
 	if (m_Walls.size() <= index)
 	{
-		DebugLog::Add( "BuildingSurfacePatternF (Wall)“Ç‚İ‚Ü‚ê‚½”‚Æˆê’v‚µ‚Ü‚¹‚ñ\n");
+		DebugLog::Add( "BuildingSurfacePatternï¼š (Wall)èª­ã¿è¾¼ã¾ã‚ŒãŸæ•°ã¨ä¸€è‡´ã—ã¾ã›ã‚“\n");
 		return m_Walls[0];
 	}
 	return m_Walls[ index];
@@ -200,7 +200,7 @@ const TextureUV& BuildingSurfacePattern::GetWindow( unsigned int index)
 {
 	if (m_Windows.size() <= index)
 	{
-		DebugLog::Add( "BuildingSurfacePatternF (Window)“Ç‚İ‚Ü‚ê‚½”‚Æˆê’v‚µ‚Ü‚¹‚ñ\n");
+		DebugLog::Add( "BuildingSurfacePatternï¼š (Window)èª­ã¿è¾¼ã¾ã‚ŒãŸæ•°ã¨ä¸€è‡´ã—ã¾ã›ã‚“\n");
 		return m_Windows[0];
 	}
 	return m_Windows[ index];
@@ -210,7 +210,7 @@ const TextureUV& BuildingSurfacePattern::GetEntrance( unsigned int index)
 {
 	if (m_Entrances.size() <= index)
 	{
-		DebugLog::Add( "BuildingSurfacePatternF (Entrance)“Ç‚İ‚Ü‚ê‚½”‚Æˆê’v‚µ‚Ü‚¹‚ñ\n");
+		DebugLog::Add( "BuildingSurfacePatternï¼š (Entrance)èª­ã¿è¾¼ã¾ã‚ŒãŸæ•°ã¨ä¸€è‡´ã—ã¾ã›ã‚“\n");
 		return m_Entrances[0];
 	}
 	return m_Entrances[ index];
@@ -220,7 +220,7 @@ const TextureUV& BuildingSurfacePattern::GetBorder( unsigned int index)
 {
 	if (m_Borders.size() <= index)
 	{
-		DebugLog::Add( "BuildingSurfacePatternF (Border)“Ç‚İ‚Ü‚ê‚½”‚Æˆê’v‚µ‚Ü‚¹‚ñ\n");
+		DebugLog::Add( "BuildingSurfacePatternï¼š (Border)èª­ã¿è¾¼ã¾ã‚ŒãŸæ•°ã¨ä¸€è‡´ã—ã¾ã›ã‚“\n");
 		return m_Borders[0];
 	}
 	return m_Borders[ index];

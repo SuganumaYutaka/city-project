@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    BuildingRuleFactory.cpp - Œš•¨‚Ì©“®¶¬[Œš•¨‚ğ¶¬‚·‚éƒ‹[ƒ‹‚ğ¶¬‚·‚é
+    BuildingRuleFactory.cpp - å»ºç‰©ã®è‡ªå‹•ç”Ÿæˆãƒ¼å»ºç‰©ã‚’ç”Ÿæˆã™ã‚‹ãƒ«ãƒ¼ãƒ«ã‚’ç”Ÿæˆã™ã‚‹
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/12/8
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "BuildingRuleFactory.h"
 #include "BuildingRule.h"
@@ -19,13 +19,13 @@
 #include "BuildingRuleMultiShape.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 BuildingRuleFactory::BuildingRuleFactory()
 {
 	m_Random = new Random();
 
-	//Œš•¨‚Ì•\–Êƒpƒ^[ƒ“‚ğ“Ç‚İ‚İ
+	//å»ºç‰©ã®è¡¨é¢ãƒ‘ã‚¿ãƒ¼ãƒ³ã‚’èª­ã¿è¾¼ã¿
 	m_SurfacePatterns.push_back( new BuildingSurfacePattern( "data/SCRIPT/BuildingSurfacePattern/test03.txt"));
 	m_SurfacePatterns.push_back( new BuildingSurfacePattern( "data/SCRIPT/BuildingSurfacePattern/test02.txt"));
 	
@@ -34,7 +34,7 @@ BuildingRuleFactory::BuildingRuleFactory()
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 BuildingRuleFactory::~BuildingRuleFactory()
 {
@@ -47,25 +47,25 @@ BuildingRuleFactory::~BuildingRuleFactory()
 }
 
 /*------------------------------------------------------------------------------
-	Œš•¨¶¬ƒ‹[ƒ‹‚ğ¶¬
+	å»ºç‰©ç”Ÿæˆãƒ«ãƒ¼ãƒ«ã‚’ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 BuildingRule* BuildingRuleFactory::CreateBuildingRule(const std::vector<Vector3>& vertices, BlockAttribute* attribute)
 {
-	//TODO:“y’n‚Ì‘å‚«‚³‚â‹æ‰æ‚Ì‘®«‚É‰‚¶‚Äƒ‹[ƒ‹‚ğ¶¬
+	//TODO:åœŸåœ°ã®å¤§ãã•ã‚„åŒºç”»ã®å±æ€§ã«å¿œã˜ã¦ãƒ«ãƒ¼ãƒ«ã‚’ç”Ÿæˆ
 
 	BuildingRule* rule;
 
-	//ƒT[ƒtƒFƒXƒpƒ^[ƒ“‚ÌŒˆ’è
+	//ã‚µãƒ¼ãƒ•ã‚§ã‚¹ãƒ‘ã‚¿ãƒ¼ãƒ³ã®æ±ºå®š
 	int pattern = m_Random->GetInt();
 
-	//ƒ‹[ƒ‹‚Ì¶¬
+	//ãƒ«ãƒ¼ãƒ«ã®ç”Ÿæˆ
 	//rule = BuildingRuleSimple::Create(m_SurfacePatterns[ pattern]);
 	//rule = BuildingRuleCylinder::Create(m_SurfacePatterns[ pattern]);
 	rule = BuildingRuleMultiShape::Create(m_SurfacePatterns[ pattern]);
 	
 	if (!rule)
 	{
-		DebugLog::Add( "BuildingRuleFactory:ƒ‹[ƒ‹‚Ì¶¬‚É¸”s‚µ‚Ü‚µ‚½\n");
+		DebugLog::Add( "BuildingRuleFactory:ãƒ«ãƒ¼ãƒ«ã®ç”Ÿæˆã«å¤±æ•—ã—ã¾ã—ãŸ\n");
 		return NULL;
 	}
 

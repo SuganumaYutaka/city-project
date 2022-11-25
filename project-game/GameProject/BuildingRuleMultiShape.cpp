@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    BuildingRuleMultiShape.h - Œš•¨‚Ì©“®¶¬[Œš•¨‚ğ¶¬‚·‚éƒ‹[ƒ‹[•¡”Shape‚©‚ç‚È‚éŒš•¨
+    BuildingRuleMultiShape.h - å»ºç‰©ã®è‡ªå‹•ç”Ÿæˆãƒ¼å»ºç‰©ã‚’ç”Ÿæˆã™ã‚‹ãƒ«ãƒ¼ãƒ«ãƒ¼è¤‡æ•°Shapeã‹ã‚‰ãªã‚‹å»ºç‰©
                                                        Author : Yutaka Suganuma
                                                        Date   : 2018/1/14
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "BuildingRuleMultiShape.h"
 #include "BuildingSurfacePattern.h"
@@ -22,51 +22,51 @@
 #include "ShapeCylinder.h"
 
 /*------------------------------------------------------------------------------
-	ƒ‹[ƒ‹‚Ì¶¬
+	ãƒ«ãƒ¼ãƒ«ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 BuildingRule* BuildingRuleMultiShape::Create( BuildingSurfacePattern* surfacePattern)
 {
-	//ƒ‹[ƒ‹‚Ì¶¬
+	//ãƒ«ãƒ¼ãƒ«ã®ç”Ÿæˆ
 	auto rule = new BuildingRuleMultiShape();
 	
-	//ƒ‰ƒ“ƒ_ƒ€‚Ìİ’è
+	//ãƒ©ãƒ³ãƒ€ãƒ ã®è¨­å®š
 	auto random = new Random();
 	rule->m_Random = random;
 
-	//Œ`ó‚Ì‚‚³
+	//å½¢çŠ¶ã®é«˜ã•
 	random->SetRangeFloat( 20.0f, 25.0f);
 	rule->m_ShapeHeightMin = random->GetFloat();
 	random->SetRangeFloat( 25.0f, 30.0f);
 	rule->m_ShapeHeightMax = rule->m_ShapeHeightMin + random->GetFloat();
 
-	//Œ`ó‚ÌƒTƒCƒY‚Ì”ä—¦
+	//å½¢çŠ¶ã®ã‚µã‚¤ã‚ºã®æ¯”ç‡
 	rule->m_ShapeSizeRateMax = 0.9f;
 	rule->m_ShapeSizeRateMin = 0.5f;
 
-	//1ŠK‚Ì‚‚³
+	//1éšã®é«˜ã•
 	random->SetRangeFloat( 1.2f, 1.5f);
 	rule->m_GroundFloorHeight = random->GetFloat();
 	
-	//ƒtƒƒA‚Ì‚‚³
+	//ãƒ•ãƒ­ã‚¢ã®é«˜ã•
 	random->SetRangeFloat( 1.0f, 1.5f);
 	rule->m_FloorHeight = random->GetFloat();
 
-	//‘‹‚Ì•
+	//çª“ã®å¹…
 	random->SetRangeFloat( 0.8f, 1.5f);
 	rule->m_WindowWidth = random->GetFloat();
 
-	//ŒºŠÖ‚Ì•
+	//ç„é–¢ã®å¹…
 	random->SetRangeFloat( 2.0f, 2.5f);
 	rule->m_EntranceWidth = random->GetFloat();
 
-	//•\–Êƒpƒ^[ƒ“
+	//è¡¨é¢ãƒ‘ã‚¿ãƒ¼ãƒ³
 	rule->SetSurfacePattern( surfacePattern);
 	
 	return rule;
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 BuildingRuleMultiShape::~BuildingRuleMultiShape()
 {
@@ -74,11 +74,11 @@ BuildingRuleMultiShape::~BuildingRuleMultiShape()
 }
 
 /*------------------------------------------------------------------------------
-	Œ`ó‚Ì¶¬
+	å½¢çŠ¶ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 bool BuildingRuleMultiShape::ProceduralShape(BuildingGeometry* geometry)
 {
-	//“y’n‚Ì‘å‚«‚³
+	//åœŸåœ°ã®å¤§ãã•
 	auto land = geometry->GetLand();
 	auto vertices = land->GetVertices();
 	Vector3 vec01 = vertices[1] - vertices[0];
@@ -87,34 +87,34 @@ bool BuildingRuleMultiShape::ProceduralShape(BuildingGeometry* geometry)
 	landSize.x = vec01.Length();
 	landSize.z = vec03.Length();
 
-	//Shape‚Ì”
+	//Shapeã®æ•°
 	m_Random->SetRangeInt( 1, 2);
 	int shapeCount = m_Random->GetInt();
 	//int shapeCount = 2;
 	
-	//Shape‚Ìí—Ş
+	//Shapeã®ç¨®é¡
 	m_Random->SetRangeInt( 0, 2);
 	int type = m_Random->GetInt();
 	//int type = 2;
 	if( type < 2)
 	{
-		//ShapeBox‚Ì¶¬
+		//ShapeBoxã®ç”Ÿæˆ
 		CreateShapeBoxes( shapeCount, geometry, landSize);
 	}
 	else
 	{
-		//ShapeCylinder‚Ì¶¬
+		//ShapeCylinderã®ç”Ÿæˆ
 		CreateShapeCylinders( shapeCount, geometry, landSize);
 	}
 	return true;
 }
 
 /*------------------------------------------------------------------------------
-	ƒtƒƒA‚Ì¶¬
+	ãƒ•ãƒ­ã‚¢ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 bool BuildingRuleMultiShape::ProceduralFloor( Wall* wall)
 {
-	//ƒeƒNƒXƒ`ƒƒ‚Ìİ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è¨­å®š
 	wall->LoadTexture( GetSurfacePattern()->GetTextureFileName());
 
 	float height = wall->GetHeight();
@@ -123,14 +123,14 @@ bool BuildingRuleMultiShape::ProceduralFloor( Wall* wall)
 	auto normal = wall->GetNormal();
 	Floor* floor = NULL;
 
-	//1ŠK
+	//1éš
 	floor = new Floor();
 	floor->InitDefault( m_GroundFloorHeight, width, bottomLeft, normal, eFloorGround, this);
 	wall->AddFloor( floor);
 	height -= m_GroundFloorHeight;
 	bottomLeft.y += m_GroundFloorHeight;
 
-	//‚»‚êˆÈŠO‚ÌƒtƒƒA
+	//ãã‚Œä»¥å¤–ã®ãƒ•ãƒ­ã‚¢
 	for (;;)
 	{
 		if (height < m_FloorHeight)
@@ -144,7 +144,7 @@ bool BuildingRuleMultiShape::ProceduralFloor( Wall* wall)
 		bottomLeft.y += m_FloorHeight;
 	}
 
-	//ã•”‚É—]”’
+	//ä¸Šéƒ¨ã«ä½™ç™½
 	floor = new Floor();
 	floor->InitDefault( height, width, bottomLeft, normal, eFloorMargin, this);
 	wall->AddFloor( floor);
@@ -153,7 +153,7 @@ bool BuildingRuleMultiShape::ProceduralFloor( Wall* wall)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ^ƒCƒ‹‚Ì¶¬
+	ã‚¿ã‚¤ãƒ«ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 bool BuildingRuleMultiShape::ProceduralTile( Floor* floor)
 {
@@ -165,7 +165,7 @@ bool BuildingRuleMultiShape::ProceduralTile( Floor* floor)
 	TileDefault* tile = NULL;
 	TileDefault* tileNext = NULL;
 	
-	//•‚ª‘‹‚æ‚è‘«‚è‚È‚¢ê‡•Ç‚Ì‚İİ’è
+	//å¹…ãŒçª“ã‚ˆã‚Šè¶³ã‚Šãªã„å ´åˆå£ã®ã¿è¨­å®š
 	if (width < m_WindowWidth)
 	{
 		tile = new TileDefault();
@@ -174,7 +174,7 @@ bool BuildingRuleMultiShape::ProceduralTile( Floor* floor)
 		return true;
 	}
 
-	//‹«ŠE‚Ìİ’è
+	//å¢ƒç•Œã®è¨­å®š
 	if (floor->GetType() == eFloorBorder)
 	{
 		tile = new TileDefault();
@@ -186,7 +186,7 @@ bool BuildingRuleMultiShape::ProceduralTile( Floor* floor)
 	int countWindow = (int)( width / m_WindowWidth);
 	float wallWidth = ( width - countWindow * m_WindowWidth) * 0.5f;
 
-	//1ŠK‚Ìİ’èi•ÇA“üŒûA‘‹A•Çj
+	//1éšã®è¨­å®šï¼ˆå£ã€å…¥å£ã€çª“ã€å£ï¼‰
 	if (floor->GetType() == eFloorGround)
 	{
 		if (width > m_EntranceWidth + wallWidth * 2.0f)
@@ -223,7 +223,7 @@ bool BuildingRuleMultiShape::ProceduralTile( Floor* floor)
 		}
 	}
 
-	//—]”’‚Ìİ’èi‚·‚×‚Ä•Çj
+	//ä½™ç™½ã®è¨­å®šï¼ˆã™ã¹ã¦å£ï¼‰
 	if (floor->GetType() == eFloorMargin)
 	{
 		tile = new TileDefault();
@@ -247,7 +247,7 @@ bool BuildingRuleMultiShape::ProceduralTile( Floor* floor)
 		return true;
 	}
 
-	//ƒfƒtƒHƒ‹ƒg‚Ìİ’èi‘‹‚Æ—¼’[‚É•Çj
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®è¨­å®šï¼ˆçª“ã¨ä¸¡ç«¯ã«å£ï¼‰
 	tile = new TileDefault();
 	floor->SetTile( tile);
 	tile->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, GetSurfacePattern()->GetWall());
@@ -271,11 +271,11 @@ bool BuildingRuleMultiShape::ProceduralTile( Floor* floor)
 }
 
 /*------------------------------------------------------------------------------
-	ƒtƒƒA‚Ì¶¬i‰~‚É‰ˆ‚Á‚Ä‹È‚ª‚éj
+	ãƒ•ãƒ­ã‚¢ã®ç”Ÿæˆï¼ˆå††ã«æ²¿ã£ã¦æ›²ãŒã‚‹ï¼‰
 ------------------------------------------------------------------------------*/
 bool BuildingRuleMultiShape::ProceduralFloorCurve( Wall* wall)
 {
-	//ƒeƒNƒXƒ`ƒƒ‚Ìİ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è¨­å®š
 	wall->LoadTexture( GetSurfacePattern()->GetTextureFileName());
 
 	float height = wall->GetHeight();
@@ -283,14 +283,14 @@ bool BuildingRuleMultiShape::ProceduralFloorCurve( Wall* wall)
 	Vector3 bottomLeft = wall->GetBottomLeftPosition();
 	Floor* floor = NULL;
 
-	//1ŠK
+	//1éš
 	floor = new Floor();
 	floor->InitCurve( m_GroundFloorHeight, width, bottomLeft, eFloorGround, this);
 	wall->AddFloor( floor);
 	height -= m_GroundFloorHeight;
 	bottomLeft.y += m_GroundFloorHeight;
 
-	//‚»‚êˆÈŠO‚ÌƒtƒƒA
+	//ãã‚Œä»¥å¤–ã®ãƒ•ãƒ­ã‚¢
 	for (;;)
 	{
 		if (height < m_FloorHeight)
@@ -304,7 +304,7 @@ bool BuildingRuleMultiShape::ProceduralFloorCurve( Wall* wall)
 		bottomLeft.y += m_FloorHeight;
 	}
 
-	//ã•”‚É—]”’
+	//ä¸Šéƒ¨ã«ä½™ç™½
 	floor = new Floor();
 	floor->InitCurve( height, width, bottomLeft, eFloorMargin, this);
 	wall->AddFloor( floor);
@@ -313,7 +313,7 @@ bool BuildingRuleMultiShape::ProceduralFloorCurve( Wall* wall)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ^ƒCƒ‹‚Ì¶¬i‰~‚É‰ˆ‚Á‚Ä‹È‚ª‚éj
+	ã‚¿ã‚¤ãƒ«ã®ç”Ÿæˆï¼ˆå††ã«æ²¿ã£ã¦æ›²ãŒã‚‹ï¼‰
 ------------------------------------------------------------------------------*/
 bool BuildingRuleMultiShape::ProceduralTileCurve( Floor* floor)
 {
@@ -323,7 +323,7 @@ bool BuildingRuleMultiShape::ProceduralTileCurve( Floor* floor)
 	TileCurve* tile = NULL;
 	TileCurve* tileNext = NULL;
 	
-	//•‚ª‘‹‚æ‚è‘«‚è‚È‚¢ê‡•Ç‚Ì‚İİ’è
+	//å¹…ãŒçª“ã‚ˆã‚Šè¶³ã‚Šãªã„å ´åˆå£ã®ã¿è¨­å®š
 	if (width < m_WindowWidth)
 	{
 		tile = new TileCurve();
@@ -332,7 +332,7 @@ bool BuildingRuleMultiShape::ProceduralTileCurve( Floor* floor)
 		return true;
 	}
 
-	//‹«ŠE‚Ìİ’è
+	//å¢ƒç•Œã®è¨­å®š
 	if (floor->GetType() == eFloorBorder)
 	{
 		tile = new TileCurve();
@@ -344,7 +344,7 @@ bool BuildingRuleMultiShape::ProceduralTileCurve( Floor* floor)
 	int countWindow = (int)( width / m_WindowWidth);
 	float wallWidth = ( width - countWindow * m_WindowWidth) * 0.5f;
 
-	//1ŠK‚Ìİ’èi•ÇA“üŒûA‘‹A•Çj
+	//1éšã®è¨­å®šï¼ˆå£ã€å…¥å£ã€çª“ã€å£ï¼‰
 	if (floor->GetType() == eFloorGround)
 	{
 		if (width > m_EntranceWidth + wallWidth * 2.0f)
@@ -381,7 +381,7 @@ bool BuildingRuleMultiShape::ProceduralTileCurve( Floor* floor)
 		}
 	}
 
-	//—]”’‚Ìİ’èi‚·‚×‚Ä•Çj
+	//ä½™ç™½ã®è¨­å®šï¼ˆã™ã¹ã¦å£ï¼‰
 	if (floor->GetType() == eFloorMargin)
 	{
 		tile = new TileCurve();
@@ -405,7 +405,7 @@ bool BuildingRuleMultiShape::ProceduralTileCurve( Floor* floor)
 		return true;
 	}
 
-	//ƒfƒtƒHƒ‹ƒg‚Ìİ’èi‚·‚×‚Ä‘‹j
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®è¨­å®šï¼ˆã™ã¹ã¦çª“ï¼‰
 	float windowWidth = width / (float)countWindow;
 
 	tile = new TileCurve();
@@ -426,7 +426,7 @@ bool BuildingRuleMultiShape::ProceduralTileCurve( Floor* floor)
 }
 
 /*------------------------------------------------------------------------------
-	‰~‚É‰ˆ‚Á‚Ä¶‰ºÀ•W‚ğˆÚ“®‚·‚é
+	å††ã«æ²¿ã£ã¦å·¦ä¸‹åº§æ¨™ã‚’ç§»å‹•ã™ã‚‹
 ------------------------------------------------------------------------------*/
 Vector3 BuildingRuleMultiShape::MoveBottomLeftPosition( const Vector3& bottomLeftPosition, float angle)
 {
@@ -441,31 +441,31 @@ Vector3 BuildingRuleMultiShape::MoveBottomLeftPosition( const Vector3& bottomLef
 }
 
 /*------------------------------------------------------------------------------
-	•¡”‚ÌShape‚ğ¶¬ilŠp’Œj
+	è¤‡æ•°ã®Shapeã‚’ç”Ÿæˆï¼ˆå››è§’æŸ±ï¼‰
 ------------------------------------------------------------------------------*/
 void BuildingRuleMultiShape::CreateShapeBoxes(int shapeCount, BuildingGeometry* geometry, const Vector3& landSize)
 {
 	for( int i = 0; i < shapeCount; i++)
 	{
-		//‚·‚Å‚É¶¬‚³‚ê‚Ä‚¢‚éShape‚ğ‰„‚Î‚·
+		//ã™ã§ã«ç”Ÿæˆã•ã‚Œã¦ã„ã‚‹Shapeã‚’å»¶ã°ã™
 		for ( auto shape : geometry->GetShape())
 		{
 			shape->ScaleRate( Vector3( 1.0f, 1.5f, 1.0f));
 		}
 
-		//—”‚ÌƒV[ƒh’l‚ğÄİ’è
+		//ä¹±æ•°ã®ã‚·ãƒ¼ãƒ‰å€¤ã‚’å†è¨­å®š
 		m_Random->ResetSeed();
 
 		Vector3 size;
 
-		//‘å‚«‚³‚Ìİ’è
+		//å¤§ãã•ã®è¨­å®š
 		m_Random->SetRangeFloat( m_ShapeSizeRateMin, m_ShapeSizeRateMax);
 		size.x = landSize.x * m_Random->GetFloat();
 		size.z = landSize.z * m_Random->GetFloat();
 		size.x = (int)size.x;
 		size.z = (int)size.z;
 	
-		//ˆÊ’u‚Ìİ’è
+		//ä½ç½®ã®è¨­å®š
 		Vector3 position;
 		position.y = 0.0f;
 		float range = ( landSize.x - size.x) * 0.5f;
@@ -476,11 +476,11 @@ void BuildingRuleMultiShape::CreateShapeBoxes(int shapeCount, BuildingGeometry* 
 		position.z = m_Random->GetFloat();
 		//position.z = ( landSize.z - size.z) * 0.5f;
 
-		//‚‚³‚Ìİ’è
+		//é«˜ã•ã®è¨­å®š
 		m_Random->SetRangeFloat( m_ShapeHeightMin, m_ShapeHeightMax);
 		size.y = m_Random->GetFloat();
 
-		//Œ`ó‚Ì¶¬
+		//å½¢çŠ¶ã®ç”Ÿæˆ
 		auto shape = new ShapeBox( geometry->GetGameObject());
 		shape->Init( position, 0.0f, size, this);
 		geometry->AddShape( shape);
@@ -488,29 +488,29 @@ void BuildingRuleMultiShape::CreateShapeBoxes(int shapeCount, BuildingGeometry* 
 }
 	
 /*------------------------------------------------------------------------------
-	•¡”‚ÌShape‚ğ¶¬i‰~’Œj
+	è¤‡æ•°ã®Shapeã‚’ç”Ÿæˆï¼ˆå††æŸ±ï¼‰
 ------------------------------------------------------------------------------*/
 void BuildingRuleMultiShape::CreateShapeCylinders(int shapeCount, BuildingGeometry* geometry, const Vector3& landSize)
 {
 	for( int i = 0; i < shapeCount; i++)
 	{
-		//‚·‚Å‚É¶¬‚³‚ê‚Ä‚¢‚éShape‚ğ‰„‚Î‚·
+		//ã™ã§ã«ç”Ÿæˆã•ã‚Œã¦ã„ã‚‹Shapeã‚’å»¶ã°ã™
 		for ( auto shape : geometry->GetShape())
 		{
 			shape->ScaleRate( Vector3( 1.0f, 1.5f, 1.0f));
 		}
 
-		//—”‚ÌƒV[ƒh’l‚ğÄİ’è
+		//ä¹±æ•°ã®ã‚·ãƒ¼ãƒ‰å€¤ã‚’å†è¨­å®š
 		m_Random->ResetSeed();
 
 		Vector3 size;
 
-		//‘å‚«‚³‚Ìİ’è
+		//å¤§ãã•ã®è¨­å®š
 		m_Random->SetRangeFloat( m_ShapeSizeRateMin, m_ShapeSizeRateMax);
 		size.x = landSize.x * m_Random->GetFloat();
 		size.z = size.x;
 	
-		//ˆÊ’u‚Ìİ’è
+		//ä½ç½®ã®è¨­å®š
 		Vector3 position;
 		position.y = 0.0f;
 		float range = ( landSize.x - size.x) * 0.5f;
@@ -520,11 +520,11 @@ void BuildingRuleMultiShape::CreateShapeCylinders(int shapeCount, BuildingGeomet
 		m_Random->SetRangeFloat( -range, range);
 		position.z = m_Random->GetFloat();
 		
-		//‚‚³‚Ìİ’è
+		//é«˜ã•ã®è¨­å®š
 		m_Random->SetRangeFloat( m_ShapeHeightMin, m_ShapeHeightMax);
 		size.y = m_Random->GetFloat();
 
-		//Œ`ó‚Ì¶¬
+		//å½¢çŠ¶ã®ç”Ÿæˆ
 		auto shape = new ShapeCylinder( geometry->GetGameObject());
 		shape->Init( position, 0.0f, size.y, size.x * 0.5f, this);
 		geometry->AddShape( shape);

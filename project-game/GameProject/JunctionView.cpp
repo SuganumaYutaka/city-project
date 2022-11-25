@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    JunctionView.h - ’¬‚Ì©“®¶¬[Œğ·“_ƒrƒ…[
+    JunctionView.h - ç”ºã®è‡ªå‹•ç”Ÿæˆãƒ¼äº¤å·®ç‚¹ãƒ“ãƒ¥ãƒ¼
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/12/1
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "JunctionView.h"
 #include "GameObject.h"
@@ -23,7 +23,7 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* JunctionView::Create(GameObject* gameObject)
 {
@@ -31,7 +31,7 @@ Component* JunctionView::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 JunctionView::JunctionView( GameObject* pGameObject)
 {
@@ -41,14 +41,14 @@ JunctionView::JunctionView( GameObject* pGameObject)
 	m_Attribute = NULL;
 	m_IsUpdatedAttribute = false;
 
-	//ƒŒƒ“ƒ_ƒ‰[‚Ìİ’è
+	//ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼ã®è¨­å®š
 	m_Renderer = m_pGameObject->AddComponent<Polygon3DRenderer>();
 	m_Renderer->LoadTexture( "data/TEXTURE/junction_+.png");
 	m_Renderer->GetMaterial()->SetSpecular( 0.2f, 0.2f, 0.2f, 1.0f);
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void JunctionView::Uninit( void)
 {
@@ -56,7 +56,7 @@ void JunctionView::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	XVˆ—
+	æ›´æ–°å‡¦ç†
 ------------------------------------------------------------------------------*/
 void JunctionView::Update( void)
 {
@@ -67,12 +67,12 @@ void JunctionView::Update( void)
 
 	m_IsUpdatedAttribute = false;
 
-	//Viewî•ñ‚ÌXV
+	//Viewæƒ…å ±ã®æ›´æ–°
 	UpdateRenderer();
 }
 
 /*------------------------------------------------------------------------------
-	‘®«î•ñ‚Ìİ’è
+	å±æ€§æƒ…å ±ã®è¨­å®š
 ------------------------------------------------------------------------------*/
 void JunctionView::SetAttribute( JunctionAttribute* attribute)
 { 
@@ -83,12 +83,12 @@ void JunctionView::SetAttribute( JunctionAttribute* attribute)
 	
 	m_Attribute = attribute;
 
-	//Viewî•ñ‚ÌXV
+	//Viewæƒ…å ±ã®æ›´æ–°
 	UpdateRenderer();
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æî•ñ‚ÌXV
+	æç”»æƒ…å ±ã®æ›´æ–°
 ------------------------------------------------------------------------------*/
 void JunctionView::UpdateRenderer(void)
 {
@@ -106,14 +106,14 @@ void JunctionView::UpdateRenderer(void)
 	float width = roadAttribute->GetWidth();
 	m_pTransform->SetLocalScale( width, 1.0f, width);
 
-	//‚kšA‚sšA\š‚Ìİ’è
+	//ï¼¬å­—ã€ï¼´å­—ã€åå­—ã®è¨­å®š
 	switch (edges.size())
 	{
-	case 2:		//‚kš
+	case 2:		//ï¼¬å­—
 	{
 		m_Renderer->LoadTexture( "data/TEXTURE/junction_L.png");
 
-		//ƒxƒNƒgƒ‹‚Ìæ“¾
+		//ãƒ™ã‚¯ãƒˆãƒ«ã®å–å¾—
 		Vector3 vec1 = (*edgeBegin)->GetVector();
 		if (!(*edgeBegin)->GetRight())
 		{
@@ -126,7 +126,7 @@ void JunctionView::UpdateRenderer(void)
 			vec2 *= -1.0f;
 		}
 
-		//ŠOÏ‚É‰‚¶‚Ä‰ñ“]
+		//å¤–ç©ã«å¿œã˜ã¦å›è»¢
 		if (Vector3::Cross(vec1, vec2).y < 0.0f)
 		{
 			m_pTransform->SetWorldRotationLookDirection( vec1);
@@ -139,17 +139,17 @@ void JunctionView::UpdateRenderer(void)
 		break;
 	}
 
-	case 3:		//‚sš
+	case 3:		//ï¼´å­—
 	{
 		m_Renderer->LoadTexture( "data/TEXTURE/junction_T.png");
 		
-		//Œü‚©‚¢‡‚Á‚Ä‚¢‚é“¹˜H‚ª‚È‚¢“¹˜H‚ğæ“¾
+		//å‘ã‹ã„åˆã£ã¦ã„ã‚‹é“è·¯ãŒãªã„é“è·¯ã‚’å–å¾—
 		Edge* targetEdge = NULL;
 		for (auto edge1 : edges)
 		{
 			bool isTarget = true;
 
-			//‘¼•Ó‚ÆŒü‚©‚¢‡‚Á‚Ä‚¢‚é‚©
+			//ä»–è¾ºã¨å‘ã‹ã„åˆã£ã¦ã„ã‚‹ã‹
 			for(auto edge2 : edges)
 			{
 				if (edge1 != edge2)
@@ -170,7 +170,7 @@ void JunctionView::UpdateRenderer(void)
 			}
 		}
 
-		//‚sš‚É‰ñ“]
+		//ï¼´å­—ã«å›è»¢
 		auto vec = targetEdge->GetVector();
 		if (targetEdge->GetStart() == m_Attribute->GetVertex())
 		{
@@ -181,7 +181,7 @@ void JunctionView::UpdateRenderer(void)
 		break;
 	}
 
-	case 4:		//\š
+	case 4:		//åå­—
 	{
 		m_Renderer->LoadTexture( "data/TEXTURE/junction_+.png");
 

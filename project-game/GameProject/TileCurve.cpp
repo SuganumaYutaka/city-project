@@ -1,22 +1,22 @@
 /*==============================================================================
 
-    Tile.cpp - Œš•¨‚Ì©“®¶¬[ƒ^ƒCƒ‹
+    Tile.cpp - å»ºç‰©ã®è‡ªå‹•ç”Ÿæˆãƒ¼ã‚¿ã‚¤ãƒ«
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/12/7
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "TileCurve.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
-#define TILE_DIVIDE_PER_RADIAN (0.1f)	//ƒ‰ƒWƒAƒ“Šp‚É‰‚¶‚Äƒ^ƒCƒ‹‚ğ•ªŠ„‚·‚éŠî€
+#define TILE_DIVIDE_PER_RADIAN (0.1f)	//ãƒ©ã‚¸ã‚¢ãƒ³è§’ã«å¿œã˜ã¦ã‚¿ã‚¤ãƒ«ã‚’åˆ†å‰²ã™ã‚‹åŸºæº–
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»
+	åˆæœŸåŒ–
 ------------------------------------------------------------------------------*/
 void TileCurve::Init( float height, float width, const Vector3& bottomLeftPosition, E_TILE_TYPE type, const TextureUV& texUV)
 {
@@ -29,7 +29,7 @@ void TileCurve::Init( float height, float width, const Vector3& bottomLeftPositi
 }
 
 /*------------------------------------------------------------------------------
-	ˆÊ’u‚Æ”¼Œa‚ÌXV
+	ä½ç½®ã¨åŠå¾„ã®æ›´æ–°
 ------------------------------------------------------------------------------*/
 void TileCurve::Transform(D3DXMATRIX shapeMatrix)
 {
@@ -43,12 +43,12 @@ void TileCurve::Transform(D3DXMATRIX shapeMatrix)
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_ƒoƒbƒtƒ@‚Ìİ’èi‰~‚É‰ˆ‚Á‚Ä‹È‚°‚éj
+	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®šï¼ˆå††ã«æ²¿ã£ã¦æ›²ã’ã‚‹ï¼‰
 ------------------------------------------------------------------------------*/
 void TileCurve::SetVertexBuffer(VERTEX_3D* pVtx)
 {
-	//k‘Şƒ|ƒŠƒSƒ“‚É’ˆÓ‚µ‚Ä’¸“_‚ğİ’è
-	//‰ñ“]—p‚Ì€”õ
+	//ç¸®é€€ãƒãƒªã‚´ãƒ³ã«æ³¨æ„ã—ã¦é ‚ç‚¹ã‚’è¨­å®š
+	//å›è»¢ç”¨ã®æº–å‚™
 	float angle = -CulcAngle();
 	int countDivide = CulcCountDivide();
 	float deltaAngle = angle / (float)( countDivide + 1);
@@ -57,7 +57,7 @@ void TileCurve::SetVertexBuffer(VERTEX_3D* pVtx)
 	D3DXMatrixRotationY( &mtxRotate, deltaAngle);
 	D3DXVECTOR3 positionFromCenter = (m_BottomLeftPosition - m_Center).ConvertToDX();
 
-	//UV’lİ’è‚Ì€”õ
+	//UVå€¤è¨­å®šã®æº–å‚™
 	D3DXVECTOR2 topTexUV = m_TexUV.GetTopLeft();
 	D3DXVECTOR2 bottomTexUV = m_TexUV.GetBottomLeft();
 	float deltaTexU = m_TexUV.GetSize().x / (float)( countDivide + 1);
@@ -65,31 +65,31 @@ void TileCurve::SetVertexBuffer(VERTEX_3D* pVtx)
 	int countVertex = CulcCountVertex();
 	for (int i = 1; i < countVertex - 2; i += 2)
 	{
-		//ˆÊ’u‚Ìİ’è
+		//ä½ç½®ã®è¨­å®š
 		D3DXVECTOR3 pos = m_Center.ConvertToDX() + positionFromCenter;
 		pVtx[ i + 1].Pos = pos;
 		pos.y += m_Height;
 		pVtx[ i].Pos = pos;
 
-		//–@ü‚Ìİ’è
+		//æ³•ç·šã®è¨­å®š
 		D3DXVECTOR3 normal;
 		D3DXVec3Normalize( &normal, &positionFromCenter);
 		pVtx[ i].Normal = pVtx[ i + 1].Normal = normal;
 
-		//F‚Ìİ’è
+		//è‰²ã®è¨­å®š
 		pVtx[ i].Color = pVtx[ i + 1].Color = D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f);
 
-		//UV‚Ìİ’è
+		//UVã®è¨­å®š
 		pVtx[ i].Tex = topTexUV;
 		pVtx[ i + 1].Tex = bottomTexUV;
 		
-		//Ÿ‚Ìİ’è‚ÉŒü‚¯‚ÄXV
+		//æ¬¡ã®è¨­å®šã«å‘ã‘ã¦æ›´æ–°
 		D3DXVec3TransformCoord( &positionFromCenter, &positionFromCenter, &mtxRotate);
 		topTexUV.x += deltaTexU;
 		bottomTexUV.x += deltaTexU;
 	}
 
-	//k‘Şƒ|ƒŠƒSƒ“‚Ìİ’è
+	//ç¸®é€€ãƒãƒªã‚´ãƒ³ã®è¨­å®š
 	pVtx[ 0].Pos = D3DXVECTOR3( m_BottomLeftPosition.x, m_BottomLeftPosition.y + m_Height, m_BottomLeftPosition.z);
 	pVtx[ 0].Normal = D3DXVECTOR3( 0.0f, 0.0f, 0.0f);
 	pVtx[ 0].Color = D3DXCOLOR( 0.0f, 0.0f, 0.0f, 0.0f);
@@ -106,7 +106,7 @@ void TileCurve::SetVertexBuffer(VERTEX_3D* pVtx)
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_”‚ÌZo
+	é ‚ç‚¹æ•°ã®ç®—å‡º
 ------------------------------------------------------------------------------*/
 int TileCurve::CulcCountVertex( void)
 {
@@ -117,7 +117,7 @@ int TileCurve::CulcCountVertex( void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ|ƒŠƒSƒ“”‚ÌZo
+	ãƒãƒªã‚´ãƒ³æ•°ã®ç®—å‡º
 ------------------------------------------------------------------------------*/
 int TileCurve::CulcCountPolygon(void)
 {
@@ -127,7 +127,7 @@ int TileCurve::CulcCountPolygon(void)
 }
 
 /*------------------------------------------------------------------------------
-	”¼Œa‚©‚çŠp“x‚ğZo
+	åŠå¾„ã‹ã‚‰è§’åº¦ã‚’ç®—å‡º
 ------------------------------------------------------------------------------*/
 float TileCurve::CulcAngle( void)
 {
@@ -136,7 +136,7 @@ float TileCurve::CulcAngle( void)
 }
 
 /*------------------------------------------------------------------------------
-	•ªŠ„”‚ğZo
+	åˆ†å‰²æ•°ã‚’ç®—å‡º
 ------------------------------------------------------------------------------*/
 int TileCurve::CulcCountDivide(void)
 {

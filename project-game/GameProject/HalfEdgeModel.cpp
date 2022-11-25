@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    HalfEdgeModel.cpp - ƒn[ƒtƒGƒbƒW\‘¢[ƒ‚ƒfƒ‹
+    HalfEdgeModel.cpp - ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸æ§‹é€ ãƒ¼ãƒ¢ãƒ‡ãƒ«
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/11/25
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "HalfEdgeModel.h"
 #include "Vertex.h"
@@ -18,7 +18,7 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Model::~Model()
 {
@@ -54,7 +54,7 @@ Model::~Model()
 }
 
 /*------------------------------------------------------------------------------
-	“_‚ğ¶¬
+	ç‚¹ã‚’ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Vertex* Model::CreateVertex(const Vector3& position)
 {
@@ -62,7 +62,7 @@ Vertex* Model::CreateVertex(const Vector3& position)
 }
 
 /*------------------------------------------------------------------------------
-	•Ó‚ğ¶¬
+	è¾ºã‚’ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Edge* Model::CreateEdge( Vertex* start, Vertex* end)
 {
@@ -70,7 +70,7 @@ Edge* Model::CreateEdge( Vertex* start, Vertex* end)
 }
 
 /*------------------------------------------------------------------------------
-	–Ê‚ğ¶¬
+	é¢ã‚’ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Face* Model::CreateFace( HalfEdge* he)
 {
@@ -78,7 +78,7 @@ Face* Model::CreateFace( HalfEdge* he)
 }
 
 /*------------------------------------------------------------------------------
-	‚Í‚¶‚ß‚Ä‚Ì“_‚ğ¶¬
+	ã¯ã˜ã‚ã¦ã®ç‚¹ã‚’ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 bool Model::CreateFirstVertex(const Vector3& position)
 {
@@ -87,14 +87,14 @@ bool Model::CreateFirstVertex(const Vector3& position)
 		return false;
 	}
 
-	//“_‚ğ¶¬
+	//ç‚¹ã‚’ç”Ÿæˆ
 	CreateVertex( position);
 	
 	return true;
 }
 
 /*------------------------------------------------------------------------------
-	‚Í‚¶‚ß‚Ä‚Ì•Ó‚ğ¶¬
+	ã¯ã˜ã‚ã¦ã®è¾ºã‚’ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 bool Model::CreateFirstEdge(const Vector3& startPosition, const Vector3& endPosition)
 {
@@ -103,18 +103,18 @@ bool Model::CreateFirstEdge(const Vector3& startPosition, const Vector3& endPosi
 		return false;
 	}
 
-	//“_‚ğ¶¬
+	//ç‚¹ã‚’ç”Ÿæˆ
 	auto start = CreateVertex( startPosition);
 	auto end = CreateVertex( endPosition);
 
-	//•Ó‚ğ¶¬
+	//è¾ºã‚’ç”Ÿæˆ
 	auto edge = CreateEdge( start, end);
 	
-	//“_‚É•Ó‚ğİ’è
+	//ç‚¹ã«è¾ºã‚’è¨­å®š
 	start->RegisterEdge( edge);
 	end->RegisterEdge( edge);
 
-	//‘®«î•ñ‚ÌXV
+	//å±æ€§æƒ…å ±ã®æ›´æ–°
 	start->UpdateAttribute();
 	end->UpdateAttribute();
 	edge->UpdateAttribute();
@@ -123,7 +123,7 @@ bool Model::CreateFirstEdge(const Vector3& startPosition, const Vector3& endPosi
 }
 
 /*------------------------------------------------------------------------------
-	‚Í‚¶‚ß‚Ä‚Ì–Ê‚ğ¶¬
+	ã¯ã˜ã‚ã¦ã®é¢ã‚’ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 bool Model::CreateFirstFace(
 	const Vector3& topLeftPosition, const Vector3& topRightPosition,
@@ -134,20 +134,20 @@ bool Model::CreateFirstFace(
 		return false;
 	}
 
-	//“_‚ğ¶¬
+	//ç‚¹ã‚’ç”Ÿæˆ
 	auto topLeft = CreateVertex( topLeftPosition);
 	auto topRight = CreateVertex( topRightPosition);
 	auto bottomLeft = CreateVertex( bottomLeftPosition);
 	auto bottomRight = CreateVertex( bottomRightPosition);
 	
 
-	//•Ó‚ğ¶¬
+	//è¾ºã‚’ç”Ÿæˆ
 	auto top = CreateEdge( topLeft, topRight);
 	auto bottom = CreateEdge( bottomRight, bottomLeft);
 	auto left = CreateEdge( bottomLeft, topLeft);
 	auto right = CreateEdge( topRight, bottomRight);
 
-	//“_‚É•Ó‚ğİ’è
+	//ç‚¹ã«è¾ºã‚’è¨­å®š
 	topLeft->RegisterEdge( top);
 	topLeft->RegisterEdge( left);
 	topRight->RegisterEdge( top);
@@ -157,19 +157,19 @@ bool Model::CreateFirstFace(
 	bottomRight->RegisterEdge( bottom);
 	bottomRight->RegisterEdge( right);
 
-	//ƒn[ƒtƒGƒbƒW‚ğ¶¬
+	//ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’ç”Ÿæˆ
 	auto heTop = new HalfEdge( this, topRight);
 	auto heRight = new HalfEdge( this, bottomRight);
 	auto heBottom = new HalfEdge( this, bottomLeft);
 	auto heLeft = new HalfEdge( this, topLeft);
 
-	//•Ó‚Éƒn[ƒtƒGƒbƒW‚ğİ’è
+	//è¾ºã«ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’è¨­å®š
 	top->SetRight( heTop);
 	right->SetRight( heRight);
 	bottom->SetRight( heBottom);
 	left->SetRight( heLeft);
 
-	//ƒn[ƒtƒGƒbƒW‚É•Ó‚Ænext‚ğİ’è
+	//ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã«è¾ºã¨nextã‚’è¨­å®š
 	heTop->SetEdge( top);
 	heRight->SetEdge( right);
 	heBottom->SetEdge( bottom);
@@ -179,16 +179,16 @@ bool Model::CreateFirstFace(
 	heBottom->SetNext( heLeft);
 	heLeft->SetNext( heTop);
 
-	//–Ê‚ğ¶¬
+	//é¢ã‚’ç”Ÿæˆ
 	auto face = CreateFace( heTop);
 
-	//ƒn[ƒtƒGƒbƒW‚É–Ê‚ğİ’è
+	//ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã«é¢ã‚’è¨­å®š
 	heTop->SetFace( face);
 	heRight->SetFace( face);
 	heBottom->SetFace( face);
 	heLeft->SetFace( face);
 
-	//‘®«î•ñ‚ÌXV
+	//å±æ€§æƒ…å ±ã®æ›´æ–°
 	topLeft->UpdateAttribute();
 	topRight->UpdateAttribute();
 	bottomLeft->UpdateAttribute();
@@ -203,7 +203,7 @@ bool Model::CreateFirstFace(
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_‚ğæ“¾
+	é ‚ç‚¹ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 Vertex* Model::GetVertex(int id)
 {
@@ -216,7 +216,7 @@ Vertex* Model::GetVertex(int id)
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_‚ÌID‚ğæ“¾
+	é ‚ç‚¹ã®IDã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 int Model::GetVertexID(Vertex* vertex)
 {
@@ -229,12 +229,12 @@ int Model::GetVertexID(Vertex* vertex)
 		}
 	}
 
-	//”­Œ©‚Å‚«‚È‚¢
+	//ç™ºè¦‹ã§ããªã„
 	return -1;
 }
 
 /*------------------------------------------------------------------------------
-	“o˜^‚ğ‰ğœ
+	ç™»éŒ²ã‚’è§£é™¤
 ------------------------------------------------------------------------------*/
 bool Model::UnregisterVertex( Vertex* vertex)
 {
@@ -252,7 +252,7 @@ bool Model::UnregisterVertex( Vertex* vertex)
 }
 
 /*------------------------------------------------------------------------------
-	•Ó‚ğæ“¾
+	è¾ºã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 Edge* Model::GetEdge(int id)
 {
@@ -265,7 +265,7 @@ Edge* Model::GetEdge(int id)
 }
 
 /*------------------------------------------------------------------------------
-	•Ó‚ÌID‚ğæ“¾
+	è¾ºã®IDã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 int Model::GetEdgeID( Edge* edge)
 {
@@ -278,12 +278,12 @@ int Model::GetEdgeID( Edge* edge)
 		}
 	}
 
-	//”­Œ©‚Å‚«‚È‚¢
+	//ç™ºè¦‹ã§ããªã„
 	return -1;
 }
 
 /*------------------------------------------------------------------------------
-	“o˜^‚ğ‰ğœ
+	ç™»éŒ²ã‚’è§£é™¤
 ------------------------------------------------------------------------------*/
 bool Model::UnregisterEdge( Edge* edge)
 {
@@ -301,7 +301,7 @@ bool Model::UnregisterEdge( Edge* edge)
 }
 
 /*------------------------------------------------------------------------------
-	–Ê‚ğæ“¾
+	é¢ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 Face* Model::GetFace(int id)
 {
@@ -314,7 +314,7 @@ Face* Model::GetFace(int id)
 }
 
 /*------------------------------------------------------------------------------
-	–Ê‚ÌID‚ğæ“¾
+	é¢ã®IDã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 int Model::GetFaceID( Face* face)
 {
@@ -327,12 +327,12 @@ int Model::GetFaceID( Face* face)
 		}
 	}
 
-	//”­Œ©‚Å‚«‚È‚¢
+	//ç™ºè¦‹ã§ããªã„
 	return -1;
 }
 
 /*------------------------------------------------------------------------------
-	“o˜^‚ğ‰ğœ
+	ç™»éŒ²ã‚’è§£é™¤
 ------------------------------------------------------------------------------*/
 bool Model::UnregisterFace( Face* face)
 {

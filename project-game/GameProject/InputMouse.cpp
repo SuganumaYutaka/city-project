@@ -1,31 +1,31 @@
 /*==============================================================================
 
-    InputMouse.cpp - ƒL[ƒ{[ƒh“ü—Í
+    InputMouse.cpp - ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å…¥åŠ›
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/6
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "InputMouse.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
-#define	COUNT_WAIT_REPEAT	(20)	// ƒŠƒs[ƒg‘Ò‚¿ŠÔ
+#define	COUNT_WAIT_REPEAT	(20)	// ãƒªãƒ”ãƒ¼ãƒˆå¾…ã¡æ™‚é–“
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 InputMouse::InputMouse( HINSTANCE hInst, HWND hWnd)
 {
-	//“ü—Íˆ—‚Ì‰Šú‰»
+	//å…¥åŠ›å‡¦ç†ã®åˆæœŸåŒ–
 	Input::Init( hInst, hWnd);
 
 	HRESULT hr;
 
-	//ƒfƒoƒCƒXƒIƒuƒWƒFƒNƒg‚ğì¬
+	//ãƒ‡ãƒã‚¤ã‚¹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆ
 	hr = m_pInput->CreateDevice( GUID_SysMouse, &m_pInputDevice, NULL);
 	if( FAILED( hr))
 	{
@@ -33,7 +33,7 @@ InputMouse::InputMouse( HINSTANCE hInst, HWND hWnd)
 		return;
 	}
 
-	//ƒf[ƒ^ƒtƒH[ƒ}ƒbƒg‚ğİ’è
+	//ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’è¨­å®š
 	hr = m_pInputDevice->SetDataFormat( &c_dfDIMouse2);
 	if( FAILED( hr))
 	{
@@ -41,7 +41,7 @@ InputMouse::InputMouse( HINSTANCE hInst, HWND hWnd)
 		return;
 	}
 
-	//‹¦’²ƒ‚[ƒh‚ğİ’èiƒtƒHƒAƒOƒ‰ƒEƒ“ƒh•”ñ”r‘¼ƒ‚[ƒhj
+	//å”èª¿ãƒ¢ãƒ¼ãƒ‰ã‚’è¨­å®šï¼ˆãƒ•ã‚©ã‚¢ã‚°ãƒ©ã‚¦ãƒ³ãƒ‰ï¼†éæ’ä»–ãƒ¢ãƒ¼ãƒ‰ï¼‰
 	hr = m_pInputDevice->SetCooperativeLevel( hWnd, ( DISCL_FOREGROUND | DISCL_NONEXCLUSIVE));
 	if( FAILED( hr))
 	{
@@ -49,14 +49,14 @@ InputMouse::InputMouse( HINSTANCE hInst, HWND hWnd)
 		return;
 	}
 
-	//ƒfƒoƒCƒX‚Ìİ’è
+	//ãƒ‡ãƒã‚¤ã‚¹ã®è¨­å®š
 	DIPROPDWORD dipdw;
 
 	dipdw.diph.dwSize = sizeof( dipdw);
 	dipdw.diph.dwHeaderSize = sizeof( dipdw.diph);
 	dipdw.diph.dwObj = 0;
 	dipdw.diph.dwHow = DIPH_DEVICE;
-	dipdw.dwData = DIPROPAXISMODE_REL;		//‘Š‘ÎÀ•W
+	dipdw.dwData = DIPROPAXISMODE_REL;		//ç›¸å¯¾åº§æ¨™
 
 	hr = m_pInputDevice->SetProperty( DIPROP_AXISMODE, &dipdw.diph);
 	if( FAILED( hr))
@@ -65,12 +65,12 @@ InputMouse::InputMouse( HINSTANCE hInst, HWND hWnd)
 		return;
 	}
 
-	//m_pInputDeviceƒAƒNƒZƒXŒ ‚ğŠl“¾(“ü—Í§ŒäŠJn)
+	//m_pInputDeviceã‚¢ã‚¯ã‚»ã‚¹æ¨©ã‚’ç²å¾—(å…¥åŠ›åˆ¶å¾¡é–‹å§‹)
 	m_pInputDevice->Acquire();
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 InputMouse::~InputMouse()
 {
@@ -78,7 +78,7 @@ InputMouse::~InputMouse()
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void InputMouse::Update(HWND hWnd)
 {
@@ -91,7 +91,7 @@ void InputMouse::Update(HWND hWnd)
 		return;
 	}
 
-	//ƒfƒoƒCƒX‚©‚çƒf[ƒ^‚ğæ“¾
+	//ãƒ‡ãƒã‚¤ã‚¹ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
 	hr = m_pInputDevice->GetDeviceState( sizeof( MouseState), &MouseState);
 
 	if( SUCCEEDED( hr))
@@ -112,20 +112,20 @@ void InputMouse::Update(HWND hWnd)
 
 		m_MouseState = MouseState;
 
-		//ƒXƒNƒŠ[ƒ“À•W‚ğæ“¾
+		//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ã‚’å–å¾—
 		GetCursorPos( &m_posMouseWorld);
 		ScreenToClient( hWnd, &m_posMouseWorld);
 	}
 
 	else
 	{
-		//m_pInputDeviceƒAƒNƒZƒXŒ ‚ğŠl“¾(“ü—Í§ŒäŠJn)
+		//m_pInputDeviceã‚¢ã‚¯ã‚»ã‚¹æ¨©ã‚’ç²å¾—(å…¥åŠ›åˆ¶å¾¡é–‹å§‹)
 		m_pInputDevice->Acquire();
 	}
 }
 
 /*------------------------------------------------------------------------------
-	ƒNƒŠƒbƒNƒf[ƒ^æ“¾(ƒvƒŒƒX)
+	ã‚¯ãƒªãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿å–å¾—(ãƒ—ãƒ¬ã‚¹)
 ------------------------------------------------------------------------------*/
 BOOL InputMouse::GetClickPress( int nCntButton)
 {
@@ -133,7 +133,7 @@ BOOL InputMouse::GetClickPress( int nCntButton)
 }
 
 /*------------------------------------------------------------------------------
-	ƒNƒŠƒbƒNƒf[ƒ^æ“¾(ƒgƒŠƒK[)
+	ã‚¯ãƒªãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿å–å¾—(ãƒˆãƒªã‚¬ãƒ¼)
 ------------------------------------------------------------------------------*/
 BOOL InputMouse::GetClickTrigger( int nCntButton)
 {
@@ -141,7 +141,7 @@ BOOL InputMouse::GetClickTrigger( int nCntButton)
 }
 
 /*------------------------------------------------------------------------------
-	ƒNƒŠƒbƒNƒf[ƒ^æ“¾(ƒŠƒŠ[ƒX)
+	ã‚¯ãƒªãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿å–å¾—(ãƒªãƒªãƒ¼ã‚¹)
 ------------------------------------------------------------------------------*/
 BOOL InputMouse::GetClickRelease( int nCntButton)
 {
@@ -149,7 +149,7 @@ BOOL InputMouse::GetClickRelease( int nCntButton)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒEƒXƒf[ƒ^æ“¾iX²ˆÚ“®—Êj
+	ãƒã‚¦ã‚¹ãƒ‡ãƒ¼ã‚¿å–å¾—ï¼ˆXè»¸ç§»å‹•é‡ï¼‰
 ------------------------------------------------------------------------------*/
 LONG InputMouse::GetAxisX( void)
 {
@@ -157,7 +157,7 @@ LONG InputMouse::GetAxisX( void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒEƒXƒf[ƒ^æ“¾iY²ˆÚ“®—Êj
+	ãƒã‚¦ã‚¹ãƒ‡ãƒ¼ã‚¿å–å¾—ï¼ˆYè»¸ç§»å‹•é‡ï¼‰
 ------------------------------------------------------------------------------*/
 LONG InputMouse::GetAxisY( void)
 {
@@ -165,7 +165,7 @@ LONG InputMouse::GetAxisY( void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒEƒXƒf[ƒ^æ“¾iƒzƒC[ƒ‹j‰œ‚ª : è‘O‚ª
+	ãƒã‚¦ã‚¹ãƒ‡ãƒ¼ã‚¿å–å¾—ï¼ˆãƒ›ã‚¤ãƒ¼ãƒ«ï¼‰å¥¥ãŒ : æ‰‹å‰ãŒ
 ------------------------------------------------------------------------------*/
 LONG InputMouse::GetWheel( void)
 {

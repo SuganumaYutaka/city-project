@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    PartsAnimator.h - ƒp[ƒcƒAƒjƒ[ƒVƒ‡ƒ“
+    PartsAnimator.h - ãƒ‘ãƒ¼ãƒ„ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/7/6
 ==============================================================================*/
@@ -8,24 +8,24 @@
 #define _PARTS_ANIMATOR_H_
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
 #include "GameObject.h"
 #include "Component.h"
 
 /*------------------------------------------------------------------------------
-	‘O•ûéŒ¾
+	å‰æ–¹å®£è¨€
 ------------------------------------------------------------------------------*/
 
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
 
 
 /*------------------------------------------------------------------------------
-	ƒNƒ‰ƒX’è‹`
+	ã‚¯ãƒ©ã‚¹å®šç¾©
 ------------------------------------------------------------------------------*/
 class PartsAnimator : public Component
 {
@@ -48,33 +48,33 @@ public:
 private:
 	typedef struct
 	{
-		Vector3 Position;		//ˆÊ’u
-		Vector3 Rotation;		//Šp“x
+		Vector3 Position;		//ä½ç½®
+		Vector3 Rotation;		//è§’åº¦
 	}KEY;
 
 	typedef struct
 	{
-		int nFrame;					//ƒtƒŒ[ƒ€”
-		std::vector<KEY> vecKey;	//ƒL[ƒf[ƒ^iƒp[ƒc”•ª“®“I‚ÉŠm•Ûj
+		int nFrame;					//ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+		std::vector<KEY> vecKey;	//ã‚­ãƒ¼ãƒ‡ãƒ¼ã‚¿ï¼ˆãƒ‘ãƒ¼ãƒ„æ•°åˆ†å‹•çš„ã«ç¢ºä¿ï¼‰
 	}KEYSET;
 
 	typedef struct
 	{
-		int nLoop;						//ƒ‹[ƒvƒtƒ‰ƒO
-		int nNumKey;					//ƒL[”
-		std::vector<KEYSET> vecKeySet;	//ƒL[İ’èƒf[ƒ^
+		int nLoop;						//ãƒ«ãƒ¼ãƒ—ãƒ•ãƒ©ã‚°
+		int nNumKey;					//ã‚­ãƒ¼æ•°
+		std::vector<KEYSET> vecKeySet;	//ã‚­ãƒ¼è¨­å®šãƒ‡ãƒ¼ã‚¿
 	}MOTION;
 
-	std::vector<GameObject*> vecParts;		//ƒp[ƒcƒf[ƒ^iƒp[ƒc”•ª“®“IŠm•Ûj
-	std::vector<Vector3> vecOfsetPos;		//ƒIƒtƒZƒbƒgiˆÊ’uj
-	std::vector<Vector3> vecOfsetRot;		//ƒIƒtƒZƒbƒgiŠp“xj
-	std::vector<MOTION> vecMotion;			//ƒ‚[ƒVƒ‡ƒ“ƒf[ƒ^iƒ‚[ƒVƒ‡ƒ“”•ª“®“IŠm•Ûj
-	int m_nNowMotion;							//Œ»İ‚Ìƒ‚[ƒVƒ‡ƒ“
-	int m_nNextMotion;						//Ÿ‚Ìƒ‚[ƒVƒ‡ƒ“
-	int m_nNowKey;							//Œ»İ‚ÌƒL[
-	int m_nNextKey;							//Ÿ‚ÌƒL[
-	int m_nCntFrame;							//ƒtƒŒ[ƒ€ƒJƒEƒ“ƒ^
-	int m_nChangeFrame;						//ƒL[•ÏX‚Ü‚Å‚ÌƒtƒŒ[ƒ€”
+	std::vector<GameObject*> vecParts;		//ãƒ‘ãƒ¼ãƒ„ãƒ‡ãƒ¼ã‚¿ï¼ˆãƒ‘ãƒ¼ãƒ„æ•°åˆ†å‹•çš„ç¢ºä¿ï¼‰
+	std::vector<Vector3> vecOfsetPos;		//ã‚ªãƒ•ã‚»ãƒƒãƒˆï¼ˆä½ç½®ï¼‰
+	std::vector<Vector3> vecOfsetRot;		//ã‚ªãƒ•ã‚»ãƒƒãƒˆï¼ˆè§’åº¦ï¼‰
+	std::vector<MOTION> vecMotion;			//ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ï¼ˆãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³æ•°åˆ†å‹•çš„ç¢ºä¿ï¼‰
+	int m_nNowMotion;							//ç¾åœ¨ã®ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³
+	int m_nNextMotion;						//æ¬¡ã®ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³
+	int m_nNowKey;							//ç¾åœ¨ã®ã‚­ãƒ¼
+	int m_nNextKey;							//æ¬¡ã®ã‚­ãƒ¼
+	int m_nCntFrame;							//ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ã‚¿
+	int m_nChangeFrame;						//ã‚­ãƒ¼å¤‰æ›´ã¾ã§ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
 	
 	void SetFirstMotion();
 	void ChangeMotion(int nNextMotion, int nNextKey);

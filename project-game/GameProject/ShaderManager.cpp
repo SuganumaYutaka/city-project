@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    ShaderManager.cpp - ƒVƒF[ƒ_[ŠÇ—
+    ShaderManager.cpp - ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ç®¡ç†
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/8/7
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "ShaderManager.h"
 #include "Shader.h"
@@ -22,11 +22,11 @@
 #include "SkinMeshShader.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 ShaderManager::ShaderManager() : m_CurrentShader( NULL)
 {
-	//ƒVƒF[ƒ_[‚Ìƒ[ƒh
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ãƒ­ãƒ¼ãƒ‰
 	m_vecShaderSet.clear();
 	m_vecShaderSet.resize( eNumShader);
 	for (int nCnt = 0; nCnt < eNumShader; nCnt++)
@@ -34,8 +34,8 @@ ShaderManager::ShaderManager() : m_CurrentShader( NULL)
 		m_vecShaderSet[ nCnt] = NULL;
 	}
 
-	//ƒVƒF[ƒ_[‚Ì“Ç‚İ‚İ
-	//ƒfƒtƒHƒ‹ƒg
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®èª­ã¿è¾¼ã¿
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
 	m_mapShaderLoad[ "default"] = new DefaultShader();
 	m_mapShaderLoad[ "vertexLighting"] = new VertexLightingShader();
 	m_mapShaderLoad[ "perpixel"] = new PerPixelLightingShader();
@@ -47,12 +47,12 @@ ShaderManager::ShaderManager() : m_CurrentShader( NULL)
 	m_mapShaderLoad[ "shadowPL"] = new ShadowPLShader();
 	m_mapShaderLoad[ "depth"] = new DepthShader();
 
-	//ƒVƒF[ƒ_[ƒZƒbƒg
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚»ãƒƒãƒˆ
 	SetDefault();
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 ShaderManager::~ShaderManager()
 {
@@ -66,7 +66,7 @@ ShaderManager::~ShaderManager()
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[‚ğƒZƒbƒg
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’ã‚»ãƒƒãƒˆ
 ------------------------------------------------------------------------------*/
 void ShaderManager::SetShader( Camera* pCamera, Renderer* pRenderer, Material* pMaterial, EShaderType Type)
 {
@@ -83,25 +83,25 @@ void ShaderManager::SetShader( Camera* pCamera, Renderer* pRenderer, Material* p
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[‚ğƒ[ƒh
-	ˆø”
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’ãƒ­ãƒ¼ãƒ‰
+	å¼•æ•°
 	EShaderType Type
-	–ß‚è’l
+	æˆ»ã‚Šå€¤
 	Shader *
 ------------------------------------------------------------------------------*/
 Shader *ShaderManager::Load( EShaderType Type)
 {
-	//”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if (Type < 0 || Type >= (int)m_vecShaderSet.capacity())
 	{
 		assert(false);
 		return NULL;
 	}
 
-	//ƒ[ƒh‚³‚ê‚Ä‚¢‚é‚©
+	//ãƒ­ãƒ¼ãƒ‰ã•ã‚Œã¦ã„ã‚‹ã‹
 	if (m_vecShaderSet[Type] == NULL)
 	{
-		MessageBox( NULL, "‚»‚ÌƒVƒF[ƒ_[‚Íƒ[ƒh‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB\nShaderManager.cpp‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^‚É’Ç‰Á‚µ‚Ä‚­‚¾‚³‚¢\n", "ƒGƒ‰[", MB_OK);
+		MessageBox( NULL, "ãã®ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã¯ãƒ­ãƒ¼ãƒ‰ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚\nShaderManager.cppã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã«è¿½åŠ ã—ã¦ãã ã•ã„\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		return NULL;
 	}
 
@@ -109,7 +109,7 @@ Shader *ShaderManager::Load( EShaderType Type)
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[Ø‚è‘Ö‚¦iƒfƒtƒHƒ‹ƒgj
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼åˆ‡ã‚Šæ›¿ãˆï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆï¼‰
 ------------------------------------------------------------------------------*/
 void ShaderManager::SetDefault(void)
 {
@@ -124,7 +124,7 @@ void ShaderManager::SetDefault(void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[Ø‚è‘Ö‚¦i’á•i¿j
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼åˆ‡ã‚Šæ›¿ãˆï¼ˆä½å“è³ªï¼‰
 ------------------------------------------------------------------------------*/
 void ShaderManager::SetLow(void)
 {
@@ -135,7 +135,7 @@ void ShaderManager::SetLow(void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[Ø‚è‘Ö‚¦i‚•i¿j
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼åˆ‡ã‚Šæ›¿ãˆï¼ˆé«˜å“è³ªï¼‰
 ------------------------------------------------------------------------------*/
 void ShaderManager::SetHigh(void)
 {
@@ -146,7 +146,7 @@ void ShaderManager::SetHigh(void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[Ø‚è‘Ö‚¦iZƒoƒbƒtƒ@İ’èj
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼åˆ‡ã‚Šæ›¿ãˆï¼ˆZãƒãƒƒãƒ•ã‚¡è¨­å®šï¼‰
 ------------------------------------------------------------------------------*/
 void ShaderManager::SetDepth(void)
 {

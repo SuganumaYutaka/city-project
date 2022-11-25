@@ -1,112 +1,112 @@
 /*==============================================================================
 
-    BuildingParameterSpawner.cpp - Œš•¨‚Ì©“®¶¬[Œš•¨‚Ì¶¬‚É—p‚¢‚éƒpƒ‰ƒ[ƒ^[‚ğ¶¬
+    BuildingParameterSpawner.cpp - å»ºç‰©ã®è‡ªå‹•ç”Ÿæˆãƒ¼å»ºç‰©ã®ç”Ÿæˆã«ç”¨ã„ã‚‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’ç”Ÿæˆ
                                                        Author : Yutaka Suganuma
                                                        Date   : 2018/2/6
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "BuildingParameterSpawner.h"
 #include "BuildingParameter.h"
 #include "BuildingSurfacePattern.h"
 
 /*------------------------------------------------------------------------------
-	ƒWƒIƒƒgƒŠ¶¬—pƒpƒ‰ƒ[ƒ^[¶¬
+	ã‚¸ã‚ªãƒ¡ãƒˆãƒªç”Ÿæˆç”¨ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 GeometryParameter* GeometryParameterSpawner::operator()( const std::vector< BuildingSurfacePattern*>& surfacePatterns)
 {
-	//ƒ‰ƒ“ƒ_ƒ€‚Ì‰Šú‰»
+	//ãƒ©ãƒ³ãƒ€ãƒ ã®åˆæœŸåŒ–
 	m_Random.ResetSeed();
 	
-	//ƒpƒ‰ƒ[ƒ^[¶¬
+	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ç”Ÿæˆ
 	auto parameter = new GeometryParameter();
 	
-	//1ŠK‚Ì‚‚³
+	//1éšã®é«˜ã•
 	m_Random.SetRangeFloat( 1.2f, 1.5f);
 	parameter->m_GroundFloorHeight = m_Random.GetFloat();
 	
-	//ƒtƒƒA‚Ì‚‚³
+	//ãƒ•ãƒ­ã‚¢ã®é«˜ã•
 	m_Random.SetRangeFloat( 1.0f, 1.5f);
 	parameter->m_FloorHeight = m_Random.GetFloat();
 
-	//‘‹‚Ì•
+	//çª“ã®å¹…
 	m_Random.SetRangeFloat( 0.8f, 1.5f);
 	parameter->m_WindowWidth = m_Random.GetFloat();
 
-	//ŒºŠÖ‚Ì•
+	//ç„é–¢ã®å¹…
 	m_Random.SetRangeFloat( 2.0f, 2.5f);
 	parameter->m_EntranceWidth = m_Random.GetFloat();
 
-	//•\–Êƒpƒ^[ƒ“
+	//è¡¨é¢ãƒ‘ã‚¿ãƒ¼ãƒ³
 	m_Random.SetRangeInt( 0, surfacePatterns.size() - 1);
 	parameter->m_SurfacePatternID = m_Random.GetInt();
 
-	//ƒ‰ƒ“ƒ_ƒ€‚ÌƒV[ƒh’l
+	//ãƒ©ãƒ³ãƒ€ãƒ ã®ã‚·ãƒ¼ãƒ‰å€¤
 	parameter->m_RandomSeed = m_Random.GetSeed();
 
 	return parameter;
 }
 
 /*------------------------------------------------------------------------------
-	Œ`ó¶¬—pƒpƒ‰ƒ[ƒ^[¶¬
+	å½¢çŠ¶ç”Ÿæˆç”¨ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 void ShapeParameterSpawner::operator()(const std::vector<Vector3>& vertices, GeometryParameter* geometryParameter)
 {
-	//ƒ‰ƒ“ƒ_ƒ€‚Ì‰Šú‰»
+	//ãƒ©ãƒ³ãƒ€ãƒ ã®åˆæœŸåŒ–
 	m_Random.ResetSeed();
 	
-	//“y’n‚Ì‘å‚«‚³
+	//åœŸåœ°ã®å¤§ãã•
 	Vector3 vec01 = vertices[1] - vertices[0];
 	Vector3 vec03 = vertices[3] - vertices[0];
 	Vector3 landSize;
 	landSize.x = vec01.Length();
 	landSize.z = vec03.Length();
 
-	//Œ`ó‚Ì‚‚³
+	//å½¢çŠ¶ã®é«˜ã•
 	m_Random.SetRangeFloat( 20.0f, 25.0f);
 	float heightMin = m_Random.GetFloat();
 	m_Random.SetRangeFloat( 25.0f, 30.0f);
 	float heightMax = heightMin + m_Random.GetFloat();
 
-	//Œ`ó‚ÌƒTƒCƒY‚Ì”ä—¦
+	//å½¢çŠ¶ã®ã‚µã‚¤ã‚ºã®æ¯”ç‡
 	float sizeRateMax = 0.9f;
 	float sizeRateMin = 0.5f;
 	
-	//Œ`ó‚Ì¶¬”
+	//å½¢çŠ¶ã®ç”Ÿæˆæ•°
 	m_Random.SetRangeInt( 1, 2);
 	int shapeCount = m_Random.GetInt();
 
-	//Œ`ó‚Ìí—Ş
+	//å½¢çŠ¶ã®ç¨®é¡
 	m_Random.ResetSeed();
 	m_Random.SetRangeInt( 0, eShapeTypeCount - 1);
 	E_SHAPE_TYPE type = (E_SHAPE_TYPE)m_Random.GetInt();
 
-	//Œ`ó‚Ì¶¬
+	//å½¢çŠ¶ã®ç”Ÿæˆ
 	for (int i = 0; i < shapeCount; i++)
 	{
 		auto shapeParameter = new ShapeParameter();
 
-		//ƒ^ƒCƒv‚Ìİ’è
+		//ã‚¿ã‚¤ãƒ—ã®è¨­å®š
 		shapeParameter->m_Type = type;
 
-		//ƒ‰ƒ“ƒ_ƒ€‚Ì‰Šú‰»
+		//ãƒ©ãƒ³ãƒ€ãƒ ã®åˆæœŸåŒ–
 		m_Random.ResetSeed();
 		
-		//‰ñ“]—Ê‚Ìİ’è
+		//å›è»¢é‡ã®è¨­å®š
 		shapeParameter->m_Rotation = 0.0f;
 
-		//‘å‚«‚³‚Ìİ’è
+		//å¤§ãã•ã®è¨­å®š
 		m_Random.SetRangeFloat( sizeRateMin, sizeRateMax);
 		shapeParameter->m_Size.x = landSize.x * m_Random.GetFloat();
 		shapeParameter->m_Size.z = landSize.z * m_Random.GetFloat();
 
-		//‚‚³‚Ìİ’è
+		//é«˜ã•ã®è¨­å®š
 		m_Random.SetRangeFloat( heightMin, heightMax);
 		shapeParameter->m_Size.y = m_Random.GetFloat();
 	
-		//ˆÊ’u‚Ìİ’è
+		//ä½ç½®ã®è¨­å®š
 		float range = ( landSize.x - shapeParameter->m_Size.x) * 0.5f;
 		m_Random.SetRangeFloat( -range, range);
 		shapeParameter->m_Position.x = m_Random.GetFloat();
@@ -115,7 +115,7 @@ void ShapeParameterSpawner::operator()(const std::vector<Vector3>& vertices, Geo
 		shapeParameter->m_Position.z = m_Random.GetFloat();
 		//shapeParameter->m_Position.z = ( landSize.z - size.z) * 0.5f;
 
-		//ƒWƒIƒƒgƒŠ‚É’Ç‰Á
+		//ã‚¸ã‚ªãƒ¡ãƒˆãƒªã«è¿½åŠ 
 		geometryParameter->AddShapeParameter( shapeParameter);
 	}
 }

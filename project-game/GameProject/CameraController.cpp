@@ -1,12 +1,12 @@
 /*==============================================================================
 	
-	CameraController.h - ƒJƒƒ‰‘€ì
+	CameraController.h - ã‚«ãƒ¡ãƒ©æ“ä½œ
 														Author : Yutaka Suganuma
 														Date   : 2017/6/7
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "CameraController.h"
 #include "GameObject.h"
@@ -17,13 +17,13 @@
 #include "DebugRenderer.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
-#define MOVE_SPEED ( 0.05f)		//ƒJƒƒ‰•½sˆÚ“®‘¬“x
-#define ROT_SPEED ( 0.003f)			//ƒJƒƒ‰‰ñ“]‘¬“x
+#define MOVE_SPEED ( 0.05f)		//ã‚«ãƒ¡ãƒ©å¹³è¡Œç§»å‹•é€Ÿåº¦
+#define ROT_SPEED ( 0.003f)			//ã‚«ãƒ¡ãƒ©å›è»¢é€Ÿåº¦
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* CameraController::Create(GameObject* gameObject)
 {
@@ -31,7 +31,7 @@ Component* CameraController::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 CameraController::CameraController( GameObject* pGameObject)
 {
@@ -51,7 +51,7 @@ CameraController::CameraController( GameObject* pGameObject)
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void CameraController::Uninit( void)
 {
@@ -59,15 +59,15 @@ void CameraController::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void CameraController::Update()
 {
-	//’·‚³EŠp“x‚ÌXV
+	//é•·ã•ãƒ»è§’åº¦ã®æ›´æ–°
 	Vector3 Dir = m_pCamera->GetPosAt() - m_pTransform->GetWorldPosition();
 	m_fLength = Dir.Length();
 
-	//ƒJƒƒ‰’Ç]
+	//ã‚«ãƒ¡ãƒ©è¿½å¾“
 	if( m_pTargetPosEye != NULL)
 	{
 		auto PosEye = m_pTargetPosEye->GetWorldPosition();
@@ -79,14 +79,14 @@ void CameraController::Update()
 		m_pCamera->Move( Move);
 	}
 
-	//’‹“_‚ğƒ^[ƒQƒbƒg‚ÉŒü‚¯‚é
+	//æ³¨è¦–ç‚¹ã‚’ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«å‘ã‘ã‚‹
 	if (m_pTargetPosAt != NULL)
 	{
-		//‹ß‚·‚¬‚é‚Æ‚«‚Í’‹“_‚ğ“®‚©‚³‚È‚¢
+		//è¿‘ã™ãã‚‹ã¨ãã¯æ³¨è¦–ç‚¹ã‚’å‹•ã‹ã•ãªã„
 		if (m_pTargetPosEye != NULL &&
 			Vector3::Distance(m_pTargetPosEye->m_pTransform->GetWorldPosition(), m_pTargetPosAt->m_pTransform->GetWorldPosition()) < 2.5f)
 		{
-			//“®‚©‚³‚È‚¢
+			//å‹•ã‹ã•ãªã„
 		}
 		else
 		{
@@ -96,7 +96,7 @@ void CameraController::Update()
 		}
 	}
 
-	//ƒJƒƒ‰•½sˆÚ“®
+	//ã‚«ãƒ¡ãƒ©å¹³è¡Œç§»å‹•
 	if( Manager::GetInputMouse()->GetClickPress(2))
 	{
 		if (m_pTargetPosAt == NULL)
@@ -119,7 +119,7 @@ void CameraController::Update()
 
 	if( Manager::GetInputMouse()->GetClickPress(1))
 	{
-		//ƒJƒƒ‰‰ñ“]
+		//ã‚«ãƒ¡ãƒ©å›è»¢
 		if (Manager::GetInputKeyboard()->GetKeyPress(DIK_LSHIFT) || Manager::GetInputKeyboard()->GetKeyPress(DIK_RSHIFT))
 		{
 			if (m_pTargetPosAt == NULL && m_pTargetPosEye == NULL)
@@ -148,7 +148,7 @@ void CameraController::Update()
 			}
 		}
 		
-		//’‹“_‰ñ“]
+		//æ³¨è¦–ç‚¹å›è»¢
 		else
 		{
 			if (m_pTargetPosAt == NULL)
@@ -177,14 +177,14 @@ void CameraController::Update()
 		}
 	}
 
-	//ƒY[ƒ€ƒCƒ“ƒAƒEƒgEZ²ˆÚ“®
+	//ã‚ºãƒ¼ãƒ ã‚¤ãƒ³ã‚¢ã‚¦ãƒˆãƒ»Zè»¸ç§»å‹•
 	float fZoom = Manager::GetInputMouse()->GetWheel() * MOVE_SPEED;
 
 	if (fZoom != 0.0f)
 	{
 		Vector3 CameraVec = m_pCamera->GetCameraVec();
 
-		//ƒY[ƒ€ƒCƒ“ƒAƒEƒg
+		//ã‚ºãƒ¼ãƒ ã‚¤ãƒ³ã‚¢ã‚¦ãƒˆ
 		if (Manager::GetInputKeyboard()->GetKeyPress(DIK_LSHIFT) || Manager::GetInputKeyboard()->GetKeyPress(DIK_RSHIFT))
 		{
 			m_pTransform->Move(  CameraVec * fZoom);
@@ -194,7 +194,7 @@ void CameraController::Update()
 			}
 		}
 
-		//Z²ˆÚ“®
+		//Zè»¸ç§»å‹•
 		else
 		{
 			
@@ -202,7 +202,7 @@ void CameraController::Update()
 		}
 	}
 
-	//‰ñ“]
+	//å›è»¢
 	m_pTransform->SetWorldRotationLookAt( m_pCamera->GetPosAt());
 
 //#ifdef _DEBUG
@@ -230,7 +230,7 @@ void CameraController::Update()
 }
 
 /*------------------------------------------------------------------------------
-	Õ“Ë‚Ìˆ—
+	è¡çªæ™‚ã®å‡¦ç†
 ------------------------------------------------------------------------------*/
 void CameraController::OnCollision( Collider *pCollider)
 {

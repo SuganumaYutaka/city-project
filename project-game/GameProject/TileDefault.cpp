@@ -1,17 +1,17 @@
 /*==============================================================================
 
-    TileDefault.cpp - Œš•¨‚Ì©“®¶¬[ƒ^ƒCƒ‹iƒfƒtƒHƒ‹ƒgj
+    TileDefault.cpp - å»ºç‰©ã®è‡ªå‹•ç”Ÿæˆãƒ¼ã‚¿ã‚¤ãƒ«ï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆï¼‰
                                                        Author : Yutaka Suganuma
                                                        Date   : 2018/1/8
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "TileDefault.h"
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»
+	åˆæœŸåŒ–
 ------------------------------------------------------------------------------*/
 void TileDefault::Init( float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal, E_TILE_TYPE type, const TextureUV& texUV)
 {
@@ -24,7 +24,7 @@ void TileDefault::Init( float height, float width, const Vector3& bottomLeftPosi
 }
 
 /*------------------------------------------------------------------------------
-	ˆÊ’u‚Æ–@ü‚ÌXV
+	ä½ç½®ã¨æ³•ç·šã®æ›´æ–°
 ------------------------------------------------------------------------------*/
 void TileDefault::Transform(D3DXMATRIX shapeMatrix)
 {
@@ -39,11 +39,11 @@ void TileDefault::Transform(D3DXMATRIX shapeMatrix)
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_ƒoƒbƒtƒ@‚Ìİ’è
+	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
 ------------------------------------------------------------------------------*/
 void TileDefault::SetVertexBuffer(VERTEX_3D* pVtx)
 {
-	//k‘Şƒ|ƒŠƒSƒ“‚É’ˆÓ‚µ‚Ä’¸“_‚ğİ’è
+	//ç¸®é€€ãƒãƒªã‚´ãƒ³ã«æ³¨æ„ã—ã¦é ‚ç‚¹ã‚’è¨­å®š
 	auto vector = Vector3::Cross( m_Normal, Vector3(0.0f, 1.0f, 0.0f)).Normalize();
 	Vector3 nextPosition = m_BottomLeftPosition + vector * m_Width;
 
@@ -65,7 +65,7 @@ void TileDefault::SetVertexBuffer(VERTEX_3D* pVtx)
 
 	pVtx[0].Tex = pVtx[5].Tex = D3DXVECTOR2( 0.0f, 0.0f); 
 	
-	//UViNšj
+	//UVï¼ˆNå­—ï¼‰
 	pVtx[1].Tex = m_TexUV.GetTopLeft();
 	pVtx[2].Tex = m_TexUV.GetBottomLeft();
 	pVtx[3].Tex = m_TexUV.GetTopRight();
@@ -73,7 +73,7 @@ void TileDefault::SetVertexBuffer(VERTEX_3D* pVtx)
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_”‚ÌZo
+	é ‚ç‚¹æ•°ã®ç®—å‡º
 ------------------------------------------------------------------------------*/
 int TileDefault::CulcCountVertex()
 {
@@ -81,7 +81,7 @@ int TileDefault::CulcCountVertex()
 }
 
 /*------------------------------------------------------------------------------
-	ƒ|ƒŠƒSƒ“”‚ÌZo
+	ãƒãƒªã‚´ãƒ³æ•°ã®ç®—å‡º
 ------------------------------------------------------------------------------*/
 int TileDefault::CulcCountPolygon()
 {

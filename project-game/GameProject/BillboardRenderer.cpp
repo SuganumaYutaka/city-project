@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    BillboardRenderer.cpp - 3Dƒ|ƒŠƒSƒ“•`‰æ
+    BillboardRenderer.cpp - 3Dãƒãƒªã‚´ãƒ³æç”»
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/25
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "BillboardRenderer.h"
 #include "GameObject.h"
@@ -16,7 +16,7 @@
 #include "Camera.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* BillboardRenderer::Create(GameObject* gameObject)
 {
@@ -24,7 +24,7 @@ Component* BillboardRenderer::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 BillboardRenderer::BillboardRenderer( GameObject *pGameObject)
 {
@@ -33,48 +33,48 @@ BillboardRenderer::BillboardRenderer( GameObject *pGameObject)
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 	m_nPass = 1;
 
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//’¸“_ƒoƒbƒtƒ@¶¬
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	if( FAILED( pDevice->CreateVertexBuffer(
-		sizeof( VERTEX_3D) * 4,				//ì¬‚µ‚½‚¢’¸“_ƒoƒbƒtƒ@‚ÌƒTƒCƒY
-		D3DUSAGE_WRITEONLY,					//’¸“_ƒoƒbƒtƒ@‚Ìg—p•û–@(‘¬‚³‚É‰e‹¿)
-		0,									//FVF(’¸“_ƒtƒH[ƒ}ƒbƒg)
-		D3DPOOL_MANAGED,					//ƒƒ‚ƒŠ‚ÌŠÇ—(MANAGED‚ÍƒfƒoƒCƒX‚É‚¨‚Ü‚©‚¹)
-		&m_pVtxBuff,						//’¸“_ƒoƒbƒtƒ@ŠÇ—ƒCƒ“ƒ^[ƒtƒFƒCƒX
+		sizeof( VERTEX_3D) * 4,				//ä½œæˆã—ãŸã„é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º
+		D3DUSAGE_WRITEONLY,					//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½¿ç”¨æ–¹æ³•(é€Ÿã•ã«å½±éŸ¿)
+		0,									//FVF(é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ)
+		D3DPOOL_MANAGED,					//ãƒ¡ãƒ¢ãƒªã®ç®¡ç†(MANAGEDã¯ãƒ‡ãƒã‚¤ã‚¹ã«ãŠã¾ã‹ã›)
+		&m_pVtxBuff,						//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç®¡ç†ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 		NULL)))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
 
-	//F‚Ìİ’è
+	//è‰²ã®è¨­å®š
 	m_Color = D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f);
 
-	//’¸“_İ’è
+	//é ‚ç‚¹è¨­å®š
 	SetVtxBuffer();
 	
-	//ƒ}ƒeƒŠƒAƒ‹
+	//ãƒãƒ†ãƒªã‚¢ãƒ«
 	m_pMaterial = new Material();
 	m_pMaterial->SetShader( eShaderBillboard);
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void BillboardRenderer::Uninit( void)
 {
 	Manager::GetRenderManager()->ReleaseRenderer( this);
 
-	//’¸“_ƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	if( m_pVtxBuff != NULL)
 	{
 		m_pVtxBuff->Release();
 		m_pVtxBuff = NULL;
 	}
 
-	//ƒ}ƒeƒŠƒAƒ‹‚Ì‰ğ•ú
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ã®è§£æ”¾
 	if (m_pMaterial != NULL)
 	{
 		delete m_pMaterial;
@@ -83,80 +83,80 @@ void BillboardRenderer::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void BillboardRenderer::Update( void)
 {
-	//’¸“_İ’è
+	//é ‚ç‚¹è¨­å®š
 	//SetVtxBuffer();
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æ
+	æç”»
 ------------------------------------------------------------------------------*/
 void BillboardRenderer::Draw( Camera* pCamera)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//ƒrƒ‹ƒ{[ƒhˆ—
+	//ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰å‡¦ç†
 	SetBillboard( *pCamera->GetViewMatrix());
 
-	//ƒ}ƒeƒŠƒAƒ‹iƒVƒF[ƒ_[j‚ğƒZƒbƒg
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ï¼ˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ï¼‰ã‚’ã‚»ãƒƒãƒˆ
 	m_pMaterial->Set( pCamera, this);
 
-	//’¸“_î•ñİ’è
+	//é ‚ç‚¹æƒ…å ±è¨­å®š
 	pDevice-> SetStreamSource( 0, m_pVtxBuff, 0, sizeof( VERTEX_3D));
 
-	//ƒeƒNƒjƒbƒNŠJn
+	//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯é–‹å§‹
 	m_pMaterial->Begin( m_nPass);
 
-	//ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+	//ãƒãƒªã‚´ãƒ³ã®æç”»
 	pDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0,	2);
 
-	//ƒeƒNƒjƒbƒNI—¹
+	//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯çµ‚äº†
 	m_pMaterial->End();
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_ƒoƒbƒtƒ@İ’è
+	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 ------------------------------------------------------------------------------*/
 void BillboardRenderer::SetVtxBuffer( void)
 {
-	//ƒƒbƒN
-	VERTEX_3D* pVtx;		//‰¼‘zƒAƒhƒŒƒX—pƒ|ƒCƒ“ƒ^
+	//ãƒ­ãƒƒã‚¯
+	VERTEX_3D* pVtx;		//ä»®æƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹ç”¨ãƒã‚¤ãƒ³ã‚¿
 	m_pVtxBuff->Lock( 0, 0, (void**)&pVtx, 0);
 
-	//’¸“_İ’è
-	//À•WiZšj
+	//é ‚ç‚¹è¨­å®š
+	//åº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Pos = D3DXVECTOR3( -0.5f, +0.5f, 0.0f);
 	pVtx[ 1].Pos = D3DXVECTOR3( +0.5f, +0.5f, 0.0f);
 	pVtx[ 2].Pos = D3DXVECTOR3( -0.5f, -0.5f, 0.0f);
 	pVtx[ 3].Pos = D3DXVECTOR3( +0.5f, -0.5f, 0.0f);
 	
-	//–@ü
+	//æ³•ç·š
 	pVtx[ 0].Normal = 
 	pVtx[ 1].Normal = 
 	pVtx[ 2].Normal = 
 	pVtx[ 3].Normal = D3DXVECTOR3( 0.0f, 0.0f, -1.0f);
 
-	//’¸“_ƒJƒ‰[
+	//é ‚ç‚¹ã‚«ãƒ©ãƒ¼
 	pVtx[ 0].Color = 
 	pVtx[ 1].Color = 
 	pVtx[ 2].Color = 
 	pVtx[ 3].Color = m_Color;
 
-	//UVÀ•WiZšj
+	//UVåº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Tex = m_TextureUV.GetTopLeft();
 	pVtx[ 1].Tex = m_TextureUV.GetTopRight();
 	pVtx[ 2].Tex = m_TextureUV.GetBottomLeft();
 	pVtx[ 3].Tex = m_TextureUV.GetBottomRight();
 
-	//ƒAƒ“ƒƒbƒN
+	//ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
 	m_pVtxBuff->Unlock();
 }
 
 /*------------------------------------------------------------------------------
-	ƒeƒNƒXƒ`ƒƒİ’è
+	ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 ------------------------------------------------------------------------------*/
 void BillboardRenderer::LoadTexture(std::string FileName)
 {
@@ -164,11 +164,11 @@ void BillboardRenderer::LoadTexture(std::string FileName)
 }
 
 /*------------------------------------------------------------------------------
-	ƒrƒ‹ƒ{[ƒhˆ—
+	ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰å‡¦ç†
 ------------------------------------------------------------------------------*/
 void BillboardRenderer::SetBillboard(D3DXMATRIX mtxView)
 {
-	//“]’ns—ñ
+	//è»¢åœ°è¡Œåˆ—
 	D3DXMatrixTranspose( &mtxView, &mtxView);
 	mtxView._14 = 0.0f;
 	mtxView._24 = 0.0f;
@@ -176,11 +176,11 @@ void BillboardRenderer::SetBillboard(D3DXMATRIX mtxView)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void BillboardRenderer::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -218,7 +218,7 @@ void BillboardRenderer::Load(Text& text)
 			m_TextureUV.ConvertFromString( text.GetAllText(), text.GetPosition());
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
@@ -228,7 +228,7 @@ void BillboardRenderer::Load(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void BillboardRenderer::Save(Text& text)
 {

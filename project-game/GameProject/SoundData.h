@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    SoundData.h - ƒTƒEƒ“ƒhƒf[ƒ^
+    SoundData.h - ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/7/18
 ==============================================================================*/
@@ -8,17 +8,17 @@
 #define _SOUND_DATA_H_
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
 
 /*------------------------------------------------------------------------------
-	‘O•ûéŒ¾
+	å‰æ–¹å®£è¨€
 ------------------------------------------------------------------------------*/
 
 
 /*------------------------------------------------------------------------------
-	ƒNƒ‰ƒX’è‹`
+	ã‚¯ãƒ©ã‚¹å®šç¾©
 ------------------------------------------------------------------------------*/
 class SoundData
 {
@@ -33,10 +33,10 @@ public:
 	int GetCntLoop(){ return m_nCntLoop;}
 	
 private:
-	int m_nCntLoop;							//ƒ‹[ƒvƒJƒEƒ“ƒgi-1‚Å–³ŒÀƒ‹[ƒv@0‚Åˆê‰ñ@1ˆÈã‚Åw’è‰ñjIXAudio2SourceVoice *g_apSourceVoice;		//ƒ\[ƒXƒ{ƒCƒX
-	IXAudio2SourceVoice *m_pSourceVoice;	//ƒ\[ƒXƒ{ƒCƒX
-	BYTE *m_pDataAudio;						//ƒI[ƒfƒBƒIƒf[ƒ^
-	DWORD m_SizeAudio;						//ƒI[ƒfƒBƒIƒf[ƒ^ƒTƒCƒY
+	int m_nCntLoop;							//ãƒ«ãƒ¼ãƒ—ã‚«ã‚¦ãƒ³ãƒˆï¼ˆ-1ã§ç„¡é™ãƒ«ãƒ¼ãƒ—ã€€0ã§ä¸€å›ã€€1ä»¥ä¸Šã§æŒ‡å®šå›ï¼‰IXAudio2SourceVoice *g_apSourceVoice;		//ã‚½ãƒ¼ã‚¹ãƒœã‚¤ã‚¹
+	IXAudio2SourceVoice *m_pSourceVoice;	//ã‚½ãƒ¼ã‚¹ãƒœã‚¤ã‚¹
+	BYTE *m_pDataAudio;						//ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªãƒ‡ãƒ¼ã‚¿
+	DWORD m_SizeAudio;						//ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚º
 	
 	HRESULT CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWORD *pChunkDataPosition);
 	HRESULT ReadChunkData(HANDLE hFile, void *pBuffer, DWORD dwBuffersize, DWORD dwBufferoffset);

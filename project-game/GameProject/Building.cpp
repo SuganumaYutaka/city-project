@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    Building.h - ’¬‚ÌŽ©“®¶¬[Œš•¨
+    Building.h - ç”ºã®è‡ªå‹•ç”Ÿæˆãƒ¼å»ºç‰©
                                                        Author : Yutaka Suganuma
                                                        Date   : 2018/2/5
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Building.h"
 #include "GameObject.h"
@@ -20,7 +20,7 @@
 #include "BuildingSurfacePattern.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Building::Building(BuildingManager* manager, GameObject* parent)
 {
@@ -34,7 +34,7 @@ Building::Building(BuildingManager* manager, GameObject* parent)
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Building::~Building()
 {
@@ -42,13 +42,13 @@ Building::~Building()
 }
 
 /*------------------------------------------------------------------------------
-	Á‹Ž
+	æ¶ˆåŽ»
 ------------------------------------------------------------------------------*/
 void Building::Delete(void)
 {
 	m_GameObject->ReleaseReserve();
 
-	//ƒŠƒ“ƒN‚ð‰ðœ
+	//ãƒªãƒ³ã‚¯ã‚’è§£é™¤
 	if (m_LandManager)
 	{
 		m_LandManager->GetLand( m_LandID)->UnlinkBuilding( this);
@@ -59,11 +59,11 @@ void Building::Delete(void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒWƒIƒƒgƒŠ‚Ì‰Šú‰»
+	ã‚¸ã‚ªãƒ¡ãƒˆãƒªã®åˆæœŸåŒ–
 ------------------------------------------------------------------------------*/
 void Building::InitGeometry(GeometryParameter* parameter, BuildingSurfacePattern* surfacePattern)
 {
-	//‚·‚Å‚É‚ ‚éƒWƒIƒƒgƒŠ‚Æ•`‰æî•ñ‚ðíœ
+	//ã™ã§ã«ã‚ã‚‹ã‚¸ã‚ªãƒ¡ãƒˆãƒªã¨æç”»æƒ…å ±ã‚’å‰Šé™¤
 	if (m_Geometry)
 	{
 		m_Geometry->ReleaseReserve();
@@ -80,20 +80,20 @@ void Building::InitGeometry(GeometryParameter* parameter, BuildingSurfacePattern
 }
 
 /*------------------------------------------------------------------------------
-	“y’nÁ‹ŽŽž‚Ìˆ—
+	åœŸåœ°æ¶ˆåŽ»æ™‚ã®å‡¦ç†
 ------------------------------------------------------------------------------*/
 void Building::OnDeleteLand(void)
 {
-	//Á‹ŽŽž‚ÉƒŠƒ“ƒN‚Ì‰ðœ‚ð‚µ‚È‚¢
+	//æ¶ˆåŽ»æ™‚ã«ãƒªãƒ³ã‚¯ã®è§£é™¤ã‚’ã—ãªã„
 	m_LandManager = NULL;
 	m_LandID = -1;
 
-	//Á‹Ž‚·‚é
+	//æ¶ˆåŽ»ã™ã‚‹
 	Delete();
 }
 
 /*------------------------------------------------------------------------------
-	“y’n‚ÆƒŠƒ“ƒN‚·‚é
+	åœŸåœ°ã¨ãƒªãƒ³ã‚¯ã™ã‚‹
 ------------------------------------------------------------------------------*/
 void Building::LinkLand( LandManager* landManager, int landID)
 {
@@ -102,12 +102,12 @@ void Building::LinkLand( LandManager* landManager, int landID)
 
 	m_LandManager->GetLand( m_LandID)->LinkBuilding( this);
 
-	//GameObject‚ðˆÚ“®
+	//GameObjectã‚’ç§»å‹•
 	m_GameObject->m_pTransform->SetWorldPosition( m_LandManager->GetLand( m_LandID)->GetGameObject()->m_pTransform->GetWorldPosition());
 }
 
 /*------------------------------------------------------------------------------
-	ƒWƒIƒƒgƒŠ‚ðŠm’è‚³‚¹‚é
+	ã‚¸ã‚ªãƒ¡ãƒˆãƒªã‚’ç¢ºå®šã•ã›ã‚‹
 ------------------------------------------------------------------------------*/
 void Building::ConfirmGeometry(void)
 {
@@ -117,7 +117,7 @@ void Building::ConfirmGeometry(void)
 	}
 	m_Geometry->ConfirmGeometry();
 	
-	//ƒWƒIƒƒgƒŠî•ñ‚Ìíœ
+	//ã‚¸ã‚ªãƒ¡ãƒˆãƒªæƒ…å ±ã®å‰Šé™¤
 	m_Geometry->ReleaseReserve();
 	m_Geometry =NULL;
 }

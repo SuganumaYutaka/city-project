@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    LandSpawner.cpp - ’¬‚Ì©“®¶¬[“y’n¶¬ŠÖ”ƒIƒuƒWƒFƒNƒg
+    LandSpawner.cpp - ç”ºã®è‡ªå‹•ç”Ÿæˆãƒ¼åœŸåœ°ç”Ÿæˆé–¢æ•°ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
                                                        Author : Yutaka Suganuma
                                                        Date   : 2018/2/6
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "LandSpawner.h"
 #include "GameObject.h"
@@ -26,26 +26,26 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
-#define DEFAULT_LAND_SIZE (10.0f)			//ƒfƒtƒHƒ‹ƒg‚Ì“y’nƒTƒCƒY
-#define DISTANCE_OF_LANDS (0.5f)			//“y’n“¯m‚ÌŠÔŠu
+#define DEFAULT_LAND_SIZE (10.0f)			//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®åœŸåœ°ã‚µã‚¤ã‚º
+#define DISTANCE_OF_LANDS (0.5f)			//åœŸåœ°åŒå£«ã®é–“éš”
 
 /*------------------------------------------------------------------------------
-	“y’n‚Ì¶¬
-	¦@lŠpŒ`‚Ì‹æ‰æ‚Ì‚İ‘Î‰
+	åœŸåœ°ã®ç”Ÿæˆ
+	â€»ã€€å››è§’å½¢ã®åŒºç”»ã®ã¿å¯¾å¿œ
 ------------------------------------------------------------------------------*/
 std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, CityAttributeManager* attributeManager)
 {
 	std::vector<LandParameter*> lands;
 
-	//‹æ‰æ‚©‚çŠp‚É‚ ‚½‚é4’¸“_‚ğ’Šo
+	//åŒºç”»ã‹ã‚‰è§’ã«ã‚ãŸã‚‹4é ‚ç‚¹ã‚’æŠ½å‡º
 	std::vector<Vertex*> corners;
 	auto face = attribute->GetFace();
 	auto halfEdge = face->GetHalfEdge();
 	for (;;)
 	{
-		//“àÏ‚ª0‘OŒã¨Šp‚Æ‚·‚é
+		//å†…ç©ãŒ0å‰å¾Œâ†’è§’ã¨ã™ã‚‹
 		float dot = Vector3::Dot(halfEdge->GetVector().Normalize(), halfEdge->GetNext()->GetVector().Normalize());
 		if (dot < 0.85f)
 		{
@@ -59,18 +59,18 @@ std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, 
 		}
 	}
 
-	//4’¸“_ˆÈŠO‚Ìê‡‚Í–¢‘Î‰
+	//4é ‚ç‚¹ä»¥å¤–ã®å ´åˆã¯æœªå¯¾å¿œ
 	if (corners.size() != 4)
 	{
 		return lands;
 	}
 
-	//4’¸“_‚©‚ç4•Ó‚ğ¶¬
+	//4é ‚ç‚¹ã‹ã‚‰4è¾ºã‚’ç”Ÿæˆ
 	std::vector<BlockEdge> edges;
 	edges.resize( 4);
 	for(int nCnt = 0; nCnt < 4; nCnt++)
 	{
-		//•Ó‚ÌŠJnˆÊ’u‚ğ“¹˜H•‚Ì”¼•ª‚¾‚¯ˆÚ“®‚·‚é
+		//è¾ºã®é–‹å§‹ä½ç½®ã‚’é“è·¯å¹…ã®åŠåˆ†ã ã‘ç§»å‹•ã™ã‚‹
 		Vector3 position = corners[nCnt]->GetPosition();
 		Vector3 vector;
 		if (nCnt == 3)
@@ -85,12 +85,12 @@ std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, 
 		position += vector.Normalize() * DEFAULT_ROAD_WIDTH * 0.5f;
 		position += vectorVertical.Normalize() * DEFAULT_ROAD_WIDTH * 0.5f;
 
-		//•Ó‚ÌŠJnˆÊ’u‚Ìİ’è
+		//è¾ºã®é–‹å§‹ä½ç½®ã®è¨­å®š
 		edges[ nCnt].vertices.push_back( position);
 	}
 	for(int nCnt = 0; nCnt < 4; nCnt++)
 	{
-		//•Ó‚Ì“¹˜Hî•ñ‚Ìİ’è
+		//è¾ºã®é“è·¯æƒ…å ±ã®è¨­å®š
 		if (nCnt != 3)
 		{
 			SetRoadsFromCorner( corners[nCnt], corners[nCnt + 1], &edges[nCnt], attribute);
@@ -102,7 +102,7 @@ std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, 
 	}
 	for (int nCnt = 0; nCnt < 4; nCnt++)
 	{
-		//•Ó‚ÌƒxƒNƒgƒ‹‚Ìİ’è
+		//è¾ºã®ãƒ™ã‚¯ãƒˆãƒ«ã®è¨­å®š
 		Vector3 nextPosition;
 		if (nCnt != 3)
 		{
@@ -114,24 +114,24 @@ std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, 
 		}
 		edges[ nCnt].vector = nextPosition - edges[ nCnt].vertices[0];
 	
-		//•Ó‚É—×Ú‚·‚é“y’n”‚Ìİ’è
+		//è¾ºã«éš£æ¥ã™ã‚‹åœŸåœ°æ•°ã®è¨­å®š
 		int numLand = (int)( edges[ nCnt].vector.Length() / DEFAULT_LAND_SIZE);
 
-		//•Ó‚ğ“y’n”‚ÅŠ„‚Á‚½ƒxƒNƒgƒ‹i‚Æ‚È‚è‚Ì“_‚Ö‚ÌƒxƒNƒgƒ‹j‚ğİ’è
+		//è¾ºã‚’åœŸåœ°æ•°ã§å‰²ã£ãŸãƒ™ã‚¯ãƒˆãƒ«ï¼ˆã¨ãªã‚Šã®ç‚¹ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«ï¼‰ã‚’è¨­å®š
 		auto vector  = edges[ nCnt].vector / (float)numLand;
 
-		//•Ó‚ğ“™•ª‚·‚é“_‚ğİ’è
+		//è¾ºã‚’ç­‰åˆ†ã™ã‚‹ç‚¹ã‚’è¨­å®š
 		for (int i = 0; i < numLand - 1; i++)
 		{
 			edges[ nCnt].vertices.push_back( edges[ nCnt].vertices.back() + vector);
 		}
 	}
 
-	//“y’n‚ğİ’è
+	//åœŸåœ°ã‚’è¨­å®š
 	std::vector<BlockLand> preLands;
 	for (int nCnt = 0; nCnt < 4; nCnt++)
 	{
-		//3“_‚©‚ç–Ê‚ğì¬‚·‚é‚½‚ß‚ÉA‘O‚Ì•Ó‚ÌÅŒã‚Ì“_‚ğİ’è
+		//3ç‚¹ã‹ã‚‰é¢ã‚’ä½œæˆã™ã‚‹ãŸã‚ã«ã€å‰ã®è¾ºã®æœ€å¾Œã®ç‚¹ã‚’è¨­å®š
 		Vector3 pointFourth;
 		if (nCnt != 0)
 		{
@@ -142,14 +142,14 @@ std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, 
 			pointFourth = edges[ 3].vertices.back();
 		}
 
-		//“y’n‚ğ¶¬
+		//åœŸåœ°ã‚’ç”Ÿæˆ
 		int numVertex = edges[nCnt].vertices.size();
 		for (int i = 0; i < numVertex - 1; i++)
 		{
-			//4‚Â–Ú‚Ì’¸“_i“o˜^‡‚Í3”Ô–Új‚ğİ’è
+			//4ã¤ç›®ã®é ‚ç‚¹ï¼ˆç™»éŒ²é †ã¯3ç•ªç›®ï¼‰ã‚’è¨­å®š
 			Vector3 pointThird = pointFourth + edges[ nCnt].vector / (float)( numVertex);
 			
-			//“y’n‚ğ¶¬
+			//åœŸåœ°ã‚’ç”Ÿæˆ
 			BlockLand land;
 			land.vertices.resize(4);
 			land.vertices[0] = edges[nCnt].vertices[i];
@@ -158,7 +158,7 @@ std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, 
 			land.vertices[3] = pointFourth;
 			land.canCreateBuilding = true;
 
-			//“y’n‚É—×Ú‚·‚é“¹˜Hî•ñ‚ğİ’è
+			//åœŸåœ°ã«éš£æ¥ã™ã‚‹é“è·¯æƒ…å ±ã‚’è¨­å®š
 			if( edges[ nCnt].roads.size() > 0)
 			{
 				Vector3 midVertex = ( land.vertices[0] + land.vertices[1]) * 0.5f;
@@ -173,7 +173,7 @@ std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, 
 					}
 				}
 			
-				//Šp’n‚É‚Íè‘O‚Ì•Ó‚ÌÅŒã‚Ì“¹˜Hî•ñ‚àİ’è
+				//è§’åœ°ã«ã¯æ‰‹å‰ã®è¾ºã®æœ€å¾Œã®é“è·¯æƒ…å ±ã‚‚è¨­å®š
 				if (i == 0)
 				{
 					if (nCnt != 0)
@@ -188,15 +188,15 @@ std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, 
 					}
 				}
 			}
-			//“y’n‚ğ’Ç‰Á
+			//åœŸåœ°ã‚’è¿½åŠ 
 			preLands.push_back( land);
 
-			//Ÿ‚Ì¶¬‚É‚ÍpointThird‚ğ—˜—p‚·‚é
+			//æ¬¡ã®ç”Ÿæˆã«ã¯pointThirdã‚’åˆ©ç”¨ã™ã‚‹
 			pointFourth = pointThird;
 		}
 	}
 
-	//“y’n‚ğ‹·‚ß‚é
+	//åœŸåœ°ã‚’ç‹­ã‚ã‚‹
 	float roadWidthHalf = DEFAULT_ROAD_WIDTH * 0.5f;
 	for (BlockLand& land : preLands)
 	{
@@ -205,7 +205,7 @@ std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, 
 			//continue;
 		}
 
-		//“y’n‚Ì¶‘¤‚ğŠÔŠu•ª‹·‚ß‚é
+		//åœŸåœ°ã®å·¦å´ã‚’é–“éš”åˆ†ç‹­ã‚ã‚‹
 		if ( !NarrowLand(land.vertices[1], land.vertices[0], DISTANCE_OF_LANDS * 1.0f))
 		{
 			land.canCreateBuilding = false;
@@ -218,7 +218,7 @@ std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, 
 		}
 	}
 
-	//“y’n‚ÌÕ“Ë”»’è
+	//åœŸåœ°ã®è¡çªåˆ¤å®š
 	for (auto ite1 = preLands.begin(); ite1 != preLands.end(); ++ite1)
 	{
 		for (auto ite2 = preLands.begin(); ite2 != preLands.end(); ++ite2)
@@ -233,7 +233,7 @@ std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, 
 		}
 	}
 
-	//“y’n‚ğ¶¬
+	//åœŸåœ°ã‚’ç”Ÿæˆ
 	for (BlockLand& preland : preLands)
 	{
 		if (preland.canCreateBuilding)
@@ -250,20 +250,20 @@ std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, 
 			}
 			lands.push_back( land);
 
-			////“y’n‚Ì¶¬
+			////åœŸåœ°ã®ç”Ÿæˆ
 			//Land* land = new Land( manager, parent);
 			//land->Init( preland.vertices);
 			//lands.push_back( land);
 
-			////‹æ‰æ‚ÆƒŠƒ“ƒN
+			////åŒºç”»ã¨ãƒªãƒ³ã‚¯
 			//attribute->LinkLand( land);
 			//
-			////Œğ’ÊƒVƒXƒeƒ€‚ğİ’è
+			////äº¤é€šã‚·ã‚¹ãƒ†ãƒ ã‚’è¨­å®š
 			//land->SetTraffic( preland.roads);
 		}
 	}
 
-	//¶¬—p‚Ì’†ŠÔƒf[ƒ^‚Ì‰ğ•ú
+	//ç”Ÿæˆç”¨ã®ä¸­é–“ãƒ‡ãƒ¼ã‚¿ã®è§£æ”¾
 	for (BlockEdge& edge : edges)
 	{
 		edge.vertices.clear();
@@ -281,7 +281,7 @@ std::vector<LandParameter*> LandSpawner::operator()( BlockAttribute* attribute, 
 }
 
 /*------------------------------------------------------------------------------
-	“y’n‚ğ‹·‚ß‚é
+	åœŸåœ°ã‚’ç‹­ã‚ã‚‹
 ------------------------------------------------------------------------------*/
 bool LandSpawner::NarrowLand(Vector3& start, Vector3& end, float value)
 {
@@ -298,7 +298,7 @@ bool LandSpawner::NarrowLand(Vector3& start, Vector3& end, float value)
 }
 
 /*------------------------------------------------------------------------------
-	“y’n‚ğˆÚ“®‚³‚¹‚é
+	åœŸåœ°ã‚’ç§»å‹•ã•ã›ã‚‹
 ------------------------------------------------------------------------------*/
 bool LandSpawner::MoveLand(Vector3& start, Vector3& end, float value)
 {
@@ -316,13 +316,13 @@ bool LandSpawner::MoveLand(Vector3& start, Vector3& end, float value)
 }
 
 /*------------------------------------------------------------------------------
-	‹æ‰æ‚ÌŠp‚©‚ç“¹˜Hî•ñ‚ğİ’è¨BlockEdge‚É•Û‘¶
+	åŒºç”»ã®è§’ã‹ã‚‰é“è·¯æƒ…å ±ã‚’è¨­å®šâ†’BlockEdgeã«ä¿å­˜
 ------------------------------------------------------------------------------*/
 bool LandSpawner::SetRoadsFromCorner(Vertex* corner, Vertex* next, BlockEdge* blockedge, BlockAttribute* attribute)
 {
 	float blockedgeLength = Vector3::Distance( next->GetPosition(), corner->GetPosition());
 
-	//‚Í‚¶‚ß‚ÌHalfedge‚ğİ’è
+	//ã¯ã˜ã‚ã®Halfedgeã‚’è¨­å®š
 	HalfEdge* firstHalfedge = corner->SearchHalfEdgeOnFace( attribute->GetFace());
 	if (!firstHalfedge)
 	{
@@ -334,19 +334,19 @@ bool LandSpawner::SetRoadsFromCorner(Vertex* corner, Vertex* next, BlockEdge* bl
 		return false;
 	}
 	
-	//‹——£‚É‰‚¶‚Ä•Ó‚Éè‚ß‚éŠ„‡‚ğZo
+	//è·é›¢ã«å¿œã˜ã¦è¾ºã«å ã‚ã‚‹å‰²åˆã‚’ç®—å‡º
 	float length = firstHalfedge->GetVector().Length();
 	
-	//Edge‚ğİ’è
+	//Edgeã‚’è¨­å®š
 	blockedge->roads.push_back( std::make_pair( (RoadAttribute*)( firstHalfedge->GetEdge()->GetAttribute()), length / blockedgeLength));
 
-	//Edge‚ªˆê‚Â‚Ì‚İ‚Ì‚Æ‚«³íI—¹
+	//EdgeãŒä¸€ã¤ã®ã¿ã®ã¨ãæ­£å¸¸çµ‚äº†
 	if (firstHalfedge->GetEnd() == next)
 	{
 		return true;
 	}
 
-	//Halfedge‚ªnext‚É“’B‚·‚é‚Ü‚Åİ’è
+	//HalfedgeãŒnextã«åˆ°é”ã™ã‚‹ã¾ã§è¨­å®š
 	auto halfEdge = firstHalfedge->GetNext();
 	for (;;)
 	{
@@ -364,11 +364,11 @@ bool LandSpawner::SetRoadsFromCorner(Vertex* corner, Vertex* next, BlockEdge* bl
 }
 
 /*------------------------------------------------------------------------------
-	“y’n‚Æ“y’n‚ÌÕ“Ë”»’è
+	åœŸåœ°ã¨åœŸåœ°ã®è¡çªåˆ¤å®š
 ------------------------------------------------------------------------------*/
 bool LandSpawner::CollisionLand(const BlockLand& source, const BlockLand& dest)
 {
-	//‚ ‚é’¸“_‚ª‚·‚×‚Ä‚Ì•Ó‚É‘Î‚µ‚Ä‰E‘¤‚É‚ ‚éiŠOÏ‚Å”»’èj¨Õ“Ë‚ ‚è
+	//ã‚ã‚‹é ‚ç‚¹ãŒã™ã¹ã¦ã®è¾ºã«å¯¾ã—ã¦å³å´ã«ã‚ã‚‹ï¼ˆå¤–ç©ã§åˆ¤å®šï¼‰â†’è¡çªã‚ã‚Š
 	for (auto& vertex : source.vertices)
 	{
 		Vector3 Vec01 = dest.vertices[1] - dest.vertices[0];
@@ -403,7 +403,7 @@ bool LandSpawner::CollisionLand(const BlockLand& source, const BlockLand& dest)
 			continue;
 		}
 
-		//Õ“Ë‚ ‚è
+		//è¡çªã‚ã‚Š
 		return true;
 	}
 
@@ -441,10 +441,10 @@ bool LandSpawner::CollisionLand(const BlockLand& source, const BlockLand& dest)
 			continue;
 		}
 
-		//Õ“Ë‚ ‚è
+		//è¡çªã‚ã‚Š
 		return true;
 	}
 
-	//Õ“Ë‚È‚µ
+	//è¡çªãªã—
 	return false;
 }

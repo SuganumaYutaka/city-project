@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    WallRenderer.cpp - 3Dƒ|ƒŠƒSƒ“•`‰æ
+    WallRenderer.cpp - 3Dãƒãƒªã‚´ãƒ³æç”»
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/17
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "WallRenderer.h"
 #include "GameObject.h"
@@ -16,7 +16,7 @@
 
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* WallRenderer::Create(GameObject* gameObject)
 {
@@ -24,7 +24,7 @@ Component* WallRenderer::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 WallRenderer::WallRenderer( GameObject *pGameObject)
 {
@@ -33,11 +33,11 @@ WallRenderer::WallRenderer( GameObject *pGameObject)
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 	m_nPass = 1;
 
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
 	m_pVtxBuff = NULL;
 
-	//ƒ}ƒeƒŠƒAƒ‹
+	//ãƒãƒ†ãƒªã‚¢ãƒ«
 	m_pMaterial = new Material();
 
 	m_CountVertex = 0;
@@ -46,20 +46,20 @@ WallRenderer::WallRenderer( GameObject *pGameObject)
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void WallRenderer::Uninit( void)
 {
 	Manager::GetRenderManager()->ReleaseRenderer( this);
 
-	//’¸“_ƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	if( m_pVtxBuff != NULL)
 	{
 		m_pVtxBuff->Release();
 		m_pVtxBuff = NULL;
 	}
 
-	//ƒ}ƒeƒŠƒAƒ‹‚Ì‰ğ•ú
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ã®è§£æ”¾
 	if (m_pMaterial != NULL)
 	{
 		delete m_pMaterial;
@@ -68,7 +68,7 @@ void WallRenderer::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void WallRenderer::Update( void)
 {
@@ -76,7 +76,7 @@ void WallRenderer::Update( void)
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æ
+	æç”»
 ------------------------------------------------------------------------------*/
 void WallRenderer::Draw( Camera* pCamera)
 {
@@ -85,27 +85,27 @@ void WallRenderer::Draw( Camera* pCamera)
 		return;
 	}
 
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//ƒ}ƒeƒŠƒAƒ‹iƒVƒF[ƒ_[j‚ğƒZƒbƒg
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ï¼ˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ï¼‰ã‚’ã‚»ãƒƒãƒˆ
 	m_pMaterial->Set( pCamera, this);
 
-	//’¸“_î•ñİ’è
+	//é ‚ç‚¹æƒ…å ±è¨­å®š
 	pDevice-> SetStreamSource( 0, m_pVtxBuff, 0, sizeof( VERTEX_3D));
 
-	//ƒeƒNƒjƒbƒNŠJn
+	//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯é–‹å§‹
 	m_pMaterial->Begin( m_nPass);
 
-	//ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+	//ãƒãƒªã‚´ãƒ³ã®æç”»
 	//pDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, m_CountPolygon);
 	pDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0, m_CountRenderPolygon);
 
-	//ƒeƒNƒjƒbƒNI—¹
+	//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯çµ‚äº†
 	m_pMaterial->End();
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[İ’è
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 ------------------------------------------------------------------------------*/
 void WallRenderer::SetShader(EShaderType Type)
 {
@@ -113,7 +113,7 @@ void WallRenderer::SetShader(EShaderType Type)
 }
 
 /*------------------------------------------------------------------------------
-	ƒeƒNƒXƒ`ƒƒİ’è
+	ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 ------------------------------------------------------------------------------*/
 void WallRenderer::LoadTexture(std::string fileName)
 {
@@ -121,11 +121,11 @@ void WallRenderer::LoadTexture(std::string fileName)
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_ƒoƒbƒtƒ@‚Ìİ’è‚ğŠJn
+	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®šã‚’é–‹å§‹
 ------------------------------------------------------------------------------*/
 VERTEX_3D* WallRenderer::StartSetVertexBuffer( int countVertex, int countPolygon)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
 	SAFE_RELEASE( m_pVtxBuff);
 
@@ -133,15 +133,15 @@ VERTEX_3D* WallRenderer::StartSetVertexBuffer( int countVertex, int countPolygon
 	m_CountPolygon = countPolygon;
 	m_CountRenderPolygon = countPolygon;
 
-	//’¸“_ƒoƒbƒtƒ@‚ğ¶¬
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ç”Ÿæˆ
 	if( FAILED( pDevice->CreateVertexBuffer( sizeof( VERTEX_3D) * countVertex, D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &m_pVtxBuff, NULL)))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return NULL;
 	}
 
-	//ƒƒbƒN
+	//ãƒ­ãƒƒã‚¯
 	VERTEX_3D* pVtx;
 	m_pVtxBuff->Lock( 0, 0, (void**)&pVtx, 0);
 
@@ -149,17 +149,17 @@ VERTEX_3D* WallRenderer::StartSetVertexBuffer( int countVertex, int countPolygon
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_ƒoƒbƒtƒ@‚Ìİ’è‚ğI—¹
+	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®šã‚’çµ‚äº†
 ------------------------------------------------------------------------------*/
 void WallRenderer::EndSetVertexBuffer(void)
 {
-	//ƒAƒ“ƒƒbƒN
+	//ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
 	m_pVtxBuff->Unlock();
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æ‚·‚éƒ|ƒŠƒSƒ“‚ÌOnOff‚ğ•ÏX
-	Max‚È‚çtrue
+	æç”»ã™ã‚‹ãƒãƒªã‚´ãƒ³ã®OnOffã‚’å¤‰æ›´
+	Maxãªã‚‰true
 ------------------------------------------------------------------------------*/
 bool WallRenderer::ChangeRenderPolygon()
 {
@@ -174,8 +174,8 @@ bool WallRenderer::ChangeRenderPolygon()
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æ‚·‚éƒ|ƒŠƒSƒ“‚ğ‰ÁZ
-	Max‚È‚çtrue
+	æç”»ã™ã‚‹ãƒãƒªã‚´ãƒ³ã‚’åŠ ç®—
+	Maxãªã‚‰true
 ------------------------------------------------------------------------------*/
 bool WallRenderer::AddRenderPolygon()
 {
@@ -191,7 +191,7 @@ bool WallRenderer::AddRenderPolygon()
 }
 
 /*------------------------------------------------------------------------------
-	ƒƒCƒ„[ƒtƒŒ[ƒ€•\¦‚ÌOn/Off
+	ãƒ¯ã‚¤ãƒ¤ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ è¡¨ç¤ºã®On/Off
 ------------------------------------------------------------------------------*/
 void WallRenderer::ChangeWireFrame(bool isWireFrame)
 {

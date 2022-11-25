@@ -1,27 +1,27 @@
 /*==============================================================================
 
-    XModelData.cpp - Xƒ‚ƒfƒ‹
+    XModelData.cpp - Xãƒ¢ãƒ‡ãƒ«
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/7
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "XModelData.h"
 #include "Material.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	ˆø”
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	å¼•æ•°
 		const char* pFileName
 ------------------------------------------------------------------------------*/
 XModelData::XModelData( std::string fileName)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXŽæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//ƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
-	LPD3DXBUFFER pBuffMaterial = NULL;		//ƒ}ƒeƒŠƒAƒ‹î•ñŠi”[
+	//ãƒ¢ãƒ‡ãƒ«ã®èª­ã¿è¾¼ã¿
+	LPD3DXBUFFER pBuffMaterial = NULL;		//ãƒžãƒ†ãƒªã‚¢ãƒ«æƒ…å ±æ ¼ç´
 	HRESULT hr;
 	hr = D3DXLoadMeshFromX( 
 		fileName.c_str(), 
@@ -34,23 +34,23 @@ XModelData::XModelData( std::string fileName)
 		&m_pMeshModel);
 	if (hr == E_FAIL)
 	{
-		MessageBox( NULL, "Xƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý‚ÉŽ¸”s‚µ‚Ü‚µ‚½", "ƒGƒ‰[", MB_OK);
+		MessageBox( NULL, "Xãƒ¢ãƒ‡ãƒ«ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		return;
 	}
 	FileName = fileName;
 
-	//ƒ}ƒeƒŠƒAƒ‹î•ñÝ’è
-	m_vecMaterial.resize( m_nNumMaterial);		//—v‘f”‚ðƒ}ƒeƒŠƒAƒ‹”•ª‚É•ÏX
-	D3DXMATERIAL* pMat;							//ƒ}ƒeƒŠƒAƒ‹î•ñ‚Ìæ“ªƒAƒhƒŒƒX
+	//ãƒžãƒ†ãƒªã‚¢ãƒ«æƒ…å ±è¨­å®š
+	m_vecMaterial.resize( m_nNumMaterial);		//è¦ç´ æ•°ã‚’ãƒžãƒ†ãƒªã‚¢ãƒ«æ•°åˆ†ã«å¤‰æ›´
+	D3DXMATERIAL* pMat;							//ãƒžãƒ†ãƒªã‚¢ãƒ«æƒ…å ±ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹
 	pMat = (D3DXMATERIAL*)pBuffMaterial->GetBufferPointer();
 	for( int nCnt = 0; nCnt < (int)m_nNumMaterial; nCnt++)
 	{
-		//ƒ}ƒeƒŠƒAƒ‹‚ÌÝ’è
+		//ãƒžãƒ†ãƒªã‚¢ãƒ«ã®è¨­å®š
 		m_vecMaterial[ nCnt] = new Material( &pMat[ nCnt]);
 		m_vecMaterial[ nCnt]->SetShader( eShaderXModel);
 	}
 	
-	//ƒ}ƒeƒŠƒAƒ‹î•ñ‚Ì‰ð•ú
+	//ãƒžãƒ†ãƒªã‚¢ãƒ«æƒ…å ±ã®è§£æ”¾
 	if( pBuffMaterial != NULL)
 	{
 		pBuffMaterial->Release();
@@ -59,7 +59,7 @@ XModelData::XModelData( std::string fileName)
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 XModelData::~XModelData()
 {

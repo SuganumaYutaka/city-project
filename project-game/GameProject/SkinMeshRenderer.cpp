@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    SkinMeshRenderer.cpp - ƒXƒLƒ“ƒƒbƒVƒ…‚Ì•`‰æ
+    SkinMeshRenderer.cpp - ã‚¹ã‚­ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ã®æç”»
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/9/21
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "SkinMeshRenderer.h"
 #include "Material.h"
@@ -15,12 +15,12 @@
 #include "RenderManager.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
-#define MAX_CLUSTER (58)		//ƒNƒ‰ƒXƒ^[‚ÌÅ‘å”iƒVƒF[ƒ_[‚É“n‚·‚½‚ßŒÅ’è’·j
+#define MAX_CLUSTER (58)		//ã‚¯ãƒ©ã‚¹ã‚¿ãƒ¼ã®æœ€å¤§æ•°ï¼ˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã«æ¸¡ã™ãŸã‚å›ºå®šé•·ï¼‰
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* SkinMeshRenderer::Create(GameObject* gameObject)
 {
@@ -28,7 +28,7 @@ Component* SkinMeshRenderer::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 SkinMeshRenderer::SkinMeshRenderer( GameObject *pGameObject)
 {
@@ -41,24 +41,24 @@ SkinMeshRenderer::SkinMeshRenderer( GameObject *pGameObject)
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void SkinMeshRenderer::Uninit( void)
 {
 	Manager::GetRenderManager()->ReleaseRenderer( this);
 
-	//’¸“_ƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	SAFE_RELEASE( m_pVtxBuff);
 	
-	//ƒ}ƒeƒŠƒAƒ‹‚Ì‰ğ•ú
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ã®è§£æ”¾
 	m_vecMaterial.clear();
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì‰ğ•ú
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®è§£æ”¾
 	m_vecAnimation.clear();
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void SkinMeshRenderer::Update( void)
 {
@@ -66,7 +66,7 @@ void SkinMeshRenderer::Update( void)
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æ
+	æç”»
 ------------------------------------------------------------------------------*/
 void SkinMeshRenderer::Draw( Camera* pCamera)
 {
@@ -75,78 +75,78 @@ void SkinMeshRenderer::Draw( Camera* pCamera)
 		return;
 	}
 
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 																	
-	//ƒ‚ƒfƒ‹‚Ì•`‰æ
+	//ãƒ¢ãƒ‡ãƒ«ã®æç”»
 	int NumMaterial = m_vecMaterial.size();
 	for( int nCntMaterial = 0; nCntMaterial < NumMaterial; nCntMaterial++)
 	{
 		auto Mat = m_vecMaterial[ nCntMaterial];
 
-		//ƒ}ƒeƒŠƒAƒ‹‚Ìİ’è
+		//ãƒãƒ†ãƒªã‚¢ãƒ«ã®è¨­å®š
 		Mat.Set( pCamera, this);
 
-		//’¸“_î•ñİ’è
+		//é ‚ç‚¹æƒ…å ±è¨­å®š
 		pDevice-> SetStreamSource( 0, m_pVtxBuff, 0, sizeof( VERTEX_SKIN_MESH));
 
-		//ƒeƒNƒjƒbƒNŠJn
+		//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯é–‹å§‹
 		Mat.Begin( m_nPass);
 
-		//ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+		//ãƒãƒªã‚´ãƒ³ã®æç”»
 		pDevice->DrawPrimitive( D3DPT_TRIANGLELIST, 0, m_NumPolygon);
 
-		//ƒeƒNƒjƒbƒNI—¹
+		//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯çµ‚äº†
 		Mat.End();	
 	}
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_ƒoƒbƒtƒ@ì¬
+	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
 ------------------------------------------------------------------------------*/
 void SkinMeshRenderer::CreateVtxBuffer()
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//’¸“_ƒoƒbƒtƒ@¶¬
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	if( FAILED( pDevice->CreateVertexBuffer(
-		sizeof( VERTEX_SKIN_MESH) * m_vecPositionIndex.size(),			//ì¬‚µ‚½‚¢’¸“_ƒoƒbƒtƒ@‚ÌƒTƒCƒY
-		D3DUSAGE_WRITEONLY,						//’¸“_ƒoƒbƒtƒ@‚Ìg—p•û–@(‘¬‚³‚É‰e‹¿)
-		0,										//FVF(’¸“_ƒtƒH[ƒ}ƒbƒg)
-		D3DPOOL_MANAGED,						//ƒƒ‚ƒŠ‚ÌŠÇ—(MANAGED‚ÍƒfƒoƒCƒX‚É‚¨‚Ü‚©‚¹)
-		&m_pVtxBuff,							//’¸“_ƒoƒbƒtƒ@ŠÇ—ƒCƒ“ƒ^[ƒtƒFƒCƒX
+		sizeof( VERTEX_SKIN_MESH) * m_vecPositionIndex.size(),			//ä½œæˆã—ãŸã„é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º
+		D3DUSAGE_WRITEONLY,						//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½¿ç”¨æ–¹æ³•(é€Ÿã•ã«å½±éŸ¿)
+		0,										//FVF(é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ)
+		D3DPOOL_MANAGED,						//ãƒ¡ãƒ¢ãƒªã®ç®¡ç†(MANAGEDã¯ãƒ‡ãƒã‚¤ã‚¹ã«ãŠã¾ã‹ã›)
+		&m_pVtxBuff,							//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç®¡ç†ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 		NULL)))	
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
 
-	//’¸“_ƒoƒbƒtƒ@İ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetVtxBuffer();
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_ƒoƒbƒtƒ@İ’è
+	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 ------------------------------------------------------------------------------*/
 void SkinMeshRenderer::SetVtxBuffer()
 {
-	//ƒƒbƒN
-	VERTEX_SKIN_MESH* pVtx;		//‰¼‘zƒAƒhƒŒƒX—pƒ|ƒCƒ“ƒ^
+	//ãƒ­ãƒƒã‚¯
+	VERTEX_SKIN_MESH* pVtx;		//ä»®æƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹ç”¨ãƒã‚¤ãƒ³ã‚¿
 	m_pVtxBuff->Lock( 0, 0, (void**)&pVtx, 0);
 
 	int NumVtx = m_vecPositionIndex.size();
 	for( int nCnt = 0; nCnt < NumVtx; nCnt++)
 	{
-		//’¸“_À•W
+		//é ‚ç‚¹åº§æ¨™
 		pVtx[ nCnt].Pos = m_vecPoint[ m_vecPositionIndex[nCnt]].Position;
 
-		//–@ü
+		//æ³•ç·š
 		pVtx[ nCnt].Normal = m_vecNormal[ m_vecNormalIndex[ nCnt]];
 
-		//ƒeƒNƒXƒ`ƒƒÀ•W
+		//ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™
 		pVtx[ nCnt].Tex = m_vecTexcoord[ m_vecTexcoordIndex[ nCnt]];
 	
-		//ƒ{[ƒ“‚ÌƒCƒ“ƒfƒbƒNƒX”Ô†‚ÆƒEƒFƒCƒg’l
+		//ãƒœãƒ¼ãƒ³ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ã¨ã‚¦ã‚§ã‚¤ãƒˆå€¤
 		for (int i = 0; i < 4; i++)
 		{
 			pVtx[ nCnt].Weight[i] = (float)m_vecPoint[ m_vecPositionIndex[ nCnt]].BornRefarence[ i].Weight;
@@ -154,64 +154,64 @@ void SkinMeshRenderer::SetVtxBuffer()
 		}
 	}
 
-	//ƒAƒ“ƒƒbƒN
+	//ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
 	m_pVtxBuff->Unlock();
 }
 
 /*------------------------------------------------------------------------------
-	ƒƒbƒVƒ…ƒf[ƒ^‚ğ“Ç‚İ‚İ
+	ãƒ¡ãƒƒã‚·ãƒ¥ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã¿
 ------------------------------------------------------------------------------*/
 void SkinMeshRenderer::LoadMeshData(FILE *pFile, SkinMeshModel* pModel)
 {
-	//ƒtƒ@ƒCƒ‹ƒ`ƒFƒbƒN
+	//ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚§ãƒƒã‚¯
 	if (pFile == NULL)
 	{
 		return;
 	}
 
-	//ƒ‚ƒfƒ‹ƒ|ƒCƒ“ƒ^İ’è
+	//ãƒ¢ãƒ‡ãƒ«ãƒã‚¤ãƒ³ã‚¿è¨­å®š
 	m_pSkinMeshModel = pModel;
 
-	int size;					//Ši”[ƒTƒCƒY
-	char fileName[MAX_PATH];	//ƒtƒ@ƒCƒ‹–¼
+	int size;					//æ ¼ç´ã‚µã‚¤ã‚º
+	char fileName[MAX_PATH];	//ãƒ•ã‚¡ã‚¤ãƒ«å
 	D3DXMATRIX mtxIdentitiy;
 	D3DXMatrixIdentity(&mtxIdentitiy);
 
-	//ƒ|ƒŠƒSƒ“”
+	//ãƒãƒªã‚´ãƒ³æ•°
 	fread( &size, sizeof(int), 1, pFile);
 	m_NumPolygon = size;
 
-	//ˆÊ’uÀ•W‚Æƒ{[ƒ“î•ñ
+	//ä½ç½®åº§æ¨™ã¨ãƒœãƒ¼ãƒ³æƒ…å ±
 	fread( &size, sizeof( int), 1, pFile);
 	m_vecPoint.resize(size);
 	fread( m_vecPoint.data(), sizeof(Point), size, pFile);
 	
-	//’¸“_ƒCƒ“ƒfƒbƒNƒX
+	//é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 	fread( &size, sizeof( int), 1, pFile);
 	m_vecPositionIndex.resize(size);
 	fread( m_vecPositionIndex.data(), sizeof(unsigned short), size, pFile);
 
-	//–@ü
+	//æ³•ç·š
 	fread( &size, sizeof( int), 1, pFile);
 	m_vecNormal.resize(size);
 	fread( m_vecNormal.data(), sizeof( D3DXVECTOR3), size, pFile);
 
-	//–@üƒCƒ“ƒfƒbƒNƒX
+	//æ³•ç·šã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 	fread( &size, sizeof(int), 1, pFile);
 	m_vecNormalIndex.resize(size);
 	fread( m_vecNormalIndex.data(), sizeof(unsigned short), size, pFile);
 
-	//UVÀ•W
+	//UVåº§æ¨™
 	fread( &size, sizeof(int), 1, pFile);
 	m_vecTexcoord.resize(size);
 	fread( m_vecTexcoord.data(), sizeof(D3DXVECTOR2), size, pFile);
 
-	//UVÀ•WƒCƒ“ƒfƒbƒNƒX
+	//UVåº§æ¨™ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 	fread( &size, sizeof(int), 1, pFile);
 	m_vecTexcoordIndex.resize(size);
 	fread( m_vecTexcoordIndex.data(), sizeof(unsigned short), size, pFile);
 
-	//ƒ}ƒeƒŠƒAƒ‹
+	//ãƒãƒ†ãƒªã‚¢ãƒ«
 	fread(&size, sizeof(int), 1, pFile);
 	m_vecMaterial.resize(size);
 	int sizeMat = m_vecMaterial.size();
@@ -219,15 +219,15 @@ void SkinMeshRenderer::LoadMeshData(FILE *pFile, SkinMeshModel* pModel)
 	{
 		Material& mat = m_vecMaterial[i];
 
-		//ƒ}ƒeƒŠƒAƒ‹‚Ìİ’è
+		//ãƒãƒ†ãƒªã‚¢ãƒ«ã®è¨­å®š
 		mat.SetShader( eShaderSkinMesh);
 
-		//ƒeƒNƒXƒ`ƒƒ–¼
+		//ãƒ†ã‚¯ã‚¹ãƒãƒ£å
 		fread(&size, sizeof(int), 1, pFile);
 		fread(&fileName, sizeof(char), size, pFile);
 		mat.SetTexture(fileName);
 
-		//ƒJƒ‰[ƒf[ƒ^
+		//ã‚«ãƒ©ãƒ¼ãƒ‡ãƒ¼ã‚¿
 		D3DXVECTOR4 color;
 		fread(&color, sizeof(D3DXVECTOR4), 1, pFile);
 		mat.SetAmbient(color.x, color.y, color.z, color.w);
@@ -239,7 +239,7 @@ void SkinMeshRenderer::LoadMeshData(FILE *pFile, SkinMeshModel* pModel)
 		mat.SetEmissive(color.x, color.y, color.z, color.w);
 	}
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	fread(&size, sizeof(int), 1, pFile);
 	m_vecAnimation.resize(size);
 	int sizeAnim = m_vecAnimation.size();
@@ -265,21 +265,21 @@ void SkinMeshRenderer::LoadMeshData(FILE *pFile, SkinMeshModel* pModel)
 		}
 	}
 
-	//’¸“_ƒoƒbƒtƒ@İ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	CreateVtxBuffer();
 }
 
 /*------------------------------------------------------------------------------
-	ƒXƒP[ƒ‹‚Ìİ’è
+	ã‚¹ã‚±ãƒ¼ãƒ«ã®è¨­å®š
 ------------------------------------------------------------------------------*/
 void SkinMeshRenderer::SetScale(float rate)
 {
-	//ƒXƒP[ƒ‹s—ñ‚Ìİ’è
+	//ã‚¹ã‚±ãƒ¼ãƒ«è¡Œåˆ—ã®è¨­å®š
 	D3DXMATRIX mtxScale;
 	D3DXMatrixIdentity( &mtxScale);
 	D3DXMatrixScaling( &mtxScale, rate, rate, rate);
 
-	//ˆÊ’uÀ•W
+	//ä½ç½®åº§æ¨™
 	int sizePoint = m_vecPoint.size();
 	for (int nCnt = 0; nCnt < sizePoint; nCnt++)
 	{
@@ -287,7 +287,7 @@ void SkinMeshRenderer::SetScale(float rate)
 		D3DXVec3Scale( &point.Position, &point.Position, rate);
 	}
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“î•ñ
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æƒ…å ±
 	int sizeAnim = m_vecAnimation.size();
 	for (int nCntAnim = 0; nCntAnim < sizeAnim; nCntAnim++)
 	{

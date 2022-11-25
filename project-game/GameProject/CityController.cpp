@@ -1,12 +1,12 @@
 /*==============================================================================
 	
-	CityController.cpp - ’¬‚Ì©“®¶¬[ƒRƒ“ƒgƒ[ƒ‰
+	CityController.cpp - ç”ºã®è‡ªå‹•ç”Ÿæˆãƒ¼ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©
 														Author : Yutaka Suganuma
 														Date   : 2017/12/1
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "CityController.h"
 #include "GameObject.h"
@@ -38,7 +38,7 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
 #define CITY_WIDTH (200.0f)
 #define CITY_HEIGHT (200.0f)
@@ -46,7 +46,7 @@ using namespace HalfEdgeDataStructure;
 #define CAR_COUNT ( 40)
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* CityController::Create(GameObject* gameObject)
 {
@@ -54,7 +54,7 @@ Component* CityController::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 CityController::CityController( GameObject* pGameObject)
 {
@@ -71,7 +71,7 @@ CityController::CityController( GameObject* pGameObject)
 	m_Height = CITY_HEIGHT;
 	m_IsWireFrame = false;
 	
-	//ƒJ[ƒJƒƒ‰‚Ì¶¬
+	//ã‚«ãƒ¼ã‚«ãƒ¡ãƒ©ã®ç”Ÿæˆ
 	auto gameObject = new GameObject( m_pGameObject);
 	m_CarCamera = gameObject->AddComponent<Camera>();
 	m_CarCamera->SetFar( 2000.0f);
@@ -80,43 +80,43 @@ CityController::CityController( GameObject* pGameObject)
 	m_CarCameraController->SetActive(false);
 	m_MainCamera = NULL;
 
-	//•\–Êƒpƒ^[ƒ“‚Ìİ’è
+	//è¡¨é¢ãƒ‘ã‚¿ãƒ¼ãƒ³ã®è¨­å®š
 	m_BuildingSurfacePatterns.push_back( new BuildingSurfacePattern("data/SCRIPT/BuildingSurfacePattern/test02.txt"));
 	m_BuildingSurfacePatterns.push_back( new BuildingSurfacePattern("data/SCRIPT/BuildingSurfacePattern/test02.txt"));
 	
-	//è‘±‚«‚Ì•Û‘¶ƒtƒH[ƒ}ƒbƒg‚Ì‰Šú‰»
+	//æ‰‹ç¶šãã®ä¿å­˜ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®åˆæœŸåŒ–
 	m_ProcedualSaveData.ClearTextStrage();
 }
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»
+	åˆæœŸåŒ–
 ------------------------------------------------------------------------------*/
 void CityController::Init(float cityWidth, float cityHeight, int countDivide, int countCar, bool doConfirmGeometry)
 {
-	//è‘±‚«‚Ì•Û‘¶ƒtƒH[ƒ}ƒbƒg‚Ì‰Šú‰»
+	//æ‰‹ç¶šãã®ä¿å­˜ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®åˆæœŸåŒ–
 	m_ProcedualSaveData.ClearTextStrage();
 
 	m_Width = cityWidth;
 	m_Height = cityHeight;
 	
-	//ŠÇ—ƒIƒuƒWƒFƒNƒg‚ÌÄ¶¬
+	//ç®¡ç†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å†ç”Ÿæˆ
 	ResetManagers();
 
-	//’¬‚Ì‚Í‚¶‚ß‚Ì–Ê‚ğ¶¬
+	//ç”ºã®ã¯ã˜ã‚ã®é¢ã‚’ç”Ÿæˆ
 	CreateFirstFace( cityWidth, cityHeight);
 
-	//‹æ‰æ‚Ì•ªŠ„
+	//åŒºç”»ã®åˆ†å‰²
 	Divide( countDivide);
 
-	//‘®«î•ñ‚Ì•t—^
+	//å±æ€§æƒ…å ±ã®ä»˜ä¸
 	CreateAttribute();
 
-	//“y’n‚Ì’Ç‰Á
+	//åœŸåœ°ã®è¿½åŠ 
 	LandSpawner landSpawner;
 	auto blocks = m_CityAttributeManager->GetBlocks();
 	for (auto block : blocks)
 	{
-		//“y’n¶¬—p‚Ìƒpƒ‰ƒ[ƒ^[¶¬
+		//åœŸåœ°ç”Ÿæˆç”¨ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ç”Ÿæˆ
 		auto landParameters = landSpawner( block, m_CityAttributeManager);
 		for (auto landParameter : landParameters)
 		{
@@ -124,25 +124,25 @@ void CityController::Init(float cityWidth, float cityHeight, int countDivide, in
 		}
 	}
 
-	//“y’nî•ñ‚©‚çŒš•¨‚Ì¶¬
+	//åœŸåœ°æƒ…å ±ã‹ã‚‰å»ºç‰©ã®ç”Ÿæˆ
 	auto lands = m_LandManager->GetLands();
 	int landCount = lands.size();
 	GeometryParameterSpawner geometryParameterSpawner;
 	ShapeParameterSpawner shapeParameterSpawner;
 	for (int i = 0; i < landCount; i++)
 	{
-		//Œš•¨¶¬—p‚Ìƒpƒ‰ƒ[ƒ^[¶¬
+		//å»ºç‰©ç”Ÿæˆç”¨ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ç”Ÿæˆ
 		auto parameter = geometryParameterSpawner( m_BuildingSurfacePatterns);
 		shapeParameterSpawner( lands[i]->GetVertices(), parameter);
 
-		//ƒpƒ‰ƒ[ƒ^[‚©‚çŒš•¨‚ğ¶¬
+		//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‹ã‚‰å»ºç‰©ã‚’ç”Ÿæˆ
 		CreateBuilding( parameter, i);
 	}
 
-	//“y’n‚ÌÅ“K‰»
+	//åœŸåœ°ã®æœ€é©åŒ–
 	ConfirmBuilding();
 
-	//Ô‚Ì¶¬
+	//è»Šã®ç”Ÿæˆ
 	int parCreate = landCount / countCar;
 	if (parCreate <= 0)
 	{
@@ -160,12 +160,12 @@ void CityController::Init(float cityWidth, float cityHeight, int countDivide, in
 		}
 	}
 
-	//è‘±‚«‚Ì•Û‘¶
+	//æ‰‹ç¶šãã®ä¿å­˜
 	m_ProcedualSaveData.Save( "data/SCRIPT/Procedual/test.txt");
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void CityController::Uninit( void)
 {
@@ -205,11 +205,11 @@ void CityController::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒl[ƒWƒƒ[‚ÌƒŠƒZƒbƒg
+	ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ãƒªã‚»ãƒƒãƒˆ
 ------------------------------------------------------------------------------*/
 void CityController::ResetManagers(void)
 {
-	//I—¹ˆ—
+	//çµ‚äº†å‡¦ç†
 	if( m_Model)
 	{
 		delete m_Model;
@@ -240,23 +240,23 @@ void CityController::ResetManagers(void)
 		m_CarManager = NULL;
 	}
 
-	//ŠÇ—ƒIƒuƒWƒFƒNƒg‚Ì¶¬
+	//ç®¡ç†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆ
 	m_Model = new Model();
 	m_CityAttributeManager = new CityAttributeManager( m_pGameObject);
 	m_LandManager = new LandManager( m_pGameObject);
 	m_BuildingManager = new BuildingManager( m_pGameObject);
 	m_CarManager = new CarManager( m_pGameObject);
 
-	//è‘±‚«‚Ì•Û‘¶‚ğ‰Šú‰»
+	//æ‰‹ç¶šãã®ä¿å­˜ã‚’åˆæœŸåŒ–
 	m_ProcedualSaveData.ClearTextStrage();
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void CityController::Update()
 {
-	//ƒJ[ƒrƒ…[ƒ‚[ƒh‚ÉÔ‚ª‘¶İ‚·‚é‚©Šm”F
+	//ã‚«ãƒ¼ãƒ“ãƒ¥ãƒ¼ãƒ¢ãƒ¼ãƒ‰æ™‚ã«è»ŠãŒå­˜åœ¨ã™ã‚‹ã‹ç¢ºèª
 	if (m_MainCamera)
 	{
 		if (m_CarManager->GetCarCount() <= 0)
@@ -265,35 +265,35 @@ void CityController::Update()
 		}
 	}
 
-	//ƒfƒ‚‘€ì
+	//ãƒ‡ãƒ¢æ“ä½œ
 
-	//1ƒL[ ‹æ‰æ‚Ì•ªŠ„
+	//1ã‚­ãƒ¼ åŒºç”»ã®åˆ†å‰²
 	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_1))
 	{
 		Divide( 1);
 
-		//‘®«î•ñ‚Ì•t—^
+		//å±æ€§æƒ…å ±ã®ä»˜ä¸
 		CreateAttribute();
 	}
 
-	//2ƒL[ Œš•¨‚ÌÅ“K‰»
+	//2ã‚­ãƒ¼ å»ºç‰©ã®æœ€é©åŒ–
 	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_2))
 	{
 		ConfirmBuilding();
 	}
 	
-	//3ƒL[ Œš•¨‚Ì•\¦On/Off
+	//3ã‚­ãƒ¼ å»ºç‰©ã®è¡¨ç¤ºOn/Off
 	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_3))
 	{
 		if (m_BuildingManager->GetBuildingCount() <= 0)
 		{
-			//“y’n‚ÆŒš•¨‚Ì¶¬
-			//“y’n‚Ì’Ç‰Á
+			//åœŸåœ°ã¨å»ºç‰©ã®ç”Ÿæˆ
+			//åœŸåœ°ã®è¿½åŠ 
 			LandSpawner landSpawner;
 			auto blocks = m_CityAttributeManager->GetBlocks();
 			for (auto block : blocks)
 			{
-				//“y’n¶¬—p‚Ìƒpƒ‰ƒ[ƒ^[¶¬
+				//åœŸåœ°ç”Ÿæˆç”¨ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ç”Ÿæˆ
 				auto landParameters = landSpawner( block, m_CityAttributeManager);
 				for (auto landParameter : landParameters)
 				{
@@ -301,7 +301,7 @@ void CityController::Update()
 				}
 			}
 
-			//“y’nî•ñ‚©‚çŒš•¨‚Ì¶¬
+			//åœŸåœ°æƒ…å ±ã‹ã‚‰å»ºç‰©ã®ç”Ÿæˆ
 			auto lands = m_LandManager->GetLands();
 			int landCount = lands.size();
 			GeometryParameterSpawner geometryParameterSpawner;
@@ -313,18 +313,18 @@ void CityController::Update()
 					continue;
 				}
 
-				//Œš•¨¶¬—p‚Ìƒpƒ‰ƒ[ƒ^[¶¬
+				//å»ºç‰©ç”Ÿæˆç”¨ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ç”Ÿæˆ
 				auto parameter = geometryParameterSpawner( m_BuildingSurfacePatterns);
 				shapeParameterSpawner( lands[i]->GetVertices(), parameter);
 
-				//ƒpƒ‰ƒ[ƒ^[‚©‚çŒš•¨‚ğ¶¬
+				//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‹ã‚‰å»ºç‰©ã‚’ç”Ÿæˆ
 				CreateBuilding( parameter, i);
 			}
 		}
 
 		else
 		{
-			//“y’n‚Ì•\¦Ø‚è‘Ö‚¦
+			//åœŸåœ°ã®è¡¨ç¤ºåˆ‡ã‚Šæ›¿ãˆ
 			for (auto building : m_BuildingManager->GetBuildings())
 			{
 				if (!building)
@@ -347,7 +347,7 @@ void CityController::Update()
 		}
 	}
 	
-	//4ƒL[ Œš•¨‚Ìƒ^ƒCƒ‹‚ğ‚P–‡‚¸‚Â•\¦
+	//4ã‚­ãƒ¼ å»ºç‰©ã®ã‚¿ã‚¤ãƒ«ã‚’ï¼‘æšãšã¤è¡¨ç¤º
 	if (Manager::GetInputKeyboard()->GetKeyPress(DIK_4))
 	{
 		for (auto building : m_BuildingManager->GetBuildings())
@@ -378,7 +378,7 @@ void CityController::Update()
 		}
 	}
 	
-	//5ƒL[ Ô‚ÌOn/Off
+	//5ã‚­ãƒ¼ è»Šã®On/Off
 	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_5))
 	{
 		if( m_CarManager->GetCarCount() > 0)
@@ -387,7 +387,7 @@ void CityController::Update()
 		}
 		else if( m_LandManager->GetLandCount() > 0)
 		{
-			//Ô‚Ì¶¬
+			//è»Šã®ç”Ÿæˆ
 			auto lands = m_LandManager->GetLands();
 			int landCount = m_LandManager->GetLandCount();
 			int parCreate = landCount / CAR_COUNT;
@@ -415,20 +415,20 @@ void CityController::Update()
 		}
 	}
 	
-	//6ƒL[ ƒŠƒZƒbƒg
+	//6ã‚­ãƒ¼ ãƒªã‚»ãƒƒãƒˆ
 	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_6))
 	{
-		//‘Sƒ}ƒl[ƒWƒƒ[‚ğƒŠƒZƒbƒg
+		//å…¨ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚’ãƒªã‚»ãƒƒãƒˆ
 		ResetManagers();
 
-		//‚Í‚¶‚ß‚Ì–Ê‚ğ¶¬
+		//ã¯ã˜ã‚ã®é¢ã‚’ç”Ÿæˆ
 		CreateFirstFace( m_Width, m_Height);
 
-		//‘®«î•ñ‚Ì•t—^
+		//å±æ€§æƒ…å ±ã®ä»˜ä¸
 		CreateAttribute();
 	}
 	
-	//7ƒL[ Œš•¨‚ÌƒƒCƒ„[ƒtƒŒ[ƒ€•\¦On/Off
+	//7ã‚­ãƒ¼ å»ºç‰©ã®ãƒ¯ã‚¤ãƒ¤ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ è¡¨ç¤ºOn/Off
 	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_7))
 	{
 		m_IsWireFrame ? m_IsWireFrame = false : m_IsWireFrame = true;
@@ -446,19 +446,19 @@ void CityController::Update()
 		}
 	}
 
-	//8ƒL[ è‘±‚«‚Ì•Û‘¶
+	//8ã‚­ãƒ¼ æ‰‹ç¶šãã®ä¿å­˜
 	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_8))
 	{
 		m_ProcedualSaveData.Save( "data/SCRIPT/Procedual/test.txt");
 	}
 
-	//9ƒL[ è‘±‚«‚Ì“Ç‚İ‚İ
+	//9ã‚­ãƒ¼ æ‰‹ç¶šãã®èª­ã¿è¾¼ã¿
 	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_9))
 	{
 		Load("data/SCRIPT/Procedual/test.txt");
 	}
 
-	//0ƒL[ ƒJ[ƒJƒƒ‰‚Ìİ’è
+	//0ã‚­ãƒ¼ ã‚«ãƒ¼ã‚«ãƒ¡ãƒ©ã®è¨­å®š
 	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_0))
 	{
 		if (!m_MainCamera)
@@ -475,7 +475,7 @@ void CityController::Update()
 		}
 	}
 
-	//ƒVƒF[ƒ_[‚ÌØ‚è‘Ö‚¦
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®åˆ‡ã‚Šæ›¿ãˆ
 	if (Manager::GetInputKeyboard()->GetKeyTrigger(DIK_Q))
 	{
 		Camera::GetMainCamera()->SetType( eCameraLow);
@@ -491,11 +491,11 @@ void CityController::Update()
 }
 
 /*------------------------------------------------------------------------------
-	‚Í‚¶‚ß‚Ì–Ê‚ğ¶¬
+	ã¯ã˜ã‚ã®é¢ã‚’ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 void CityController::CreateFirstFace(float width, float height)
 {
-	//è‘±‚«‚Ì•Û‘¶
+	//æ‰‹ç¶šãã®ä¿å­˜
 	m_ProcedualSaveData += " CreateFirstFace " + std::to_string( width) + ' ' + std::to_string( height) + "\n";
 
 	Vector3 sizeHalf( width * 0.5f, 0.0f, height * 0.5f);
@@ -505,20 +505,20 @@ void CityController::CreateFirstFace(float width, float height)
 }
 
 /*------------------------------------------------------------------------------
-	‹æ‰æ‚Ì•ªŠ„
+	åŒºç”»ã®åˆ†å‰²
 ------------------------------------------------------------------------------*/
 void CityController::Divide(int count)
 {
-	//è‘±‚«‚Ì•Û‘¶
+	//æ‰‹ç¶šãã®ä¿å­˜
 	m_ProcedualSaveData += " Divide " + std::to_string( count) + "\n";
 
-	//‘®«î•ñ‚Ì”jŠü
+	//å±æ€§æƒ…å ±ã®ç ´æ£„
 	if (m_CityAttributeManager->GetBlockCount() > 0)
 	{
-		//Ô‚Ì”jŠü
+		//è»Šã®ç ´æ£„
 		m_CarManager->Clear();
 
-		//‘®«î•ñ‚Ì”jŠü
+		//å±æ€§æƒ…å ±ã®ç ´æ£„
 		m_CityAttributeManager->Clear();
 	}
 
@@ -534,11 +534,11 @@ void CityController::Divide(int count)
 }
 
 /*------------------------------------------------------------------------------
-	‘®«î•ñ‚Ì•t—^
+	å±æ€§æƒ…å ±ã®ä»˜ä¸
 ------------------------------------------------------------------------------*/
 void CityController::CreateAttribute(void)
 {
-	//è‘±‚«‚Ì•Û‘¶
+	//æ‰‹ç¶šãã®ä¿å­˜
 	m_ProcedualSaveData += " CreateAttribute\n";
 
 	auto vertices = m_Model->GetVertices();
@@ -560,7 +560,7 @@ void CityController::CreateAttribute(void)
 		m_CityAttributeManager->CreateBlockAttribute( m_Model, i);
 	}
 
-	//‘®«î•ñ‚Ì‰Šú‰»
+	//å±æ€§æƒ…å ±ã®åˆæœŸåŒ–
 	for (auto junction : m_CityAttributeManager->GetJunctions())
 	{
 		junction->Init();
@@ -576,23 +576,23 @@ void CityController::CreateAttribute(void)
 }
 
 /*------------------------------------------------------------------------------
-	“y’n‚Ì¶¬
+	åœŸåœ°ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 void CityController::CreateLand(LandParameter* parameter, int blockID)
 {
-	//è‘±‚«‚Ì•Û‘¶
+	//æ‰‹ç¶šãã®ä¿å­˜
 	m_ProcedualSaveData += " CreateLand " + parameter->Save() + ' ' + std::to_string( blockID) + ' ' + "\n";
 
-	//“y’n‚Ì¶¬
+	//åœŸåœ°ã®ç”Ÿæˆ
 	auto land = m_LandManager->CreateLand( parameter->m_Vertices);
 	
-	//‹æ‰æ‚ÆƒŠƒ“ƒN
+	//åŒºç”»ã¨ãƒªãƒ³ã‚¯
 	if( blockID >= 0)
 	{
 		land->LinkAttribute( m_CityAttributeManager, blockID);
 	}
 
-	//Œğ’ÊƒVƒXƒeƒ€‚ğİ’è
+	//äº¤é€šã‚·ã‚¹ãƒ†ãƒ ã‚’è¨­å®š
 	std::list< RoadAttribute*> roadList;
 	for (auto id : parameter->m_RoadIDs)
 	{
@@ -602,18 +602,18 @@ void CityController::CreateLand(LandParameter* parameter, int blockID)
 }
 
 /*------------------------------------------------------------------------------
-	Œš•¨‚Ì¶¬
+	å»ºç‰©ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 void CityController::CreateBuilding(GeometryParameter* parameter, int landID)
 {
-	//è‘±‚«‚Ì•Û‘¶
+	//æ‰‹ç¶šãã®ä¿å­˜
 	m_ProcedualSaveData += " CreateBuilding " + parameter->Save() + ' ' + std::to_string( landID) + ' ' + "\n";
 
-	//Œš•¨‚Ì¶¬
+	//å»ºç‰©ã®ç”Ÿæˆ
 	auto surfacePattern = m_BuildingSurfacePatterns[ parameter->m_SurfacePatternID];
 	auto building = m_BuildingManager->CreateBuilding( parameter, surfacePattern);
 	
-	//“y’n‚ÆƒŠƒ“ƒN
+	//åœŸåœ°ã¨ãƒªãƒ³ã‚¯
 	if( landID >= 0)
 	{
 		building->LinkLand( m_LandManager, landID);
@@ -621,11 +621,11 @@ void CityController::CreateBuilding(GeometryParameter* parameter, int landID)
 }
 
 /*------------------------------------------------------------------------------
-	Œš•¨‚ÌÅ“K‰»
+	å»ºç‰©ã®æœ€é©åŒ–
 ------------------------------------------------------------------------------*/
 void CityController::ConfirmBuilding(void)
 {
-	//è‘±‚«‚Ì•Û‘¶
+	//æ‰‹ç¶šãã®ä¿å­˜
 	m_ProcedualSaveData += " ConfirmBuilding\n";
 
 	for (auto building : m_BuildingManager->GetBuildings())
@@ -638,11 +638,11 @@ void CityController::ConfirmBuilding(void)
 }
 
 /*------------------------------------------------------------------------------
-	Ô‚Ì¶¬
+	è»Šã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 void CityController::CreateCar(int spawnLandID, int targetLandID)
 {
-	//è‘±‚«‚Ì•Û‘¶
+	//æ‰‹ç¶šãã®ä¿å­˜
 	m_ProcedualSaveData += " CreateCar " + std::to_string( spawnLandID) + ' ' + std::to_string( targetLandID) + ' ' + "\n";
 
 	auto car = m_CarManager->CreateCar();
@@ -657,7 +657,7 @@ void CityController::CreateCar(int spawnLandID, int targetLandID)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void CityController::Load(std::string filename)
 {
@@ -666,18 +666,18 @@ void CityController::Load(std::string filename)
 
 	if (!saveData.Load(filename))
 	{
-		MessageBox( NULL, "CityController‚Ìƒ[ƒh‚É¸”s", "error", MB_OK);
+		MessageBox( NULL, "CityControllerã®ãƒ­ãƒ¼ãƒ‰ã«å¤±æ•—", "error", MB_OK);
 		return;
 	}
 
-	//ŠÇ—ƒIƒuƒWƒFƒNƒg‚ÌÄ¶¬
+	//ç®¡ç†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å†ç”Ÿæˆ
 	ResetManagers();
 
 	for (;;)
 	{
 		auto CurrentWord = saveData.GetWord();
 
-		//‚Í‚¶‚ß‚Ì–Ê‚ğ¶¬
+		//ã¯ã˜ã‚ã®é¢ã‚’ç”Ÿæˆ
 		if (saveData.GetWord() == "CreateFirstFace")
 		{
 			saveData.ForwardPositionToNextWord();
@@ -687,7 +687,7 @@ void CityController::Load(std::string filename)
 			CreateFirstFace( m_Width, m_Height);
 		}
 
-		//‹æ‰æ‚Ì•ªŠ„
+		//åŒºç”»ã®åˆ†å‰²
 		else if (saveData.GetWord() == "Divide")
 		{
 			saveData.ForwardPositionToNextWord();
@@ -696,13 +696,13 @@ void CityController::Load(std::string filename)
 			Divide( count);
 		}
 
-		//‘®«î•ñ‚Ì•t—^
+		//å±æ€§æƒ…å ±ã®ä»˜ä¸
 		else if (saveData.GetWord() == "CreateAttribute")
 		{
 			CreateAttribute();
 		}
 
-		//“y’n‚Ì¶¬
+		//åœŸåœ°ã®ç”Ÿæˆ
 		else if (saveData.GetWord() == "CreateLand")
 		{
 			saveData.ForwardPositionToNextWord();
@@ -714,7 +714,7 @@ void CityController::Load(std::string filename)
 			CreateLand( &parameter, blockID);
 		}
 
-		//Œš•¨‚Ì¶¬
+		//å»ºç‰©ã®ç”Ÿæˆ
 		else if (saveData.GetWord() == "CreateBuilding")
 		{
 			saveData.ForwardPositionToNextWord();
@@ -726,13 +726,13 @@ void CityController::Load(std::string filename)
 			CreateBuilding( &parameter, landID);
 		}
 
-		//Œš•¨‚ÌÅ“K‰»
+		//å»ºç‰©ã®æœ€é©åŒ–
 		else if (saveData.GetWord() == "ConfirmBuilding")
 		{
 			ConfirmBuilding();
 		}
 		
-		//Ô‚Ì¶¬
+		//è»Šã®ç”Ÿæˆ
 		else if (saveData.GetWord() == "CreateCar")
 		{
 			saveData.ForwardPositionToNextWord();
@@ -751,7 +751,7 @@ void CityController::Load(std::string filename)
 }
 
 /*------------------------------------------------------------------------------
-	ƒJ[ƒJƒƒ‰‚Ìİ’è
+	ã‚«ãƒ¼ã‚«ãƒ¡ãƒ©ã®è¨­å®š
 ------------------------------------------------------------------------------*/
 void CityController::SetCarCamera(Car* car)
 {
@@ -760,11 +760,11 @@ void CityController::SetCarCamera(Car* car)
 		return;
 	}
 	
-	//ƒƒCƒ“ƒJƒƒ‰‚ğØ‚é
+	//ãƒ¡ã‚¤ãƒ³ã‚«ãƒ¡ãƒ©ã‚’åˆ‡ã‚‹
 	m_MainCamera = Camera::GetMainCamera();
 	m_MainCamera->SetActive(false);
 
-	//ƒJ[ƒJƒƒ‰‚Ìİ’è
+	//ã‚«ãƒ¼ã‚«ãƒ¡ãƒ©ã®è¨­å®š
 	m_CarCamera->SetMainCamera();
 	m_CarCamera->SetActive( true);
 	m_CarCameraController->SetActive( true);
@@ -780,7 +780,7 @@ void CityController::SetCarCamera(Car* car)
 }
 
 /*------------------------------------------------------------------------------
-	ƒƒCƒ“ƒJƒƒ‰‚Ìİ’è
+	ãƒ¡ã‚¤ãƒ³ã‚«ãƒ¡ãƒ©ã®è¨­å®š
 ------------------------------------------------------------------------------*/
 void CityController::SetMainCamera(void)
 {
@@ -789,7 +789,7 @@ void CityController::SetMainCamera(void)
 		return;
 	}
 
-	//ƒƒCƒ“ƒJƒƒ‰‚Ìİ’è
+	//ãƒ¡ã‚¤ãƒ³ã‚«ãƒ¡ãƒ©ã®è¨­å®š
 	m_MainCamera->SetActive( true);
 	m_MainCamera->SetType( m_CarCamera->GetType());
 	m_MainCamera->SetMainCamera();
@@ -797,7 +797,7 @@ void CityController::SetMainCamera(void)
 	m_MainCamera->m_pTransform->SetWorldRotationLookAt( Vector3());
 	m_MainCamera = NULL;
 
-	//ƒJ[ƒJƒƒ‰‚ğØ‚é
+	//ã‚«ãƒ¼ã‚«ãƒ¡ãƒ©ã‚’åˆ‡ã‚‹
 	m_CarCamera->SetActive( false);
 	m_CarCameraController->SetActive( false);
 	m_CarCameraController->SetTargetPosAt( NULL);

@@ -1,12 +1,12 @@
 /*==============================================================================
 	
-	TrafficRoad.cpp - Œğ’ÊƒVƒXƒeƒ€[Œğ·“_
+	TrafficRoad.cpp - äº¤é€šã‚·ã‚¹ãƒ†ãƒ ãƒ¼äº¤å·®ç‚¹
 														Author : Yutaka Suganuma
 														Date   : 2017/12/25
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "TrafficRoad.h"
 #include "GameObject.h"
@@ -24,7 +24,7 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* TrafficRoad::Create(GameObject* gameObject)
 {
@@ -32,7 +32,7 @@ Component* TrafficRoad::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 TrafficRoad::TrafficRoad( GameObject* pGameObject)
 {
@@ -47,11 +47,11 @@ TrafficRoad::TrafficRoad( GameObject* pGameObject)
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void TrafficRoad::Uninit( void)
 {
-	//Á‹‚ğ’Ê’m
+	//æ¶ˆå»ã‚’é€šçŸ¥
 	for (auto car : m_LeftSideCars)
 	{
 		car->OnDeleteCurrentRoad();
@@ -63,7 +63,7 @@ void TrafficRoad::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	XVˆ—
+	æ›´æ–°å‡¦ç†
 ------------------------------------------------------------------------------*/
 void TrafficRoad::Update( void)
 {
@@ -76,7 +76,7 @@ void TrafficRoad::Update( void)
 }
 
 /*------------------------------------------------------------------------------
-	‘®«î•ñ‚Ìİ’è
+	å±æ€§æƒ…å ±ã®è¨­å®š
 ------------------------------------------------------------------------------*/
 void TrafficRoad::SetAttribute( RoadAttribute* attribute)
 { 
@@ -90,23 +90,23 @@ void TrafficRoad::SetAttribute( RoadAttribute* attribute)
 }
 
 /*------------------------------------------------------------------------------
-	Ô‚Ì“o˜^
+	è»Šã®ç™»éŒ²
 ------------------------------------------------------------------------------*/
 void TrafficRoad::RegisterCar(CarController* car)
 {
 	UnregisterCar( car);
 
-	//Ÿ‚É“’B‚·‚éŒğ·“_‚Ìî•ñ‚©‚ç¶‰E‚Ì‚Ç‚¿‚ç‚ğ’Ês‚·‚é‚©Œˆ’è
+	//æ¬¡ã«åˆ°é”ã™ã‚‹äº¤å·®ç‚¹ã®æƒ…å ±ã‹ã‚‰å·¦å³ã®ã©ã¡ã‚‰ã‚’é€šè¡Œã™ã‚‹ã‹æ±ºå®š
 	if (car->GetNextJunction()->GetAttribute()->GetVertex() == m_Attribute->GetEdge()->GetEnd())
 	{
-		//n“_‚©‚çŒ©‚Ä¶Ôü‚É‘}“ü
+		//å§‹ç‚¹ã‹ã‚‰è¦‹ã¦å·¦è»Šç·šã«æŒ¿å…¥
 		if (m_LeftSideCars.size() == 0)
 		{
 			m_LeftSideCars.push_back( car);
 			return;
 		}
 
-		//‘}“ü’n“_‚Ìn“_‚©‚ç‚Ì‹——£ii‚ñ‚¾‹——£j‚É‰‚¶‚Ä“r’†‚É‘}“ü
+		//æŒ¿å…¥åœ°ç‚¹ã®å§‹ç‚¹ã‹ã‚‰ã®è·é›¢ï¼ˆé€²ã‚“ã è·é›¢ï¼‰ã«å¿œã˜ã¦é€”ä¸­ã«æŒ¿å…¥
 		float insertDistance = car->CulcMoveDistanceOnRoad();
 		for (auto ite = m_LeftSideCars.begin(); ite != m_LeftSideCars.end(); ++ite)
 		{
@@ -118,20 +118,20 @@ void TrafficRoad::RegisterCar(CarController* car)
 			}
 		}
 
-		//ÅŒã”ö‚É‘}“ü
+		//æœ€å¾Œå°¾ã«æŒ¿å…¥
 		m_LeftSideCars.push_back( car);
 		return;
 	}
 	else
 	{
-		//n“_‚©‚çŒ©‚Ä‰EÔü‚É‘}“ü
+		//å§‹ç‚¹ã‹ã‚‰è¦‹ã¦å³è»Šç·šã«æŒ¿å…¥
 		if (m_RightSideCars.size() == 0)
 		{
 			m_RightSideCars.push_back( car);
 			return;
 		}
 
-		//‘}“ü’n“_‚Ìn“_‚©‚ç‚Ì‹——£ii‚ñ‚¾‹——£j‚É‰‚¶‚Ä“r’†‚É‘}“ü
+		//æŒ¿å…¥åœ°ç‚¹ã®å§‹ç‚¹ã‹ã‚‰ã®è·é›¢ï¼ˆé€²ã‚“ã è·é›¢ï¼‰ã«å¿œã˜ã¦é€”ä¸­ã«æŒ¿å…¥
 		float insertDistance = car->CulcMoveDistanceOnRoad();
 		for (auto ite = m_RightSideCars.begin(); ite != m_RightSideCars.end(); ++ite)
 		{
@@ -143,14 +143,14 @@ void TrafficRoad::RegisterCar(CarController* car)
 			}
 		}
 
-		//ÅŒã”ö‚É‘}“ü
+		//æœ€å¾Œå°¾ã«æŒ¿å…¥
 		m_RightSideCars.push_back( car);
 		return;
 	}
 }
 	
 /*------------------------------------------------------------------------------
-	Ô‚Ì“o˜^‚ğ‰ğœ
+	è»Šã®ç™»éŒ²ã‚’è§£é™¤
 ------------------------------------------------------------------------------*/
 void TrafficRoad::UnregisterCar(CarController* car)
 {
@@ -173,11 +173,11 @@ void TrafficRoad::UnregisterCar(CarController* car)
 }
 
 /*------------------------------------------------------------------------------
-	Ô‚Ìæ“¾
+	è»Šã®å–å¾—
 ------------------------------------------------------------------------------*/
 const std::list<CarController*>& TrafficRoad::GetCars(TrafficJunction* nextJunction)
 {
-	//Ÿ‚É“’B‚·‚éŒğ·“_‚Ìî•ñ‚©‚ç¶‰E‚Ì‚Ç‚¿‚ç‚ğ’Ês‚·‚é‚©Œˆ’è
+	//æ¬¡ã«åˆ°é”ã™ã‚‹äº¤å·®ç‚¹ã®æƒ…å ±ã‹ã‚‰å·¦å³ã®ã©ã¡ã‚‰ã‚’é€šè¡Œã™ã‚‹ã‹æ±ºå®š
 	if (nextJunction->GetAttribute()->GetVertex() == m_Attribute->GetEdge()->GetEnd())
 	{
 		return m_LeftSideCars;
@@ -186,7 +186,7 @@ const std::list<CarController*>& TrafficRoad::GetCars(TrafficJunction* nextJunct
 }
 
 /*------------------------------------------------------------------------------
-	‘O•û‚ÌÔ‚ğæ“¾
+	å‰æ–¹ã®è»Šã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 CarController* TrafficRoad::GetFrontCar(CarController* carController)
 {
@@ -212,7 +212,7 @@ CarController* TrafficRoad::GetFrontCar(CarController* carController)
 }
 
 /*------------------------------------------------------------------------------
-	Œğ·“_‚Ìæ“¾
+	äº¤å·®ç‚¹ã®å–å¾—
 ------------------------------------------------------------------------------*/
 std::list<TrafficJunction*> TrafficRoad::GetJunctions(void)
 {
@@ -226,7 +226,7 @@ std::list<TrafficJunction*> TrafficRoad::GetJunctions(void)
 }
 
 /*------------------------------------------------------------------------------
-	”½‘Î‘¤‚ÌŒğ·“_‚Ìæ“¾
+	åå¯¾å´ã®äº¤å·®ç‚¹ã®å–å¾—
 ------------------------------------------------------------------------------*/
 TrafficJunction* TrafficRoad::GetOtherJunction(TrafficJunction* junction)
 {
@@ -248,7 +248,7 @@ TrafficJunction* TrafficRoad::GetOtherJunction(TrafficJunction* junction)
 }
 
 /*------------------------------------------------------------------------------
-	ƒxƒNƒgƒ‹‚Ìæ“¾
+	ãƒ™ã‚¯ãƒˆãƒ«ã®å–å¾—
 ------------------------------------------------------------------------------*/
 Vector3 TrafficRoad::GetVector(TrafficJunction* nextJunction)
 {
@@ -264,7 +264,7 @@ Vector3 TrafficRoad::GetVector(TrafficJunction* nextJunction)
 }
 
 /*------------------------------------------------------------------------------
-	“¹˜H•‚Ìæ“¾
+	é“è·¯å¹…ã®å–å¾—
 ------------------------------------------------------------------------------*/
 float TrafficRoad::GetWidth(void)
 {

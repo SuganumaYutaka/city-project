@@ -1,25 +1,25 @@
 /*==============================================================================
 	
-	GameObject.cpp - ƒIƒuƒWƒFƒNƒgƒm[ƒh
+	GameObject.cpp - ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒãƒ¼ãƒ‰
 														Author : Yutaka Suganuma
 														Date   : 2017/4/29
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "GameObject.h"
 #include "Component.h"
 #include "ComponentFactory.h"
 
 /*------------------------------------------------------------------------------
-	Ã“Iƒƒ“ƒo•Ï”éŒ¾
+	é™çš„ãƒ¡ãƒ³ãƒå¤‰æ•°å®£è¨€
 ------------------------------------------------------------------------------*/
 std::list<GameObject*> GameObject::m_listReleaseObject;
 
 /*------------------------------------------------------------------------------
-	ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	ƒVƒŠƒAƒ‰ƒCƒY—p
+	ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	ã‚·ãƒªã‚¢ãƒ©ã‚¤ã‚ºç”¨
 ------------------------------------------------------------------------------*/
 GameObject::GameObject( )
 {
@@ -29,9 +29,9 @@ GameObject::GameObject( )
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	ˆø”
-		GameObject* pParent		eƒm[ƒh
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	å¼•æ•°
+		GameObject* pParent		è¦ªãƒãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 GameObject::GameObject( GameObject* pParent)
 {
@@ -39,9 +39,9 @@ GameObject::GameObject( GameObject* pParent)
 }
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»
-	ˆø”
-		GameObject* pParent		eƒm[ƒh
+	åˆæœŸåŒ–
+	å¼•æ•°
+		GameObject* pParent		è¦ªãƒãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void GameObject::InitGameObject( GameObject* pParent)
 {
@@ -67,8 +67,8 @@ void GameObject::InitGameObject( GameObject* pParent)
 }
 
 /*------------------------------------------------------------------------------
-	qƒm[ƒh’Ç‰Á
-	ˆø”
+	å­ãƒãƒ¼ãƒ‰è¿½åŠ 
+	å¼•æ•°
 		GameObject* pChild
 ------------------------------------------------------------------------------*/
 void GameObject::AddChild( GameObject* pChild)
@@ -78,31 +78,31 @@ void GameObject::AddChild( GameObject* pChild)
 }
 
 /*------------------------------------------------------------------------------
-	‘SƒIƒuƒWƒFƒNƒgXV
+	å…¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ›´æ–°
 ------------------------------------------------------------------------------*/
 void GameObject::UpdateAll()
 {
 	Update();
 
-	//q‚ğÄ‹A“I‚ÉXV
+	//å­ã‚’å†å¸°çš„ã«æ›´æ–°
 	std::for_each( m_listChild.begin(), m_listChild.end(), 
 		[]( GameObject* pChild) { pChild->UpdateAll();});
 }
 
 /*------------------------------------------------------------------------------
-	‘SƒIƒuƒWƒFƒNƒg•`‰æ
+	å…¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæç”»
 ------------------------------------------------------------------------------*/
 void GameObject::DrawAll()
 {
 	Draw();
 
-	//q‚ğÄ‹A“I‚É•`‰æ
+	//å­ã‚’å†å¸°çš„ã«æç”»
 	std::for_each(m_listChild.begin(), m_listChild.end(), 
 		[]( GameObject* pChild) { pChild->DrawAll();});
 }
 
 /*------------------------------------------------------------------------------
-	ƒIƒuƒWƒFƒNƒgÁ‹—\–ñ
+	ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ¶ˆå»äºˆç´„
 ------------------------------------------------------------------------------*/
 void GameObject::ReleaseReserve( void )
 {
@@ -111,18 +111,18 @@ void GameObject::ReleaseReserve( void )
 		return;
 	}
 
-	//ƒŠƒXƒg‚É’Ç‰Á
+	//ãƒªã‚¹ãƒˆã«è¿½åŠ 
 	m_listReleaseObject.push_back( this);
 
 	m_bRelease = true;
 
-	//ƒRƒ“ƒ|[ƒlƒ“ƒg‚ğÀs•s”\‚É
+	//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å®Ÿè¡Œä¸èƒ½ã«
 	for (Component* pComp : m_listComponent)
 	{
 		pComp->SetActive( false);
 	}
 
-	//q‚ğÄ‹A“I‚ÉÁ‹—\–ñ
+	//å­ã‚’å†å¸°çš„ã«æ¶ˆå»äºˆç´„
 	std::list< GameObject*>::iterator ite;
 	for( ite = m_listChild.begin(); ite != m_listChild.end(); ite++)
 	{
@@ -131,13 +131,13 @@ void GameObject::ReleaseReserve( void )
 }
 
 /*------------------------------------------------------------------------------
-	q‚ÌƒIƒuƒWƒFƒNƒgÁ‹—\–ñ
+	å­ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ¶ˆå»äºˆç´„
 ------------------------------------------------------------------------------*/
 void GameObject::ReleaseReserveChildren( void )
 {
 	if( m_bRelease == true)
 	{
-		//ƒŠƒXƒg‚©‚çÁ‹
+		//ãƒªã‚¹ãƒˆã‹ã‚‰æ¶ˆå»
 		std::list< GameObject*>::iterator ite;
 		for( ite = m_listReleaseObject.begin(); ite != m_listReleaseObject.end(); ite++)
 		{
@@ -151,13 +151,13 @@ void GameObject::ReleaseReserveChildren( void )
 
 	m_bRelease = true;
 
-	//ƒRƒ“ƒ|[ƒlƒ“ƒg‚ğÀs•s”\‚É
+	//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å®Ÿè¡Œä¸èƒ½ã«
 	for (Component* pComp : m_listComponent)
 	{
 		pComp->SetActive( false);
 	}
 
-	//q‚ğÄ‹A“I‚ÉÁ‹—\–ñ
+	//å­ã‚’å†å¸°çš„ã«æ¶ˆå»äºˆç´„
 	std::list< GameObject*>::iterator ite;
 	for( ite = m_listChild.begin(); ite != m_listChild.end(); ite++)
 	{
@@ -166,7 +166,7 @@ void GameObject::ReleaseReserveChildren( void )
 }
 
 /*------------------------------------------------------------------------------
-	ƒŠƒXƒg‚Ì‡‚ÉƒIƒuƒWƒFƒNƒgÁ‹
+	ãƒªã‚¹ãƒˆã®é †ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ¶ˆå»
 ------------------------------------------------------------------------------*/
 void GameObject::ReleaseList(void)
 {
@@ -175,22 +175,22 @@ void GameObject::ReleaseList(void)
 		Obj->ReleaseObject();
 	}
 
-	//ƒŠƒXƒg‚ğƒŠƒZƒbƒg
+	//ãƒªã‚¹ãƒˆã‚’ãƒªã‚»ãƒƒãƒˆ
 	m_listReleaseObject.clear();
 }
 
 /*------------------------------------------------------------------------------
-	ƒIƒuƒWƒFƒNƒgÁ‹Às
+	ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ¶ˆå»å®Ÿè¡Œ
 ------------------------------------------------------------------------------*/
 void GameObject::ReleaseObject()
 {
-	//e‚ÌƒŠƒXƒg‚©‚çÁ‹
+	//è¦ªã®ãƒªã‚¹ãƒˆã‹ã‚‰æ¶ˆå»
 	std::list< GameObject*>::iterator ite;
 	if( m_pParent != NULL && m_pParent->m_Tag != "Root")
 	{
 		for( ite = m_pParent->m_listChild.begin(); ite != m_pParent->m_listChild.end(); ite++)
 		{
-			//ƒŠƒXƒg‚©‚çÁ‹
+			//ãƒªã‚¹ãƒˆã‹ã‚‰æ¶ˆå»
 			if( *ite == this)
 			{
 				ite = m_pParent->m_listChild.erase( ite);
@@ -203,40 +203,40 @@ void GameObject::ReleaseObject()
 }
 
 /*------------------------------------------------------------------------------
-	Ä‹A“I‚ÉƒIƒuƒWƒFƒNƒgÁ‹
+	å†å¸°çš„ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ¶ˆå»
 ------------------------------------------------------------------------------*/
 void GameObject::ReleaseRecursive()
 {
-	//q‚ğÄ‹A“I‚ÉÁ‹
+	//å­ã‚’å†å¸°çš„ã«æ¶ˆå»
 	std::list< GameObject*>::iterator ite;
 	for( ite = m_listChild.begin(); ite != m_listChild.end(); ite++)
 	{
 		( *ite)->ReleaseRecursive();
 	}
 
-	//ƒRƒ“ƒ|[ƒlƒ“ƒgI—¹ˆ—
+	//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆçµ‚äº†å‡¦ç†
 	for( auto pComp : m_listComponent)
 	{
 		pComp->Uninit();
 	}
 
-	//ƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌÁ‹
+	//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®æ¶ˆå»
 	std::list< Component *>::iterator iteComp;
 	for( iteComp = m_listComponent.begin(); iteComp != m_listComponent.end(); iteComp++)
 	{
 		delete *iteComp;
 	}
 
-	//©g‚ÌÁ‹i•K‚¸ÅŒã‚Éj
+	//è‡ªèº«ã®æ¶ˆå»ï¼ˆå¿…ãšæœ€å¾Œã«ï¼‰
 	delete this;
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg‚ğÁ‹
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’æ¶ˆå»
 ------------------------------------------------------------------------------*/
 void GameObject::ReleaseComponent(Component* pComp)
 {
-	//ƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌÁ‹
+	//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®æ¶ˆå»
 	for (auto comp : m_listComponent)
 	{
 		if( comp == pComp)
@@ -247,7 +247,7 @@ void GameObject::ReleaseComponent(Component* pComp)
 		}
 	}
 
-	//ƒŠƒXƒg‚©‚çÁ‹
+	//ãƒªã‚¹ãƒˆã‹ã‚‰æ¶ˆå»
 	std::list< Component *>::iterator iteComp;
 	for( iteComp = m_listComponent.begin(); iteComp != m_listComponent.end(); iteComp++)
 	{
@@ -260,11 +260,11 @@ void GameObject::ReleaseComponent(Component* pComp)
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void GameObject::Update()
 {
-	//ƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌXV
+	//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®æ›´æ–°
 	for (Component *pComponent : m_listComponent)
 	{
 		if ( pComponent->GetActive() == true)
@@ -280,21 +280,21 @@ void GameObject::Update()
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æ
+	æç”»
 ------------------------------------------------------------------------------*/
 void GameObject::Draw()
 {
-	////ƒRƒ“ƒ|[ƒlƒ“ƒg‚Ì•`‰æiRenderManager‚ÅŠÇ—‚·‚éj
+	////ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®æç”»ï¼ˆRenderManagerã§ç®¡ç†ã™ã‚‹ï¼‰
 	//std::for_each(m_listComponent.begin(), m_listComponent.end(), 
 	//	[]( Component* pComponent) { pComponent->Draw();});
 }
 
 /*------------------------------------------------------------------------------
-	Õ“Ë‚Ìˆ—
+	è¡çªæ™‚ã®å‡¦ç†
 ------------------------------------------------------------------------------*/
 void GameObject::OnCollision(Collider *pCollider)
 {
-	//ƒRƒ“ƒ|[ƒlƒ“ƒg‚ÉƒR[ƒ‹
+	//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã«ã‚³ãƒ¼ãƒ«
 	for (Component* pComp : m_listComponent)
 	{
 		pComp->OnCollision( pCollider);
@@ -302,11 +302,11 @@ void GameObject::OnCollision(Collider *pCollider)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void GameObject::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -332,7 +332,7 @@ void GameObject::Load(Text& text)
 			text.ForwardPositionToNextWord();
 			text.ForwardPositionToNextWord();
 
-			// transform‚¾‚¯•Ê‚Ìˆ—
+			// transformã ã‘åˆ¥ã®å‡¦ç†
 			if (text.GetWord() == "Transform")
 			{
 				m_pTransform->Load(text);
@@ -344,14 +344,14 @@ void GameObject::Load(Text& text)
 			}
 		}
 
-		// q‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg
+		// å­ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 		else if (text.GetWord() == "GameObject")
 		{
 			auto pGameObject = new GameObject(this);
 			pGameObject->Load(text);
 		}
 
-		// text‚ğ“Ç‚İi‚ß‚é
+		// textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
@@ -360,11 +360,11 @@ void GameObject::Load(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void GameObject::Save(Text& text)
 {
-	// ‘¼‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚©‚ç¶¬‚³‚ê‚½ê‡•Û‘¶‚µ‚È‚¢
+	// ä»–ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‹ã‚‰ç”Ÿæˆã•ã‚ŒãŸå ´åˆä¿å­˜ã—ãªã„
 	if (IsCreatedByOtherComponent == true)
 	{
 		return;
@@ -384,7 +384,7 @@ void GameObject::Save(Text& text)
 		}
 	}
 
-	// q‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg
+	// å­ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	for (auto *pGameObject : m_listChild)
 	{
 		if (pGameObject->IsCreatedByOtherComponent == false)
@@ -397,12 +397,12 @@ void GameObject::Save(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ImGui‚Ì•\¦î•ñİ’è
+	ImGuiã®è¡¨ç¤ºæƒ…å ±è¨­å®š
 ------------------------------------------------------------------------------*/
 void GameObject::SetImGuiView()
 {
 	ImGui::Begin(m_Tag.c_str(), &IsSelected);
-	//ƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌXV
+	//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®æ›´æ–°
 	for (Component *pComponent : m_listComponent)
 	{
 		pComponent->SetImGuiView();

@@ -1,24 +1,24 @@
 /*==============================================================================
 	
-	Main.cpp - メイン処理
+	Main.cpp - 繝｡繧､繝ｳ蜃ｦ逅�
 														Author : Yutaka Suganuma
 														Date   : 2017/3/25
 ==============================================================================*/
 #include "Manager.h"
 
 /*------------------------------------------------------------------------------
-	メイン
-	引数
+	繝｡繧､繝ｳ
+	蠑墓焚
 		HINSTANCE hInstance,
 		HINSTANCE hPrevInstance,
 		LPSTR lpCmdLine
 		int nCmdShow
-	戻り値
+	謌ｻ繧雁､
 		(int)msg.wParam
 ------------------------------------------------------------------------------*/
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	//メモリの解放チェック
+	//繝｡繝｢繝ｪ縺ｮ隗｣謾ｾ繝√ぉ繝�繧ｯ
 	//_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	new Game(hInstance, hPrevInstance, lpCmdLine, nCmdShow);

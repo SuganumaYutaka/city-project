@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    CityRule.cpp - ’¬‚Ì©“®¶¬[ƒ‹[ƒ‹
+    CityRule.cpp - ç”ºã®è‡ªå‹•ç”Ÿæˆãƒ¼ãƒ«ãƒ¼ãƒ«
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/11/28
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "CityRule.h"
 #include "HalfEdgeModel.h"
@@ -20,21 +20,21 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
-#define DEFAULT_RATE_NOT_DIVIDE (0.12f)		//•ªŠ„‚µ‚È‚¢Šm—¦
+#define DEFAULT_RATE_NOT_DIVIDE (0.12f)		//åˆ†å‰²ã—ãªã„ç¢ºç‡
 
 /*------------------------------------------------------------------------------
-	Ã“Iƒƒ“ƒo•Ï”éŒ¾
+	é™çš„ãƒ¡ãƒ³ãƒå¤‰æ•°å®£è¨€
 ------------------------------------------------------------------------------*/
 std::mt19937 CityRule::m_rand;
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 CityRule::CityRule()
 {
-	// –Ê‚ğ•ªŠ„‚·‚éƒ‹[ƒ‹İ’è
+	// é¢ã‚’åˆ†å‰²ã™ã‚‹ãƒ«ãƒ¼ãƒ«è¨­å®š
 	m_RulesDivideFace.push_back( DivideFaceFunc1);
 	m_RulesDivideFace.push_back( DivideFaceFunc2);
 
@@ -43,7 +43,7 @@ CityRule::CityRule()
 }
 
 /*------------------------------------------------------------------------------
-	–Ê‚ğ•ªŠ„‚·‚éƒ‹[ƒ‹	–ß‚è’l@bool@ˆø”@Face*
+	é¢ã‚’åˆ†å‰²ã™ã‚‹ãƒ«ãƒ¼ãƒ«	æˆ»ã‚Šå€¤ã€€boolã€€å¼•æ•°ã€€Face*
 ------------------------------------------------------------------------------*/
 bool CityRule::DivideFace(Face* face)
 {
@@ -52,35 +52,35 @@ bool CityRule::DivideFace(Face* face)
 		return false;
 	}
 
-	//Šm—¦“I‚Éˆ—‚ğ—£U
+	//ç¢ºç‡çš„ã«å‡¦ç†ã‚’é›¢æ•£
 	float rateNotDivide = DEFAULT_RATE_NOT_DIVIDE;
 	
-	//0.0f`1.0f‚Ìƒ‰ƒ“ƒ_ƒ€’l
+	//0.0fã€œ1.0fã®ãƒ©ãƒ³ãƒ€ãƒ å€¤
 	float random = m_rand() % 10000 * 0.0001f;
 
-	//•ªŠ„‚µ‚È‚¢
+	//åˆ†å‰²ã—ãªã„
 	if (random <= rateNotDivide)
 	{
 		return false;
 	}
 	random -= rateNotDivide;
 
-	//’·‚·‚¬‚é•Ó‚ğ—Dæ“I‚É•ªŠ„
+	//é•·ã™ãã‚‹è¾ºã‚’å„ªå…ˆçš„ã«åˆ†å‰²
 	if (m_RulesDivideFace[1](face))
 	{
 		return true;
 	}
 
-	//ƒƒCƒ“‚Ì•ªŠ„ƒ‹[ƒ‹
+	//ãƒ¡ã‚¤ãƒ³ã®åˆ†å‰²ãƒ«ãƒ¼ãƒ«
 	return m_RulesDivideFace[0](face);
 }
 
 /*------------------------------------------------------------------------------
-	–Ê‚ğ^‚Á“ñ‚Â‚É‚·‚éi³•ûŒ`A’·•ûŒ`‚Ì‚İŠmÀ‚É—LŒøj
+	é¢ã‚’çœŸã£äºŒã¤ã«ã™ã‚‹ï¼ˆæ­£æ–¹å½¢ã€é•·æ–¹å½¢ã®ã¿ç¢ºå®Ÿã«æœ‰åŠ¹ï¼‰
 ------------------------------------------------------------------------------*/
 bool CityRule::DivideFaceFunc1(Face* face)
 {
-	//‚Q‚Â‚Åˆê’¼ü‚É‚È‚éƒn[ƒtƒGƒbƒW‚ª‚ ‚é‚Æ‚«‚»‚Ì’†“_‚ğn“_‚É‚·‚é
+	//ï¼’ã¤ã§ä¸€ç›´ç·šã«ãªã‚‹ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ãŒã‚ã‚‹ã¨ããã®ä¸­ç‚¹ã‚’å§‹ç‚¹ã«ã™ã‚‹
 	HalfEdge* targetHalfEdge = NULL;
 	Vertex* start = NULL;
 	Vertex* end = NULL;
@@ -92,34 +92,34 @@ bool CityRule::DivideFaceFunc1(Face* face)
 
 	else
 	{
-		//ˆê”Ô’·‚¢ƒn[ƒtƒGƒbƒW‚ğæ“¾‚·‚é
+		//ä¸€ç•ªé•·ã„ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’å–å¾—ã™ã‚‹
 		targetHalfEdge = face->SearchLongestHalfEdge();
 		if (!targetHalfEdge)
 		{
 			return false;
 		}
 
-		//ƒ^[ƒQƒbƒg‚Æ•½s‚È”½‘Î‘¤‚Ìƒn[ƒtƒGƒbƒW‚ª‚ ‚é‚©
+		//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨å¹³è¡Œãªåå¯¾å´ã®ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ãŒã‚ã‚‹ã‹
 		if (!targetHalfEdge->SearchParallelHalfEdge())
 		{
 			return false;
 		}
 
-		//’·‚¢ƒn[ƒtƒGƒbƒW‚ğ•ªŠ„‚·‚é
+		//é•·ã„ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’åˆ†å‰²ã™ã‚‹
 		if (!targetHalfEdge->GetEdge()->Divide(0.5f, &start))
 		{
 			return false;
 		}
 	}
 
-	//ƒ^[ƒQƒbƒg‚Æ•½s‚È”½‘Î‘¤‚Ìƒn[ƒtƒGƒbƒW‚ğæ“¾
+	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨å¹³è¡Œãªåå¯¾å´ã®ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’å–å¾—
 	HalfEdge* parallelHalfEdge = targetHalfEdge->SearchParallelHalfEdge();
 	if (!parallelHalfEdge)
 	{
 		return false;
 	}
 
-	//•½sƒn[ƒtƒGƒbƒW‚Æˆê’¼ü‚É‚È‚éƒn[ƒtƒGƒbƒW‚ª‚ ‚é‚Æ‚«‚»‚Ì’†“_‚ğI“_‚É‚·‚é
+	//å¹³è¡Œãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã¨ä¸€ç›´ç·šã«ãªã‚‹ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ãŒã‚ã‚‹ã¨ããã®ä¸­ç‚¹ã‚’çµ‚ç‚¹ã«ã™ã‚‹
 	if ( parallelHalfEdge->IsStraightLine(parallelHalfEdge->GetNext()))
 	{
 		end = parallelHalfEdge->GetEnd();
@@ -127,14 +127,14 @@ bool CityRule::DivideFaceFunc1(Face* face)
 
 	else
 	{
-		//•½sƒn[ƒtƒGƒbƒW‚ğ•ªŠ„
+		//å¹³è¡Œãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’åˆ†å‰²
 		if (!parallelHalfEdge->GetEdge()->Divide(0.5f, &end))
 		{
 			return false;
 		}
 	}
 
-	//–Ê‚ğ•ªŠ„‚·‚é
+	//é¢ã‚’åˆ†å‰²ã™ã‚‹
 	if (!face->Divide(start, end))
 	{
 		return false;
@@ -146,7 +146,7 @@ bool CityRule::DivideFaceFunc1(Face* face)
 #define BOARDER_RATE (2.5f)
 #define BOARDER_PARALLEL (0.7f)
 /*------------------------------------------------------------------------------
-	’·‚¢•Ó‚ğ—Dæ‚µ‚Ä•ªŠ„
+	é•·ã„è¾ºã‚’å„ªå…ˆã—ã¦åˆ†å‰²
 ------------------------------------------------------------------------------*/
 bool CityRule::DivideFaceFunc2(Face* face)
 {
@@ -154,21 +154,21 @@ bool CityRule::DivideFaceFunc2(Face* face)
 	Vertex* start = NULL;
 	Vertex* end = NULL;
 	
-	//ˆê”Ô’·‚¢ƒn[ƒtƒGƒbƒW‚ğæ“¾‚·‚é
+	//ä¸€ç•ªé•·ã„ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’å–å¾—ã™ã‚‹
 	targetHalfEdge = face->SearchLongestHalfEdge();
 	if (!targetHalfEdge)
 	{
 		return false;
 	}
 
-	//ˆê”Ô’·‚¢•Ó‚ÆŸ‚Ì•Ó‚ğ”äŠr‚µ‚ÄlŠpŒ`‚ª•ö‚ê‚·‚¬‚Ä‚¢‚È‚¢‚©ƒ`ƒFƒbƒN
+	//ä¸€ç•ªé•·ã„è¾ºã¨æ¬¡ã®è¾ºã‚’æ¯”è¼ƒã—ã¦å››è§’å½¢ãŒå´©ã‚Œã™ãã¦ã„ãªã„ã‹ãƒã‚§ãƒƒã‚¯
 	float rateToCheckTooLonger = targetHalfEdge->GetVector().Length() / targetHalfEdge->GetNext()->GetVector().Length();
 	if (rateToCheckTooLonger < BOARDER_RATE)
 	{
 		return false;
 	}
 
-	//ƒ^[ƒQƒbƒg‚Æ‚ ‚é’ö“x•½s‚È”½‘Î‘¤‚Ìƒn[ƒtƒGƒbƒW‚ğ’T‚·
+	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ã‚ã‚‹ç¨‹åº¦å¹³è¡Œãªåå¯¾å´ã®ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’æ¢ã™
 	HalfEdge* otherSideHalfEdge = NULL;
 	otherSideHalfEdge = targetHalfEdge->GetNext();
 	for (;;)
@@ -186,19 +186,19 @@ bool CityRule::DivideFaceFunc2(Face* face)
 		}
 	}
 
-	//’·‚¢ƒn[ƒtƒGƒbƒW‚ğ•ªŠ„‚·‚é
+	//é•·ã„ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’åˆ†å‰²ã™ã‚‹
 	if (!targetHalfEdge->GetEdge()->Divide(0.5f, &start))
 	{
 		return false;
 	}
 
-	//”½‘Î‘¤‚Ìƒn[ƒtƒGƒbƒW‚ğ•ªŠ„
+	//åå¯¾å´ã®ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’åˆ†å‰²
 	if (!otherSideHalfEdge->GetEdge()->Divide(0.5f, &end))
 	{
 		return false;
 	}
 
-	//–Ê‚ğ•ªŠ„‚·‚é
+	//é¢ã‚’åˆ†å‰²ã™ã‚‹
 	if (!face->Divide(start, end))
 	{
 		return false;

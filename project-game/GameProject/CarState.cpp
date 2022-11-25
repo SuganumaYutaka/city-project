@@ -1,12 +1,12 @@
 /*==============================================================================
 	
-	CarState.cpp - Œğ’ÊƒVƒXƒeƒ€[Ô‚Ìó‘Ô
+	CarState.cpp - äº¤é€šã‚·ã‚¹ãƒ†ãƒ ãƒ¼è»Šã®çŠ¶æ…‹
 														Author : Yutaka Suganuma
 														Date   : 2017/12/30
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "CarState.h"
 #include "CarController.h"
@@ -16,7 +16,7 @@
 #include "ComponentInclude.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
 #define ADD_SPEED_ON_ROAD (0.09f)
 #define ADD_SPEED_TOWARD_ROAD (0.07f)
@@ -27,7 +27,7 @@
 #define SLERP_VALUE (0.2f)
 
 /*------------------------------------------------------------------------------
-	State : ƒjƒ…[ƒgƒ‰ƒ‹
+	State : ãƒ‹ãƒ¥ãƒ¼ãƒˆãƒ©ãƒ«
 ------------------------------------------------------------------------------*/
 void CarStateNeutral::Update(void)
 {
@@ -36,7 +36,7 @@ void CarStateNeutral::Update(void)
 
 
 /*------------------------------------------------------------------------------
-	State : “¹˜Hã‚ğ‘–s
+	State : é“è·¯ä¸Šã‚’èµ°è¡Œ
 ------------------------------------------------------------------------------*/
 void CarStateMoveOnRoad::Init(void)
 {
@@ -45,11 +45,11 @@ void CarStateMoveOnRoad::Init(void)
 
 void CarStateMoveOnRoad::Update(void)
 {
-	//“¹˜H‚Ì•ûŒü‚ÆÔ‚Ì•ûŒü‚ğ‡‚í‚¹‚é
+	//é“è·¯ã®æ–¹å‘ã¨è»Šã®æ–¹å‘ã‚’åˆã‚ã›ã‚‹
 	auto roadVector = m_CarController->GetCurrentRoadVector();
 	m_CarController->m_pTransform->SetWorldRotationLookDirection( roadVector);
 
-	//Œ»İˆÊ’u‚ªÔü‚Ì’†‰›‚©‚çŠO‚ê‚Ä‚¢‚éê‡C³
+	//ç¾åœ¨ä½ç½®ãŒè»Šç·šã®ä¸­å¤®ã‹ã‚‰å¤–ã‚Œã¦ã„ã‚‹å ´åˆä¿®æ­£
 	if (!m_CarController->CheckOnRoad())
 	{
 		float length = m_CarController->CulcLengthFromRoadCenter();
@@ -65,7 +65,7 @@ void CarStateMoveOnRoad::Update(void)
 		}
 	}
 
-	//‘O‚ÌÔ‚Æ‚ÌÔŠÔ‹——£‚É‰‚¶‚Ä‰Á‘¬EŒ¸‘¬
+	//å‰ã®è»Šã¨ã®è»Šé–“è·é›¢ã«å¿œã˜ã¦åŠ é€Ÿãƒ»æ¸›é€Ÿ
 	auto frontCar = m_CarController->GetFrontCar();
 	if (frontCar == NULL)
 	{
@@ -84,7 +84,7 @@ void CarStateMoveOnRoad::Update(void)
 		}
 	}
 
-	//Œğ·“_‚É‹ß‚¢ê‡‚Íó‘Ô‘JˆÚ
+	//äº¤å·®ç‚¹ã«è¿‘ã„å ´åˆã¯çŠ¶æ…‹é·ç§»
 	float lengthToNextJunction = m_CarController->CulcRemainDistanceOnRoad();
 	if (lengthToNextJunction < m_CarController->GetCurrentRoad()->GetWidth() * 0.75f)
 	{
@@ -93,7 +93,7 @@ void CarStateMoveOnRoad::Update(void)
 }
 
 /*------------------------------------------------------------------------------
-	State : “¹˜H‚É‡—¬‚·‚é‚½‚ß‚É‘–s
+	State : é“è·¯ã«åˆæµã™ã‚‹ãŸã‚ã«èµ°è¡Œ
 ------------------------------------------------------------------------------*/
 void CarStateMoveTowardRoad::Init(void)
 {
@@ -102,39 +102,39 @@ void CarStateMoveTowardRoad::Init(void)
 
 void CarStateMoveTowardRoad::Update(void)
 {
-	//‰Á‘¬
+	//åŠ é€Ÿ
 	m_CarController->AddSpeed( ADD_SPEED_TOWARD_ROAD);
 
-	//Ôü‚ÉÚ‹ß‚µ‚Ä‚©‚çÔü•ûŒü‚ÉSlerp
+	//è»Šç·šã«æ¥è¿‘ã—ã¦ã‹ã‚‰è»Šç·šæ–¹å‘ã«Slerp
 	auto roadVector = m_CarController->GetCurrentRoadVector();
 	float length = m_CarController->CulcLengthFromRoadCenter();
 	float widthHalf = m_CarController->GetCurrentRoad()->GetWidth() * 0.5f;
 	if (!m_CarController->IsCorrectSideRoad())
 	{
-		//Ôü‚ÉÚ‹ß
+		//è»Šç·šã«æ¥è¿‘
 		Vector3 sidewayVector = Vector3::Cross( roadVector, Vector3(0.0f, 1.0f, 0.0f));
 		m_CarController->m_pTransform->RotateLookDirection( sidewayVector, SLERP_VALUE);
 	}
 	else if (length > widthHalf)
 	{
-		//Ôü‚ÉÚ‹ß
+		//è»Šç·šã«æ¥è¿‘
 		Vector3 sidewayVector = Vector3::Cross( roadVector, Vector3(0.0f, 1.0f, 0.0f)) * -1.0f;
 		m_CarController->m_pTransform->RotateLookDirection( sidewayVector, SLERP_VALUE);
 	}
 	else if (Vector3::Dot( roadVector.Normalize(), m_CarController->m_pTransform->GetForward()) > 0.95f)
 	{
-		//‹È‚ª‚èØ‚Á‚Ä‡—¬‚ªI‚í‚Á‚½‚çó‘Ô‘JˆÚ
+		//æ›²ãŒã‚Šåˆ‡ã£ã¦åˆæµãŒçµ‚ã‚ã£ãŸã‚‰çŠ¶æ…‹é·ç§»
 		m_CarController->ChangeState( eCarStateMoveOnRoad);
 	}
 	else
 	{
-		//Ôü•ûŒü‚ÉSlerp
+		//è»Šç·šæ–¹å‘ã«Slerp
 		m_CarController->m_pTransform->RotateLookDirection( roadVector, SLERP_VALUE);
 	}
 }
 
 /*------------------------------------------------------------------------------
-	State : Ÿ‚ÌŒğ·“_‚ÉÚ‹ß‚µ‚½ó‘Ô
+	State : æ¬¡ã®äº¤å·®ç‚¹ã«æ¥è¿‘ã—ãŸçŠ¶æ…‹
 ------------------------------------------------------------------------------*/
 CarStateNearNextJunction::CarStateNearNextJunction( CarController* carController) : m_JunctionSelect(eCarJunctionGoStraight)
 { 
@@ -150,7 +150,7 @@ CarStateNearNextJunction::~CarStateNearNextJunction()
 
 void CarStateNearNextJunction::Init(void)
 {
-	//Œğ·“_‚ği‚Ş•ûŒü‚ÌŒˆ’è
+	//äº¤å·®ç‚¹ã‚’é€²ã‚€æ–¹å‘ã®æ±ºå®š
 	for(;;)
 	{
 		m_JunctionSelect = (ECarJunctionSelect)m_Random->GetInt();
@@ -186,10 +186,10 @@ void CarStateNearNextJunction::Init(void)
 
 void CarStateNearNextJunction::Update(void)
 {
-	//ƒuƒŒ[ƒL
+	//ãƒ–ãƒ¬ãƒ¼ã‚­
 	m_CarController->BrakeSpeed();
 
-	//Œğ·“_‚ğ‹È‚ª‚éor’¼i
+	//äº¤å·®ç‚¹ã‚’æ›²ãŒã‚‹orç›´é€²
 	switch (m_JunctionSelect)
 	{
 	case eCarJunctionGoStraight:

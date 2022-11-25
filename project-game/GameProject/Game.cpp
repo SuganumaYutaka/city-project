@@ -1,12 +1,12 @@
 /*==============================================================================
 	
-	Game.cpp - ƒEƒBƒ“ƒhƒE‚Ìİ’èEƒQ[ƒ€ƒ‹[ƒvˆ—
+	Game.cpp - ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®è¨­å®šãƒ»ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—å‡¦ç†
 														Author : Yutaka Suganuma
 														Date   : 2017/3/28
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
 #include <Windows.h>
@@ -17,26 +17,26 @@
 #include "imgui_impl_dx9.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
-#define CLASS_NAME		"Game"				//ƒEƒCƒ“ƒhƒEƒNƒ‰ƒX–¼
-#define WINDOW_NAME		"city-project"		//ƒEƒCƒ“ƒhƒEiƒ^ƒCƒgƒ‹j–¼
+#define CLASS_NAME		"Game"				//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹å
+#define WINDOW_NAME		"city-project"		//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ï¼ˆã‚¿ã‚¤ãƒˆãƒ«ï¼‰å
 
 /*------------------------------------------------------------------------------
-	Ã“Iƒƒ“ƒo•Ï”éŒ¾
+	é™çš„ãƒ¡ãƒ³ãƒå¤‰æ•°å®£è¨€
 ------------------------------------------------------------------------------*/
 Game *Game::m_This = NULL;
 bool Game::m_bRan = false;
 
 /*------------------------------------------------------------------------------
-	ƒvƒƒgƒ^ƒCƒvéŒ¾
+	ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—å®£è¨€
 ------------------------------------------------------------------------------*/
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	ˆø”
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	å¼•æ•°
 		HINSTANCE hInstance
 		HINSTANCE hPrevInstance
 		LPSTR lpCmdLine
@@ -44,37 +44,37 @@ extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam
 ------------------------------------------------------------------------------*/
 Game::Game(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	//•Ï”‚ğg—p‚µ‚È‚¢ê‡‚ÌŒx•¶‚ğ•\¦‚³‚¹‚È‚¢
+	//å¤‰æ•°ã‚’ä½¿ç”¨ã—ãªã„å ´åˆã®è­¦å‘Šæ–‡ã‚’è¡¨ç¤ºã•ã›ãªã„
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	//ƒJƒXƒ^ƒ€ƒEƒCƒ“ƒhƒE‚Ì’è‹`
+	//ã‚«ã‚¹ã‚¿ãƒ ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®å®šç¾©
 	WNDCLASSEX wcex;
 
-	wcex.cbSize = sizeof(WNDCLASSEX);			//WNDCLASSEX‚Ìƒƒ‚ƒŠƒTƒCƒYiƒoƒCƒgj‚ğİ’è
-	wcex.style = CS_CLASSDC;					//•\¦‚·‚éƒEƒCƒ“ƒhƒE‚ÌƒXƒ^ƒCƒ‹‚ğİ’è
-	wcex.lpfnWndProc = WndProc;						//ƒEƒCƒ“ƒhƒEƒvƒƒV[ƒWƒƒ‚ÌƒAƒhƒŒƒXiŠÖ”–¼j‚ğw’è
-	wcex.cbClsExtra = 0;							//’Êí‚Íg—p‚µ‚È‚¢‚Ì‚Å"0"‚ğw’è
-	wcex.cbWndExtra = 0;							//’Êí‚Íg—p‚µ‚È‚¢‚Ì‚Å"0"‚ğw’è	
-	wcex.hInstance = hInstance;					//WinMain‚Ìƒpƒ‰ƒ[ƒ^‚ÌƒCƒ“ƒXƒ^ƒ“ƒXƒnƒ“ƒhƒ‹
-	wcex.hIcon = NULL;							//›g—p‚·‚éƒAƒCƒRƒ“‚ğw’èiWindows‚ª‚à‚Á‚Ä‚¢‚éj
-	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);	//ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ğw’è
-	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);	//›ƒEƒCƒ“ƒhƒE‚ÌƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚Ì”wŒiF‚ğİ’è
-	wcex.lpszMenuName = NULL;							//Window‚É‚Â‚¯‚éƒƒjƒ…[‚ğİ’è
-	wcex.lpszClassName = CLASS_NAME;					//ƒEƒCƒ“ƒhƒEƒNƒ‰ƒX‚Ì–¼‘O
-	wcex.hIconSm = NULL;							//›¬‚³‚¢ƒAƒCƒRƒ“‚ªİ’è‚³‚ê‚½ê‡‚Ìî•ñ‚ğ‹Lq
+	wcex.cbSize = sizeof(WNDCLASSEX);			//WNDCLASSEXã®ãƒ¡ãƒ¢ãƒªã‚µã‚¤ã‚ºï¼ˆãƒã‚¤ãƒˆï¼‰ã‚’è¨­å®š
+	wcex.style = CS_CLASSDC;					//è¡¨ç¤ºã™ã‚‹ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®ã‚¹ã‚¿ã‚¤ãƒ«ã‚’è¨­å®š
+	wcex.lpfnWndProc = WndProc;						//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ï¼ˆé–¢æ•°åï¼‰ã‚’æŒ‡å®š
+	wcex.cbClsExtra = 0;							//é€šå¸¸ã¯ä½¿ç”¨ã—ãªã„ã®ã§"0"ã‚’æŒ‡å®š
+	wcex.cbWndExtra = 0;							//é€šå¸¸ã¯ä½¿ç”¨ã—ãªã„ã®ã§"0"ã‚’æŒ‡å®š	
+	wcex.hInstance = hInstance;					//WinMainã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãƒãƒ³ãƒ‰ãƒ«
+	wcex.hIcon = NULL;							//â—‹ä½¿ç”¨ã™ã‚‹ã‚¢ã‚¤ã‚³ãƒ³ã‚’æŒ‡å®šï¼ˆWindowsãŒã‚‚ã£ã¦ã„ã‚‹ï¼‰
+	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);	//ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã‚’æŒ‡å®š
+	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);	//â—‹ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆé ˜åŸŸã®èƒŒæ™¯è‰²ã‚’è¨­å®š
+	wcex.lpszMenuName = NULL;							//Windowã«ã¤ã‘ã‚‹ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’è¨­å®š
+	wcex.lpszClassName = CLASS_NAME;					//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹ã®åå‰
+	wcex.hIconSm = NULL;							//â—‹å°ã•ã„ã‚¢ã‚¤ã‚³ãƒ³ãŒè¨­å®šã•ã‚ŒãŸå ´åˆã®æƒ…å ±ã‚’è¨˜è¿°
 
-													//ƒEƒBƒ“ƒhƒEƒNƒ‰ƒX‚Ì“o˜^
+													//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹ã®ç™»éŒ²
 	RegisterClassEx(&wcex);
 
-	//ƒXƒNƒŠ[ƒ“‚ğ³‚µ‚¢ƒTƒCƒY‚É
-	DWORD style = WS_OVERLAPPEDWINDOW ^ (WS_MAXIMIZEBOX | WS_THICKFRAME);		//ƒEƒCƒ“ƒhƒEƒXƒ^ƒCƒ‹
+	//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚’æ­£ã—ã„ã‚µã‚¤ã‚ºã«
+	DWORD style = WS_OVERLAPPEDWINDOW ^ (WS_MAXIMIZEBOX | WS_THICKFRAME);		//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚¹ã‚¿ã‚¤ãƒ«
 	RECT cr = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 	AdjustWindowRect(&cr, style, false);
 	int ww = cr.right - cr.left;
 	int wh = cr.bottom - cr.top;
 
-	//ƒfƒXƒNƒgƒbƒv‚Ì’†S‚É•\¦
+	//ãƒ‡ã‚¹ã‚¯ãƒˆãƒƒãƒ—ã®ä¸­å¿ƒã«è¡¨ç¤º
 	RECT dr;
 	GetWindowRect(GetDesktopWindow(), &dr);
 
@@ -84,53 +84,53 @@ Game::Game(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nC
 	int wx = ww > dw ? 0 : (dw - ww) / 2;
 	int wy = wh > dh ? 0 : (dh - wh) / 2;
 
-	//ƒEƒCƒ“ƒhƒE‚ğì¬
-	m_hWnd = CreateWindowEx(0,		//Šg’£ƒEƒCƒ“ƒhƒEƒXƒ^ƒCƒ‹
-		CLASS_NAME,					//ƒEƒCƒ“ƒhƒEƒNƒ‰ƒX‚Ì–¼‘O
-		WINDOW_NAME,				//ƒEƒCƒ“ƒhƒE‚Ì–¼‘O
-		style,						//™ƒEƒCƒ“ƒhƒEƒXƒ^ƒCƒ‹
-		wx,							//ƒEƒCƒ“ƒhƒE‚Ì¶ã‚wÀ•W
-		wy,							//ƒEƒCƒ“ƒhƒE‚Ì¶ã‚xÀ•W
-		ww,							//ƒEƒCƒ“ƒhƒE‚Ì•iƒtƒŒ[ƒ€ŠÜ‚ß‚éj
-		wh,							//ƒEƒCƒ“ƒhƒE‚Ì‚‚³iƒtƒŒ[ƒ€ŠÜ‚ß‚éj
-		NULL,						//eƒEƒCƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹
-		NULL,						//ƒƒjƒ…[ƒnƒ“ƒhƒ‹‚Ü‚½‚ÍqƒEƒCƒ“ƒhƒEID
-		hInstance,					//ƒCƒ“ƒXƒ^ƒ“ƒXƒnƒ“ƒhƒ‹
-		NULL);						//ƒEƒCƒ“ƒhƒEì¬ƒf[ƒ^
+	//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚’ä½œæˆ
+	m_hWnd = CreateWindowEx(0,		//æ‹¡å¼µã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚¹ã‚¿ã‚¤ãƒ«
+		CLASS_NAME,					//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹ã®åå‰
+		WINDOW_NAME,				//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®åå‰
+		style,						//â˜†ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚¹ã‚¿ã‚¤ãƒ«
+		wx,							//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®å·¦ä¸Šï¼¸åº§æ¨™
+		wy,							//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®å·¦ä¸Šï¼¹åº§æ¨™
+		ww,							//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®å¹…ï¼ˆãƒ•ãƒ¬ãƒ¼ãƒ å«ã‚ã‚‹ï¼‰
+		wh,							//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®é«˜ã•ï¼ˆãƒ•ãƒ¬ãƒ¼ãƒ å«ã‚ã‚‹ï¼‰
+		NULL,						//è¦ªã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®ãƒãƒ³ãƒ‰ãƒ«
+		NULL,						//ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒãƒ³ãƒ‰ãƒ«ã¾ãŸã¯å­ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ID
+		hInstance,					//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãƒãƒ³ãƒ‰ãƒ«
+		NULL);						//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ä½œæˆãƒ‡ãƒ¼ã‚¿
 
-	//ƒEƒCƒ“ƒhƒE‚ğì¬iƒtƒ‹ƒXƒNƒŠ[ƒ“j
-	//m_hWnd = CreateWindowEx(0,		//Šg’£ƒEƒCƒ“ƒhƒEƒXƒ^ƒCƒ‹
-	//	CLASS_NAME,					//ƒEƒCƒ“ƒhƒEƒNƒ‰ƒX‚Ì–¼‘O
-	//	WINDOW_NAME,				//ƒEƒCƒ“ƒhƒE‚Ì–¼‘O
-	//	WS_POPUP,						//™ƒEƒCƒ“ƒhƒEƒXƒ^ƒCƒ‹
+	//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚’ä½œæˆï¼ˆãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ï¼‰
+	//m_hWnd = CreateWindowEx(0,		//æ‹¡å¼µã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚¹ã‚¿ã‚¤ãƒ«
+	//	CLASS_NAME,					//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹ã®åå‰
+	//	WINDOW_NAME,				//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®åå‰
+	//	WS_POPUP,						//â˜†ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚¹ã‚¿ã‚¤ãƒ«
 	//	CW_USEDEFAULT,
 	//	CW_USEDEFAULT,
 	//	dw,
 	//	dh,
-	//	NULL,						//eƒEƒCƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹
-	//	NULL,						//ƒƒjƒ…[ƒnƒ“ƒhƒ‹‚Ü‚½‚ÍqƒEƒCƒ“ƒhƒEID
-	//	hInstance,					//ƒCƒ“ƒXƒ^ƒ“ƒXƒnƒ“ƒhƒ‹
-	//	NULL);						//ƒEƒCƒ“ƒhƒEì¬ƒf[ƒ^
+	//	NULL,						//è¦ªã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®ãƒãƒ³ãƒ‰ãƒ«
+	//	NULL,						//ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒãƒ³ãƒ‰ãƒ«ã¾ãŸã¯å­ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ID
+	//	hInstance,					//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãƒãƒ³ãƒ‰ãƒ«
+	//	NULL);						//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ä½œæˆãƒ‡ãƒ¼ã‚¿
 
-									//ƒEƒCƒ“ƒhƒE‚Ì•\¦
-	ShowWindow(m_hWnd, nCmdShow);	//w’è‚³‚ê‚½ƒEƒCƒ“ƒhƒE‚Ì•\¦ó‘Ô‚ğİ’èiƒEƒCƒ“ƒhƒE‚ğ•\¦j
-	UpdateWindow(m_hWnd);			//ƒEƒCƒ“ƒhƒE‚Ìó‘Ô‚ğ’¼‚¿‚É”½‰f
+									//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®è¡¨ç¤º
+	ShowWindow(m_hWnd, nCmdShow);	//æŒ‡å®šã•ã‚ŒãŸã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®è¡¨ç¤ºçŠ¶æ…‹ã‚’è¨­å®šï¼ˆã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚’è¡¨ç¤ºï¼‰
+	UpdateWindow(m_hWnd);			//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®çŠ¶æ…‹ã‚’ç›´ã¡ã«åæ˜ 
 
-									//thisƒ|ƒCƒ“ƒ^‚Ìİ’è
+									//thisãƒã‚¤ãƒ³ã‚¿ã®è¨­å®š
 	m_This = this;
 
-	//ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìİ’è
+	//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®è¨­å®š
 	m_hInstance = hInstance;
 
-	//ƒtƒ‰ƒO‚Ìİ’è
+	//ãƒ•ãƒ©ã‚°ã®è¨­å®š
 	m_bWindow = TRUE;
 
-	//ƒQ[ƒ€ƒ‹[ƒvƒtƒ‰ƒOİ’è
+	//ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ãƒ•ãƒ©ã‚°è¨­å®š
 	m_bRan = true;
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Game::~Game()
 {
@@ -138,15 +138,15 @@ Game::~Game()
 }
 
 /*------------------------------------------------------------------------------
-	ƒEƒCƒ“ƒhƒEƒvƒƒV[ƒWƒƒ
-	iCALLBACK : Win32APIŠÖ”‚ğŒÄ‚Ño‚·‚Ì‹K–ñj
-	ˆø”
-		hWnd	: ƒEƒCƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹
-		uMsg	: ƒƒbƒZ[ƒW‚Ì¯•Êq
-		wParam	: ƒƒbƒZ[ƒW‚ÌÅ‰‚Ìƒpƒ‰ƒ[ƒ^
-		lParam	: ƒƒbƒZ[ƒW‚Ì2”Ô–Ú‚Ìƒpƒ‰ƒ[ƒ^i•â‘«î•ñj
+	ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£
+	ï¼ˆCALLBACK : Win32APIé–¢æ•°ã‚’å‘¼ã³å‡ºã™æ™‚ã®è¦ç´„ï¼‰
+	å¼•æ•°
+		hWnd	: ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®ãƒãƒ³ãƒ‰ãƒ«
+		uMsg	: ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è­˜åˆ¥å­
+		wParam	: ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®æœ€åˆã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+		lParam	: ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®2ç•ªç›®ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ï¼ˆè£œè¶³æƒ…å ±ï¼‰
 
-	–ß‚è’l
+	æˆ»ã‚Šå€¤
 		DefWindowProc( hWnd, uMsg, wParam, lParam)
 ------------------------------------------------------------------------------*/
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
@@ -154,7 +154,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
         return true;
 	
-	//ƒƒbƒZ[ƒW
+	//ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 	switch (uMsg)
 	{
 	case WM_DESTROY:
@@ -162,9 +162,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case WM_CLOSE:
-		//I—¹ƒƒbƒZ[ƒW
+		//çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 			UINT nID;
-			nID = MessageBox(NULL, "I—¹‚µ‚Ü‚·‚©H", "I—¹ƒƒbƒZ[ƒW", MB_YESNO | MB_ICONEXCLAMATION | MB_DEFBUTTON2);
+			nID = MessageBox(NULL, "çµ‚äº†ã—ã¾ã™ã‹ï¼Ÿ", "çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸", MB_YESNO | MB_ICONEXCLAMATION | MB_DEFBUTTON2);
 			if (nID == IDYES)
 			{
 				Game::Finish();
@@ -177,13 +177,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case WM_KEYDOWN:
-		//ƒL[‚Ìæ“¾
+		//ã‚­ãƒ¼ã®å–å¾—
 		switch (wParam)
 		{
 		case VK_ESCAPE:
-			//I—¹ƒƒbƒZ[ƒW
+			//çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 			UINT nID;
-			nID = MessageBox(NULL, "I—¹‚µ‚Ü‚·‚©H", "I—¹ƒƒbƒZ[ƒW", MB_YESNO | MB_ICONEXCLAMATION | MB_DEFBUTTON2);
+			nID = MessageBox(NULL, "çµ‚äº†ã—ã¾ã™ã‹ï¼Ÿ", "çµ‚äº†ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸", MB_YESNO | MB_ICONEXCLAMATION | MB_DEFBUTTON2);
 			if (nID == IDYES)
 			{
 				Game::Finish();
@@ -196,7 +196,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 
-	//ƒƒjƒ…[ˆ—
+	//ãƒ¡ãƒ‹ãƒ¥ãƒ¼å‡¦ç†
 	case WM_COMMAND:
 		break;
 
@@ -208,45 +208,45 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 }
 
 /*------------------------------------------------------------------------------
-	ƒQ[ƒ€ƒ‹[ƒvˆ—
+	ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—å‡¦ç†
 ------------------------------------------------------------------------------*/
 void Game::Ran(void)
 {
-	//ƒQ[ƒ€ƒ‹[ƒv‚ªİ’è‚³‚ê‚Ä‚¢‚é‚©
+	//ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ãŒè¨­å®šã•ã‚Œã¦ã„ã‚‹ã‹
 	assert(IsRan());
 
-	//fpsİ’è—p
+	//fpsè¨­å®šç”¨
 	DWORD dwFrameCount = 0;		//
-	DWORD dwCurrentTime = 0;	//Œ»İ‚ÌŠÔ
-	DWORD dwExecLastTime = 0;	//‘O‚ÌƒtƒŒ[ƒ€‚ÌÀsI—¹‚ÌŠÔ
+	DWORD dwCurrentTime = 0;	//ç¾åœ¨ã®æ™‚é–“
+	DWORD dwExecLastTime = 0;	//å‰ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®å®Ÿè¡Œçµ‚äº†æ™‚ã®æ™‚é–“
 	DWORD dwFPSLastTime = 0;	//
 
-	//•ª‰ğ”\‚ğİ’è
+	//åˆ†è§£èƒ½ã‚’è¨­å®š
 	timeBeginPeriod(1);
 
-	//ŠeƒJƒEƒ“ƒ^[‚Ì‰Šú‰»
+	//å„ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã®åˆæœŸåŒ–
 	dwFrameCount = 0;
 	dwCurrentTime = 0;
-	dwExecLastTime =				//ŠÔ‚ğŠ®‘S‚Éˆê’v‚³‚¹‚é‚½‚ß‚Ü‚Æ‚ß‚é
-		dwFPSLastTime = timeGetTime();	//ƒVƒXƒeƒ€‚ğƒ~ƒŠ•b’PˆÊ‚Åæ“¾
+	dwExecLastTime =				//æ™‚é–“ã‚’å®Œå…¨ã«ä¸€è‡´ã•ã›ã‚‹ãŸã‚ã¾ã¨ã‚ã‚‹
+		dwFPSLastTime = timeGetTime();	//ã‚·ã‚¹ãƒ†ãƒ æ™‚åˆ»ã‚’ãƒŸãƒªç§’å˜ä½ã§å–å¾—
 
-	//‰Šú‰»ˆ—
+	//åˆæœŸåŒ–å‡¦ç†
 	m_This->Init();
 
-	//ƒƒbƒZ[ƒWƒ‹[ƒv
+	//ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ«ãƒ¼ãƒ—
 	for (;;)
 	{
 		if (PeekMessage(&m_This->m_Msg, NULL, 0, 0, PM_REMOVE) != 0)
 		{
-			//Windows‚Ìˆ—
+			//Windowsã®å‡¦ç†
 			if (m_This->m_Msg.message == WM_QUIT)
 			{
 				break;
 			}
 			else
 			{
-				TranslateMessage(&m_This->m_Msg);		//‰¼‘zƒL[ƒƒbƒZ[ƒW‚ğ•¶šƒƒbƒZ[ƒW‚Ö•ÏŠ·
-				DispatchMessage(&m_This->m_Msg);		//ƒEƒCƒ“ƒhƒEƒvƒƒV[ƒWƒƒ‚ÖƒƒbƒZ[ƒW‚ğ‘—o
+				TranslateMessage(&m_This->m_Msg);		//ä»®æƒ³ã‚­ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’æ–‡å­—ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¸å¤‰æ›
+				DispatchMessage(&m_This->m_Msg);		//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ã¸ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é€å‡º
 			}
 		}
 		else if (!IsRan())
@@ -254,46 +254,46 @@ void Game::Ran(void)
 			break;
 		}
 		else {
-			//fpsˆ—
-			dwCurrentTime = timeGetTime();		//ƒVƒXƒeƒ€‚ğæ“¾
+			//fpså‡¦ç†
+			dwCurrentTime = timeGetTime();		//ã‚·ã‚¹ãƒ†ãƒ æ™‚åˆ»ã‚’å–å¾—
 
-												//0.5•b‚²‚Æ‚ÉÀs
+												//0.5ç§’ã”ã¨ã«å®Ÿè¡Œ
 			if ((dwCurrentTime - dwFPSLastTime) >= 500)
 			{
 #ifdef _DEBUG
-				m_This->m_nFPS = ( dwFrameCount * 1000) / ( dwCurrentTime - dwFPSLastTime);	//•bŠÔ‚Ì•½‹Ïfps‚ğæ“¾
+				m_This->m_nFPS = ( dwFrameCount * 1000) / ( dwCurrentTime - dwFPSLastTime);	//ç§’é–“ã®å¹³å‡fpsã‚’å–å¾—
 #endif	//_DEBUG
 
-				dwFPSLastTime = dwCurrentTime;	//fpsŒv‘ªŠÔ‚ğŒ»İ‚ÌŠÔ‚É
-				dwFrameCount = 0;		//ƒtƒŒ[ƒ€ƒJƒEƒ“ƒ^ƒŠƒZƒbƒg
+				dwFPSLastTime = dwCurrentTime;	//fpsè¨ˆæ¸¬æ™‚é–“ã‚’ç¾åœ¨ã®æ™‚é–“ã«
+				dwFrameCount = 0;		//ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ã‚¿ãƒªã‚»ãƒƒãƒˆ
 			}
 
-			//60fps‚ÅÀs
+			//60fpsã§å®Ÿè¡Œ
 			if (dwCurrentTime - dwExecLastTime >= (1000 / 60))
 			{
-				dwExecLastTime = dwCurrentTime;		//(‘O‰ñ‚Ì)ˆ—‚µ‚½ŠÔXV
+				dwExecLastTime = dwCurrentTime;		//(å‰å›ã®)å‡¦ç†ã—ãŸæ™‚é–“æ›´æ–°
 
-													//XVˆ—
+													//æ›´æ–°å‡¦ç†
 				m_This->Update();
 
-				//•`‰æˆ—
+				//æç”»å‡¦ç†
 				m_This->Draw();
 
-				//ƒtƒŒ[ƒ€ƒJƒEƒ“ƒ^
+				//ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ã‚¿
 				dwFrameCount++;
 			}
 		}
 	}
 
-	//I—¹ˆ—
+	//çµ‚äº†å‡¦ç†
 	m_This->Uninit();
 
-	//ƒQ[ƒ€ƒ‹[ƒvI—¹
+	//ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—çµ‚äº†
 	delete m_This;
 }
 
 /*------------------------------------------------------------------------------
-	ƒQ[ƒ€ƒ‹[ƒv‚ª‹@”\‚µ‚Ä‚¢‚é‚©
+	ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ãŒæ©Ÿèƒ½ã—ã¦ã„ã‚‹ã‹
 ------------------------------------------------------------------------------*/
 bool Game::IsRan(void)
 {
@@ -301,23 +301,23 @@ bool Game::IsRan(void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒQ[ƒ€ƒ‹[ƒvI—¹–½—ß
+	ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—çµ‚äº†å‘½ä»¤
 ------------------------------------------------------------------------------*/
 void Game::Finish(void)
 {
-	//ƒQ[ƒ€ƒ‹[ƒv‚ªİ’è‚³‚ê‚Ä‚¢‚é‚©
+	//ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ãŒè¨­å®šã•ã‚Œã¦ã„ã‚‹ã‹
 	assert(IsRan());
 
-	//ƒtƒ‰ƒO‚Ìİ’è
+	//ãƒ•ãƒ©ã‚°ã®è¨­å®š
 	m_bRan = false;
 }
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»ˆ—
+	åˆæœŸåŒ–å‡¦ç†
 ------------------------------------------------------------------------------*/
 void Game::Init(void)
 {
-	//ƒ}ƒl[ƒWƒƒ[¶¬
+	//ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ç”Ÿæˆ
 	m_pManager = new Manager( m_hInstance, m_hWnd, m_bWindow);
 
 	//imgui
@@ -325,14 +325,14 @@ void Game::Init(void)
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void Game::Uninit(void)
 {
 	//imgui
 	ImGui_ImplDX9_Shutdown();
 
-	//ƒ}ƒl[ƒWƒƒ[‚Ì”jŠü
+	//ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ç ´æ£„
 	if( m_pManager != NULL)
 	{
 		delete m_pManager;
@@ -341,7 +341,7 @@ void Game::Uninit(void)
 }
 
 /*------------------------------------------------------------------------------
-	XVˆ—
+	æ›´æ–°å‡¦ç†
 ------------------------------------------------------------------------------*/
 void Game::Update(void)
 {
@@ -387,7 +387,7 @@ void Game::Update(void)
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æˆ—
+	æç”»å‡¦ç†
 ------------------------------------------------------------------------------*/
 void Game::Draw(void)
 {

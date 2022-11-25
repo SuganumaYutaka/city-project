@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    SpriteRenderer.cpp - 2Dƒ|ƒŠƒSƒ“•`‰æ
+    SpriteRenderer.cpp - 2Dãƒãƒªã‚´ãƒ³æç”»
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/5
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "SpriteRenderer.h"
 #include "GameObject.h"
@@ -15,7 +15,7 @@
 #include "Material.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* SpriteRenderer::Create(GameObject* gameObject)
 {
@@ -23,7 +23,7 @@ Component* SpriteRenderer::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 SpriteRenderer::SpriteRenderer( GameObject *pGameObject)
 {
@@ -32,59 +32,59 @@ SpriteRenderer::SpriteRenderer( GameObject *pGameObject)
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 	m_nPass = 1;
 
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//’¸“_ƒoƒbƒtƒ@¶¬
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	if( FAILED( pDevice->CreateVertexBuffer(
-		sizeof( VERTEX_2D) * 4,				//ì¬‚µ‚½‚¢’¸“_ƒoƒbƒtƒ@‚ÌƒTƒCƒY
-		D3DUSAGE_WRITEONLY,					//’¸“_ƒoƒbƒtƒ@‚Ìg—p•û–@(‘¬‚³‚É‰e‹¿)
-		0,									//FVF(’¸“_ƒtƒH[ƒ}ƒbƒg)
-		D3DPOOL_MANAGED,					//ƒƒ‚ƒŠ‚ÌŠÇ—(MANAGED‚ÍƒfƒoƒCƒX‚É‚¨‚Ü‚©‚¹)
-		&m_pVtxBuff,						//’¸“_ƒoƒbƒtƒ@ŠÇ—ƒCƒ“ƒ^[ƒtƒFƒCƒX
+		sizeof( VERTEX_2D) * 4,				//ä½œæˆã—ãŸã„é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º
+		D3DUSAGE_WRITEONLY,					//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½¿ç”¨æ–¹æ³•(é€Ÿã•ã«å½±éŸ¿)
+		0,									//FVF(é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ)
+		D3DPOOL_MANAGED,					//ãƒ¡ãƒ¢ãƒªã®ç®¡ç†(MANAGEDã¯ãƒ‡ãƒã‚¤ã‚¹ã«ãŠã¾ã‹ã›)
+		&m_pVtxBuff,						//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç®¡ç†ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 		NULL)))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
 
-	//ˆÊ’u‚Ìİ’è
+	//ä½ç½®ã®è¨­å®š
 	//m_pTransform->SetLocalPosition( Vector3( SCREEN_WIDTH * 0.5f, SCREEN_HEIGHT * 0.5f, 0.0f));
 
-	//‘å‚«‚³‚Ìİ’è
+	//å¤§ãã•ã®è¨­å®š
 	//m_pTransform->SetLocalScale( Vector3( 100.0f, 100.0f, 1.0f));
 
-	//‰ñ“]—Ê‚Ìİ’è
+	//å›è»¢é‡ã®è¨­å®š
 	m_fRotation = 0.0f;
 
-	//F‚Ìİ’è
+	//è‰²ã®è¨­å®š
 	m_Color = D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f);
 
-	//’¸“_İ’è
+	//é ‚ç‚¹è¨­å®š
 	SetVtxBuffer();
 
-	//ƒ}ƒeƒŠƒAƒ‹
+	//ãƒãƒ†ãƒªã‚¢ãƒ«
 	m_pMaterial = new Material();
 
-	//ƒVƒF[ƒ_[
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 	m_pMaterial->SetShader( eShaderSprite);
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void SpriteRenderer::Uninit( void)
 {
 	Manager::GetRenderManager()->ReleaseRenderer( this);
 
-	//’¸“_ƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	if( m_pVtxBuff != NULL)
 	{
 		m_pVtxBuff->Release();
 		m_pVtxBuff = NULL;
 	}
 
-	//ƒ}ƒeƒŠƒAƒ‹‚Ì‰ğ•ú
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ã®è§£æ”¾
 	if (m_pMaterial != NULL)
 	{
 		delete m_pMaterial;
@@ -93,77 +93,77 @@ void SpriteRenderer::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void SpriteRenderer::Update( void)
 {
-	//’¸“_İ’è
+	//é ‚ç‚¹è¨­å®š
 	SetVtxBuffer();
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æ
+	æç”»
 ------------------------------------------------------------------------------*/
 void SpriteRenderer::Draw( Camera* pCamera)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//ƒ}ƒeƒŠƒAƒ‹iƒVƒF[ƒ_[j‚ğƒZƒbƒg
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ï¼ˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ï¼‰ã‚’ã‚»ãƒƒãƒˆ
 	m_pMaterial->Set( pCamera, this);
 
-	//’¸“_î•ñİ’è
+	//é ‚ç‚¹æƒ…å ±è¨­å®š
 	pDevice-> SetStreamSource( 0, m_pVtxBuff, 0, sizeof( VERTEX_2D));
 
-	//ƒeƒNƒjƒbƒNŠJn
+	//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯é–‹å§‹
 	m_pMaterial->Begin( m_nPass);
 
-	//ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+	//ãƒãƒªã‚´ãƒ³ã®æç”»
 	pDevice->DrawPrimitive( D3DPT_TRIANGLESTRIP, 0,	2);
 
-	//ƒeƒNƒjƒbƒNI—¹
+	//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯çµ‚äº†
 	m_pMaterial->End();
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_ƒoƒbƒtƒ@İ’è
+	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 ------------------------------------------------------------------------------*/
 void SpriteRenderer::SetVtxBuffer( void)
 {
-	//”¼ŒaEŠp“x‚ğZo
+	//åŠå¾„ãƒ»è§’åº¦ã‚’ç®—å‡º
 	Vector3 pos = m_pTransform->GetLocalPosition();
 	Vector3 scale = m_pTransform->GetLocalScale();
 	float fRadius = sqrt( ( scale.x * 0.5f) * (  scale.x * 0.5f) + (  scale.y * 0.5f) * (  scale.y * 0.5f));
 	float fAngle = atan2( scale.y,  scale.x);
 
-	//ƒƒbƒN
-	VERTEX_2D* pVtx;		//‰¼‘zƒAƒhƒŒƒX—pƒ|ƒCƒ“ƒ^
+	//ãƒ­ãƒƒã‚¯
+	VERTEX_2D* pVtx;		//ä»®æƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹ç”¨ãƒã‚¤ãƒ³ã‚¿
 	m_pVtxBuff->Lock( 0, 0, (void**)&pVtx, 0);
 
-	//’¸“_İ’è
-	//À•WiZšj
+	//é ‚ç‚¹è¨­å®š
+	//åº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Pos = D3DXVECTOR3( pos.x + fRadius * cosf( float( m_fRotation +fAngle + D3DX_PI)),	pos.y + fRadius * sinf( float( m_fRotation +fAngle + D3DX_PI)),	0.0f);
 	pVtx[ 1].Pos = D3DXVECTOR3( pos.x + fRadius * cosf( float( m_fRotation -fAngle)),			pos.y + fRadius * sinf( float( m_fRotation -fAngle)),			0.0f);
 	pVtx[ 2].Pos = D3DXVECTOR3( pos.x + fRadius * cosf( float( m_fRotation -fAngle + D3DX_PI)),	pos.y + fRadius * sinf( float( m_fRotation -fAngle + D3DX_PI)),	0.0f);
 	pVtx[ 3].Pos = D3DXVECTOR3( pos.x + fRadius * cosf( float( m_fRotation +fAngle)),			pos.y + fRadius * sinf( float( m_fRotation +fAngle)),			0.0f);
 	
-	//’¸“_ƒJƒ‰[
+	//é ‚ç‚¹ã‚«ãƒ©ãƒ¼
 	pVtx[ 0].Color = 
 	pVtx[ 1].Color = 
 	pVtx[ 2].Color = 
 	pVtx[ 3].Color = m_Color;
 
-	//UVÀ•WiZšj
+	//UVåº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Tex = m_TextureUV.GetTopLeft();
 	pVtx[ 1].Tex = m_TextureUV.GetTopRight();
 	pVtx[ 2].Tex = m_TextureUV.GetBottomLeft();
 	pVtx[ 3].Tex = m_TextureUV.GetBottomRight();
 
-	//ƒAƒ“ƒƒbƒN
+	//ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
 	m_pVtxBuff->Unlock();
 }
 
 /*------------------------------------------------------------------------------
-	ƒeƒNƒXƒ`ƒƒİ’è
+	ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 ------------------------------------------------------------------------------*/
 void SpriteRenderer::LoadTexture(std::string FileName)
 {
@@ -171,7 +171,7 @@ void SpriteRenderer::LoadTexture(std::string FileName)
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[İ’è
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 ------------------------------------------------------------------------------*/
 void SpriteRenderer::SetShader(EShaderType Type)
 {
@@ -179,11 +179,11 @@ void SpriteRenderer::SetShader(EShaderType Type)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void SpriteRenderer::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -227,7 +227,7 @@ void SpriteRenderer::Load(Text& text)
 			m_fRotation = std::stof( text.GetWord());
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
@@ -237,7 +237,7 @@ void SpriteRenderer::Load(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void SpriteRenderer::Save(Text& text)
 {

@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    FaceDivideFunc.cpp - ’¬‚ÌŽ©“®¶¬[–Ê‚ð•ªŠ„‚·‚éˆ—
+    FaceDivideFunc.cpp - ç”ºã®è‡ªå‹•ç”Ÿæˆãƒ¼é¢ã‚’åˆ†å‰²ã™ã‚‹å‡¦ç†
                                                        Author : Yutaka Suganuma
                                                        Date   : 2018/2/6
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "FaceDivideFunc.h"
 #include "Vertex.h"
@@ -17,11 +17,11 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
-	–Ê‚ð•ªŠ„‚·‚éˆ—
+	é¢ã‚’åˆ†å‰²ã™ã‚‹å‡¦ç†
 ------------------------------------------------------------------------------*/
 bool FaceDivideFunc::operator() (HalfEdgeDataStructure::Face* face)
 {
-	//‚Q‚Â‚Åˆê’¼ü‚É‚È‚éƒn[ƒtƒGƒbƒW‚ª‚ ‚é‚Æ‚«‚»‚Ì’†“_‚ðŽn“_‚É‚·‚é
+	//ï¼’ã¤ã§ä¸€ç›´ç·šã«ãªã‚‹ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ãŒã‚ã‚‹ã¨ããã®ä¸­ç‚¹ã‚’å§‹ç‚¹ã«ã™ã‚‹
 	HalfEdge* targetHalfEdge = NULL;
 	Vertex* start = NULL;
 	Vertex* end = NULL;
@@ -33,34 +33,34 @@ bool FaceDivideFunc::operator() (HalfEdgeDataStructure::Face* face)
 
 	else
 	{
-		//ˆê”Ô’·‚¢ƒn[ƒtƒGƒbƒW‚ðŽæ“¾‚·‚é
+		//ä¸€ç•ªé•·ã„ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’å–å¾—ã™ã‚‹
 		targetHalfEdge = face->SearchLongestHalfEdge();
 		if (!targetHalfEdge)
 		{
 			return false;
 		}
 
-		//ƒ^[ƒQƒbƒg‚Æ•½s‚È”½‘Î‘¤‚Ìƒn[ƒtƒGƒbƒW‚ª‚ ‚é‚©
+		//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨å¹³è¡Œãªåå¯¾å´ã®ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ãŒã‚ã‚‹ã‹
 		if (!targetHalfEdge->SearchParallelHalfEdge())
 		{
 			return false;
 		}
 
-		//’·‚¢ƒn[ƒtƒGƒbƒW‚ð•ªŠ„‚·‚é
+		//é•·ã„ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’åˆ†å‰²ã™ã‚‹
 		if (!targetHalfEdge->GetEdge()->Divide(0.5f, &start))
 		{
 			return false;
 		}
 	}
 
-	//ƒ^[ƒQƒbƒg‚Æ•½s‚È”½‘Î‘¤‚Ìƒn[ƒtƒGƒbƒW‚ðŽæ“¾
+	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨å¹³è¡Œãªåå¯¾å´ã®ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’å–å¾—
 	HalfEdge* parallelHalfEdge = targetHalfEdge->SearchParallelHalfEdge();
 	if (!parallelHalfEdge)
 	{
 		return false;
 	}
 
-	//•½sƒn[ƒtƒGƒbƒW‚Æˆê’¼ü‚É‚È‚éƒn[ƒtƒGƒbƒW‚ª‚ ‚é‚Æ‚«‚»‚Ì’†“_‚ðI“_‚É‚·‚é
+	//å¹³è¡Œãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã¨ä¸€ç›´ç·šã«ãªã‚‹ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ãŒã‚ã‚‹ã¨ããã®ä¸­ç‚¹ã‚’çµ‚ç‚¹ã«ã™ã‚‹
 	if ( parallelHalfEdge->IsStraightLine(parallelHalfEdge->GetNext()))
 	{
 		end = parallelHalfEdge->GetEnd();
@@ -68,14 +68,14 @@ bool FaceDivideFunc::operator() (HalfEdgeDataStructure::Face* face)
 
 	else
 	{
-		//•½sƒn[ƒtƒGƒbƒW‚ð•ªŠ„
+		//å¹³è¡Œãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’åˆ†å‰²
 		if (!parallelHalfEdge->GetEdge()->Divide(0.5f, &end))
 		{
 			return false;
 		}
 	}
 
-	//–Ê‚ð•ªŠ„‚·‚é
+	//é¢ã‚’åˆ†å‰²ã™ã‚‹
 	if (!face->Divide(start, end))
 	{
 		return false;
@@ -84,11 +84,11 @@ bool FaceDivideFunc::operator() (HalfEdgeDataStructure::Face* face)
 	return true;
 }
 
-//•Ê‚Ì•ªŠ„•û–@
+//åˆ¥ã®åˆ†å‰²æ–¹æ³•
 //#define BOARDER_RATE (2.5f)
 //#define BOARDER_PARALLEL (0.7f)
 ///*------------------------------------------------------------------------------
-//	’·‚¢•Ó‚ð—Dæ‚µ‚Ä•ªŠ„
+//	é•·ã„è¾ºã‚’å„ªå…ˆã—ã¦åˆ†å‰²
 //------------------------------------------------------------------------------*/
 //bool CityRule::DivideFaceFunc2(Face* face)
 //{
@@ -96,21 +96,21 @@ bool FaceDivideFunc::operator() (HalfEdgeDataStructure::Face* face)
 //	Vertex* start = NULL;
 //	Vertex* end = NULL;
 //	
-//	//ˆê”Ô’·‚¢ƒn[ƒtƒGƒbƒW‚ðŽæ“¾‚·‚é
+//	//ä¸€ç•ªé•·ã„ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’å–å¾—ã™ã‚‹
 //	targetHalfEdge = face->SearchLongestHalfEdge();
 //	if (!targetHalfEdge)
 //	{
 //		return false;
 //	}
 //
-//	//ˆê”Ô’·‚¢•Ó‚ÆŽŸ‚Ì•Ó‚ð”äŠr‚µ‚ÄŽlŠpŒ`‚ª•ö‚ê‚·‚¬‚Ä‚¢‚È‚¢‚©ƒ`ƒFƒbƒN
+//	//ä¸€ç•ªé•·ã„è¾ºã¨æ¬¡ã®è¾ºã‚’æ¯”è¼ƒã—ã¦å››è§’å½¢ãŒå´©ã‚Œã™ãŽã¦ã„ãªã„ã‹ãƒã‚§ãƒƒã‚¯
 //	float rateToCheckTooLonger = targetHalfEdge->GetVector().Length() / targetHalfEdge->GetNext()->GetVector().Length();
 //	if (rateToCheckTooLonger < BOARDER_RATE)
 //	{
 //		return false;
 //	}
 //
-//	//ƒ^[ƒQƒbƒg‚Æ‚ ‚é’ö“x•½s‚È”½‘Î‘¤‚Ìƒn[ƒtƒGƒbƒW‚ð’T‚·
+//	//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ã‚ã‚‹ç¨‹åº¦å¹³è¡Œãªåå¯¾å´ã®ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’æŽ¢ã™
 //	HalfEdge* otherSideHalfEdge = NULL;
 //	otherSideHalfEdge = targetHalfEdge->GetNext();
 //	for (;;)
@@ -128,19 +128,19 @@ bool FaceDivideFunc::operator() (HalfEdgeDataStructure::Face* face)
 //		}
 //	}
 //
-//	//’·‚¢ƒn[ƒtƒGƒbƒW‚ð•ªŠ„‚·‚é
+//	//é•·ã„ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’åˆ†å‰²ã™ã‚‹
 //	if (!targetHalfEdge->GetEdge()->Divide(0.5f, &start))
 //	{
 //		return false;
 //	}
 //
-//	//”½‘Î‘¤‚Ìƒn[ƒtƒGƒbƒW‚ð•ªŠ„
+//	//åå¯¾å´ã®ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’åˆ†å‰²
 //	if (!otherSideHalfEdge->GetEdge()->Divide(0.5f, &end))
 //	{
 //		return false;
 //	}
 //
-//	//–Ê‚ð•ªŠ„‚·‚é
+//	//é¢ã‚’åˆ†å‰²ã™ã‚‹
 //	if (!face->Divide(start, end))
 //	{
 //		return false;

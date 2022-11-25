@@ -1,12 +1,12 @@
 /*==============================================================================
 
-   MeshDomeRenderer.h - •½–Ê•`‰æ
+   MeshDomeRenderer.h - å¹³é¢æç”»
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/24
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "MeshDomeRenderer.h"
 #include "GameObject.h"
@@ -15,16 +15,16 @@
 #include "Material.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
-#define P_ANGLE (D3DX_PI * 2.0f / NUM_DOME_X)		//ƒ|ƒŠƒSƒ“ˆê–‡‚ ‚½‚è‚ÌŠp“x
-#define P_HEIGHT (ALL_HEIGHT / NUM_DOME_Y)			//ƒ|ƒŠƒSƒ“ˆê–‡‚ ‚½‚è‚Ì‚‚³
-#define NUM_POLYGON( NUM_DOME_X, NUM_DOME_Y) ( 2 * NUM_DOME_X * NUM_DOME_Y + ( NUM_DOME_Y - 1) * 4)		//ƒ|ƒŠƒSƒ“”
-#define NUM_VERTEX( NUM_DOME_X, NUM_DOME_Y)	( ( NUM_DOME_X + 1) * ( NUM_DOME_Y + 1) + 2)				//’¸“_”
-#define NUM_INDEX( NUM_DOME_X, NUM_DOME_Y) ( ( (NUM_DOME_X + 1) * 2 + 2) * NUM_DOME_Y - 2)				//ƒCƒ“ƒfƒbƒNƒX”
+#define P_ANGLE (D3DX_PI * 2.0f / NUM_DOME_X)		//ãƒãƒªã‚´ãƒ³ä¸€æšã‚ãŸã‚Šã®è§’åº¦
+#define P_HEIGHT (ALL_HEIGHT / NUM_DOME_Y)			//ãƒãƒªã‚´ãƒ³ä¸€æšã‚ãŸã‚Šã®é«˜ã•
+#define NUM_POLYGON( NUM_DOME_X, NUM_DOME_Y) ( 2 * NUM_DOME_X * NUM_DOME_Y + ( NUM_DOME_Y - 1) * 4)		//ãƒãƒªã‚´ãƒ³æ•°
+#define NUM_VERTEX( NUM_DOME_X, NUM_DOME_Y)	( ( NUM_DOME_X + 1) * ( NUM_DOME_Y + 1) + 2)				//é ‚ç‚¹æ•°
+#define NUM_INDEX( NUM_DOME_X, NUM_DOME_Y) ( ( (NUM_DOME_X + 1) * 2 + 2) * NUM_DOME_Y - 2)				//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* MeshDomeRenderer::Create(GameObject* gameObject)
 {
@@ -32,7 +32,7 @@ Component* MeshDomeRenderer::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 MeshDomeRenderer::MeshDomeRenderer( GameObject *pGameObject)
 {
@@ -41,82 +41,82 @@ MeshDomeRenderer::MeshDomeRenderer( GameObject *pGameObject)
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 	m_nPass = 0;
 
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//F‚Ìİ’è
+	//è‰²ã®è¨­å®š
 	m_Color = D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f);
 
-	//ƒfƒtƒHƒ‹ƒg’lİ’è
-	m_nNumBlockX = 8;			//‰¡‚Ì•ªŠ„”
-	m_nNumBlockY = 8;			//c‚Ì•ªŠ„”
-	m_fRadius = 50.0f;			//”¼Œa
-	m_fHeight = 50.0f;			//‚‚³
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤è¨­å®š
+	m_nNumBlockX = 8;			//æ¨ªã®åˆ†å‰²æ•°
+	m_nNumBlockY = 8;			//ç¸¦ã®åˆ†å‰²æ•°
+	m_fRadius = 50.0f;			//åŠå¾„
+	m_fHeight = 50.0f;			//é«˜ã•
 	m_fBlockAngle = D3DX_PI * 2.0f / m_nNumBlockX;
 	m_fBlockHeight = m_fHeight / m_nNumBlockY;
 	
-	//’¸“_ƒoƒbƒtƒ@¶¬
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	if( FAILED( pDevice->CreateVertexBuffer(
-		sizeof( VERTEX_3D) * NUM_VERTEX( m_nNumBlockX, m_nNumBlockY),				//ì¬‚µ‚½‚¢’¸“_ƒoƒbƒtƒ@‚ÌƒTƒCƒY
-		D3DUSAGE_WRITEONLY,					//’¸“_ƒoƒbƒtƒ@‚Ìg—p•û–@(‘¬‚³‚É‰e‹¿)
-		0,									//FVF(’¸“_ƒtƒH[ƒ}ƒbƒg)
-		D3DPOOL_MANAGED,					//ƒƒ‚ƒŠ‚ÌŠÇ—(MANAGED‚ÍƒfƒoƒCƒX‚É‚¨‚Ü‚©‚¹)
-		&m_pVtxBuff,						//’¸“_ƒoƒbƒtƒ@ŠÇ—ƒCƒ“ƒ^[ƒtƒFƒCƒX
+		sizeof( VERTEX_3D) * NUM_VERTEX( m_nNumBlockX, m_nNumBlockY),				//ä½œæˆã—ãŸã„é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º
+		D3DUSAGE_WRITEONLY,					//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½¿ç”¨æ–¹æ³•(é€Ÿã•ã«å½±éŸ¿)
+		0,									//FVF(é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ)
+		D3DPOOL_MANAGED,					//ãƒ¡ãƒ¢ãƒªã®ç®¡ç†(MANAGEDã¯ãƒ‡ãƒã‚¤ã‚¹ã«ãŠã¾ã‹ã›)
+		&m_pVtxBuff,						//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç®¡ç†ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 		NULL)))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
 
-	//’¸“_ƒoƒbƒtƒ@İ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetVtxBuffer();
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ìì¬
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½œæˆ
 	HRESULT hr;
 	hr = pDevice->CreateIndexBuffer(
-		sizeof( WORD) * NUM_INDEX( m_nNumBlockX, m_nNumBlockY),		 //ƒTƒCƒYiWORD or DWORDj*ƒCƒ“ƒfƒbƒNƒX”
-		D3DUSAGE_WRITEONLY,				 //g—p—p“rƒtƒ‰ƒO
-		D3DFMT_INDEX16,					 //ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^‚ÌƒtƒH[ƒ}ƒbƒgi16 or 32j
-		D3DPOOL_MANAGED,				 //ƒƒ‚ƒŠ‚ÌŠÇ—•û–@i‚¨‚Ü‚©‚¹j
-		&m_pIdxBuff,					 //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ƒCƒ“ƒ^[ƒtƒFƒCƒXƒ|ƒCƒ“ƒ^‚ÌƒAƒhƒŒƒX
+		sizeof( WORD) * NUM_INDEX( m_nNumBlockX, m_nNumBlockY),		 //ã‚µã‚¤ã‚ºï¼ˆWORD or DWORDï¼‰*ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°
+		D3DUSAGE_WRITEONLY,				 //ä½¿ç”¨ç”¨é€”ãƒ•ãƒ©ã‚°
+		D3DFMT_INDEX16,					 //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆï¼ˆ16 or 32ï¼‰
+		D3DPOOL_MANAGED,				 //ãƒ¡ãƒ¢ãƒªã®ç®¡ç†æ–¹æ³•ï¼ˆãŠã¾ã‹ã›ï¼‰
+		&m_pIdxBuff,					 //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
 		NULL);
 
 	if( FAILED( hr))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@İ’è
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetIdxBuffer();
 
-	//ƒ}ƒeƒŠƒAƒ‹
+	//ãƒãƒ†ãƒªã‚¢ãƒ«
 	m_pMaterial = new Material();
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void MeshDomeRenderer::Uninit( void)
 {
 	Manager::GetRenderManager()->ReleaseRenderer( this);
 
-	//’¸“_ƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	if( m_pVtxBuff != NULL)
 	{
 		m_pVtxBuff->Release();
 		m_pVtxBuff = NULL;
 	}
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	if( m_pIdxBuff != NULL)
 	{
 		m_pIdxBuff->Release();
 		m_pIdxBuff = NULL;
 	}
 
-	//ƒ}ƒeƒŠƒAƒ‹‚Ì‰ğ•ú
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ã®è§£æ”¾
 	if (m_pMaterial != NULL)
 	{
 		delete m_pMaterial;
@@ -125,7 +125,7 @@ void MeshDomeRenderer::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void MeshDomeRenderer::Update( void)
 {
@@ -133,100 +133,100 @@ void MeshDomeRenderer::Update( void)
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æ
+	æç”»
 ------------------------------------------------------------------------------*/
 void MeshDomeRenderer::Draw( Camera* pCamera)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//ƒ}ƒeƒŠƒAƒ‹iƒVƒF[ƒ_[j‚ğƒZƒbƒg
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ï¼ˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ï¼‰ã‚’ã‚»ãƒƒãƒˆ
 	m_pMaterial->Set( pCamera, this);
 
-	//’¸“_î•ñİ’è
+	//é ‚ç‚¹æƒ…å ±è¨­å®š
 	pDevice-> SetStreamSource( 0, m_pVtxBuff, 0, sizeof( VERTEX_3D));
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ìİ’è
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
 	pDevice->SetIndices( m_pIdxBuff);
 
-	//ƒeƒNƒjƒbƒNŠJn
+	//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯é–‹å§‹
 	m_pMaterial->Begin( m_nPass);
 
-	//ƒvƒŠƒ~ƒeƒBƒuiƒ|ƒŠƒSƒ“E}Œ`j‚Ì•`‰æ
+	//ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ï¼ˆãƒãƒªã‚´ãƒ³ãƒ»å›³å½¢ï¼‰ã®æç”»
 	pDevice->DrawIndexedPrimitive( D3DPT_TRIANGLESTRIP,	0, 0, 
 		NUM_VERTEX( m_nNumBlockX, m_nNumBlockY), 0,	NUM_POLYGON( m_nNumBlockX, m_nNumBlockY));
 
-	//ƒeƒNƒjƒbƒNI—¹
+	//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯çµ‚äº†
 	m_pMaterial->End();
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_ƒoƒbƒtƒ@İ’è
+	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshDomeRenderer::SetVtxBuffer( void)
 {
-	//’¸“_ƒoƒbƒtƒ@‚ğƒƒbƒN‚µ‚ÄA‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚é
-	VERTEX_3D* pVtx;				//‰¼‘zƒAƒhƒŒƒX—pƒ|ƒCƒ“ƒ^
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ãƒ­ãƒƒã‚¯ã—ã¦ã€ä»®æƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—ã™ã‚‹
+	VERTEX_3D* pVtx;				//ä»®æƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹ç”¨ãƒã‚¤ãƒ³ã‚¿
 	m_pVtxBuff->Lock( 0, 0, (void**)&pVtx,0);
 
-	int nCntHeight = 0;				//‚½‚ÄƒJƒEƒ“ƒ^
-	int nCnt = 0;					//‰~üƒJƒEƒ“ƒ^
-	D3DXVECTOR3 normal;				//Œ´“_‚©‚ç‚ÌƒxƒNƒgƒ‹
-	float fAngle;					//Šp“x
-	float fRadius;					//”¼Œa
-	float fHeight;					//‚‚³
+	int nCntHeight = 0;				//ãŸã¦ã‚«ã‚¦ãƒ³ã‚¿
+	int nCnt = 0;					//å††å‘¨ã‚«ã‚¦ãƒ³ã‚¿
+	D3DXVECTOR3 normal;				//åŸç‚¹ã‹ã‚‰ã®ãƒ™ã‚¯ãƒˆãƒ«
+	float fAngle;					//è§’åº¦
+	float fRadius;					//åŠå¾„
+	float fHeight;					//é«˜ã•
 
-	//ƒ|ƒŠƒSƒ“‚Ìİ’è
+	//ãƒãƒªã‚´ãƒ³ã®è¨­å®š
 	for( nCntHeight = 0; nCntHeight < m_nNumBlockY + 1; nCntHeight++)
 	{
-		//”¼Œa‚ÌXV
+		//åŠå¾„ã®æ›´æ–°
 		fRadius = 0.0f + m_fRadius * cosf( D3DX_PI * 0.5f * (m_nNumBlockY - nCntHeight) / m_nNumBlockY);
 
-		//‚‚³‚ÌXV
+		//é«˜ã•ã®æ›´æ–°
 		fHeight = m_fHeight * sinf( D3DX_PI * 0.5f * (m_nNumBlockY - nCntHeight) / m_nNumBlockY);
 
 		for( nCnt = 0; nCnt < m_nNumBlockX + 1; nCnt++)
 		{
-			//’¸“_À•W‚Ìİ’è
+			//é ‚ç‚¹åº§æ¨™ã®è¨­å®š
 			fAngle = m_fBlockAngle * nCnt;
 			//fAngle = P_ANGLE * ( NUM_DOME_X - nCnt);
 			pVtx[ 0].Pos = D3DXVECTOR3( fRadius * -cosf( fAngle), fHeight, fRadius * sinf( fAngle));
 
-			//–@ü‚Ìİ’è
+			//æ³•ç·šã®è¨­å®š
 			D3DXVec3Normalize( &normal, &pVtx[ 0].Pos);
 			pVtx[ 0].Normal = -normal;
 			
-			//’¸“_ƒJƒ‰[‚Ìİ’èi0`255‚Ì®”’lj
+			//é ‚ç‚¹ã‚«ãƒ©ãƒ¼ã®è¨­å®šï¼ˆ0ã€œ255ã®æ•´æ•°å€¤ï¼‰
 			pVtx[ 0].Color = D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f);
 			
-			//UVƒf[ƒ^‚Ìİ’è
+			//UVãƒ‡ãƒ¼ã‚¿ã®è¨­å®š
 			pVtx[ 0].Tex = D3DXVECTOR2( 1.0f / m_nNumBlockX * nCnt, 1.0f / m_nNumBlockY * nCntHeight);
 
-			//ƒ|ƒCƒ“ƒ^‚ğ‚¸‚ç‚·
+			//ãƒã‚¤ãƒ³ã‚¿ã‚’ãšã‚‰ã™
 			pVtx += 1;
 		}
 	}
 
-	//ƒAƒ“ƒƒbƒN
+	//ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
 	m_pVtxBuff->Unlock();
 }
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@İ’è
+	ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshDomeRenderer::SetIdxBuffer(void)
 {
-	//’¸“_ƒoƒbƒtƒ@‚ğƒƒbƒN‚µ‚ÄA‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚é
-	WORD* pIdx;		//ƒCƒ“ƒfƒbƒNƒXî•ñ
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ãƒ­ãƒƒã‚¯ã—ã¦ã€ä»®æƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—ã™ã‚‹
+	WORD* pIdx;		//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æƒ…å ±
 	m_pIdxBuff->Lock( 0, 0, (void**)&pIdx, 0);
 
-	//•Ï”éŒ¾
-	int nCntHeight = 0;		//‚½‚ÄƒJƒEƒ“ƒ^
-	int nCntWidth = 0;		//‚æ‚±ƒJƒEƒ“ƒ^
+	//å¤‰æ•°å®£è¨€
+	int nCntHeight = 0;		//ãŸã¦ã‚«ã‚¦ãƒ³ã‚¿
+	int nCntWidth = 0;		//ã‚ˆã“ã‚«ã‚¦ãƒ³ã‚¿
 
-	//ƒCƒ“ƒfƒbƒNƒXî•ñ‚Ìİ’è
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æƒ…å ±ã®è¨­å®š
 	for( nCntHeight = 0; nCntHeight < m_nNumBlockY; nCntHeight++)
 	{
-		//•\¦‚·‚éƒ|ƒŠƒSƒ“‚ÌƒCƒ“ƒfƒbƒNƒXî•ñ‚Ìİ’è
+		//è¡¨ç¤ºã™ã‚‹ãƒãƒªã‚´ãƒ³ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æƒ…å ±ã®è¨­å®š
 		for( nCntWidth = 0; nCntWidth < m_nNumBlockX + 1; nCntWidth++)
 		{
 			pIdx[ 0] = ( nCntHeight + 1) * ( m_nNumBlockX + 1) + nCntWidth;
@@ -235,25 +235,25 @@ void MeshDomeRenderer::SetIdxBuffer(void)
 			pIdx += 2;
 		}
 
-		//ÅŒã‚Ík‘Şƒ|ƒŠƒSƒ“•s—v
+		//æœ€å¾Œã¯ç¸®é€€ãƒãƒªã‚´ãƒ³ä¸è¦
 		if( nCntHeight == m_nNumBlockY - 1)
 		{
 			break;
 		}
 
-		//k‘Şƒ|ƒŠƒSƒ“‚ÌƒCƒ“ƒfƒbƒNƒXî•ñ‚Ìİ’è
+		//ç¸®é€€ãƒãƒªã‚´ãƒ³ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æƒ…å ±ã®è¨­å®š
 		pIdx[ 0] = nCntHeight * ( m_nNumBlockX + 1) + nCntWidth - 1;
 		pIdx[ 1] = ( nCntHeight + 2) * ( m_nNumBlockX + 1);
 		
 		pIdx += 2;
 	}
 
-	//ƒAƒ“ƒƒbƒN
+	//ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
 	m_pIdxBuff->Unlock();
 }
 
 /*------------------------------------------------------------------------------
-	ƒeƒNƒXƒ`ƒƒİ’è
+	ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshDomeRenderer::LoadTexture(std::string FileName)
 {
@@ -261,7 +261,7 @@ void MeshDomeRenderer::LoadTexture(std::string FileName)
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[İ’è
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshDomeRenderer::SetShader(EShaderType Type)
 {
@@ -269,66 +269,66 @@ void MeshDomeRenderer::SetShader(EShaderType Type)
 }
 
 /*------------------------------------------------------------------------------
-	ƒh[ƒ€‚Ìİ’è
+	ãƒ‰ãƒ¼ãƒ ã®è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshDomeRenderer::SetDome(int X, int Y, float Radius, float Height)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 	
-	//ƒfƒtƒHƒ‹ƒg’lİ’è
-	m_nNumBlockX = X;			//‰¡‚Ì•ªŠ„”
-	m_nNumBlockY = Y;			//c‚Ì•ªŠ„”
-	m_fRadius = Radius;			//”¼Œa
-	m_fHeight = Height;			//‚‚³
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤è¨­å®š
+	m_nNumBlockX = X;			//æ¨ªã®åˆ†å‰²æ•°
+	m_nNumBlockY = Y;			//ç¸¦ã®åˆ†å‰²æ•°
+	m_fRadius = Radius;			//åŠå¾„
+	m_fHeight = Height;			//é«˜ã•
 	m_fBlockAngle = D3DX_PI * 2.0f / m_nNumBlockX;
 	m_fBlockHeight = m_fHeight / m_nNumBlockY;
 
-	//’¸“_ƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	SAFE_RELEASE( m_pVtxBuff);
 
-	//’¸“_ƒoƒbƒtƒ@¶¬
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	if( FAILED( pDevice->CreateVertexBuffer(
-		sizeof( VERTEX_3D) * NUM_VERTEX( m_nNumBlockX, m_nNumBlockY),				//ì¬‚µ‚½‚¢’¸“_ƒoƒbƒtƒ@‚ÌƒTƒCƒY
-		D3DUSAGE_WRITEONLY,					//’¸“_ƒoƒbƒtƒ@‚Ìg—p•û–@(‘¬‚³‚É‰e‹¿)
-		0,									//FVF(’¸“_ƒtƒH[ƒ}ƒbƒg)
-		D3DPOOL_MANAGED,					//ƒƒ‚ƒŠ‚ÌŠÇ—(MANAGED‚ÍƒfƒoƒCƒX‚É‚¨‚Ü‚©‚¹)
-		&m_pVtxBuff,						//’¸“_ƒoƒbƒtƒ@ŠÇ—ƒCƒ“ƒ^[ƒtƒFƒCƒX
+		sizeof( VERTEX_3D) * NUM_VERTEX( m_nNumBlockX, m_nNumBlockY),				//ä½œæˆã—ãŸã„é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º
+		D3DUSAGE_WRITEONLY,					//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½¿ç”¨æ–¹æ³•(é€Ÿã•ã«å½±éŸ¿)
+		0,									//FVF(é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ)
+		D3DPOOL_MANAGED,					//ãƒ¡ãƒ¢ãƒªã®ç®¡ç†(MANAGEDã¯ãƒ‡ãƒã‚¤ã‚¹ã«ãŠã¾ã‹ã›)
+		&m_pVtxBuff,						//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç®¡ç†ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 		NULL)))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
 
-	//’¸“_ƒoƒbƒtƒ@İ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetVtxBuffer();
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	SAFE_RELEASE( m_pIdxBuff);
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ìì¬
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½œæˆ
 	HRESULT hr;
 	hr = pDevice->CreateIndexBuffer(
-		sizeof( WORD) * NUM_INDEX( m_nNumBlockX, m_nNumBlockY),		 //ƒTƒCƒYiWORD or DWORDj*ƒCƒ“ƒfƒbƒNƒX”
-		D3DUSAGE_WRITEONLY,				 //g—p—p“rƒtƒ‰ƒO
-		D3DFMT_INDEX16,					 //ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^‚ÌƒtƒH[ƒ}ƒbƒgi16 or 32j
-		D3DPOOL_MANAGED,				 //ƒƒ‚ƒŠ‚ÌŠÇ—•û–@i‚¨‚Ü‚©‚¹j
-		&m_pIdxBuff,					 //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ƒCƒ“ƒ^[ƒtƒFƒCƒXƒ|ƒCƒ“ƒ^‚ÌƒAƒhƒŒƒX
+		sizeof( WORD) * NUM_INDEX( m_nNumBlockX, m_nNumBlockY),		 //ã‚µã‚¤ã‚ºï¼ˆWORD or DWORDï¼‰*ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°
+		D3DUSAGE_WRITEONLY,				 //ä½¿ç”¨ç”¨é€”ãƒ•ãƒ©ã‚°
+		D3DFMT_INDEX16,					 //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆï¼ˆ16 or 32ï¼‰
+		D3DPOOL_MANAGED,				 //ãƒ¡ãƒ¢ãƒªã®ç®¡ç†æ–¹æ³•ï¼ˆãŠã¾ã‹ã›ï¼‰
+		&m_pIdxBuff,					 //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
 		NULL);
 
 	if( FAILED( hr))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@İ’è
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetIdxBuffer();
 }
 
 /*------------------------------------------------------------------------------
-	ƒ|ƒŠƒSƒ“ˆê–‡‚ ‚½‚è‚Ì•E‚‚³‚ğİ’è
+	ãƒãƒªã‚´ãƒ³ä¸€æšã‚ãŸã‚Šã®å¹…ãƒ»é«˜ã•ã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshDomeRenderer::SetBlockSize(float BlockAngle, float BlockHeight)
 {
@@ -336,12 +336,12 @@ void MeshDomeRenderer::SetBlockSize(float BlockAngle, float BlockHeight)
 	m_fBlockHeight = BlockHeight;
 	m_fHeight = m_nNumBlockY * BlockHeight;
 	
-	//’¸“_ƒoƒbƒtƒ@İ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetVtxBuffer();
 }
 
 /*------------------------------------------------------------------------------
-	•E‚‚³‚ğİ’è
+	å¹…ãƒ»é«˜ã•ã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshDomeRenderer::SetSize(float Radius, float Height)
 {
@@ -349,16 +349,16 @@ void MeshDomeRenderer::SetSize(float Radius, float Height)
 	m_fHeight = Height;
 	m_fBlockHeight = Height / m_nNumBlockY;
 
-	//’¸“_ƒoƒbƒtƒ@İ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetVtxBuffer();
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void MeshDomeRenderer::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -420,7 +420,7 @@ void MeshDomeRenderer::Load(Text& text)
 			m_fBlockHeight = std::stof(text.GetWord());
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
@@ -431,7 +431,7 @@ void MeshDomeRenderer::Load(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void MeshDomeRenderer::Save(Text& text)
 {

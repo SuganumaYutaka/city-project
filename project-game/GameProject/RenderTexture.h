@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    RenderTexture.h - ƒŒƒ“ƒ_[ƒeƒNƒXƒ`ƒƒ
+    RenderTexture.h - ãƒ¬ãƒ³ãƒ€ãƒ¼ãƒ†ã‚¯ã‚¹ãƒãƒ£
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/8/8
 ==============================================================================*/
@@ -8,13 +8,13 @@
 #define _RENDER_TEXTURE_H_
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
 #include "Texture.h"
 
 /*------------------------------------------------------------------------------
-	ƒNƒ‰ƒX’è‹`
+	ã‚¯ãƒ©ã‚¹å®šç¾©
 ------------------------------------------------------------------------------*/
 class RenderTexture : public Texture
 {
@@ -29,9 +29,9 @@ public:
 	const Vector2& GetTextureSize( void){ return m_Size;}
 	
 private:
-	LPDIRECT3DSURFACE9 m_pTexSurface;				//ƒeƒNƒXƒ`ƒƒƒT[ƒtƒFƒX
-	LPDIRECT3DSURFACE9 m_pTexZ;						//[“xƒoƒbƒtƒ@
-	bool m_bBuckBuffer;								//ƒoƒbƒNƒoƒbƒtƒ@‚©‚Ç‚¤‚©
+	LPDIRECT3DSURFACE9 m_pTexSurface;				//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µãƒ¼ãƒ•ã‚§ã‚¹
+	LPDIRECT3DSURFACE9 m_pTexZ;						//æ·±åº¦ãƒãƒƒãƒ•ã‚¡
+	bool m_bBuckBuffer;								//ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ã‹ã©ã†ã‹
 
 	Vector2 m_Size;
 };

@@ -1,12 +1,12 @@
 /*==============================================================================
 	
-	CarController.h - Œğ’ÊƒVƒXƒeƒ€[Ô
+	CarController.h - äº¤é€šã‚·ã‚¹ãƒ†ãƒ ãƒ¼è»Š
 														Author : Yutaka Suganuma
 														Date   : 2017/12/25
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "CarController.h"
 #include "GameObject.h"
@@ -17,14 +17,14 @@
 #include "TrafficLand.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
 #define FRICTION_SPEED_RATE (0.15f)
 #define BRAKE_SPEED_RATE (0.5f)
 #define ON_ROAD_PERMIT_RATE (0.1f)
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* CarController::Create(GameObject* gameObject)
 {
@@ -32,7 +32,7 @@ Component* CarController::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 CarController::CarController( GameObject* pGameObject) : m_Speed( 0.0f)
 {
@@ -43,7 +43,7 @@ CarController::CarController( GameObject* pGameObject) : m_Speed( 0.0f)
 	m_NextJunction = NULL;
 	m_TargetLand = NULL;
 
-	//ƒXƒe[ƒg‚Ìİ’è
+	//ã‚¹ãƒ†ãƒ¼ãƒˆã®è¨­å®š
 	m_States[ eCarStateNeutral] = new CarStateNeutral( this);
 	m_States[ eCarStateMoveOnRoad] = new CarStateMoveOnRoad( this);
 	m_States[ eCarStateMoveTowardRoad] = new CarStateMoveTowardRoad( this);
@@ -51,13 +51,13 @@ CarController::CarController( GameObject* pGameObject) : m_Speed( 0.0f)
 	m_CurrentState = m_States[ eCarStateMoveTowardRoad];
 	//m_CurrentState = m_States[ eCarStateNeutral];
 
-	//•`‰æ‚Ìİ’è
+	//æç”»ã®è¨­å®š
 	auto renderer = m_pGameObject->AddComponent<XModelRenderer>();
 	renderer->LoadXModel( "data/MODEL/car.x");
 }
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»
+	åˆæœŸåŒ–
 ------------------------------------------------------------------------------*/
 void CarController::Init(TrafficRoad* currentRoad, TrafficJunction* nextJunction, TrafficLand* targetLand)
 {
@@ -68,11 +68,11 @@ void CarController::Init(TrafficRoad* currentRoad, TrafficJunction* nextJunction
 
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void CarController::Uninit( void)
 {
-	//ƒXƒe[ƒg‚Ì‰ğ•ú
+	//ã‚¹ãƒ†ãƒ¼ãƒˆã®è§£æ”¾
 	for (auto state : m_States)
 	{
 		delete state.second;
@@ -80,22 +80,22 @@ void CarController::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	XVˆ—
+	æ›´æ–°å‡¦ç†
 ------------------------------------------------------------------------------*/
 void CarController::Update( void)
 {
-	//ƒXƒe[ƒg‚ÌXV
+	//ã‚¹ãƒ†ãƒ¼ãƒˆã®æ›´æ–°
 	m_CurrentState->Update();
 
-	//³–Ê•ûŒü‚ÉˆÚ“®
+	//æ­£é¢æ–¹å‘ã«ç§»å‹•
 	m_pTransform->Move( m_pTransform->GetForward() * m_Speed);
 	
-	//–€C‚É‚æ‚éŒ¸‘¬
+	//æ‘©æ“¦ã«ã‚ˆã‚‹æ¸›é€Ÿ
 	m_Speed -= ( m_Speed * FRICTION_SPEED_RATE);
 }
 
 /*------------------------------------------------------------------------------
-	“¹˜H‚ÌƒxƒNƒgƒ‹‚ğæ“¾
+	é“è·¯ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 Vector3 CarController::GetCurrentRoadVector(void)
 {
@@ -103,7 +103,7 @@ Vector3 CarController::GetCurrentRoadVector(void)
 }
 
 /*------------------------------------------------------------------------------
-	‘O•û‚ÌÔ‚ğæ“¾
+	å‰æ–¹ã®è»Šã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 CarController* CarController::GetFrontCar(void)
 {
@@ -111,17 +111,17 @@ CarController* CarController::GetFrontCar(void)
 }
 
 /*------------------------------------------------------------------------------
-	Ô‚ª“¹˜Hã‚ğ‘–s‚µ‚Ä‚¢‚é‚©
+	è»ŠãŒé“è·¯ä¸Šã‚’èµ°è¡Œã—ã¦ã„ã‚‹ã‹
 ------------------------------------------------------------------------------*/
 bool CarController::CheckOnRoad(void)
 {
-	//³‚µ‚¢Ôü‘¤‚É‚ ‚é‚©
+	//æ­£ã—ã„è»Šç·šå´ã«ã‚ã‚‹ã‹
 	if (!IsCorrectSideRoad())
 	{
 		return false;
 	}
 
-	//Ôü‚Ì’†‰›‚ğ‘–s‚µ‚Ä‚¢‚é‚©
+	//è»Šç·šã®ä¸­å¤®ã‚’èµ°è¡Œã—ã¦ã„ã‚‹ã‹
 	float length = CulcLengthFromRoadCenter();
 	float roadWidthHalf = m_CurrentRoad->GetWidth() * 0.5f;
 	float permitWidth = roadWidthHalf * ON_ROAD_PERMIT_RATE;
@@ -134,11 +134,11 @@ bool CarController::CheckOnRoad(void)
 }
 
 /*------------------------------------------------------------------------------
-	Ô‚ª³‚µ‚¢Ôü‘¤‚É‚ ‚é‚©
+	è»ŠãŒæ­£ã—ã„è»Šç·šå´ã«ã‚ã‚‹ã‹
 ------------------------------------------------------------------------------*/
 bool CarController::IsCorrectSideRoad( void)
 {
-	//ŠOÏ‚ğ—p‚¢‚Ä”»’è
+	//å¤–ç©ã‚’ç”¨ã„ã¦åˆ¤å®š
 	auto otherJunctionPosition = m_CurrentRoad->GetOtherJunction( m_NextJunction)->GetPosition();
 	auto roadVector = GetCurrentRoadVector();
 	Vector3 vector = m_pTransform->GetWorldPosition() - otherJunctionPosition;
@@ -151,11 +151,11 @@ bool CarController::IsCorrectSideRoad( void)
 }
 
 /*------------------------------------------------------------------------------
-	“¹˜H‚Ì’†‰›ü‚©‚ç‚Ì‹——£‚ğZo
+	é“è·¯ã®ä¸­å¤®ç·šã‹ã‚‰ã®è·é›¢ã‚’ç®—å‡º
 ------------------------------------------------------------------------------*/
 float CarController::CulcLengthFromRoadCenter(void)
 {
-	//“_‚Æü•ª‚Ì‹——£‚ğ‹‚ß‚é
+	//ç‚¹ã¨ç·šåˆ†ã®è·é›¢ã‚’æ±‚ã‚ã‚‹
 	auto otherJunctionPosition = m_CurrentRoad->GetOtherJunction( m_NextJunction)->GetPosition();
 	auto roadVector = GetCurrentRoadVector();
 	Vector3 vector = m_pTransform->GetWorldPosition() - otherJunctionPosition;
@@ -166,11 +166,11 @@ float CarController::CulcLengthFromRoadCenter(void)
 }
 
 /*------------------------------------------------------------------------------
-	“¹˜H‚Ìã‚ğÔ‚ªi‚ñ‚¾‹——£‚ğZo‚·‚é
+	é“è·¯ã®ä¸Šã‚’è»ŠãŒé€²ã‚“ã è·é›¢ã‚’ç®—å‡ºã™ã‚‹
 ------------------------------------------------------------------------------*/
 float CarController::CulcMoveDistanceOnRoad(void)
 {
-	//u³‹K‰»‚µ‚½ƒxƒNƒgƒ‹N‚Æ”CˆÓƒxƒNƒgƒ‹A‚Æ‚Ì“àÏ‚ÍAA‚ğN‚É“Š‰e‚µ‚½‚Ì’·‚³i•„†•t‚«j‚Æ‚È‚év«¿‚ğ—˜—p‚·‚é
+	//ã€Œæ­£è¦åŒ–ã—ãŸãƒ™ã‚¯ãƒˆãƒ«Nã¨ä»»æ„ãƒ™ã‚¯ãƒˆãƒ«Aã¨ã®å†…ç©ã¯ã€Aã‚’Nã«æŠ•å½±ã—ãŸæ™‚ã®é•·ã•ï¼ˆç¬¦å·ä»˜ãï¼‰ã¨ãªã‚‹ã€æ€§è³ªã‚’åˆ©ç”¨ã™ã‚‹
 	auto otherJunctionPosition = m_CurrentRoad->GetOtherJunction( m_NextJunction)->GetPosition();
 	auto roadVector = GetCurrentRoadVector();
 	Vector3 vector = m_pTransform->GetWorldPosition() - otherJunctionPosition;
@@ -180,28 +180,28 @@ float CarController::CulcMoveDistanceOnRoad(void)
 }
 
 /*------------------------------------------------------------------------------
-	“¹˜H‚Ìã‚ğÔ‚ªi‚ñ‚¾‹——£‚ÌŠ„‡‚ğZo‚·‚é
+	é“è·¯ã®ä¸Šã‚’è»ŠãŒé€²ã‚“ã è·é›¢ã®å‰²åˆã‚’ç®—å‡ºã™ã‚‹
 ------------------------------------------------------------------------------*/
 float CarController::CulcMoveRateOnRoad(void)
 {
-	//u³‹K‰»‚µ‚½ƒxƒNƒgƒ‹N‚Æ”CˆÓƒxƒNƒgƒ‹A‚Æ‚Ì“àÏ‚ÍAA‚ğN‚É“Š‰e‚µ‚½‚Ì’·‚³i•„†•t‚«j‚Æ‚È‚év«¿‚ğ—˜—p‚·‚é
+	//ã€Œæ­£è¦åŒ–ã—ãŸãƒ™ã‚¯ãƒˆãƒ«Nã¨ä»»æ„ãƒ™ã‚¯ãƒˆãƒ«Aã¨ã®å†…ç©ã¯ã€Aã‚’Nã«æŠ•å½±ã—ãŸæ™‚ã®é•·ã•ï¼ˆç¬¦å·ä»˜ãï¼‰ã¨ãªã‚‹ã€æ€§è³ªã‚’åˆ©ç”¨ã™ã‚‹
 	auto otherJunctionPosition = m_CurrentRoad->GetOtherJunction( m_NextJunction)->GetPosition();
 	auto roadVector = GetCurrentRoadVector();
 	Vector3 vector = m_pTransform->GetWorldPosition() - otherJunctionPosition;
 	float length = Vector3::Dot( roadVector.Normalize(), vector);
 
-	//Š„‡‚É‚·‚é‚½‚ß‚É’·‚³‚ÅŠ„‚é
+	//å‰²åˆã«ã™ã‚‹ãŸã‚ã«é•·ã•ã§å‰²ã‚‹
 	float rate = length / roadVector.Length();
 
 	return rate;
 }
 
 /*------------------------------------------------------------------------------
-	Ô‚ªŸ‚ÌŒğ·“_‚Ü‚Å‚Éc‚Á‚Ä‚¢‚é‹——£‚ğZo‚·‚é
+	è»ŠãŒæ¬¡ã®äº¤å·®ç‚¹ã¾ã§ã«æ®‹ã£ã¦ã„ã‚‹è·é›¢ã‚’ç®—å‡ºã™ã‚‹
 ------------------------------------------------------------------------------*/
 float CarController::CulcRemainDistanceOnRoad(void)
 {
-	//u³‹K‰»‚µ‚½ƒxƒNƒgƒ‹N‚Æ”CˆÓƒxƒNƒgƒ‹A‚Æ‚Ì“àÏ‚ÍAA‚ğN‚É“Š‰e‚µ‚½‚Ì’·‚³i•„†•t‚«j‚Æ‚È‚év«¿‚ğ—˜—p‚·‚é
+	//ã€Œæ­£è¦åŒ–ã—ãŸãƒ™ã‚¯ãƒˆãƒ«Nã¨ä»»æ„ãƒ™ã‚¯ãƒˆãƒ«Aã¨ã®å†…ç©ã¯ã€Aã‚’Nã«æŠ•å½±ã—ãŸæ™‚ã®é•·ã•ï¼ˆç¬¦å·ä»˜ãï¼‰ã¨ãªã‚‹ã€æ€§è³ªã‚’åˆ©ç”¨ã™ã‚‹
 	auto otherJunctionPosition = m_CurrentRoad->GetOtherJunction( m_NextJunction)->GetPosition();
 	auto roadVector = GetCurrentRoadVector();
 	Vector3 vector = m_pTransform->GetWorldPosition() - otherJunctionPosition;
@@ -211,7 +211,7 @@ float CarController::CulcRemainDistanceOnRoad(void)
 }
 
 /*------------------------------------------------------------------------------
-	‰E‚É‚ ‚é“¹˜H‚ğæ“¾
+	å³ã«ã‚ã‚‹é“è·¯ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 TrafficRoad* CarController::GetRightRoad(void)
 {
@@ -219,7 +219,7 @@ TrafficRoad* CarController::GetRightRoad(void)
 }
 
 /*------------------------------------------------------------------------------
-	¶‚É‚ ‚é“¹˜H‚ğæ“¾
+	å·¦ã«ã‚ã‚‹é“è·¯ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 TrafficRoad* CarController::GetLeftRoad(void)
 {
@@ -227,7 +227,7 @@ TrafficRoad* CarController::GetLeftRoad(void)
 }
 
 /*------------------------------------------------------------------------------
-	’¼i‚·‚é“¹˜H‚ğæ“¾
+	ç›´é€²ã™ã‚‹é“è·¯ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 TrafficRoad* CarController::GetStraightRoad(void)
 {
@@ -235,7 +235,7 @@ TrafficRoad* CarController::GetStraightRoad(void)
 }
 
 /*------------------------------------------------------------------------------
-	‰EÜ‚Å‚«‚é‚©
+	å³æŠ˜ã§ãã‚‹ã‹
 ------------------------------------------------------------------------------*/
 bool CarController::CanTurnRight(void)
 {
@@ -243,7 +243,7 @@ bool CarController::CanTurnRight(void)
 }
 
 /*------------------------------------------------------------------------------
-	¶Ü‚Å‚«‚é‚©
+	å·¦æŠ˜ã§ãã‚‹ã‹
 ------------------------------------------------------------------------------*/
 bool CarController::CanTurnLeft(void)
 {
@@ -251,7 +251,7 @@ bool CarController::CanTurnLeft(void)
 }
 
 /*------------------------------------------------------------------------------
-	’¼i‚Å‚«‚é‚©
+	ç›´é€²ã§ãã‚‹ã‹
 ------------------------------------------------------------------------------*/
 bool CarController::CanGoStraight(void)
 {
@@ -259,21 +259,21 @@ bool CarController::CanGoStraight(void)
 }
 
 /*------------------------------------------------------------------------------
-	‰EÜ
+	å³æŠ˜
 ------------------------------------------------------------------------------*/
 bool CarController::TurnRight(void)
 {
-	//•ÏXæ‚Ì“¹˜H‚ğæ“¾
+	//å¤‰æ›´å…ˆã®é“è·¯ã‚’å–å¾—
 	auto nextRoad = m_NextJunction->GetRightRoad( m_CurrentRoad);
 	if (!nextRoad)
 	{
 		return false;
 	}
 
-	//Œğ·“_‚ğ•ÏX
+	//äº¤å·®ç‚¹ã‚’å¤‰æ›´
 	m_NextJunction = nextRoad->GetOtherJunction( m_NextJunction);
 
-	//“¹˜H‚ğ•ÏX
+	//é“è·¯ã‚’å¤‰æ›´
 	m_CurrentRoad->UnregisterCar( this);
 	m_CurrentRoad = nextRoad;
 	nextRoad->RegisterCar( this);
@@ -282,21 +282,21 @@ bool CarController::TurnRight(void)
 }
 
 /*------------------------------------------------------------------------------
-	¶Ü
+	å·¦æŠ˜
 ------------------------------------------------------------------------------*/
 bool CarController::TurnLeft(void)
 {
-	//•ÏXæ‚Ì“¹˜H‚ğæ“¾
+	//å¤‰æ›´å…ˆã®é“è·¯ã‚’å–å¾—
 	auto nextRoad = m_NextJunction->GetLeftRoad( m_CurrentRoad);
 	if (!nextRoad)
 	{
 		return false;
 	}
 
-	//Œğ·“_‚ğ•ÏX
+	//äº¤å·®ç‚¹ã‚’å¤‰æ›´
 	m_NextJunction = nextRoad->GetOtherJunction( m_NextJunction);
 
-	//“¹˜H‚ğ•ÏX
+	//é“è·¯ã‚’å¤‰æ›´
 	m_CurrentRoad->UnregisterCar( this);
 	m_CurrentRoad = nextRoad;
 	nextRoad->RegisterCar( this);
@@ -305,21 +305,21 @@ bool CarController::TurnLeft(void)
 }
 
 /*------------------------------------------------------------------------------
-	’¼i
+	ç›´é€²
 ------------------------------------------------------------------------------*/
 bool CarController::GoStraight(void)
 {
-	//•ÏXæ‚Ì“¹˜H‚ğæ“¾
+	//å¤‰æ›´å…ˆã®é“è·¯ã‚’å–å¾—
 	auto nextRoad = m_NextJunction->GetStraightRoad( m_CurrentRoad);
 	if (!nextRoad)
 	{
 		return false;
 	}
 
-	//Œğ·“_‚ğ•ÏX
+	//äº¤å·®ç‚¹ã‚’å¤‰æ›´
 	m_NextJunction = nextRoad->GetOtherJunction( m_NextJunction);
 
-	//“¹˜H‚ğ•ÏX
+	//é“è·¯ã‚’å¤‰æ›´
 	m_CurrentRoad->UnregisterCar( this);
 	m_CurrentRoad = nextRoad;
 	nextRoad->RegisterCar( this);
@@ -328,7 +328,7 @@ bool CarController::GoStraight(void)
 }
 
 /*------------------------------------------------------------------------------
-	ó‘Ô‘JˆÚ
+	çŠ¶æ…‹é·ç§»
 ------------------------------------------------------------------------------*/
 void CarController::ChangeState(ECarState next)
 {
@@ -337,7 +337,7 @@ void CarController::ChangeState(ECarState next)
 }
 
 /*------------------------------------------------------------------------------
-	ƒuƒŒ[ƒL‚ğ“¥‚Ş
+	ãƒ–ãƒ¬ãƒ¼ã‚­ã‚’è¸ã‚€
 ------------------------------------------------------------------------------*/
 void CarController::BrakeSpeed(void)
 {
@@ -345,7 +345,7 @@ void CarController::BrakeSpeed(void)
 }
 
 /*------------------------------------------------------------------------------
-	‘–s’†‚Ì“¹˜HÁ‹‚Ìˆ—
+	èµ°è¡Œä¸­ã®é“è·¯æ¶ˆå»æ™‚ã®å‡¦ç†
 ------------------------------------------------------------------------------*/
 void CarController::OnDeleteCurrentRoad(void)
 {
@@ -354,7 +354,7 @@ void CarController::OnDeleteCurrentRoad(void)
 }
 
 /*------------------------------------------------------------------------------
-	“¹˜H‚©‚çŠO‚ê‚é
+	é“è·¯ã‹ã‚‰å¤–ã‚Œã‚‹
 ------------------------------------------------------------------------------*/
 void CarController::OutRoad(void)
 {

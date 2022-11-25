@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    Vector2.h - 2DƒxƒNƒgƒ‹
+    Vector2.h - 2Dãƒ™ã‚¯ãƒˆãƒ«
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/3/30
 ==============================================================================*/
@@ -8,43 +8,43 @@
 #define _VECTOR2_H_
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include <d3dx9.h>
 #include <string>
 
 /*------------------------------------------------------------------------------
-	ƒNƒ‰ƒX’è‹`
+	ã‚¯ãƒ©ã‚¹å®šç¾©
 ------------------------------------------------------------------------------*/
 class Vector2
 {
 public:
-	float x;	//xÀ•W
-	float y;	//yÀ•W
+	float x;	//xåº§æ¨™
+	float y;	//yåº§æ¨™
 
 	Vector2() : x( 0.0f), y( 0.0f) {}
 	Vector2( const float& X, const float& Y) : x( X), y( Y) {}
 	Vector2( D3DXVECTOR2 Vec) : x(Vec.x), y(Vec.y) {}
 	
-	float Length( void) const;												//’·‚³
-	static float Length( const Vector2 &V1);								//’·‚³
-	Vector2 Normalize( void) const;											//³‹K‰»
-	static Vector2 Normalize( const Vector2 &V1);							//³‹K‰»
-	float Dot( const Vector2 &V1) const;									//“àÏ
-	static float Dot( const Vector2 &V1, const Vector2 &V2);				//“àÏ
-	float Cross( const Vector2 &V1) const;									//ŠOÏ
-	static float Cross( const Vector2 &V1, const Vector2 &V2);				//ŠOÏ
-	float Distance( const Vector2 &V1) const;								//2“_ŠÔ‚Ì‹——£
-	static float Distance( const Vector2 &V1, const Vector2 &V2);			//2“_ŠÔ‚Ì‹——£
-	D3DXVECTOR2 ConvertToDX() const { return D3DXVECTOR2( x, y);}			//D3DXVECTOR2‚É•ÏŠ·
-	static Vector2 ConvertFromDX( D3DXVECTOR2 Vec) 							//D3DXVECTOR2‚©‚ç•ÏŠ·
+	float Length( void) const;												//é•·ã•
+	static float Length( const Vector2 &V1);								//é•·ã•
+	Vector2 Normalize( void) const;											//æ­£è¦åŒ–
+	static Vector2 Normalize( const Vector2 &V1);							//æ­£è¦åŒ–
+	float Dot( const Vector2 &V1) const;									//å†…ç©
+	static float Dot( const Vector2 &V1, const Vector2 &V2);				//å†…ç©
+	float Cross( const Vector2 &V1) const;									//å¤–ç©
+	static float Cross( const Vector2 &V1, const Vector2 &V2);				//å¤–ç©
+	float Distance( const Vector2 &V1) const;								//2ç‚¹é–“ã®è·é›¢
+	static float Distance( const Vector2 &V1, const Vector2 &V2);			//2ç‚¹é–“ã®è·é›¢
+	D3DXVECTOR2 ConvertToDX() const { return D3DXVECTOR2( x, y);}			//D3DXVECTOR2ã«å¤‰æ›
+	static Vector2 ConvertFromDX( D3DXVECTOR2 Vec) 							//D3DXVECTOR2ã‹ã‚‰å¤‰æ›
 	{ 
 		return Vector2(Vec.x, Vec.y);
 	}
 	std::string ConvertToString();
 	int ConvertFromString(std::string& str, int current);
 	
-	//‰‰ZqƒI[ƒo[ƒ[ƒh
+	//æ¼”ç®—å­ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰
 	Vector2 &operator = ( const Vector2 &V1);
 	Vector2 &operator += ( const Vector2 &V1);
 	Vector2 &operator -= ( const Vector2 &V1);

@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    ModeGame.cpp - ƒQ[ƒ€ƒ‚[ƒh
+    ModeGame.cpp - ã‚²ãƒ¼ãƒ ãƒ¢ãƒ¼ãƒ‰
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/6/8
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "ModeGame.h"
 #include "GameObject.h"
@@ -16,15 +16,15 @@
 #include "ComponentInclude.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 ModeGame::ModeGame()
 {
-	//‰½‚à‚µ‚È‚¢
+	//ä½•ã‚‚ã—ãªã„
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 ModeGame::~ModeGame()
 {
@@ -32,27 +32,27 @@ ModeGame::~ModeGame()
 }
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»
+	åˆæœŸåŒ–
 ------------------------------------------------------------------------------*/
 void ModeGame::Init()
 {
-	//ƒm[ƒh‚Ìæ“ª
+	//ãƒŽãƒ¼ãƒ‰ã®å…ˆé ­
 	m_pRoot = new GameObject(NULL);
 
 #ifdef _DEBUG
 	//m_pRoot->AddComponent<EditSystem>();
 #endif // _DEBUG
 
-	//ŠX‘S‘Ì‚Ì‘å‚«‚³
+	//è¡—å…¨ä½“ã®å¤§ãã•
 	Vector2 citySize( 350.0f, 350.0f);
 
-	//‘¾—z
+	//å¤ªé™½
 	auto sunObj = new GameObject( m_pRoot);
 	auto sun = sunObj->AddComponent<Sun>();
 	sunObj->m_pTransform->SetWorldPosition( citySize.x * -0.5f, 250.0f, citySize.y * -0.5f);
 	sunObj->m_pTransform->SetWorldRotationLookAt( Vector3( citySize.x * 0.5f, 0.0f, citySize.y * 0.5f));
 
-	//ƒJƒƒ‰
+	//ã‚«ãƒ¡ãƒ©
 	GameObject *pCamera = new GameObject( m_pRoot);
 	auto cameraComponent = pCamera->AddComponent<Camera>();
 	cameraComponent->SetMainCamera();
@@ -60,13 +60,13 @@ void ModeGame::Init()
 	cameraComponent->SetFar( 2000.0f);
 	pCamera->AddComponent<CameraController>();
 
-	////ƒ‰ƒCƒg
+	////ãƒ©ã‚¤ãƒˆ
 	//auto cameraObj = new GameObject( m_pRoot);
 	//cameraObj->AddComponent<Light>();
 	//cameraObj->m_pTransform->SetWorldPosition( citySize.x * -0.5f, 150.0f, citySize.y * -0.2f);
 	//cameraObj->m_pTransform->SetWorldRotationLookAt( Vector3( citySize.x * 0.5f, 0.0f, citySize.y * 0.2f));
 
-	//ƒXƒJƒCƒh[ƒ€
+	//ã‚¹ã‚«ã‚¤ãƒ‰ãƒ¼ãƒ 
 	auto pSky = new GameObject( m_pRoot);
 	auto meshDome = pSky->AddComponent<MeshDomeRenderer>();
 	meshDome->SetDome( 30, 10, citySize.x * 1.1f, citySize.y * 1.1f);
@@ -75,7 +75,7 @@ void ModeGame::Init()
 	meshDome->LoadTexture( "data/TEXTURE/sky00.jpg");
 	//meshDome->LoadTexture( "data/TEXTURE/sky01.jpg");
 	
-	//°
+	//åºŠ
 	auto groundObject = new GameObject( m_pRoot);
 	auto grountRanderer = groundObject->AddComponent<Polygon3DRenderer>();
 	grountRanderer->LoadTexture("data/TEXTURE/black.jpg");
@@ -120,11 +120,11 @@ void ModeGame::Init()
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void ModeGame::Update()
 {
-	//ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ÌXV
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ›´æ–°
 	m_pRoot->UpdateAll();
 }
 

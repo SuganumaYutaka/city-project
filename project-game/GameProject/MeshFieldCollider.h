@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    MeshFieldCollider.h - ƒƒbƒVƒ…ƒtƒB[ƒ‹ƒhƒRƒ‰ƒCƒ_[
+    MeshFieldCollider.h - ãƒ¡ãƒƒã‚·ãƒ¥ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/31
 ==============================================================================*/
@@ -8,22 +8,22 @@
 #define _MESH_FIELD_COLLIDER_H_
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
 #include "Collider.h"
 
 /*------------------------------------------------------------------------------
-	\‘¢‘Ì’è‹`
+	æ§‹é€ ä½“å®šç¾©
 ------------------------------------------------------------------------------*/
 struct POLYGON
 {
-	int nVtxIndex[ 3];		//’¸“_‚ÌƒCƒ“ƒfƒbƒNƒX”Ô†
-	Vector3 Normal;			//–Ê–@ü
+	int nVtxIndex[ 3];		//é ‚ç‚¹ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·
+	Vector3 Normal;			//é¢æ³•ç·š
 };
 
 /*------------------------------------------------------------------------------
-	ƒNƒ‰ƒX’è‹`
+	ã‚¯ãƒ©ã‚¹å®šç¾©
 ------------------------------------------------------------------------------*/
 class MeshFieldCollider : public Collider
 {
@@ -46,15 +46,15 @@ public:
 	virtual void Load( Text& text);
 
 private:
-	int m_nNumBlockX;			//‰¡‚Ì•ªŠ„”
-	int m_nNumBlockZ;			//c‚Ì•ªŠ„”
-	float m_fWidth;				//•
-	float m_fHeight;			//‚‚³
-	float m_fBlockWidth;		//ƒ|ƒŠƒSƒ“1–‡‚ ‚½‚è‚Ì•
-	float m_fBlockHeight;		//ƒ|ƒŠƒSƒ“1–‡‚ ‚½‚è‚Ì‚‚³
+	int m_nNumBlockX;			//æ¨ªã®åˆ†å‰²æ•°
+	int m_nNumBlockZ;			//ç¸¦ã®åˆ†å‰²æ•°
+	float m_fWidth;				//å¹…
+	float m_fHeight;			//é«˜ã•
+	float m_fBlockWidth;		//ãƒãƒªã‚´ãƒ³1æšã‚ãŸã‚Šã®å¹…
+	float m_fBlockHeight;		//ãƒãƒªã‚´ãƒ³1æšã‚ãŸã‚Šã®é«˜ã•
 
-	Vector3 *m_pVtxPos;			//’¸“_
-	POLYGON *m_pPolygon;		//ƒ|ƒŠƒSƒ“
+	Vector3 *m_pVtxPos;			//é ‚ç‚¹
+	POLYGON *m_pPolygon;		//ãƒãƒªã‚´ãƒ³
 
 	int GetIndexPolygon( const Vector3& Pos);
 	Vector3 GetPolygonNormal( int nIndex);

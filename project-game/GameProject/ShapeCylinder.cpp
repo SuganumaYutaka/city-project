@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    ShapeCylinder.cpp - Œš•¨‚Ì©“®¶¬[ƒ{ƒbƒNƒX
+    ShapeCylinder.cpp - å»ºç‰©ã®è‡ªå‹•ç”Ÿæˆãƒ¼ãƒœãƒƒã‚¯ã‚¹
                                                        Author : Yutaka Suganuma
                                                        Date   : 2018/1/9
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "ShapeCylinder.h"
 #include "Wall.h"
@@ -14,7 +14,7 @@
 #include "DebugLog.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 ShapeCylinder::ShapeCylinder(GameObject* buildingObject)
 {
@@ -22,7 +22,7 @@ ShapeCylinder::ShapeCylinder(GameObject* buildingObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 ShapeCylinder::~ShapeCylinder()
 {
@@ -30,7 +30,7 @@ ShapeCylinder::~ShapeCylinder()
 }
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»
+	åˆæœŸåŒ–
 ------------------------------------------------------------------------------*/
 void ShapeCylinder::Init(const Vector3& position, float rotation, float height, float radius)
 {
@@ -41,21 +41,21 @@ void ShapeCylinder::Init(const Vector3& position, float rotation, float height, 
 
 	Vector3 size = Vector3( radius * 2.0f, height, radius * 2.0f);
 
-	//‰®ª‚Ì¶¬
+	//å±‹æ ¹ã®ç”Ÿæˆ
 	auto roof = new Roof(GetBuildingObject());
 	roof->InitPlane( position, rotation, size, "data/TEXTURE/circle.png");
 	AddRoof( roof);
 
-	//•Ç‚Ì¶¬
+	//å£ã®ç”Ÿæˆ
 	CreateWalls();
 }
 
 /*------------------------------------------------------------------------------
-	•Ç‚Ì¶¬
+	å£ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 void ShapeCylinder::CreateWalls(void)
 {
-	//•Ç‚ÌÁ‹
+	//å£ã®æ¶ˆå»
 	if (GetWalls().size() != 0)
 	{
 		ClearWall();
@@ -70,19 +70,19 @@ void ShapeCylinder::CreateWalls(void)
 }
 
 /*------------------------------------------------------------------------------
-	ˆÚ“®
+	ç§»å‹•
 ------------------------------------------------------------------------------*/
 void ShapeCylinder::Move(const Vector3& value)
 {
 	UpdatePosition( value);
 
-	//•Ç‚ÌXV
+	//å£ã®æ›´æ–°
 	for( auto wall : GetWalls())
 	{
 		wall->UpdateView( GetMatrix());
 	}
 
-	//‰®ª‚ÌXV
+	//å±‹æ ¹ã®æ›´æ–°
 	for (auto roof : GetRoofs())
 	{
 		roof->UpdatePosition( GetPosition());
@@ -90,19 +90,19 @@ void ShapeCylinder::Move(const Vector3& value)
 }
 
 /*------------------------------------------------------------------------------
-	‰ñ“]
+	å›è»¢
 ------------------------------------------------------------------------------*/
 void ShapeCylinder::Rotate( float value)
 {
 	UpdateRotation( value);
 
-	//•Ç‚ÌXV
+	//å£ã®æ›´æ–°
 	for( auto wall : GetWalls())
 	{
 		wall->UpdateView( GetMatrix());
 	}
 
-	//‰®ª‚ÌXV
+	//å±‹æ ¹ã®æ›´æ–°
 	for (auto roof : GetRoofs())
 	{
 		roof->UpdateRotation( GetRotation());
@@ -110,17 +110,17 @@ void ShapeCylinder::Rotate( float value)
 }
 
 /*------------------------------------------------------------------------------
-	Šg‘åk¬i•Ï‰»—Êj
+	æ‹¡å¤§ç¸®å°ï¼ˆå¤‰åŒ–é‡ï¼‰
 ------------------------------------------------------------------------------*/
 void ShapeCylinder::ScaleUpDown(const Vector3& value)
 {
 	m_Radius += value.x;
 	m_Height += value.y;
 
-	//•Ç‚ÌXV
+	//å£ã®æ›´æ–°
 	CreateWalls();
 
-	//‰®ª‚ÌXV
+	//å±‹æ ¹ã®æ›´æ–°
 	for (auto roof : GetRoofs())
 	{
 		roof->UpdateSize( Vector3(m_Radius * 2.0f, m_Height, m_Radius * 2.0f));
@@ -128,17 +128,17 @@ void ShapeCylinder::ScaleUpDown(const Vector3& value)
 }
 
 /*------------------------------------------------------------------------------
-	Šg‘åk¬i”ä—¦E“™”{j
+	æ‹¡å¤§ç¸®å°ï¼ˆæ¯”ç‡ãƒ»ç­‰å€ï¼‰
 ------------------------------------------------------------------------------*/
 void ShapeCylinder::ScaleRate( float rate)
 {
 	m_Radius *= rate;
 	m_Height *= rate;
 
-	//•Ç‚ÌXV
+	//å£ã®æ›´æ–°
 	CreateWalls();
 
-	//‰®ª‚ÌXV
+	//å±‹æ ¹ã®æ›´æ–°
 	for (auto roof : GetRoofs())
 	{
 		roof->UpdateSize( Vector3(m_Radius * 2.0f, m_Height, m_Radius * 2.0f));
@@ -146,17 +146,17 @@ void ShapeCylinder::ScaleRate( float rate)
 }
 
 /*------------------------------------------------------------------------------
-	Šg‘åk¬i”ä—¦j
+	æ‹¡å¤§ç¸®å°ï¼ˆæ¯”ç‡ï¼‰
 ------------------------------------------------------------------------------*/
 void ShapeCylinder::ScaleRate(const Vector3& rate)
 {
 	m_Radius *= rate.x;
 	m_Height *= rate.y;
 
-	//•Ç‚ÌXV
+	//å£ã®æ›´æ–°
 	CreateWalls();
 
-	//‰®ª‚ÌXV
+	//å±‹æ ¹ã®æ›´æ–°
 	for (auto roof : GetRoofs())
 	{
 		roof->UpdateSize( Vector3(m_Radius * 2.0f, m_Height, m_Radius * 2.0f));
@@ -164,36 +164,36 @@ void ShapeCylinder::ScaleRate(const Vector3& rate)
 }
 
 /*------------------------------------------------------------------------------
-	Œ`ó‚ğŠm’è‚³‚¹‚é
+	å½¢çŠ¶ã‚’ç¢ºå®šã•ã›ã‚‹
 ------------------------------------------------------------------------------*/
 void ShapeCylinder::ConfirmShape(void)
 {
-	//•Ç‚ğŠÂóƒŠƒXƒg‚É‚·‚é
+	//å£ã‚’ç’°çŠ¶ãƒªã‚¹ãƒˆã«ã™ã‚‹
 	GetWalls().front()->ChangeRingList();
 }
 
 /*------------------------------------------------------------------------------
-	“_‚Æ‚Ì“–‚½‚è”»’è
+	ç‚¹ã¨ã®å½“ãŸã‚Šåˆ¤å®š
 ------------------------------------------------------------------------------*/
 bool ShapeCylinder::CollisionPoint(const Vector3& point)
 {
-	//‚‚³‚Ì”»’è
+	//é«˜ã•ã®åˆ¤å®š
 	if (point.y > m_Height - 1.0f)
 	{
-		//Õ“Ë‚È‚µ
+		//è¡çªãªã—
 		return false;
 	}
 
-	//’†S‚©‚ç‚Ì‹——£‚Å”»’è
+	//ä¸­å¿ƒã‹ã‚‰ã®è·é›¢ã§åˆ¤å®š
 	auto center = GetPosition();
 	Vector3 vec( center.x - point.x, 0.0f, center.z - point.z);
 	if (vec.Length() < m_Radius)
 	{
-		//Õ“Ë‚ ‚è
+		//è¡çªã‚ã‚Š
 		return true;
 	}
 
-	//Õ“Ë‚È‚µ
+	//è¡çªãªã—
 	return false;
 }
 

@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    Builder.cpp - Œš•¨‚Ì©“®¶¬[Œš•¨‘g‚İ—§‚Ä
+    Builder.cpp - å»ºç‰©ã®è‡ªå‹•ç”Ÿæˆãƒ¼å»ºç‰©çµ„ã¿ç«‹ã¦
                                                        Author : Yutaka Suganuma
                                                        Date   : 2018/2/5
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
 #include "BuildingParameter.h"
@@ -21,7 +21,7 @@
 #include "BuildingSurfacePattern.h"
 
 /*------------------------------------------------------------------------------
-	Œš•¨‘g‚İ—§‚Ä
+	å»ºç‰©çµ„ã¿ç«‹ã¦
 ------------------------------------------------------------------------------*/
 bool Builder::operator() (BuildingGeometry* geometry, GeometryParameter* parameter, BuildingSurfacePattern* surfacePattern)
 {
@@ -29,7 +29,7 @@ bool Builder::operator() (BuildingGeometry* geometry, GeometryParameter* paramet
 	m_Parameter = parameter;
 	m_SurfacePattern = surfacePattern;
 
-	//Œ`ó‚Ì¶¬
+	//å½¢çŠ¶ã®ç”Ÿæˆ
 	auto shapeParameters = parameter->m_ShapeParameters;
 	for (auto shapeParameter : shapeParameters)
 	{
@@ -37,21 +37,21 @@ bool Builder::operator() (BuildingGeometry* geometry, GeometryParameter* paramet
 		{
 		case eShapeBox:
 			{
-				//Œ`ó‚Ì¶¬
+				//å½¢çŠ¶ã®ç”Ÿæˆ
 				auto shape = CreateShapeBox( shapeParameter);
 
-				//ƒtƒƒA‚Ì¶¬
+				//ãƒ•ãƒ­ã‚¢ã®ç”Ÿæˆ
 				for (auto wall : shape->GetWalls())
 				{
 					CreateFloor( wall);
 
-					//ƒ^ƒCƒ‹‚Ì¶¬
+					//ã‚¿ã‚¤ãƒ«ã®ç”Ÿæˆ
 					for (auto floor : wall->GetFloors())
 					{
 						CreateTile( floor);
 					}
 
-					//•Ç•`‰æ‚ÌXV
+					//å£æç”»ã®æ›´æ–°
 					wall->UpdateView( shape->GetMatrix());
 				}
 				break;
@@ -59,21 +59,21 @@ bool Builder::operator() (BuildingGeometry* geometry, GeometryParameter* paramet
 
 		case eShapeCylinder:
 			{
-				//Œ`ó‚Ì¶¬
+				//å½¢çŠ¶ã®ç”Ÿæˆ
 				auto shape = CreateShapeCylinder( shapeParameter);
 
-				//ƒtƒƒA‚Ì¶¬
+				//ãƒ•ãƒ­ã‚¢ã®ç”Ÿæˆ
 				for (auto wall : shape->GetWalls())
 				{
 					CreateFloorCurve( wall);
 
-					//ƒ^ƒCƒ‹‚Ì¶¬
+					//ã‚¿ã‚¤ãƒ«ã®ç”Ÿæˆ
 					for (auto floor : wall->GetFloors())
 					{
 						CreateTileCurve( floor);
 					}
 
-					//•Ç•`‰æ‚ÌXV
+					//å£æç”»ã®æ›´æ–°
 					wall->UpdateView( shape->GetMatrix());
 				}
 				break;
@@ -85,44 +85,44 @@ bool Builder::operator() (BuildingGeometry* geometry, GeometryParameter* paramet
 }
 
 /*------------------------------------------------------------------------------
-	Œ`óilŠp’Œj‚Ì¶¬
+	å½¢çŠ¶ï¼ˆå››è§’æŸ±ï¼‰ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 ShapeBox* Builder::CreateShapeBox( ShapeParameter* parameter)
 {
-	//Œ`ó‚Ì¶¬
+	//å½¢çŠ¶ã®ç”Ÿæˆ
 	auto shape = new ShapeBox( m_Geometry->m_pGameObject);
 	shape->Init( parameter->m_Position, parameter->m_Rotation, parameter->m_Size);
 	m_Geometry->AddShape( shape);
 
-	//•\–Êƒpƒ^[ƒ“‚Ìƒ‰ƒ“ƒ_ƒ€‚ÌƒV[ƒh’l‚ğİ’è
+	//è¡¨é¢ãƒ‘ã‚¿ãƒ¼ãƒ³ã®ãƒ©ãƒ³ãƒ€ãƒ ã®ã‚·ãƒ¼ãƒ‰å€¤ã‚’è¨­å®š
 	m_SurfacePattern->SetSeed( m_Parameter->m_RandomSeed);
 
 	return shape;
 }
 
 /*------------------------------------------------------------------------------
-	Œ`ói‰~’Œj‚Ì¶¬
+	å½¢çŠ¶ï¼ˆå††æŸ±ï¼‰ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 ShapeCylinder* Builder::CreateShapeCylinder( ShapeParameter* parameter)
 {
-	//Œ`ó‚Ì¶¬
+	//å½¢çŠ¶ã®ç”Ÿæˆ
 	auto shape = new ShapeCylinder( m_Geometry->m_pGameObject);
 	float radius = ( parameter->m_Size.x + parameter->m_Size.z) * 0.25f;
 	shape->Init( parameter->m_Position, parameter->m_Rotation, parameter->m_Size.y, radius);
 	m_Geometry->AddShape( shape);
 
-	//•\–Êƒpƒ^[ƒ“‚Ìƒ‰ƒ“ƒ_ƒ€‚ÌƒV[ƒh’l‚ğİ’è
+	//è¡¨é¢ãƒ‘ã‚¿ãƒ¼ãƒ³ã®ãƒ©ãƒ³ãƒ€ãƒ ã®ã‚·ãƒ¼ãƒ‰å€¤ã‚’è¨­å®š
 	m_SurfacePattern->SetSeed( m_Parameter->m_RandomSeed);
 
 	return shape;
 }
 
 /*------------------------------------------------------------------------------
-	ƒtƒƒA‚Ì¶¬
+	ãƒ•ãƒ­ã‚¢ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 bool Builder::CreateFloor( Wall* wall)
 {
-	//ƒeƒNƒXƒ`ƒƒ‚Ìİ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è¨­å®š
 	wall->LoadTexture( m_SurfacePattern->GetTextureFileName());
 
 	float height = wall->GetHeight();
@@ -131,14 +131,14 @@ bool Builder::CreateFloor( Wall* wall)
 	auto normal = wall->GetNormal();
 	Floor* floor = NULL;
 
-	//1ŠK
+	//1éš
 	floor = new Floor();
 	floor->InitDefault( m_Parameter->m_GroundFloorHeight, width, bottomLeft, normal, eFloorGround);
 	wall->AddFloor( floor);
 	height -= m_Parameter->m_GroundFloorHeight;
 	bottomLeft.y += m_Parameter->m_GroundFloorHeight;
 
-	//‚»‚êˆÈŠO‚ÌƒtƒƒA
+	//ãã‚Œä»¥å¤–ã®ãƒ•ãƒ­ã‚¢
 	for (;;)
 	{
 		if (height < m_Parameter->m_FloorHeight)
@@ -152,7 +152,7 @@ bool Builder::CreateFloor( Wall* wall)
 		bottomLeft.y += m_Parameter->m_FloorHeight;
 	}
 
-	//ã•”‚É—]”’
+	//ä¸Šéƒ¨ã«ä½™ç™½
 	floor = new Floor();
 	floor->InitDefault( height, width, bottomLeft, normal, eFloorMargin);
 	wall->AddFloor( floor);
@@ -161,11 +161,11 @@ bool Builder::CreateFloor( Wall* wall)
 }
 
 /*------------------------------------------------------------------------------
-	ƒtƒƒA‚Ì¶¬i‰~‚É‰ˆ‚Á‚Ä‹È‚ª‚éj
+	ãƒ•ãƒ­ã‚¢ã®ç”Ÿæˆï¼ˆå††ã«æ²¿ã£ã¦æ›²ãŒã‚‹ï¼‰
 ------------------------------------------------------------------------------*/
 bool Builder::CreateFloorCurve( Wall* wall)
 {
-	//ƒeƒNƒXƒ`ƒƒ‚Ìİ’è
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®è¨­å®š
 	wall->LoadTexture( m_SurfacePattern->GetTextureFileName());
 
 	float height = wall->GetHeight();
@@ -173,14 +173,14 @@ bool Builder::CreateFloorCurve( Wall* wall)
 	Vector3 bottomLeft = wall->GetBottomLeftPosition();
 	Floor* floor = NULL;
 
-	//1ŠK
+	//1éš
 	floor = new Floor();
 	floor->InitCurve( m_Parameter->m_GroundFloorHeight, width, bottomLeft, eFloorGround);
 	wall->AddFloor( floor);
 	height -= m_Parameter->m_GroundFloorHeight;
 	bottomLeft.y += m_Parameter->m_GroundFloorHeight;
 
-	//‚»‚êˆÈŠO‚ÌƒtƒƒA
+	//ãã‚Œä»¥å¤–ã®ãƒ•ãƒ­ã‚¢
 	for (;;)
 	{
 		if (height < m_Parameter->m_FloorHeight)
@@ -194,7 +194,7 @@ bool Builder::CreateFloorCurve( Wall* wall)
 		bottomLeft.y += m_Parameter->m_FloorHeight;
 	}
 
-	//ã•”‚É—]”’
+	//ä¸Šéƒ¨ã«ä½™ç™½
 	floor = new Floor();
 	floor->InitCurve( height, width, bottomLeft, eFloorMargin);
 	wall->AddFloor( floor);
@@ -203,7 +203,7 @@ bool Builder::CreateFloorCurve( Wall* wall)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ^ƒCƒ‹‚Ì¶¬
+	ã‚¿ã‚¤ãƒ«ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 bool Builder::CreateTile( Floor* floor)
 {
@@ -215,7 +215,7 @@ bool Builder::CreateTile( Floor* floor)
 	TileDefault* tile = NULL;
 	TileDefault* tileNext = NULL;
 
-	//•‚ª‘‹‚æ‚è‘«‚è‚È‚¢ê‡•Ç‚Ì‚İİ’è
+	//å¹…ãŒçª“ã‚ˆã‚Šè¶³ã‚Šãªã„å ´åˆå£ã®ã¿è¨­å®š
 	if (width < m_Parameter->m_WindowWidth)
 	{
 		tile = new TileDefault();
@@ -224,7 +224,7 @@ bool Builder::CreateTile( Floor* floor)
 		return true;
 	}
 
-	//‹«ŠE‚Ìİ’è
+	//å¢ƒç•Œã®è¨­å®š
 	if (floor->GetType() == eFloorBorder)
 	{
 		tile = new TileDefault();
@@ -236,7 +236,7 @@ bool Builder::CreateTile( Floor* floor)
 	int countWindow = (int)( width / m_Parameter->m_WindowWidth);
 	float wallWidth = ( width - countWindow * m_Parameter->m_WindowWidth) * 0.5f;
 
-	//1ŠK‚Ìİ’èi•ÇA“üŒûA‘‹A•Çj
+	//1éšã®è¨­å®šï¼ˆå£ã€å…¥å£ã€çª“ã€å£ï¼‰
 	if (floor->GetType() == eFloorGround)
 	{
 		if (width > m_Parameter->m_EntranceWidth + wallWidth * 2.0f)
@@ -273,7 +273,7 @@ bool Builder::CreateTile( Floor* floor)
 		}
 	}
 
-	//—]”’‚Ìİ’èi‚·‚×‚Ä•Çj
+	//ä½™ç™½ã®è¨­å®šï¼ˆã™ã¹ã¦å£ï¼‰
 	if (floor->GetType() == eFloorMargin)
 	{
 		tile = new TileDefault();
@@ -297,7 +297,7 @@ bool Builder::CreateTile( Floor* floor)
 		return true;
 	}
 
-	//ƒfƒtƒHƒ‹ƒg‚Ìİ’èi‘‹‚Æ—¼’[‚É•Çj
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®è¨­å®šï¼ˆçª“ã¨ä¸¡ç«¯ã«å£ï¼‰
 	tile = new TileDefault();
 	floor->SetTile( tile);
 	tile->Init( height, wallWidth, bottomLeftPosition, normal, eTileWall, m_SurfacePattern->GetWall());
@@ -321,7 +321,7 @@ bool Builder::CreateTile( Floor* floor)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ^ƒCƒ‹‚Ì¶¬i‰~‚É‰ˆ‚Á‚Ä‹È‚ª‚éj
+	ã‚¿ã‚¤ãƒ«ã®ç”Ÿæˆï¼ˆå††ã«æ²¿ã£ã¦æ›²ãŒã‚‹ï¼‰
 ------------------------------------------------------------------------------*/
 bool Builder::CreateTileCurve( Floor* floor)
 {
@@ -331,7 +331,7 @@ bool Builder::CreateTileCurve( Floor* floor)
 	TileCurve* tile = NULL;
 	TileCurve* tileNext = NULL;
 
-	//•‚ª‘‹‚æ‚è‘«‚è‚È‚¢ê‡•Ç‚Ì‚İİ’è
+	//å¹…ãŒçª“ã‚ˆã‚Šè¶³ã‚Šãªã„å ´åˆå£ã®ã¿è¨­å®š
 	if (width < m_Parameter->m_WindowWidth)
 	{
 		tile = new TileCurve();
@@ -340,7 +340,7 @@ bool Builder::CreateTileCurve( Floor* floor)
 		return true;
 	}
 
-	//‹«ŠE‚Ìİ’è
+	//å¢ƒç•Œã®è¨­å®š
 	if (floor->GetType() == eFloorBorder)
 	{
 		tile = new TileCurve();
@@ -352,7 +352,7 @@ bool Builder::CreateTileCurve( Floor* floor)
 	int countWindow = (int)( width / m_Parameter->m_WindowWidth);
 	float wallWidth = ( width - countWindow * m_Parameter->m_WindowWidth) * 0.5f;
 
-	//1ŠK‚Ìİ’èi•ÇA“üŒûA‘‹A•Çj
+	//1éšã®è¨­å®šï¼ˆå£ã€å…¥å£ã€çª“ã€å£ï¼‰
 	if (floor->GetType() == eFloorGround)
 	{
 		if (width > m_Parameter->m_EntranceWidth + wallWidth * 2.0f)
@@ -389,7 +389,7 @@ bool Builder::CreateTileCurve( Floor* floor)
 		}
 	}
 
-	//—]”’‚Ìİ’èi‚·‚×‚Ä•Çj
+	//ä½™ç™½ã®è¨­å®šï¼ˆã™ã¹ã¦å£ï¼‰
 	if (floor->GetType() == eFloorMargin)
 	{
 		tile = new TileCurve();
@@ -413,7 +413,7 @@ bool Builder::CreateTileCurve( Floor* floor)
 		return true;
 	}
 
-	//ƒfƒtƒHƒ‹ƒg‚Ìİ’èi‚·‚×‚Ä‘‹j
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®è¨­å®šï¼ˆã™ã¹ã¦çª“ï¼‰
 	float windowWidth = width / (float)countWindow;
 
 	tile = new TileCurve();
@@ -434,7 +434,7 @@ bool Builder::CreateTileCurve( Floor* floor)
 }
 
 /*------------------------------------------------------------------------------
-	‰~‚É‰ˆ‚Á‚Ä¶‰ºÀ•W‚ğˆÚ“®‚·‚é
+	å††ã«æ²¿ã£ã¦å·¦ä¸‹åº§æ¨™ã‚’ç§»å‹•ã™ã‚‹
 ------------------------------------------------------------------------------*/
 Vector3 Builder::MoveBottomLeftPosition( const Vector3& bottomLeftPosition, float angle)
 {

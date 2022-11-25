@@ -1,53 +1,53 @@
 /*==============================================================================
 
-    SoundManager.cpp - ƒTƒEƒ“ƒhŠÇ—
+    SoundManager.cpp - ã‚µã‚¦ãƒ³ãƒ‰ç®¡ç†
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/7/17
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "SoundManager.h"
 #include "SoundData.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 SoundManager::SoundManager(HWND hWnd)
 {
 	HRESULT hr;
 
-	// COMƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»
+	// COMãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®åˆæœŸåŒ–
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);
 
-	// XAudio2ƒIƒuƒWƒFƒNƒg‚Ìì¬
+	// XAudio2ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½œæˆ
 	hr = XAudio2Create(&m_pXAudio2, 0);
 	if(FAILED(hr))
 	{
-		MessageBox(hWnd, "XAudio2ƒIƒuƒWƒFƒNƒg‚Ìì¬‚É¸”sI", "ŒxI", MB_ICONWARNING);
+		MessageBox(hWnd, "XAudio2ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½œæˆã«å¤±æ•—ï¼", "è­¦å‘Šï¼", MB_ICONWARNING);
 
-		// COMƒ‰ƒCƒuƒ‰ƒŠ‚ÌI—¹ˆ—
+		// COMãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®çµ‚äº†å‡¦ç†
 		//CoUninitialize();
 
 		assert(false);
 		return;
 	}
 	
-	// ƒ}ƒXƒ^[ƒ{ƒCƒX‚Ì¶¬
+	// ãƒã‚¹ã‚¿ãƒ¼ãƒœã‚¤ã‚¹ã®ç”Ÿæˆ
 	hr = m_pXAudio2->CreateMasteringVoice(&m_pMasteringVoice);
 	if(FAILED(hr))
 	{
-		MessageBox(hWnd, "ƒ}ƒXƒ^[ƒ{ƒCƒX‚Ì¶¬‚É¸”sI", "ŒxI", MB_ICONWARNING);
+		MessageBox(hWnd, "ãƒã‚¹ã‚¿ãƒ¼ãƒœã‚¤ã‚¹ã®ç”Ÿæˆã«å¤±æ•—ï¼", "è­¦å‘Šï¼", MB_ICONWARNING);
 
 		if(m_pXAudio2)
 		{
-			// XAudio2ƒIƒuƒWƒFƒNƒg‚ÌŠJ•ú
+			// XAudio2ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é–‹æ”¾
 			m_pXAudio2->Release();
 			m_pXAudio2 = NULL;
 		}
 
-		// COMƒ‰ƒCƒuƒ‰ƒŠ‚ÌI—¹ˆ—
+		// COMãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®çµ‚äº†å‡¦ç†
 		//CoUninitialize();
 
 		assert(false);
@@ -56,41 +56,41 @@ SoundManager::SoundManager(HWND hWnd)
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 SoundManager::~SoundManager()
 {
-	//ƒf[ƒ^‚Ì‰ğ•ú
+	//ãƒ‡ãƒ¼ã‚¿ã®è§£æ”¾
 	for (auto ite = m_mapData.begin(); ite != m_mapData.end(); ++ite)
 	{
 		delete ite->second;
 	}
 	m_mapData.clear();
 
-	//ƒ}ƒXƒ^[ƒ{ƒCƒX‚Ì”jŠü
+	//ãƒã‚¹ã‚¿ãƒ¼ãƒœã‚¤ã‚¹ã®ç ´æ£„
 	m_pMasteringVoice->DestroyVoice();
 	m_pMasteringVoice = NULL;
 	
 	if(m_pXAudio2)
 	{
-		//XAudio2ƒIƒuƒWƒFƒNƒg‚Ì‰ğ•ú
+		//XAudio2ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è§£æ”¾
 		m_pXAudio2->Release();
 		m_pXAudio2 = NULL;
 	}
 	
-	//COMƒ‰ƒCƒuƒ‰ƒŠ‚ÌI—¹ˆ—
+	//COMãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®çµ‚äº†å‡¦ç†
 	//CoUninitialize();
 }
 
 /*------------------------------------------------------------------------------
-	ƒTƒEƒ“ƒh’Ç‰Á
+	ã‚µã‚¦ãƒ³ãƒ‰è¿½åŠ 
 ------------------------------------------------------------------------------*/
 SoundData* SoundManager::SetSound(std::string FileName, int nCntLoop)
 {
-	//‚·‚Å‚É‘¶İ‚·‚é‚©
+	//ã™ã§ã«å­˜åœ¨ã™ã‚‹ã‹
 	if (m_mapData.find(FileName) == m_mapData.end())
 	{
-		//¶¬‚µ‚Äƒ}ƒbƒv‚É’Ç‰Á
+		//ç”Ÿæˆã—ã¦ãƒãƒƒãƒ—ã«è¿½åŠ 
 		m_mapData[ FileName] = new SoundData( FileName, nCntLoop, m_pXAudio2);
 	}
 

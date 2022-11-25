@@ -1,4 +1,4 @@
-//\‘¢‘Ì’è‹`
+//æ§‹é€ ä½“å®šç¾©
 struct VS_INPUT
 {
 	float3 pos : POSITION0;
@@ -15,13 +15,13 @@ struct OM_INPUT
 	float4 col : COLOR;
 };
 
-//ƒOƒ[ƒoƒ‹•Ï”’è‹`
+//ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°å®šç¾©
 float4x4 g_mtxWorld;
 float4x4 g_mtxView;
 float4x4 g_mtxProj;
 float g_far;
 
-//’¸“_ƒVƒF[ƒ_[
+//é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 PS_INPUT vs(VS_INPUT input)
 {
 	PS_INPUT output;
@@ -34,13 +34,13 @@ PS_INPUT vs(VS_INPUT input)
 	return output;
 }
 
-//ƒsƒNƒZƒ‹ƒVƒF[ƒ_[
+//ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 float4 ps(PS_INPUT input) : COLOR0
 {
 	return (float4)input.depthWV;
 }
 
-//ƒeƒNƒjƒbƒN
+//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯
 technique TShader
 {
 	pass P0
@@ -51,7 +51,7 @@ technique TShader
 		ZFunc = LESSEQUAL;
 	}
 
-	pass P1		//‚æ‚Ñ
+	pass P1		//ã‚ˆã³
 	{
 		VertexShader = compile vs_3_0 vs();
 		PixelShader = compile ps_3_0 ps();
@@ -59,7 +59,7 @@ technique TShader
 		ZFunc = LESSEQUAL;
 	}
 
-	pass P2		//‚æ‚Ñ
+	pass P2		//ã‚ˆã³
 	{
 		VertexShader = compile vs_3_0 vs();
 		PixelShader = compile ps_3_0 ps();

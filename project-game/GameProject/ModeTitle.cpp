@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    ModeTitle.cpp - ƒ^ƒCƒgƒ‹ƒ‚[ƒh
+    ModeTitle.cpp - ã‚¿ã‚¤ãƒˆãƒ«ãƒ¢ãƒ¼ãƒ‰
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/6/22
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "ModeTitle.h"
 #include "GameObject.h"
@@ -18,15 +18,15 @@
 #include "TitleController.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 ModeTitle::ModeTitle()
 {
-	//‰½‚à‚µ‚È‚¢
+	//ä½•ã‚‚ã—ãªã„
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 ModeTitle::~ModeTitle()
 {
@@ -34,33 +34,33 @@ ModeTitle::~ModeTitle()
 }
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»
+	åˆæœŸåŒ–
 ------------------------------------------------------------------------------*/
 void ModeTitle::Init()
 {
-	//ƒm[ƒh‚Ìæ“ª
+	//ãƒŽãƒ¼ãƒ‰ã®å…ˆé ­
 	m_pRoot = new GameObject( NULL);
 	
-	//ƒIƒuƒWƒFƒNƒg¶¬
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç”Ÿæˆ
 	GameObject *pObj;
 
-	//ƒ^ƒCƒgƒ‹
+	//ã‚¿ã‚¤ãƒˆãƒ«
 	pObj = new GameObject(m_pRoot);
 	pObj->AddComponent<TitleController>();
 
-	//ƒJƒƒ‰
+	//ã‚«ãƒ¡ãƒ©
 	GameObject *pCamera = new GameObject( m_pRoot);
 	pCamera->AddComponent<Camera>();
-	Manager::GetRenderManager()->SetMainCamera( pCamera->GetComponent<Camera>());	//ƒƒCƒ“ƒJƒƒ‰‚ÉÝ’è
+	Manager::GetRenderManager()->SetMainCamera( pCamera->GetComponent<Camera>());	//ãƒ¡ã‚¤ãƒ³ã‚«ãƒ¡ãƒ©ã«è¨­å®š
 	pCamera->GetComponent<Transform>()->SetLocalPosition( Vector3( 0.0f, 2.5f, -2.5f));
 	pCamera->AddComponent<CameraController>();
 
-	//ƒ‰ƒCƒg
+	//ãƒ©ã‚¤ãƒˆ
 	GameObject *pLight = new GameObject( m_pRoot);
 	pLight->AddComponent<Light>();
 	pLight->GetComponent<Transform>()->SetLocalPosition( Vector3( 2.0f, 1.5f, -1.0f));
 
-	//“ü—ÍŽwŽ¦
+	//å…¥åŠ›æŒ‡ç¤º
 	pObj = new GameObject( m_pRoot);
 	auto renderer = pObj->AddComponent<SpriteRenderer>();
 	renderer->LoadTexture( "data/TEXTURE/press_enter.png");
@@ -70,11 +70,11 @@ void ModeTitle::Init()
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void ModeTitle::Update()
 {
-	//ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ÌXV
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ›´æ–°
 	m_pRoot->UpdateAll();
 }
 

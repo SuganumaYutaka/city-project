@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    SkinMeshShader.cpp - ƒXƒLƒ“ƒƒbƒVƒ…ƒVƒF[ƒ_[
+    SkinMeshShader.cpp - ã‚¹ã‚­ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/9/21
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "SkinMeshShader.h"
 #include "Renderer.h"
@@ -16,18 +16,18 @@
 #include "Light.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒžã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
-#define MAX_CLUSTER (58)		//ƒNƒ‰ƒXƒ^[‚ÌÅ‘å”iƒVƒF[ƒ_[‚É“n‚·‚½‚ßŒÅ’è’·j
+#define MAX_CLUSTER (58)		//ã‚¯ãƒ©ã‚¹ã‚¿ãƒ¼ã®æœ€å¤§æ•°ï¼ˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã«æ¸¡ã™ãŸã‚å›ºå®šé•·ï¼‰
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 SkinMeshShader::SkinMeshShader()
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//ƒfƒoƒCƒX‚Ìƒ|ƒCƒ“ƒ^
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//ãƒ‡ãƒã‚¤ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
 	
-	//’¸“_éŒ¾Ši”[ƒCƒ“ƒ^[ƒtƒFƒCƒXì¬
+	//é ‚ç‚¹å®£è¨€æ ¼ç´ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ä½œæˆ
 	D3DVERTEXELEMENT9 g_Dec1[] =
 	{
 		{ 0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0 },
@@ -39,17 +39,17 @@ SkinMeshShader::SkinMeshShader()
 	};
 	pDevice->CreateVertexDeclaration( g_Dec1, &m_pVertexDec);
 
-	//ƒVƒF[ƒ_‚Ì“Ç‚Ýž‚Ý
+	//ã‚·ã‚§ãƒ¼ãƒ€ã®èª­ã¿è¾¼ã¿
 	HRESULT hr;
-	ID3DXBuffer *pError;		//ƒRƒ“ƒpƒCƒ‹ƒGƒ‰[î•ñŠi”[ƒoƒbƒtƒ@
+	ID3DXBuffer *pError;		//ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã‚¨ãƒ©ãƒ¼æƒ…å ±æ ¼ç´ãƒãƒƒãƒ•ã‚¡
 	hr = D3DXCreateEffectFromFile(pDevice, "data/SHADER/SkinMeshShader.cso", NULL, NULL, D3DXSHADER_SKIPVALIDATION, NULL, &m_pEffect, &pError);
 	if( FAILED( hr))
 	{
-		MessageBox( NULL, "ƒVƒF[ƒ_[‚Ì“Ç‚Ýž‚Ý‚ÉŽ¸”s‚µ‚Ü‚µ‚½\n", "ƒGƒ‰[", MB_OK);
+		MessageBox( NULL, "ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		return;
 	}
 
-	//ƒnƒ“ƒhƒ‹‚ÌŽæ“¾
+	//ãƒãƒ³ãƒ‰ãƒ«ã®å–å¾—
 	m_hTech = m_pEffect->GetTechnique(0);
 	m_hMtxWorld = m_pEffect->GetParameterByName(0, "g_mtxWorld");
 	m_hMtxWorldInv = m_pEffect->GetParameterByName(0, "g_mtxWorldInv");
@@ -65,7 +65,7 @@ SkinMeshShader::SkinMeshShader()
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 SkinMeshShader::~SkinMeshShader()
 {
@@ -75,25 +75,25 @@ SkinMeshShader::~SkinMeshShader()
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[‚ðƒZƒbƒg
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚’ã‚»ãƒƒãƒˆ
 ------------------------------------------------------------------------------*/
 void SkinMeshShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMaterial, bool isAlreadySet)
 {
 	D3DXMATRIX mtxWorldInv = pRenderer->m_pTransform->WorldMatrix();
 	D3DXMatrixInverse( &mtxWorldInv, NULL, &mtxWorldInv);
 
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//ƒfƒoƒCƒX‚Ìƒ|ƒCƒ“ƒ^
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();	//ãƒ‡ãƒã‚¤ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
 	
 	if( !isAlreadySet)
 	{
-		//’¸“_éŒ¾
+		//é ‚ç‚¹å®£è¨€
 		pDevice->SetVertexDeclaration( m_pVertexDec);
 
-		//ƒeƒNƒjƒbƒN‚ÌÝ’è
+		//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯ã®è¨­å®š
 		m_pEffect->SetTechnique( m_hTech);
 	}
 
-	//’è”‚ðƒVƒF[ƒ_‚É“`‚¦‚é
+	//å®šæ•°ã‚’ã‚·ã‚§ãƒ¼ãƒ€ã«ä¼ãˆã‚‹
 	m_pEffect->SetMatrix( m_hMtxWorld, &pRenderer->m_pTransform->WorldMatrix());
 	m_pEffect->SetMatrix( m_hMtxWorldInv, &mtxWorldInv);
 	m_pEffect->SetMatrix( m_hMtxView, pCamera->GetViewMatrix());
@@ -102,7 +102,7 @@ void SkinMeshShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMateri
 	m_pEffect->SetVector( m_hMaterialAmb, pMaterial->GetAmbient());
 	m_pEffect->SetVector( m_hMaterialDif, pMaterial->GetDiffuse());
 	
-	//ƒ‰ƒCƒg‚ÌŽæ“¾
+	//ãƒ©ã‚¤ãƒˆã®å–å¾—
 	auto list = Light::GetList();
 	for (auto light : list)
 	{
@@ -112,32 +112,32 @@ void SkinMeshShader::Set(Camera* pCamera, Renderer* pRenderer, Material* pMateri
 		m_pEffect->SetVector( m_hLightDif, light->GetDiffuse());
 	}
 
-	//ƒNƒ‰ƒXƒ^[î•ñ‚ð‘—‚é
+	//ã‚¯ãƒ©ã‚¹ã‚¿ãƒ¼æƒ…å ±ã‚’é€ã‚‹
 	SkinMeshRenderer* pMesh = pRenderer->m_pGameObject->GetComponent<SkinMeshRenderer>();
 	if (pMesh == NULL)
 	{
-		MessageBox( NULL, "Œ»ÝFbxMeshRenderer‚Ì‚Ý‚ªSkinMeshShader‚ð—˜—p‚Å‚«‚Ü‚·", "ƒGƒ‰[", MB_OK);
+		MessageBox( NULL, "ç¾åœ¨FbxMeshRendererã®ã¿ãŒSkinMeshShaderã‚’åˆ©ç”¨ã§ãã¾ã™", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		return;
 	}
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“î•ñ‚ª‚ ‚é‚Æ‚«
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æƒ…å ±ãŒã‚ã‚‹ã¨ã
 	int numAnim = pMesh->GetAnimation().size();
 	if ( numAnim > 0)
 	{
-		int state = pMesh->GetSkinMeshModel()->GetAnimationState();	//Œ»Ý‚ÌƒAƒjƒ[ƒVƒ‡ƒ“
+		int state = pMesh->GetSkinMeshModel()->GetAnimationState();	//ç¾åœ¨ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 		auto anim = pMesh->GetAnimation( state);
 	
-		//Œ»Ý‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ÌŒ»Ý‚ÌƒtƒŒ[ƒ€‚ÌŽp¨s—ñ‚ð“n‚·
+		//ç¾åœ¨ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ç¾åœ¨ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®å§¿å‹¢è¡Œåˆ—ã‚’æ¸¡ã™
 		HRESULT hr = m_pEffect->SetMatrixArray( m_hClusters, 
 			anim.vecMatrix[pMesh->GetSkinMeshModel()->GetFrame() % anim.AllFrame].data(), 58);
 		if (hr == D3DERR_INVALIDCALL)
 		{
-			MessageBox( NULL, "ƒNƒ‰ƒXƒ^[ƒf[ƒ^‚ð‘—‚ê‚Ü‚¹‚ñ", "ƒGƒ‰[", MB_OK);
+			MessageBox( NULL, "ã‚¯ãƒ©ã‚¹ã‚¿ãƒ¼ãƒ‡ãƒ¼ã‚¿ã‚’é€ã‚Œã¾ã›ã‚“", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		}
 	}
 	else
 	{
-		MessageBox( NULL, "ƒAƒjƒ[ƒVƒ‡ƒ“î•ñ‚ª‚ ‚è‚Ü‚¹‚ñ", "ƒGƒ‰[", MB_OK);
+		MessageBox( NULL, "ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æƒ…å ±ãŒã‚ã‚Šã¾ã›ã‚“", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 	}
 
 	m_pEffect->CommitChanges();

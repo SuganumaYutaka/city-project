@@ -1,28 +1,28 @@
 /*==============================================================================
 
-    TextureManager.h - ƒeƒNƒXƒ`ƒƒŠÇ—
+    TextureManager.h - ãƒ†ã‚¯ã‚¹ãƒãƒ£ç®¡ç†
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/4/1
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "TextureManager.h"
 #include "Texture.h"
 #include "RenderTexture.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 TextureManager::TextureManager()
 {
-	//ƒfƒtƒHƒ‹ƒgƒeƒNƒXƒ`ƒƒ“Ç‚İ‚İ
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆãƒ†ã‚¯ã‚¹ãƒãƒ£èª­ã¿è¾¼ã¿
 	m_DefaultTexture = Load( DEFAULT_TEXTURE_FILE_NAME);
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 TextureManager::~TextureManager()
 {
@@ -35,40 +35,40 @@ TextureManager::~TextureManager()
 }
 
 /*------------------------------------------------------------------------------
-	ƒeƒNƒXƒ`ƒƒƒ[ƒh
-	ˆø”
+	ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ­ãƒ¼ãƒ‰
+	å¼•æ•°
 	const char* pFileName
-	–ß‚è’l
+	æˆ»ã‚Šå€¤
 	Texture *
 ------------------------------------------------------------------------------*/
 Texture *TextureManager::Load( std::string FileName)
 {
-	//‚·‚Å‚É“Ç‚İ‚Ü‚ê‚Ä‚¢‚é‚©
+	//ã™ã§ã«èª­ã¿è¾¼ã¾ã‚Œã¦ã„ã‚‹ã‹
 	auto iteTexture = m_mapTexture.find( FileName);
 	if (iteTexture != m_mapTexture.end())
 	{
 		return m_mapTexture[FileName];
 	}
 
-	//ƒ[ƒh
+	//ãƒ­ãƒ¼ãƒ‰
 	Texture *pTexture = new Texture( FileName);
 	m_mapTexture[FileName] = pTexture;
 	return pTexture;
 }
 
 /*------------------------------------------------------------------------------
-	ƒŒƒ“ƒ_[ƒeƒNƒXƒ`ƒƒ‚ğ¶¬
+	ãƒ¬ãƒ³ãƒ€ãƒ¼ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 RenderTexture *TextureManager::CreateRenderTexture( std::string TextureName, bool isBuckBuffer)
 {
-	//‚·‚Å‚Éì¬‚³‚ê‚Ä‚¢‚é‚©
+	//ã™ã§ã«ä½œæˆã•ã‚Œã¦ã„ã‚‹ã‹
 	auto iteTexture = m_mapTexture.find( TextureName);
 	if (iteTexture != m_mapTexture.end())
 	{
 		return (RenderTexture*)m_mapTexture[TextureName];
 	}
 
-	//ƒŒƒ“ƒ_[ƒeƒNƒXƒ`ƒƒ¶¬
+	//ãƒ¬ãƒ³ãƒ€ãƒ¼ãƒ†ã‚¯ã‚¹ãƒãƒ£ç”Ÿæˆ
 	RenderTexture* pRenderTexture = new RenderTexture( isBuckBuffer);
 	m_mapTexture[ TextureName] = pRenderTexture;
 	return pRenderTexture;

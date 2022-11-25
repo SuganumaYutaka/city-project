@@ -1,6 +1,6 @@
 /*==============================================================================
 	
-	Manager.h - ƒQ[ƒ€‘S‘Ì‚ÌŠÇ—
+	Manager.h - ã‚²ãƒ¼ãƒ å…¨ä½“ã®ç®¡ç†
 														Author : Yutaka Suganuma
 														Date   : 2017/5/10
 ==============================================================================*/
@@ -8,7 +8,7 @@
 #define _MANAGER_H_
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include <Windows.h>
 #include <stdio.h>
@@ -26,10 +26,10 @@
 #include <random>
 
 //DirectX9
-#include <d3dx9.h>	//<d3d9.h>‚àŠÜ‚Ü‚ê‚é
-#define DIRECTINPUT_VERSION (0x0800)		//‚±‚Ì‘g‚İ‡‚í‚¹‚Å‡”Ôç‚é‚æ‚¤‚É
-#include <dinput.h>	//“ü—Í
-#include <XAudio2.h>	//ƒTƒEƒ“ƒh
+#include <d3dx9.h>	//<d3d9.h>ã‚‚å«ã¾ã‚Œã‚‹
+#define DIRECTINPUT_VERSION (0x0800)		//ã“ã®çµ„ã¿åˆã‚ã›ã§é †ç•ªå®ˆã‚‹ã‚ˆã†ã«
+#include <dinput.h>	//å…¥åŠ›
+#include <XAudio2.h>	//ã‚µã‚¦ãƒ³ãƒ‰
 
 //boost
 //serialization
@@ -48,7 +48,7 @@
 #include "imgui.h"
 #include "imgui_impl_dx9.h"
 
-//”Ä—pƒNƒ‰ƒX
+//æ±ç”¨ã‚¯ãƒ©ã‚¹
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Text.h"
@@ -59,22 +59,22 @@
 #include "Random.h"
 
 /*------------------------------------------------------------------------------
-	ƒ‰ƒCƒuƒ‰ƒŠ‚ÌƒŠƒ“ƒN
+	ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ãƒªãƒ³ã‚¯
 ------------------------------------------------------------------------------*/
-#pragma comment(lib, "winmm.lib")		//ƒ}ƒ‹ƒ`ƒƒfƒBƒAiƒVƒXƒeƒ€æ“¾‚É•K—vj
+#pragma comment(lib, "winmm.lib")		//ãƒãƒ«ãƒãƒ¡ãƒ‡ã‚£ã‚¢ï¼ˆã‚·ã‚¹ãƒ†ãƒ æ™‚åˆ»å–å¾—ã«å¿…è¦ï¼‰
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
 #pragma comment(lib, "dxguid.lib")
-#pragma comment(lib, "dinput8.lib")		//“ü—Í
+#pragma comment(lib, "dinput8.lib")		//å…¥åŠ›
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
-#define RAND_INT( Range) ( Range / -2 + rand() % Range)										//®”ƒ‰ƒ“ƒ_ƒ€ƒ}ƒNƒ
-#define RAND_FLORT( Range) ( Range * -0.5f + (float)rand() / (float)RAND_MAX * Range)		//ƒtƒ[ƒg’lƒ‰ƒ“ƒ_ƒ€ƒ}ƒNƒ
+#define RAND_INT( Range) ( Range / -2 + rand() % Range)										//æ•´æ•°ãƒ©ãƒ³ãƒ€ãƒ ãƒã‚¯ãƒ­
+#define RAND_FLORT( Range) ( Range * -0.5f + (float)rand() / (float)RAND_MAX * Range)		//ãƒ•ãƒ­ãƒ¼ãƒˆå€¤ãƒ©ãƒ³ãƒ€ãƒ ãƒã‚¯ãƒ­
 
 /*------------------------------------------------------------------------------
-	‘O•ûéŒ¾
+	å‰æ–¹å®£è¨€
 ------------------------------------------------------------------------------*/
 class RenderManager;
 class TextureManager;
@@ -88,57 +88,57 @@ class Mode;
 class ComponentFactory;
 
 /*------------------------------------------------------------------------------
-	—ñ‹“Œ^’è‹`
+	åˆ—æŒ™å‹å®šç¾©
 ------------------------------------------------------------------------------*/
 typedef enum
 {
-	eLayerSky = 0,		//ƒXƒJƒC
-	eLayerBack,			//”wŒi
-	eLayerDefault,		//ƒfƒtƒHƒ‹ƒg
-	eLayerWireFrame,	//ƒƒCƒ„[ƒtƒŒ[ƒ€
-	eLayerAddBlend,		//‰ÁZ‡¬
-	eLayerBillboard,	//ƒrƒ‹ƒ{[ƒh
+	eLayerSky = 0,		//ã‚¹ã‚«ã‚¤
+	eLayerBack,			//èƒŒæ™¯
+	eLayerDefault,		//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
+	eLayerWireFrame,	//ãƒ¯ã‚¤ãƒ¤ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ 
+	eLayerAddBlend,		//åŠ ç®—åˆæˆ
+	eLayerBillboard,	//ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰
 	eLayerUI,			//UI
-	eLayerNum			//ƒŒƒCƒ„[”
+	eLayerNum			//ãƒ¬ã‚¤ãƒ¤ãƒ¼æ•°
 }E_LAYER;
 
 /*------------------------------------------------------------------------------
-	\‘¢‘Ì’è‹`
+	æ§‹é€ ä½“å®šç¾©
 ------------------------------------------------------------------------------*/
-//’¸“_î•ñ
+//é ‚ç‚¹æƒ…å ±
 //typedef struct
 //{
-//	D3DXVECTOR3 Pos;		//XYZƒNƒ‰ƒX
-//	D3DCOLOR Color;			//’¸“_ƒJƒ‰[
+//	D3DXVECTOR3 Pos;		//XYZã‚¯ãƒ©ã‚¹
+//	D3DCOLOR Color;			//é ‚ç‚¹ã‚«ãƒ©ãƒ¼
 //	D3DXVECTOR2 Tex;		//UV
 //}VERTEX_DEFAULT;
 
 typedef struct
 {
-	D3DXVECTOR3 Pos;		//XYZƒNƒ‰ƒX
-	D3DXVECTOR3 Normal;		//–@ü
-	D3DCOLOR Color;			//’¸“_ƒJƒ‰[
+	D3DXVECTOR3 Pos;		//XYZã‚¯ãƒ©ã‚¹
+	D3DXVECTOR3 Normal;		//æ³•ç·š
+	D3DCOLOR Color;			//é ‚ç‚¹ã‚«ãƒ©ãƒ¼
 	D3DXVECTOR2 Tex;		//UV
 }VERTEX_3D;
 
 typedef struct
 {
-	D3DXVECTOR3 Pos;		//’¸“_À•W
-	D3DCOLOR Color;			//’¸“_ƒJƒ‰[
-	D3DXVECTOR2 Tex;		//ƒeƒNƒXƒ`ƒƒÀ•W
+	D3DXVECTOR3 Pos;		//é ‚ç‚¹åº§æ¨™
+	D3DCOLOR Color;			//é ‚ç‚¹ã‚«ãƒ©ãƒ¼
+	D3DXVECTOR2 Tex;		//ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™
 } VERTEX_2D;
 
 typedef struct
 {
-	D3DXVECTOR3 Pos;				//’¸“_À•W
-	D3DXVECTOR3 Normal;				//–@ü
+	D3DXVECTOR3 Pos;				//é ‚ç‚¹åº§æ¨™
+	D3DXVECTOR3 Normal;				//æ³•ç·š
 	D3DXVECTOR2 Tex;				//UV
-	float Weight[4];				//ƒEƒFƒCƒg’l
-	unsigned char BornIndex[4];		//ƒ{[ƒ“‚ÌƒCƒ“ƒfƒbƒNƒX”Ô†
+	float Weight[4];				//ã‚¦ã‚§ã‚¤ãƒˆå€¤
+	unsigned char BornIndex[4];		//ãƒœãƒ¼ãƒ³ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·
 } VERTEX_SKIN_MESH;
 
 /*------------------------------------------------------------------------------
-	ƒNƒ‰ƒX’è‹`
+	ã‚¯ãƒ©ã‚¹å®šç¾©
 ------------------------------------------------------------------------------*/
 class Manager
 {
@@ -163,23 +163,23 @@ public:
 	void Draw(void);
 
 private:
-	static RenderManager *m_pRenderManager;			//ƒŒƒ“ƒ_[ƒ}ƒl[ƒWƒƒ[ƒ|ƒCƒ“ƒ^
-	static TextureManager *m_pTextureManager;		//ƒeƒNƒXƒ`ƒƒƒ}ƒl[ƒWƒƒ[ƒ|ƒCƒ“ƒ^
-	static XModelManager *m_pXModelManager;			//Xƒ‚ƒfƒ‹ƒ}ƒl[ƒWƒƒ[ƒ|ƒCƒ“ƒ^
-	static InputKeyboard *m_pInputKeyboard;			//ƒL[ƒ{[ƒhƒ|ƒCƒ“ƒ^
-	static InputMouse *m_pInputMouse;				//ƒ}ƒEƒXƒ|ƒCƒ“ƒ^
-	static CollisionManager *m_pCollisionManager;	//Õ“Ë”»’èƒ}ƒl[ƒWƒƒ[ƒ|ƒCƒ“ƒ^
-	static SoundManager *m_pSoundManager;			//ƒTƒEƒ“ƒhƒ}ƒl[ƒWƒƒ[
-	static ShaderManager *m_pShaderManager;			//ƒVƒF[ƒ_[ƒ}ƒl[ƒWƒƒ[
-	static ComponentFactory *m_pComponentFactory;	//ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬ƒtƒ@ƒNƒgƒŠ[
-	//static Mode *m_pMode;							//ƒ‚[ƒh
-	static std::stack<Mode*> m_stackMode;			//ƒ‚[ƒhiƒXƒ^ƒbƒNj
+	static RenderManager *m_pRenderManager;			//ãƒ¬ãƒ³ãƒ€ãƒ¼ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ãƒã‚¤ãƒ³ã‚¿
+	static TextureManager *m_pTextureManager;		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ãƒã‚¤ãƒ³ã‚¿
+	static XModelManager *m_pXModelManager;			//Xãƒ¢ãƒ‡ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ãƒã‚¤ãƒ³ã‚¿
+	static InputKeyboard *m_pInputKeyboard;			//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒã‚¤ãƒ³ã‚¿
+	static InputMouse *m_pInputMouse;				//ãƒã‚¦ã‚¹ãƒã‚¤ãƒ³ã‚¿
+	static CollisionManager *m_pCollisionManager;	//è¡çªåˆ¤å®šãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ãƒã‚¤ãƒ³ã‚¿
+	static SoundManager *m_pSoundManager;			//ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
+	static ShaderManager *m_pShaderManager;			//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
+	static ComponentFactory *m_pComponentFactory;	//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
+	//static Mode *m_pMode;							//ãƒ¢ãƒ¼ãƒ‰
+	static std::stack<Mode*> m_stackMode;			//ãƒ¢ãƒ¼ãƒ‰ï¼ˆã‚¹ã‚¿ãƒƒã‚¯ï¼‰
 
 	void ChangeMode( Mode *pNextMode);
 	static Mode *m_pNextMode;
 
-	HINSTANCE m_hInstance;				//ƒCƒ“ƒXƒ^ƒ“ƒX
-	HWND m_hWnd;						//ƒEƒCƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹
+	HINSTANCE m_hInstance;				//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+	HWND m_hWnd;						//ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®ãƒãƒ³ãƒ‰ãƒ«
 };
 
 

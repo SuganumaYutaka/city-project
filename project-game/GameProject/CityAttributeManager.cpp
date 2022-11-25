@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    CityAttributeManager.cpp - ’¬‚Ì©“®¶¬[‘®«î•ñŠÇ—
+    CityAttributeManager.cpp - ç”ºã®è‡ªå‹•ç”Ÿæˆãƒ¼å±æ€§æƒ…å ±ç®¡ç†
                                                        Author : Yutaka Suganuma
                                                        Date   : 2018/2/5
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "CityAttributeManager.h"
 #include "CityAttribute.h"
@@ -16,7 +16,7 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 CityAttributeManager::CityAttributeManager(GameObject* parent)
 {
@@ -24,7 +24,7 @@ CityAttributeManager::CityAttributeManager(GameObject* parent)
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 CityAttributeManager::~CityAttributeManager()
 {
@@ -60,7 +60,7 @@ CityAttributeManager::~CityAttributeManager()
 }
 
 /*------------------------------------------------------------------------------
-	‘®«î•ñ‚ÌƒNƒŠƒA
+	å±æ€§æƒ…å ±ã®ã‚¯ãƒªã‚¢
 ------------------------------------------------------------------------------*/
 void CityAttributeManager::Clear(void)
 {
@@ -96,7 +96,7 @@ void CityAttributeManager::Clear(void)
 }
 
 /*------------------------------------------------------------------------------
-	GameObject‚ÌÁ‹
+	GameObjectã®æ¶ˆå»
 ------------------------------------------------------------------------------*/
 void CityAttributeManager::DeleteGameObject(void)
 {
@@ -108,7 +108,7 @@ void CityAttributeManager::DeleteGameObject(void)
 }
 
 /*------------------------------------------------------------------------------
-	Œğ·“_‚ğ¶¬
+	äº¤å·®ç‚¹ã‚’ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 JunctionAttribute* CityAttributeManager::CreateJunctionAttribute(HalfEdgeDataStructure::Model* model, int modelID)
 {
@@ -117,7 +117,7 @@ JunctionAttribute* CityAttributeManager::CreateJunctionAttribute(HalfEdgeDataStr
 }
 
 /*------------------------------------------------------------------------------
-	Œğ·“_‚ğæ“¾
+	äº¤å·®ç‚¹ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 JunctionAttribute* CityAttributeManager::GetJunction(int id)
 {
@@ -130,7 +130,7 @@ JunctionAttribute* CityAttributeManager::GetJunction(int id)
 }
 
 /*------------------------------------------------------------------------------
-	Œğ·“_‚ÌID‚ğæ“¾
+	äº¤å·®ç‚¹ã®IDã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 int CityAttributeManager::GetJunctionID( JunctionAttribute* junction)
 {
@@ -143,12 +143,12 @@ int CityAttributeManager::GetJunctionID( JunctionAttribute* junction)
 		}
 	}
 
-	//”­Œ©‚Å‚«‚È‚¢
+	//ç™ºè¦‹ã§ããªã„
 	return -1;
 }
 
 /*------------------------------------------------------------------------------
-	“o˜^‚ğ‰ğœ
+	ç™»éŒ²ã‚’è§£é™¤
 ------------------------------------------------------------------------------*/
 bool CityAttributeManager::UnregisterJunction( JunctionAttribute* junction)
 {
@@ -166,7 +166,7 @@ bool CityAttributeManager::UnregisterJunction( JunctionAttribute* junction)
 }
 
 /*------------------------------------------------------------------------------
-	“¹˜H‚ğ¶¬
+	é“è·¯ã‚’ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 RoadAttribute* CityAttributeManager::CreateRoadAttribute(HalfEdgeDataStructure::Model* model, int modelID)
 {
@@ -175,7 +175,7 @@ RoadAttribute* CityAttributeManager::CreateRoadAttribute(HalfEdgeDataStructure::
 }
 
 /*------------------------------------------------------------------------------
-	“¹˜H‚ğæ“¾
+	é“è·¯ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 RoadAttribute* CityAttributeManager::GetRoad(int id)
 {
@@ -188,7 +188,7 @@ RoadAttribute* CityAttributeManager::GetRoad(int id)
 }
 
 /*------------------------------------------------------------------------------
-	“¹˜H‚ÌID‚ğæ“¾
+	é“è·¯ã®IDã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 int CityAttributeManager::GetRoadID( RoadAttribute* road)
 {
@@ -201,12 +201,12 @@ int CityAttributeManager::GetRoadID( RoadAttribute* road)
 		}
 	}
 
-	//”­Œ©‚Å‚«‚È‚¢
+	//ç™ºè¦‹ã§ããªã„
 	return -1;
 }
 
 /*------------------------------------------------------------------------------
-	“o˜^‚ğ‰ğœ
+	ç™»éŒ²ã‚’è§£é™¤
 ------------------------------------------------------------------------------*/
 bool CityAttributeManager::UnregisterRoad( RoadAttribute* road)
 {
@@ -224,7 +224,7 @@ bool CityAttributeManager::UnregisterRoad( RoadAttribute* road)
 }
 
 /*------------------------------------------------------------------------------
-	‹æ‰æ‚ğ¶¬
+	åŒºç”»ã‚’ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 BlockAttribute* CityAttributeManager::CreateBlockAttribute(HalfEdgeDataStructure::Model* model, int modelID)
 {
@@ -233,7 +233,7 @@ BlockAttribute* CityAttributeManager::CreateBlockAttribute(HalfEdgeDataStructure
 }
 
 /*------------------------------------------------------------------------------
-	‹æ‰æ‚ğæ“¾
+	åŒºç”»ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 BlockAttribute* CityAttributeManager::GetBlock(int id)
 {
@@ -246,7 +246,7 @@ BlockAttribute* CityAttributeManager::GetBlock(int id)
 }
 
 /*------------------------------------------------------------------------------
-	‹æ‰æ‚ÌID‚ğæ“¾
+	åŒºç”»ã®IDã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 int CityAttributeManager::GetBlockID( BlockAttribute* block)
 {
@@ -259,12 +259,12 @@ int CityAttributeManager::GetBlockID( BlockAttribute* block)
 		}
 	}
 
-	//”­Œ©‚Å‚«‚È‚¢
+	//ç™ºè¦‹ã§ããªã„
 	return -1;
 }
 
 /*------------------------------------------------------------------------------
-	“o˜^‚ğ‰ğœ
+	ç™»éŒ²ã‚’è§£é™¤
 ------------------------------------------------------------------------------*/
 bool CityAttributeManager::UnregisterBlock( BlockAttribute* block)
 {

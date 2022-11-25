@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    BuildingGeometry.cpp - Œš•¨‚Ì©“®¶¬[Œš•¨ƒWƒIƒƒgƒŠ
+    BuildingGeometry.cpp - å»ºç‰©ã®è‡ªå‹•ç”Ÿæˆãƒ¼å»ºç‰©ã‚¸ã‚ªãƒ¡ãƒˆãƒª
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/12/7
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "BuildingGeometry.h"
 #include "GameObject.h"
@@ -23,12 +23,12 @@
 #include "Builder.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
 #define MAX_TILE (150)
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* BuildingGeometry::Create(GameObject* gameObject)
 {
@@ -36,7 +36,7 @@ Component* BuildingGeometry::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 BuildingGeometry::BuildingGeometry( GameObject* pGameObject)
 {
@@ -45,7 +45,7 @@ BuildingGeometry::BuildingGeometry( GameObject* pGameObject)
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void BuildingGeometry::Uninit( void)
 {
@@ -57,20 +57,20 @@ void BuildingGeometry::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»
+	åˆæœŸåŒ–
 ------------------------------------------------------------------------------*/
 void BuildingGeometry::Init(GeometryParameter* parameter, BuildingSurfacePattern* surfacePattern)
 {
 	m_Parameter = parameter;
 	m_SurfacePattern = surfacePattern;
 
-	//Œš•¨‚ÌŒš’z
+	//å»ºç‰©ã®å»ºç¯‰
 	Builder builder;
 	builder(this, parameter, surfacePattern);
 }
 
 /*------------------------------------------------------------------------------
-	XVˆ—
+	æ›´æ–°å‡¦ç†
 ------------------------------------------------------------------------------*/
 void BuildingGeometry::Update( void)
 {
@@ -78,76 +78,76 @@ void BuildingGeometry::Update( void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒWƒIƒƒgƒŠ‚ğŠm’è‚³‚¹‚é
+	ã‚¸ã‚ªãƒ¡ãƒˆãƒªã‚’ç¢ºå®šã•ã›ã‚‹
 ------------------------------------------------------------------------------*/
 void BuildingGeometry::ConfirmGeometry(void)
 {
-	//’P‘ÌShape‚Ìê‡
+	//å˜ä½“Shapeã®å ´åˆ
 	if (m_Shapes.size() == 1)
 	{
-		//•Ç‚Ì—Z‡
+		//å£ã®èåˆ
 		m_Shapes.front()->ConfirmShape();
 
-		//•`‰æ‚ÌXV
+		//æç”»ã®æ›´æ–°
 		m_Shapes.front()->UpdateView();
 
 		return;
 	}
 
-	//Shape‚Ì—Z‡
-	//Shape“¯m‚Åˆê“x‚¸‚Âˆ—
+	//Shapeã®èåˆ
+	//ShapeåŒå£«ã§ä¸€åº¦ãšã¤å‡¦ç†
 	for (auto ite1 = m_Shapes.begin(); *ite1 != m_Shapes.back(); ++ite1)
 	{
 		auto ite2 = ite1;
 		++ite2;
 		for (; ite2 != m_Shapes.end(); ++ite2)
 		{
-			//Œğ·‚·‚é‚Æ‚±‚ë‚É—ô‚¯–Ú‚ğİ’è
+			//äº¤å·®ã™ã‚‹ã¨ã“ã‚ã«è£‚ã‘ç›®ã‚’è¨­å®š
 			(*ite1)->Split( *ite2);
 		}
 	}
 
-	//Œ`ó‚ğŠm’è‚³‚¹‚é
+	//å½¢çŠ¶ã‚’ç¢ºå®šã•ã›ã‚‹
 	for (auto shape : m_Shapes)
 	{
 		shape->ConfirmShape();
 	}
 
-	//•Ç‚ÌRenderer‚ÌÁ‹
+	//å£ã®Rendererã®æ¶ˆå»
 	for (auto shape : m_Shapes)
 	{
 		shape->ClearWallRenderer();
 	}
 
-	//ŠeShape‚©‚çƒtƒƒA”•ªƒ^ƒCƒ‹‚Ìæ“ª‚ğæ“¾
+	//å„Shapeã‹ã‚‰ãƒ•ãƒ­ã‚¢æ•°åˆ†ã‚¿ã‚¤ãƒ«ã®å…ˆé ­ã‚’å–å¾—
 	std::list<Tile*> tiles;
 	int floorCount = 0;
 	for (;;)
 	{
-		//æ“ªƒ^ƒCƒ‹‚ğæ“¾
+		//å…ˆé ­ã‚¿ã‚¤ãƒ«ã‚’å–å¾—
 		Tile* tile = NULL;
 		for (auto shape : m_Shapes)
 		{
 			tile = SearchStartTile( shape, floorCount);
 			if (tile)
 			{
-				//ŠeƒtƒƒA‚É‚Â‚«‚P‚ÂŒ©‚Â‚©‚ê‚Î‚n‚j
+				//å„ãƒ•ãƒ­ã‚¢ã«ã¤ãï¼‘ã¤è¦‹ã¤ã‹ã‚Œã°ï¼¯ï¼«
 				break;
 			}
 		}
 
-		//•\¦‚Å‚«‚éæ“ªƒ^ƒCƒ‹‚ª‚È‚¢‚Æ‚«Ši”[I—¹
+		//è¡¨ç¤ºã§ãã‚‹å…ˆé ­ã‚¿ã‚¤ãƒ«ãŒãªã„ã¨ãæ ¼ç´çµ‚äº†
 		if (!tile)
 		{
 			break;
 		}
 		
-		//ƒ^ƒCƒ‹‚ğŠi”[‚µ‚ÄŠK”‚ğˆê‚Âã‚°‚é
+		//ã‚¿ã‚¤ãƒ«ã‚’æ ¼ç´ã—ã¦éšæ•°ã‚’ä¸€ã¤ä¸Šã’ã‚‹
 		tiles.push_back( tile);
 		floorCount++;
 	}
 
-	//ŠeShape‚ÌÅŒã‚ÌFloor‚Ìæ“ªƒ^ƒCƒ‹‚ğŠi”[
+	//å„Shapeã®æœ€å¾Œã®Floorã®å…ˆé ­ã‚¿ã‚¤ãƒ«ã‚’æ ¼ç´
 	for (auto shape : m_Shapes)
 	{
 		auto tile = shape->GetTopTile();
@@ -155,14 +155,14 @@ void BuildingGeometry::ConfirmGeometry(void)
 	}
 	
 
-	//1–‡‚ÌWallRenderer‚É•\‚Éo‚Ä‚¢‚é‘SƒtƒƒA‚Ì‘Sƒ^ƒCƒ‹‚Ì•`‰æî•ñ‚ğİ’è
-	//’¸“_”‚Æƒ|ƒŠƒSƒ“”‚ğZo
+	//1æšã®WallRendererã«è¡¨ã«å‡ºã¦ã„ã‚‹å…¨ãƒ•ãƒ­ã‚¢ã®å…¨ã‚¿ã‚¤ãƒ«ã®æç”»æƒ…å ±ã‚’è¨­å®š
+	//é ‚ç‚¹æ•°ã¨ãƒãƒªã‚´ãƒ³æ•°ã‚’ç®—å‡º
 	int vertexCount = 0;
 	int polygonCount = 0;
 
 	for (auto start : tiles)
 	{
-		//ƒ^ƒCƒ‹‚ÌƒŠƒXƒg‚ğ‚½‚Ç‚Á‚Ä’¸“_”Eƒ|ƒŠƒSƒ“”‚ğ‰ÁZ
+		//ã‚¿ã‚¤ãƒ«ã®ãƒªã‚¹ãƒˆã‚’ãŸã©ã£ã¦é ‚ç‚¹æ•°ãƒ»ãƒãƒªã‚´ãƒ³æ•°ã‚’åŠ ç®—
 		auto tile = start;
 		int tileCount = 0;
 		for (;;)
@@ -176,7 +176,7 @@ void BuildingGeometry::ConfirmGeometry(void)
 				break;
 			}
 
-			//‘¼‚ÌShape‚Æ‚Ì‚Â‚È‚¬–Ú‚ª‚ ‚é‚Æ‚«‘¼‚ÌShape‚Ìƒ^ƒCƒ‹‚ÉƒWƒƒƒ“ƒv‚·‚é
+			//ä»–ã®Shapeã¨ã®ã¤ãªãç›®ãŒã‚ã‚‹ã¨ãä»–ã®Shapeã®ã‚¿ã‚¤ãƒ«ã«ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹
 			if (tile->GetType() == eTileSplit)
 			{
 				auto split = dynamic_cast<TileSplit*>( tile);
@@ -184,14 +184,14 @@ void BuildingGeometry::ConfirmGeometry(void)
 				{
 					tile = split->GetOtherSplit();
 					
-					//prev‚àİ’è
+					//prevã‚‚è¨­å®š
 					auto prev = split->GetOtherSplit()->GetPrevTile();
 					vertexCount += prev->CulcCountVertex();
 					polygonCount += prev->CulcCountPolygon();
 				}
 			}
 
-			//ƒ^ƒCƒ‹‚ªÅ‘å”‚ğ’´‚¦‚½‚çI—¹
+			//ã‚¿ã‚¤ãƒ«ãŒæœ€å¤§æ•°ã‚’è¶…ãˆãŸã‚‰çµ‚äº†
 			tileCount++;
 			if (tileCount > MAX_TILE)
 			{
@@ -200,13 +200,13 @@ void BuildingGeometry::ConfirmGeometry(void)
 		}
 	}
 
-	//WallRenderer‚ğİ’è
+	//WallRendererã‚’è¨­å®š
 	auto wallRenderer = m_pGameObject->AddComponent<WallRenderer>();
 	wallRenderer->LoadTexture(m_SurfacePattern->GetTextureFileName());
 	auto pVtx = wallRenderer->StartSetVertexBuffer( vertexCount + 1, polygonCount);
 	for (auto start : tiles)
 	{
-		//ƒ^ƒCƒ‹‚ÌƒŠƒXƒg‚ğ‚½‚Ç‚Á‚Ä’¸“_î•ñ‚ğİ’è
+		//ã‚¿ã‚¤ãƒ«ã®ãƒªã‚¹ãƒˆã‚’ãŸã©ã£ã¦é ‚ç‚¹æƒ…å ±ã‚’è¨­å®š
 		auto tile = start;
 		int tileCount = 0;
 		for (;;)
@@ -220,7 +220,7 @@ void BuildingGeometry::ConfirmGeometry(void)
 				break;
 			}
 
-			//‘¼‚ÌShape‚Æ‚Ì‚Â‚È‚¬–Ú‚ª‚ ‚é‚Æ‚«‘¼‚ÌShape‚Ìƒ^ƒCƒ‹‚ÉƒWƒƒƒ“ƒv‚·‚é
+			//ä»–ã®Shapeã¨ã®ã¤ãªãç›®ãŒã‚ã‚‹ã¨ãä»–ã®Shapeã®ã‚¿ã‚¤ãƒ«ã«ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹
 			if (tile->GetType() == eTileSplit)
 			{
 				auto split = dynamic_cast<TileSplit*>( tile);
@@ -228,14 +228,14 @@ void BuildingGeometry::ConfirmGeometry(void)
 				{
 					tile = split->GetOtherSplit();
 					
-					//prev‚àİ’è
+					//prevã‚‚è¨­å®š
 					auto prev = split->GetOtherSplit()->GetPrevTile();
 					prev->SetVertexBuffer(pVtx);
 					pVtx += prev->CulcCountVertex();
 				}
 			}
 
-			//ƒ^ƒCƒ‹‚ªÅ‘å”‚ğ’´‚¦‚½‚çI—¹
+			//ã‚¿ã‚¤ãƒ«ãŒæœ€å¤§æ•°ã‚’è¶…ãˆãŸã‚‰çµ‚äº†
 			tileCount++;
 			if (tileCount > MAX_TILE)
 			{
@@ -248,31 +248,31 @@ void BuildingGeometry::ConfirmGeometry(void)
 }
 
 /*------------------------------------------------------------------------------
-	w’èŠK‘w‚Ì•\‚É‚ ‚éæ“ªƒ^ƒCƒ‹‚ğ’Tõ
+	æŒ‡å®šéšå±¤ã®è¡¨ã«ã‚ã‚‹å…ˆé ­ã‚¿ã‚¤ãƒ«ã‚’æ¢ç´¢
 ------------------------------------------------------------------------------*/
 Tile* BuildingGeometry::SearchStartTile(Shape* shape, int floorCount)
 {
-	//ƒtƒƒA‚Ìˆê”Ôã‚Íİ’è‚µ‚È‚¢
+	//ãƒ•ãƒ­ã‚¢ã®ä¸€ç•ªä¸Šã¯è¨­å®šã—ãªã„
 	if (floorCount >= shape->GetFloorCount() - 1)
 	{
 		return NULL;
 	}
 
-	//Shape‚©‚çæ“ªƒ^ƒCƒ‹‚ğæ“¾
+	//Shapeã‹ã‚‰å…ˆé ­ã‚¿ã‚¤ãƒ«ã‚’å–å¾—
 	auto tile = shape->GetStartTile( floorCount);
 	if (!tile)
 	{
 		return NULL;
 	}
 
-	//ŠÂóƒŠƒXƒg‚ğ‚½‚Ç‚Á‚Ä•\‚É‚ ‚éƒ^ƒCƒ‹‚ğ‚³‚ª‚·
+	//ç’°çŠ¶ãƒªã‚¹ãƒˆã‚’ãŸã©ã£ã¦è¡¨ã«ã‚ã‚‹ã‚¿ã‚¤ãƒ«ã‚’ã•ãŒã™
 	auto start = tile;
 	for (;;)
 	{
-		//ƒ^ƒCƒ‹‚ª•\‚É‚ ‚é‚©”»’è
+		//ã‚¿ã‚¤ãƒ«ãŒè¡¨ã«ã‚ã‚‹ã‹åˆ¤å®š
 		if (CanLookTile(tile, shape))
 		{
-			//‘ÎÛ‚Ìƒ^ƒCƒ‹”­Œ©
+			//å¯¾è±¡ã®ã‚¿ã‚¤ãƒ«ç™ºè¦‹
 			return tile;
 		}
 
@@ -287,7 +287,7 @@ Tile* BuildingGeometry::SearchStartTile(Shape* shape, int floorCount)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ^ƒCƒ‹‚ğ‹”F‚Å‚«‚é‚©
+	ã‚¿ã‚¤ãƒ«ã‚’è¦–èªã§ãã‚‹ã‹
 ------------------------------------------------------------------------------*/
 bool BuildingGeometry::CanLookTile(Tile* tile, Shape* owner)
 {
@@ -298,14 +298,14 @@ bool BuildingGeometry::CanLookTile(Tile* tile, Shape* owner)
 			continue;
 		}
 
-		//ƒ^ƒCƒ‹‚ª‘¼‚ÌShape‚Ì’†‚É‚ ‚é‚©Šm”F
+		//ã‚¿ã‚¤ãƒ«ãŒä»–ã®Shapeã®ä¸­ã«ã‚ã‚‹ã‹ç¢ºèª
 		if ( otherShape->CollisionPoint(tile->GetBottomLeftPosition()))
 		{
-			//‹”F‚Å‚«‚È‚¢
+			//è¦–èªã§ããªã„
 			return false;
 		}
 	}
 	
-	//‘¼‚ÌShape‚ÆÕ“Ë‚È‚µ¨‹”F‚Å‚«‚é
+	//ä»–ã®Shapeã¨è¡çªãªã—â†’è¦–èªã§ãã‚‹
 	return true;
 }

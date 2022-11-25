@@ -1,12 +1,12 @@
 /*==============================================================================
 
-   MeshBoxRenderer.cpp - ƒ{ƒbƒNƒX•`‰æ
+   MeshBoxRenderer.cpp - ãƒœãƒƒã‚¯ã‚¹æç”»
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/7/14
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "MeshBoxRenderer.h"
 #include "GameObject.h"
@@ -16,14 +16,14 @@
 #include "Camera.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
-#define NUM_POLYGON (12)	//ƒ|ƒŠƒSƒ“”
-#define NUM_VERTEX (24)		//’¸“_”
-#define NUM_INDEX (36)		//ƒCƒ“ƒfƒbƒNƒX”
+#define NUM_POLYGON (12)	//ãƒãƒªã‚´ãƒ³æ•°
+#define NUM_VERTEX (24)		//é ‚ç‚¹æ•°
+#define NUM_INDEX (36)		//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* MeshBoxRenderer::Create(GameObject* gameObject)
 {
@@ -31,7 +31,7 @@ Component* MeshBoxRenderer::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 MeshBoxRenderer::MeshBoxRenderer( GameObject *pGameObject)
 {
@@ -40,80 +40,80 @@ MeshBoxRenderer::MeshBoxRenderer( GameObject *pGameObject)
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 	m_nPass = 0;
 
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//F‚Ìİ’è
+	//è‰²ã®è¨­å®š
 	m_Color = D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f);
 
-	//’†SˆÊ’uE‘å‚«‚³‚Ìİ’è
+	//ä¸­å¿ƒä½ç½®ãƒ»å¤§ãã•ã®è¨­å®š
 	m_Center = Vector3( 0.0f, 0.0f, 0.0f);
 	m_Size = Vector3( 1.0f, 1.0f, 1.0f);
 
 	SetVertices();
 	
-	//’¸“_ƒoƒbƒtƒ@¶¬
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	if( FAILED( pDevice->CreateVertexBuffer(
-		sizeof( VERTEX_3D) * NUM_VERTEX,	//ì¬‚µ‚½‚¢’¸“_ƒoƒbƒtƒ@‚ÌƒTƒCƒY
-		D3DUSAGE_WRITEONLY,					//’¸“_ƒoƒbƒtƒ@‚Ìg—p•û–@(‘¬‚³‚É‰e‹¿)
-		0,									//FVF(’¸“_ƒtƒH[ƒ}ƒbƒg)
-		D3DPOOL_MANAGED,					//ƒƒ‚ƒŠ‚ÌŠÇ—(MANAGED‚ÍƒfƒoƒCƒX‚É‚¨‚Ü‚©‚¹)
-		&m_pVtxBuff,						//’¸“_ƒoƒbƒtƒ@ŠÇ—ƒCƒ“ƒ^[ƒtƒFƒCƒX
+		sizeof( VERTEX_3D) * NUM_VERTEX,	//ä½œæˆã—ãŸã„é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º
+		D3DUSAGE_WRITEONLY,					//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½¿ç”¨æ–¹æ³•(é€Ÿã•ã«å½±éŸ¿)
+		0,									//FVF(é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ)
+		D3DPOOL_MANAGED,					//ãƒ¡ãƒ¢ãƒªã®ç®¡ç†(MANAGEDã¯ãƒ‡ãƒã‚¤ã‚¹ã«ãŠã¾ã‹ã›)
+		&m_pVtxBuff,						//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç®¡ç†ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 		NULL)))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
 
-	//’¸“_ƒoƒbƒtƒ@İ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetVtxBuffer();
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ìì¬
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½œæˆ
 	HRESULT hr;
 	hr = pDevice->CreateIndexBuffer(
-		sizeof( WORD) * NUM_INDEX,		 //ƒTƒCƒYiWORD or DWORDj*ƒCƒ“ƒfƒbƒNƒX”
-		D3DUSAGE_WRITEONLY,				 //g—p—p“rƒtƒ‰ƒO
-		D3DFMT_INDEX16,					 //ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^‚ÌƒtƒH[ƒ}ƒbƒgi16 or 32j
-		D3DPOOL_MANAGED,				 //ƒƒ‚ƒŠ‚ÌŠÇ—•û–@i‚¨‚Ü‚©‚¹j
-		&m_pIdxBuff,					 //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ƒCƒ“ƒ^[ƒtƒFƒCƒXƒ|ƒCƒ“ƒ^‚ÌƒAƒhƒŒƒX
+		sizeof( WORD) * NUM_INDEX,		 //ã‚µã‚¤ã‚ºï¼ˆWORD or DWORDï¼‰*ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°
+		D3DUSAGE_WRITEONLY,				 //ä½¿ç”¨ç”¨é€”ãƒ•ãƒ©ã‚°
+		D3DFMT_INDEX16,					 //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆï¼ˆ16 or 32ï¼‰
+		D3DPOOL_MANAGED,				 //ãƒ¡ãƒ¢ãƒªã®ç®¡ç†æ–¹æ³•ï¼ˆãŠã¾ã‹ã›ï¼‰
+		&m_pIdxBuff,					 //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
 		NULL);
 
 	if( FAILED( hr))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@İ’è
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetIdxBuffer();
 
-	//ƒ}ƒeƒŠƒAƒ‹
+	//ãƒãƒ†ãƒªã‚¢ãƒ«
 	m_pMaterial = new Material();
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void MeshBoxRenderer::Uninit( void)
 {
 	Manager::GetRenderManager()->ReleaseRenderer( this);
 
-	//’¸“_ƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	if( m_pVtxBuff != NULL)
 	{
 		m_pVtxBuff->Release();
 		m_pVtxBuff = NULL;
 	}
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	if( m_pIdxBuff != NULL)
 	{
 		m_pIdxBuff->Release();
 		m_pIdxBuff = NULL;
 	}
 
-	//ƒ}ƒeƒŠƒAƒ‹‚Ì‰ğ•ú
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ã®è§£æ”¾
 	if (m_pMaterial != NULL)
 	{
 		delete m_pMaterial;
@@ -125,7 +125,7 @@ void MeshBoxRenderer::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void MeshBoxRenderer::Update( void)
 {
@@ -133,62 +133,62 @@ void MeshBoxRenderer::Update( void)
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æ
+	æç”»
 ------------------------------------------------------------------------------*/
 void MeshBoxRenderer::Draw( Camera* pCamera)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//ƒ}ƒeƒŠƒAƒ‹iƒVƒF[ƒ_[j‚ğƒZƒbƒg
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ï¼ˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ï¼‰ã‚’ã‚»ãƒƒãƒˆ
 	m_pMaterial->Set( pCamera, this);
 
-	//’¸“_î•ñİ’è
+	//é ‚ç‚¹æƒ…å ±è¨­å®š
 	pDevice-> SetStreamSource( 0, m_pVtxBuff, 0, sizeof( VERTEX_3D));
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ìİ’è
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
 	pDevice->SetIndices( m_pIdxBuff);
 
-	//ƒeƒNƒjƒbƒNŠJn
+	//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯é–‹å§‹
 	m_pMaterial->Begin( m_nPass);
 
-	//ƒvƒŠƒ~ƒeƒBƒuiƒ|ƒŠƒSƒ“E}Œ`j‚Ì•`‰æiƒCƒ“ƒfƒbƒNƒXj
+	//ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ï¼ˆãƒãƒªã‚´ãƒ³ãƒ»å›³å½¢ï¼‰ã®æç”»ï¼ˆã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼‰
 	pDevice->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0, NUM_VERTEX, 0,	NUM_POLYGON);
 
-	//ƒeƒNƒjƒbƒNI—¹
+	//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯çµ‚äº†
 	m_pMaterial->End();
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_ƒoƒbƒtƒ@İ’è
+	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshBoxRenderer::SetVtxBuffer( void)
 {
-	//’¸“_ƒoƒbƒtƒ@‚ğƒƒbƒN‚µ‚ÄA‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚é
-	VERTEX_3D* pVtx;				//‰¼‘zƒAƒhƒŒƒX—pƒ|ƒCƒ“ƒ^
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ãƒ­ãƒƒã‚¯ã—ã¦ã€ä»®æƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—ã™ã‚‹
+	VERTEX_3D* pVtx;				//ä»®æƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹ç”¨ãƒã‚¤ãƒ³ã‚¿
 	m_pVtxBuff->Lock( 0, 0, (void**)&pVtx,0);
 
 	Vector3 Size = m_Size * 0.5f;
 
-	//è‘O
-	//À•WiZšj
+	//æ‰‹å‰
+	//åº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Pos = m_Vertices[2];
 	pVtx[ 1].Pos = m_Vertices[3];
 	pVtx[ 2].Pos = m_Vertices[6];
 	pVtx[ 3].Pos = m_Vertices[7];
 	
-	//–@ü
+	//æ³•ç·š
 	pVtx[ 0].Normal = 
 	pVtx[ 1].Normal = 
 	pVtx[ 2].Normal = 
 	pVtx[ 3].Normal = D3DXVECTOR3( 0.0f, 0.0f, -1.0f);
 
-	//’¸“_ƒJƒ‰[
+	//é ‚ç‚¹ã‚«ãƒ©ãƒ¼
 	pVtx[ 0].Color = 
 	pVtx[ 1].Color = 
 	pVtx[ 2].Color = 
 	pVtx[ 3].Color = m_Color;
 
-	//UVÀ•WiZšj
+	//UVåº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Tex = D3DXVECTOR2(0.0f, 0.0f);
 	pVtx[ 1].Tex = D3DXVECTOR2(1.0f, 0.0f);
 	pVtx[ 2].Tex = D3DXVECTOR2(0.0f, 1.0f);
@@ -196,26 +196,26 @@ void MeshBoxRenderer::SetVtxBuffer( void)
 
 	pVtx += 4;
 
-	//‰œ
-	//À•WiZšj
+	//å¥¥
+	//åº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Pos = m_Vertices[1];
 	pVtx[ 1].Pos = m_Vertices[0];
 	pVtx[ 2].Pos = m_Vertices[5];
 	pVtx[ 3].Pos = m_Vertices[4];
 	
-	//–@ü
+	//æ³•ç·š
 	pVtx[ 0].Normal = 
 	pVtx[ 1].Normal = 
 	pVtx[ 2].Normal = 
 	pVtx[ 3].Normal = D3DXVECTOR3( 0.0f, 0.0f, 1.0f);
 
-	//’¸“_ƒJƒ‰[
+	//é ‚ç‚¹ã‚«ãƒ©ãƒ¼
 	pVtx[ 0].Color = 
 	pVtx[ 1].Color = 
 	pVtx[ 2].Color = 
 	pVtx[ 3].Color = m_Color;
 
-	//UVÀ•WiZšj
+	//UVåº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Tex = D3DXVECTOR2(0.0f, 0.0f);
 	pVtx[ 1].Tex = D3DXVECTOR2(1.0f, 0.0f);
 	pVtx[ 2].Tex = D3DXVECTOR2(0.0f, 1.0f);
@@ -223,26 +223,26 @@ void MeshBoxRenderer::SetVtxBuffer( void)
 
 	pVtx += 4;
 
-	//¶
-	//À•WiZšj
+	//å·¦
+	//åº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Pos = m_Vertices[0];
 	pVtx[ 1].Pos = m_Vertices[2];
 	pVtx[ 2].Pos = m_Vertices[4];
 	pVtx[ 3].Pos = m_Vertices[6];
 	
-	//–@ü
+	//æ³•ç·š
 	pVtx[ 0].Normal = 
 	pVtx[ 1].Normal = 
 	pVtx[ 2].Normal = 
 	pVtx[ 3].Normal = D3DXVECTOR3( -1.0f, 0.0f, 0.0f);
 
-	//’¸“_ƒJƒ‰[
+	//é ‚ç‚¹ã‚«ãƒ©ãƒ¼
 	pVtx[ 0].Color = 
 	pVtx[ 1].Color = 
 	pVtx[ 2].Color = 
 	pVtx[ 3].Color = m_Color;
 
-	//UVÀ•WiZšj
+	//UVåº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Tex = D3DXVECTOR2(0.0f, 0.0f);
 	pVtx[ 1].Tex = D3DXVECTOR2(1.0f, 0.0f);
 	pVtx[ 2].Tex = D3DXVECTOR2(0.0f, 1.0f);
@@ -250,26 +250,26 @@ void MeshBoxRenderer::SetVtxBuffer( void)
 
 	pVtx += 4;
 
-	//‰E
-	//À•WiZšj
+	//å³
+	//åº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Pos = m_Vertices[3];
 	pVtx[ 1].Pos = m_Vertices[1];
 	pVtx[ 2].Pos = m_Vertices[7];
 	pVtx[ 3].Pos = m_Vertices[5];
 	
-	//–@ü
+	//æ³•ç·š
 	pVtx[ 0].Normal = 
 	pVtx[ 1].Normal = 
 	pVtx[ 2].Normal = 
 	pVtx[ 3].Normal = D3DXVECTOR3( 1.0f, 0.0f, 0.0f);
 
-	//’¸“_ƒJƒ‰[
+	//é ‚ç‚¹ã‚«ãƒ©ãƒ¼
 	pVtx[ 0].Color = 
 	pVtx[ 1].Color = 
 	pVtx[ 2].Color = 
 	pVtx[ 3].Color = m_Color;
 
-	//UVÀ•WiZšj
+	//UVåº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Tex = D3DXVECTOR2(0.0f, 0.0f);
 	pVtx[ 1].Tex = D3DXVECTOR2(1.0f, 0.0f);
 	pVtx[ 2].Tex = D3DXVECTOR2(0.0f, 1.0f);
@@ -277,26 +277,26 @@ void MeshBoxRenderer::SetVtxBuffer( void)
 
 	pVtx += 4;
 
-	//ã
-	//À•WiZšj
+	//ä¸Š
+	//åº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Pos = m_Vertices[0];
 	pVtx[ 1].Pos = m_Vertices[1];
 	pVtx[ 2].Pos = m_Vertices[2];
 	pVtx[ 3].Pos = m_Vertices[3];
 	
-	//–@ü
+	//æ³•ç·š
 	pVtx[ 0].Normal = 
 	pVtx[ 1].Normal = 
 	pVtx[ 2].Normal = 
 	pVtx[ 3].Normal = D3DXVECTOR3( 0.0f, 1.0f, 0.0f);
 
-	//’¸“_ƒJƒ‰[
+	//é ‚ç‚¹ã‚«ãƒ©ãƒ¼
 	pVtx[ 0].Color = 
 	pVtx[ 1].Color = 
 	pVtx[ 2].Color = 
 	pVtx[ 3].Color = m_Color;
 
-	//UVÀ•WiZšj
+	//UVåº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Tex = D3DXVECTOR2(0.0f, 0.0f);
 	pVtx[ 1].Tex = D3DXVECTOR2(1.0f, 0.0f);
 	pVtx[ 2].Tex = D3DXVECTOR2(0.0f, 1.0f);
@@ -304,42 +304,42 @@ void MeshBoxRenderer::SetVtxBuffer( void)
 
 	pVtx += 4;
 
-	//‰º
-	//À•WiZšj
+	//ä¸‹
+	//åº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Pos = m_Vertices[4];
 	pVtx[ 1].Pos = m_Vertices[5];
 	pVtx[ 2].Pos = m_Vertices[6];
 	pVtx[ 3].Pos = m_Vertices[7];
 	
-	//–@ü
+	//æ³•ç·š
 	pVtx[ 0].Normal = 
 	pVtx[ 1].Normal = 
 	pVtx[ 2].Normal = 
 	pVtx[ 3].Normal = D3DXVECTOR3( 0.0f, -1.0f, 0.0f);
 
-	//’¸“_ƒJƒ‰[
+	//é ‚ç‚¹ã‚«ãƒ©ãƒ¼
 	pVtx[ 0].Color = 
 	pVtx[ 1].Color = 
 	pVtx[ 2].Color = 
 	pVtx[ 3].Color = m_Color;
 
-	//UVÀ•WiZšj
+	//UVåº§æ¨™ï¼ˆZå­—ï¼‰
 	pVtx[ 0].Tex = D3DXVECTOR2(0.0f, 0.0f);
 	pVtx[ 1].Tex = D3DXVECTOR2(1.0f, 0.0f);
 	pVtx[ 2].Tex = D3DXVECTOR2(0.0f, 1.0f);
 	pVtx[ 3].Tex = D3DXVECTOR2(1.0f, 1.0f);
 
-	//ƒAƒ“ƒƒbƒN
+	//ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
 	m_pVtxBuff->Unlock();
 }
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@İ’è
+	ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshBoxRenderer::SetIdxBuffer(void)
 {
-	//’¸“_ƒoƒbƒtƒ@‚ğƒƒbƒN‚µ‚ÄA‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚é
-	WORD* pIdx;		//ƒCƒ“ƒfƒbƒNƒXî•ñ
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ãƒ­ãƒƒã‚¯ã—ã¦ã€ä»®æƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—ã™ã‚‹
+	WORD* pIdx;		//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æƒ…å ±
 	m_pIdxBuff->Lock( 0, 0, (void**)&pIdx, 0);
 
 	for (int nCnt = 0; nCnt < 6; nCnt++)
@@ -360,36 +360,36 @@ void MeshBoxRenderer::SetIdxBuffer(void)
 		pIdx += 6;
 	}
 
-	//ƒAƒ“ƒƒbƒN
+	//ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
 	m_pIdxBuff->Unlock();
 }
 
 /*------------------------------------------------------------------------------
-	’†SˆÊ’uİ’è
+	ä¸­å¿ƒä½ç½®è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshBoxRenderer::SetCenter(const Vector3& Center)
 {
 	m_Center = Center;
 	SetVertices();
 
-	//’¸“_ƒoƒbƒtƒ@İ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetVtxBuffer();
 }
 
 /*------------------------------------------------------------------------------
-	‘å‚«‚³İ’è
+	å¤§ãã•è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshBoxRenderer::SetSize(const Vector3& Size)
 {
 	m_Size = Size;
 	SetVertices();
 
-	//’¸“_ƒoƒbƒtƒ@İ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetVtxBuffer();
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_‚ğİ’è
+	é ‚ç‚¹ã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshBoxRenderer::SetVertices(void)
 {
@@ -398,33 +398,33 @@ void MeshBoxRenderer::SetVertices(void)
 
 	m_Vertices.resize(8);
 
-	//ã‰œ¶
+	//ä¸Šå¥¥å·¦
 	m_Vertices[0] = D3DXVECTOR3( m_Center.x - size.x, m_Center.y + size.y, m_Center.z + size.z);
 
-	//ã‰œ‰E
+	//ä¸Šå¥¥å³
 	m_Vertices[1] = D3DXVECTOR3( m_Center.x + size.x, m_Center.y + size.y, m_Center.z + size.z);
 
-	//ãè‘O¶
+	//ä¸Šæ‰‹å‰å·¦
 	m_Vertices[2] = D3DXVECTOR3( m_Center.x - size.x, m_Center.y + size.y, m_Center.z - size.z);
 
-	//ãè‘O‰E
+	//ä¸Šæ‰‹å‰å³
 	m_Vertices[3] = D3DXVECTOR3( m_Center.x + size.x, m_Center.y + size.y, m_Center.z - size.z);
 
-	//‰º‰œ¶
+	//ä¸‹å¥¥å·¦
 	m_Vertices[4] = D3DXVECTOR3( m_Center.x - size.x, m_Center.y - size.y, m_Center.z + size.z);
 
-	//‰º‰œ‰E
+	//ä¸‹å¥¥å³
 	m_Vertices[5] = D3DXVECTOR3( m_Center.x + size.x, m_Center.y - size.y, m_Center.z + size.z);
 
-	//‰ºè‘O¶
+	//ä¸‹æ‰‹å‰å·¦
 	m_Vertices[6] = D3DXVECTOR3( m_Center.x - size.x, m_Center.y - size.y, m_Center.z - size.z);
 
-	//‰ºè‘O‰E
+	//ä¸‹æ‰‹å‰å³
 	m_Vertices[7] = D3DXVECTOR3( m_Center.x + size.x, m_Center.y - size.y, m_Center.z - size.z);
 }
 
 /*------------------------------------------------------------------------------
-	ƒeƒNƒXƒ`ƒƒİ’è
+	ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshBoxRenderer::LoadTexture(std::string FileName)
 {
@@ -432,7 +432,7 @@ void MeshBoxRenderer::LoadTexture(std::string FileName)
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[İ’è
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshBoxRenderer::SetShader(EShaderType Type)
 {
@@ -440,11 +440,11 @@ void MeshBoxRenderer::SetShader(EShaderType Type)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void MeshBoxRenderer::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -486,7 +486,7 @@ void MeshBoxRenderer::Load(Text& text)
 			text.SetPosition( m_Size.ConvertFromString(text.GetAllText(), text.GetPosition()));
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
@@ -496,7 +496,7 @@ void MeshBoxRenderer::Load(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void MeshBoxRenderer::Save(Text& text)
 {
@@ -516,7 +516,7 @@ void MeshBoxRenderer::Save(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	‹‘äƒJƒŠƒ“ƒO”»’è
+	è¦–éŒå°ã‚«ãƒªãƒ³ã‚°åˆ¤å®š
 ------------------------------------------------------------------------------*/
 bool MeshBoxRenderer::CheckFrustumCulling(Camera* pCamera)
 {

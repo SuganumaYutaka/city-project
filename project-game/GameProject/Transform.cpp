@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    Transform.cpp - ˆÊ’uE‰ñ“]EƒXƒP[ƒ‹
+    Transform.cpp - ä½ç½®ãƒ»å›è»¢ãƒ»ã‚¹ã‚±ãƒ¼ãƒ«
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/4/27
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Transform.h"
 #include "GameObject.h"
@@ -14,7 +14,7 @@
 #include "DebugRenderer.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* Transform::Create(GameObject* gameObject)
 {
@@ -22,7 +22,7 @@ Component* Transform::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Transform::Transform()
 {
@@ -34,7 +34,7 @@ Transform::Transform()
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Transform::Transform( GameObject *pGameObject)
 {
@@ -56,7 +56,7 @@ Transform::Transform( GameObject *pGameObject)
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void Transform::Uninit( void)
 {
@@ -64,7 +64,7 @@ void Transform::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒ‹ƒhÀ•W•ÏŠ·s—ñ‚ğ“n‚·
+	ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™å¤‰æ›è¡Œåˆ—ã‚’æ¸¡ã™
 ------------------------------------------------------------------------------*/
 D3DXMATRIX Transform::WorldMatrix()
 {
@@ -86,42 +86,42 @@ D3DXMATRIX Transform::WorldMatrix()
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒJƒ‹s—ñ‚ÌXV
+	ãƒ­ãƒ¼ã‚«ãƒ«è¡Œåˆ—ã®æ›´æ–°
 ------------------------------------------------------------------------------*/
 void Transform::UpdateLocalMatrix( void)
 {
 	D3DXMATRIX mtxWorld, mtxPos, mtxRot, mtxScl;
 
-	//s—ñ‚Ì‰Šú‰»i’PˆÊs—ñ‚Ìì¬j
+	//è¡Œåˆ—ã®åˆæœŸåŒ–ï¼ˆå˜ä½è¡Œåˆ—ã®ä½œæˆï¼‰
 	D3DXMatrixIdentity( &mtxWorld);
 	D3DXMatrixIdentity( &mtxPos);
 	D3DXMatrixIdentity( &mtxRot);
 	D3DXMatrixIdentity( &mtxScl);
 
-	//Šg‘ås—ñ‚Ìİ’è
+	//æ‹¡å¤§è¡Œåˆ—ã®è¨­å®š
 	D3DXMatrixScaling( &mtxScl, m_Scale.x, m_Scale.y, m_Scale.z);
 
-	//‰ñ“]s—ñ‚Ìİ’è
+	//å›è»¢è¡Œåˆ—ã®è¨­å®š
 	D3DXMatrixRotationQuaternion( &mtxRot, &m_Rotation);
 
-	//•½sˆÚ“®s—ñ
+	//å¹³è¡Œç§»å‹•è¡Œåˆ—
 	D3DXMatrixTranslation( &mtxPos, m_Position.x, m_Position.y, m_Position.z);
 
-	//s—ñ‚Ì‡¬
-	m_LocalMatrix = mtxWorld * mtxScl * mtxRot * mtxPos;		//Šg‘å¨‰ñ“]¨ˆÚ“®‚Ì‡
+	//è¡Œåˆ—ã®åˆæˆ
+	m_LocalMatrix = mtxWorld * mtxScl * mtxRot * mtxPos;		//æ‹¡å¤§â†’å›è»¢â†’ç§»å‹•ã®é †
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void Transform::Update()
 {
-	//ƒ[ƒJƒ‹s—ñXV
+	//ãƒ­ãƒ¼ã‚«ãƒ«è¡Œåˆ—æ›´æ–°
 	UpdateLocalMatrix();
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒ‹ƒhFˆÊ’uæ“¾
+	ãƒ¯ãƒ¼ãƒ«ãƒ‰ï¼šä½ç½®å–å¾—
 ------------------------------------------------------------------------------*/
 Vector3 Transform::GetWorldPosition() const
 {
@@ -136,7 +136,7 @@ Vector3 Transform::GetWorldPosition() const
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒ‹ƒhFƒXƒP[ƒ‹æ“¾
+	ãƒ¯ãƒ¼ãƒ«ãƒ‰ï¼šã‚¹ã‚±ãƒ¼ãƒ«å–å¾—
 ------------------------------------------------------------------------------*/
 Vector3 Transform::GetWorldScale() const
 {
@@ -155,7 +155,7 @@ Vector3 Transform::GetWorldScale() const
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒ‹ƒhF‰ñ“]æ“¾
+	ãƒ¯ãƒ¼ãƒ«ãƒ‰ï¼šå›è»¢å–å¾—
 ------------------------------------------------------------------------------*/
 D3DXQUATERNION Transform::GetWorldRotation() const
 {
@@ -170,7 +170,7 @@ D3DXQUATERNION Transform::GetWorldRotation() const
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒ‹ƒhF³–ÊƒxƒNƒgƒ‹æ“¾
+	ãƒ¯ãƒ¼ãƒ«ãƒ‰ï¼šæ­£é¢ãƒ™ã‚¯ãƒˆãƒ«å–å¾—
 ------------------------------------------------------------------------------*/
 Vector3 Transform::GetForward()
 {
@@ -184,7 +184,7 @@ Vector3 Transform::GetForward()
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒ‹ƒhFXYZ²æ“¾
+	ãƒ¯ãƒ¼ãƒ«ãƒ‰ï¼šXYZè»¸å–å¾—
 ------------------------------------------------------------------------------*/
 Axis Transform::GetAxis()
 {
@@ -211,106 +211,106 @@ Axis Transform::GetAxis()
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒ‹ƒhFˆÊ’uİ’è
+	ãƒ¯ãƒ¼ãƒ«ãƒ‰ï¼šä½ç½®è¨­å®š
 ------------------------------------------------------------------------------*/
 void Transform::SetWorldPosition(const Vector3& Pos)
 {
-	D3DXVECTOR3 pos = Pos.ConvertToDX();	//ˆÊ’u
+	D3DXVECTOR3 pos = Pos.ConvertToDX();	//ä½ç½®
 	
-	//ƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-	D3DXMATRIX mtxWorldInv;					//ƒ[ƒ‹ƒhÀ•W•ÏŠ·s—ñ‚Ì‹ts—ñ
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+	D3DXMATRIX mtxWorldInv;					//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™å¤‰æ›è¡Œåˆ—ã®é€†è¡Œåˆ—
 	D3DXMatrixInverse( &mtxWorldInv, NULL, &m_pParent->WorldMatrix());
 	D3DXVec3TransformCoord( &pos, &pos, &mtxWorldInv);
 
-	//ƒ[ƒJƒ‹À•WXV
+	//ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™æ›´æ–°
 	m_Position = Vector3::ConvertFromDX( pos);
 
 	m_bLocalMatrixUpdate = true;
 }
 void Transform::SetWorldPosition(const float x, const float y, const float z)
 {
-	D3DXVECTOR3 pos( x, y, z);			//ˆÊ’u
+	D3DXVECTOR3 pos( x, y, z);			//ä½ç½®
 	
-	//ƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-	D3DXMATRIX mtxWorldInv;				//ƒ[ƒ‹ƒhÀ•W•ÏŠ·s—ñ‚Ì‹ts—ñ
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+	D3DXMATRIX mtxWorldInv;				//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™å¤‰æ›è¡Œåˆ—ã®é€†è¡Œåˆ—
 	D3DXMatrixInverse( &mtxWorldInv, NULL, &m_pParent->WorldMatrix());
 	D3DXVec3TransformCoord( &pos, &pos, &mtxWorldInv);
 
-	//ƒ[ƒJƒ‹À•WXV
+	//ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™æ›´æ–°
 	m_Position = Vector3::ConvertFromDX( pos);
 
 	m_bLocalMatrixUpdate = true;
 }
 void Transform::SetWorldPositionX(const float x)
 {
-	Vector3 Posi = GetWorldPosition();			//ˆÊ’u
-	D3DXVECTOR3 pos( x, Posi.y, Posi.z);		//ˆÊ’u
+	Vector3 Posi = GetWorldPosition();			//ä½ç½®
+	D3DXVECTOR3 pos( x, Posi.y, Posi.z);		//ä½ç½®
 	
-	//ƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-	D3DXMATRIX mtxWorldInv;				//ƒ[ƒ‹ƒhÀ•W•ÏŠ·s—ñ‚Ì‹ts—ñ
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+	D3DXMATRIX mtxWorldInv;				//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™å¤‰æ›è¡Œåˆ—ã®é€†è¡Œåˆ—
 	D3DXMatrixInverse( &mtxWorldInv, NULL, &m_pParent->WorldMatrix());
 	D3DXVec3TransformCoord( &pos, &pos, &mtxWorldInv);
 
-	//ƒ[ƒJƒ‹À•WXV
+	//ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™æ›´æ–°
 	m_Position = Vector3::ConvertFromDX( pos);
 
 	m_bLocalMatrixUpdate = true;
 }
 void Transform::SetWorldPositionY(const float y)
 {
-	Vector3 Posi = GetWorldPosition();			//ˆÊ’u
-	D3DXVECTOR3 pos( Posi.x, y, Posi.z);			//ˆÊ’u
+	Vector3 Posi = GetWorldPosition();			//ä½ç½®
+	D3DXVECTOR3 pos( Posi.x, y, Posi.z);			//ä½ç½®
 	
-	//ƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-	D3DXMATRIX mtxWorldInv;				//ƒ[ƒ‹ƒhÀ•W•ÏŠ·s—ñ‚Ì‹ts—ñ
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+	D3DXMATRIX mtxWorldInv;				//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™å¤‰æ›è¡Œåˆ—ã®é€†è¡Œåˆ—
 	D3DXMatrixInverse( &mtxWorldInv, NULL, &m_pParent->WorldMatrix());
 	D3DXVec3TransformCoord( &pos, &pos, &mtxWorldInv);
 
-	//ƒ[ƒJƒ‹À•WXV
+	//ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™æ›´æ–°
 	m_Position = Vector3::ConvertFromDX( pos);
 
 	m_bLocalMatrixUpdate = true;
 }
 void Transform::SetWorldPositionZ(const float z)
 {
-	Vector3 Posi = GetWorldPosition();			//ˆÊ’u
-	D3DXVECTOR3 pos( Posi.x, Posi.y, z);		//ˆÊ’u
+	Vector3 Posi = GetWorldPosition();			//ä½ç½®
+	D3DXVECTOR3 pos( Posi.x, Posi.y, z);		//ä½ç½®
 	
-	//ƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-	D3DXMATRIX mtxWorldInv;				//ƒ[ƒ‹ƒhÀ•W•ÏŠ·s—ñ‚Ì‹ts—ñ
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+	D3DXMATRIX mtxWorldInv;				//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™å¤‰æ›è¡Œåˆ—ã®é€†è¡Œåˆ—
 	D3DXMatrixInverse( &mtxWorldInv, NULL, &m_pParent->WorldMatrix());
 	D3DXVec3TransformCoord( &pos, &pos, &mtxWorldInv);
 
-	//ƒ[ƒJƒ‹À•WXV
+	//ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™æ›´æ–°
 	m_Position = Vector3::ConvertFromDX( pos);
 
 	m_bLocalMatrixUpdate = true;
 }
 
 /*------------------------------------------------------------------------------
-	w’è•ûŒü‚ÉˆÚ“®
+	æŒ‡å®šæ–¹å‘ã«ç§»å‹•
 ------------------------------------------------------------------------------*/
 void Transform::Move(const Vector3& Value)
 {
-	D3DXVECTOR3 pos = GetWorldPosition().ConvertToDX();		//ˆÊ’u
+	D3DXVECTOR3 pos = GetWorldPosition().ConvertToDX();		//ä½ç½®
 	
-	//ˆÚ“®
+	//ç§»å‹•
 	pos += Value.ConvertToDX();
 
-	//e‚ªƒ‹[ƒg‚Ìê‡
+	//è¦ªãŒãƒ«ãƒ¼ãƒˆã®å ´åˆ
 	if (m_pTransform->GetParent() == m_pGameObject->GetRoot()->m_pTransform)
 	{
 		m_Position = Vector3::ConvertFromDX( pos);
 	}
 
-	//ƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
 	else
 	{
-		D3DXMATRIX mtxWorldInv;									//ƒ[ƒ‹ƒhÀ•W•ÏŠ·s—ñ‚Ì‹ts—ñ
+		D3DXMATRIX mtxWorldInv;									//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™å¤‰æ›è¡Œåˆ—ã®é€†è¡Œåˆ—
 		D3DXMatrixInverse( &mtxWorldInv, NULL, &m_pParent->WorldMatrix());
 		D3DXVec3TransformCoord( &pos, &pos, &mtxWorldInv);
 
-		//ƒ[ƒJƒ‹À•WXV
+		//ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™æ›´æ–°
 		m_Position = Vector3::ConvertFromDX( pos);
 	}
 
@@ -318,12 +318,12 @@ void Transform::Move(const Vector3& Value)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒ‹ƒhF‰ñ“]—Êİ’èiƒNƒH[ƒ^ƒjƒIƒ“j
+	ãƒ¯ãƒ¼ãƒ«ãƒ‰ï¼šå›è»¢é‡è¨­å®šï¼ˆã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ï¼‰
 ------------------------------------------------------------------------------*/
 void Transform::SetWorldRotation(const D3DXQUATERNION& Rot)
 {
-	//ƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-	D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//e‚Ìƒ[ƒ‹ƒh‰ñ“]—Ê‚Ì‹t‰ñ“]
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+	D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//è¦ªã®ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡ã®é€†å›è»¢
 	D3DXQuaternionInverse( &WorldRotInv, &WorldRotInv);
 	m_Rotation = Rot * WorldRotInv;
 
@@ -331,17 +331,17 @@ void Transform::SetWorldRotation(const D3DXQUATERNION& Rot)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒ‹ƒhF‰ñ“]—Êİ’èiƒIƒCƒ‰[Špj
+	ãƒ¯ãƒ¼ãƒ«ãƒ‰ï¼šå›è»¢é‡è¨­å®šï¼ˆã‚ªã‚¤ãƒ©ãƒ¼è§’ï¼‰
 ------------------------------------------------------------------------------*/
 void Transform::SetWorldRotationEuler(const Vector3& Euler)
 {
-	D3DXQUATERNION Rot;				//‰ñ“]—Ê
-	D3DXQUATERNION WorldRotInv;		//ƒ[ƒ‹ƒh‰ñ“]—Ê‚Ì‹t‰ñ“]
+	D3DXQUATERNION Rot;				//å›è»¢é‡
+	D3DXQUATERNION WorldRotInv;		//ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡ã®é€†å›è»¢
 
 	D3DXQuaternionIdentity( &Rot);
 	D3DXQuaternionRotationYawPitchRoll( &Rot, Euler.y, Euler.x, Euler.z);
 
-	//ƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
 	D3DXQuaternionInverse( &WorldRotInv, &GetWorldRotation());
 	m_Rotation = Rot * WorldRotInv;
 
@@ -349,13 +349,13 @@ void Transform::SetWorldRotationEuler(const Vector3& Euler)
 }
 void Transform::SetWorldRotationEuler(const float x, const float y, const float z)
 {
-	D3DXQUATERNION Rot;				//‰ñ“]—Ê
+	D3DXQUATERNION Rot;				//å›è»¢é‡
 	
 	D3DXQuaternionIdentity( &Rot);
 	D3DXQuaternionRotationYawPitchRoll( &Rot, y, x, z);
 
-	//ƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-	D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//e‚Ìƒ[ƒ‹ƒh‰ñ“]—Ê‚Ì‹t‰ñ“]
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+	D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//è¦ªã®ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡ã®é€†å›è»¢
 	D3DXQuaternionInverse( &WorldRotInv, &WorldRotInv);
 	m_Rotation = Rot * WorldRotInv;
 
@@ -363,16 +363,16 @@ void Transform::SetWorldRotationEuler(const float x, const float y, const float 
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒ‹ƒhF‰ñ“]—Êİ’èiw’è‚µ‚½²‚Å‰ñ“]j
+	ãƒ¯ãƒ¼ãƒ«ãƒ‰ï¼šå›è»¢é‡è¨­å®šï¼ˆæŒ‡å®šã—ãŸè»¸ã§å›è»¢ï¼‰
 ------------------------------------------------------------------------------*/
 void Transform::SetWorldRotationAxis( const Vector3& Axis, float Value)
 {
-	//w’è‚µ‚½²‚Å‰ñ“]
+	//æŒ‡å®šã—ãŸè»¸ã§å›è»¢
 	D3DXQUATERNION quat;
 	D3DXQuaternionRotationAxis( &quat, &Axis.ConvertToDX(), Value);
 
-	//ƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-	D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//e‚Ìƒ[ƒ‹ƒh‰ñ“]—Ê‚Ì‹t‰ñ“]
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+	D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//è¦ªã®ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡ã®é€†å›è»¢
 	D3DXQuaternionInverse( &WorldRotInv, &WorldRotInv);
 	m_Rotation = quat * WorldRotInv;
 
@@ -380,7 +380,7 @@ void Transform::SetWorldRotationAxis( const Vector3& Axis, float Value)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒ‹ƒhF‰ñ“]—Êİ’èiw’èˆÊ’u‚ğŒü‚­‚æ‚¤‚Éj
+	ãƒ¯ãƒ¼ãƒ«ãƒ‰ï¼šå›è»¢é‡è¨­å®šï¼ˆæŒ‡å®šä½ç½®ã‚’å‘ãã‚ˆã†ã«ï¼‰
 ------------------------------------------------------------------------------*/
 void Transform::SetWorldRotationLookAt(const Vector3& Position)
 {
@@ -389,40 +389,40 @@ void Transform::SetWorldRotationLookAt(const Vector3& Position)
 		return;
 	}
 
-	Vector3 Direction = Position - GetWorldPosition();	//Œü‚­•ûŒü
-	Vector3 VecZ = Vector3( 0.0f, 0.0f, 1.0f);			//‰Šú•ûŒü
+	Vector3 Direction = Position - GetWorldPosition();	//å‘ãæ–¹å‘
+	Vector3 VecZ = Vector3( 0.0f, 0.0f, 1.0f);			//åˆæœŸæ–¹å‘
 
-	//“ñ‚Â‚ÌƒxƒNƒgƒ‹‚ª‚È‚·Šp‚ğ‹‚ß‚é
+	//äºŒã¤ã®ãƒ™ã‚¯ãƒˆãƒ«ãŒãªã™è§’ã‚’æ±‚ã‚ã‚‹
 	float X = Vector3::Dot( VecZ, Direction) / (VecZ.Length() * Direction.Length());
 	if (X == 1.0f)
 	{
 		X -= 0.0001f;
 	}
-	float Angle = acos( X);			//‚È‚·Šp
+	float Angle = acos( X);			//ãªã™è§’
 
-	//‰ñ“]²‚Ìİ’è
+	//å›è»¢è»¸ã®è¨­å®š
 	Vector3 cross = Vector3::Cross( VecZ, Direction);
 
-	//ŠOÏ‚ªƒ[ƒƒxƒNƒgƒ‹i2‚Â‚ÌƒxƒNƒgƒ‹‚ªˆê’¼üj‚Ì‚Æ‚«VecUp‚ğ‰ñ“]²‚É‚·‚é
+	//å¤–ç©ãŒã‚¼ãƒ­ãƒ™ã‚¯ãƒˆãƒ«ï¼ˆ2ã¤ã®ãƒ™ã‚¯ãƒˆãƒ«ãŒä¸€ç›´ç·šï¼‰ã®ã¨ãVecUpã‚’å›è»¢è»¸ã«ã™ã‚‹
 	if (cross.Length() <= 0.1f)
 	{
 		cross = Vector3( 0.0f, 1.0f, 0.0f);
 	}
 
-	//‰ñ“]—Ê‚ÌXV
-	//e‚ªƒ‹[ƒg‚Ìê‡
+	//å›è»¢é‡ã®æ›´æ–°
+	//è¦ªãŒãƒ«ãƒ¼ãƒˆã®å ´åˆ
 	if (m_pTransform->GetParent() == m_pGameObject->GetRoot()->m_pTransform)
 	{
 		D3DXQuaternionIdentity( &m_Rotation);
 		D3DXQuaternionRotationAxis( &m_Rotation, &cross.ConvertToDX(), Angle);
 	}
 	
-	//‚»‚êˆÈŠO‚Ìê‡
+	//ãã‚Œä»¥å¤–ã®å ´åˆ
 	else
 	{
-		//‰ñ“]‚µ‚Äƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-		auto quatW = GetWorldRotation();	//ƒ[ƒ‹ƒh‰ñ“]—Ê
-		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//e‚Ìƒ[ƒ‹ƒh‰ñ“]—Ê‚Ì‹t‰ñ“]
+		//å›è»¢ã—ã¦ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+		auto quatW = GetWorldRotation();	//ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡
+		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//è¦ªã®ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡ã®é€†å›è»¢
 		D3DXQuaternionInverse( &WorldRotInv, &WorldRotInv);
 
 		D3DXQuaternionIdentity( &quatW);
@@ -434,7 +434,7 @@ void Transform::SetWorldRotationLookAt(const Vector3& Position)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒ‹ƒhF‰ñ“]—Êİ’èiw’èˆÊ’u‚ğŒü‚­‚æ‚¤‚É’n–Ê‚Æ…•½‚É‰ñ“]j
+	ãƒ¯ãƒ¼ãƒ«ãƒ‰ï¼šå›è»¢é‡è¨­å®šï¼ˆæŒ‡å®šä½ç½®ã‚’å‘ãã‚ˆã†ã«åœ°é¢ã¨æ°´å¹³ã«å›è»¢ï¼‰
 ------------------------------------------------------------------------------*/
 void Transform::SetWorldRotationLookAtHorizontal(const Vector3& Position)
 {
@@ -443,41 +443,41 @@ void Transform::SetWorldRotationLookAtHorizontal(const Vector3& Position)
 		return;
 	}
 
-	Vector3 Direction = Position - GetWorldPosition();	//Œü‚­•ûŒü
+	Vector3 Direction = Position - GetWorldPosition();	//å‘ãæ–¹å‘
 	Direction.y = 0.0f;
-	Vector3 VecZ = Vector3( 0.0f, 0.0f, 1.0f);			//‰Šú•ûŒü
+	Vector3 VecZ = Vector3( 0.0f, 0.0f, 1.0f);			//åˆæœŸæ–¹å‘
 
-	//“ñ‚Â‚ÌƒxƒNƒgƒ‹‚ª‚È‚·Šp‚ğ‹‚ß‚é
+	//äºŒã¤ã®ãƒ™ã‚¯ãƒˆãƒ«ãŒãªã™è§’ã‚’æ±‚ã‚ã‚‹
 	float X = Vector3::Dot( VecZ, Direction) / (VecZ.Length() * Direction.Length());
 	if (X == 1.0f)
 	{
 		X -= 0.0001f;
 	}
-	float Angle = acos( X);			//‚È‚·Šp
+	float Angle = acos( X);			//ãªã™è§’
 
-	//‰ñ“]²‚Ìİ’è
+	//å›è»¢è»¸ã®è¨­å®š
 	Vector3 cross = Vector3::Cross( VecZ, Direction);
 
-	//ŠOÏ‚ªƒ[ƒƒxƒNƒgƒ‹i2‚Â‚ÌƒxƒNƒgƒ‹‚ªˆê’¼üj‚Ì‚Æ‚«VecUp‚ğ‰ñ“]²‚É‚·‚é
+	//å¤–ç©ãŒã‚¼ãƒ­ãƒ™ã‚¯ãƒˆãƒ«ï¼ˆ2ã¤ã®ãƒ™ã‚¯ãƒˆãƒ«ãŒä¸€ç›´ç·šï¼‰ã®ã¨ãVecUpã‚’å›è»¢è»¸ã«ã™ã‚‹
 	if (cross.Length() <= 0.1f)
 	{
 		cross = Vector3( 0.0f, 1.0f, 0.0f);
 	}
 
-	//‰ñ“]—Ê‚ÌXV
-	//e‚ªƒ‹[ƒg‚Ìê‡
+	//å›è»¢é‡ã®æ›´æ–°
+	//è¦ªãŒãƒ«ãƒ¼ãƒˆã®å ´åˆ
 	if (m_pTransform->GetParent() == m_pGameObject->GetRoot()->m_pTransform)
 	{
 		D3DXQuaternionIdentity( &m_Rotation);
 		D3DXQuaternionRotationAxis( &m_Rotation, &cross.ConvertToDX(), Angle);
 	}
 	
-	//‚»‚êˆÈŠO‚Ìê‡
+	//ãã‚Œä»¥å¤–ã®å ´åˆ
 	else
 	{
-		//‰ñ“]‚µ‚Äƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-		auto quatW = GetWorldRotation();	//ƒ[ƒ‹ƒh‰ñ“]—Ê
-		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//e‚Ìƒ[ƒ‹ƒh‰ñ“]—Ê‚Ì‹t‰ñ“]
+		//å›è»¢ã—ã¦ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+		auto quatW = GetWorldRotation();	//ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡
+		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//è¦ªã®ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡ã®é€†å›è»¢
 		D3DXQuaternionInverse( &WorldRotInv, &WorldRotInv);
 
 		D3DXQuaternionIdentity( &quatW);
@@ -489,7 +489,7 @@ void Transform::SetWorldRotationLookAtHorizontal(const Vector3& Position)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒ‹ƒhF‰ñ“]—Êİ’èiw’è•ûŒü‚ğŒü‚­‚æ‚¤‚Éj
+	ãƒ¯ãƒ¼ãƒ«ãƒ‰ï¼šå›è»¢é‡è¨­å®šï¼ˆæŒ‡å®šæ–¹å‘ã‚’å‘ãã‚ˆã†ã«ï¼‰
 ------------------------------------------------------------------------------*/
 void Transform::SetWorldRotationLookDirection(const Vector3& Direction)
 {
@@ -498,39 +498,39 @@ void Transform::SetWorldRotationLookDirection(const Vector3& Direction)
 		return;
 	}
 
-	Vector3 VecZ = Vector3( 0.0f, 0.0f, 1.0f);		//‰Šú•ûŒü
+	Vector3 VecZ = Vector3( 0.0f, 0.0f, 1.0f);		//åˆæœŸæ–¹å‘
 
-	//“ñ‚Â‚ÌƒxƒNƒgƒ‹‚ª‚È‚·Šp‚ğ‹‚ß‚é
+	//äºŒã¤ã®ãƒ™ã‚¯ãƒˆãƒ«ãŒãªã™è§’ã‚’æ±‚ã‚ã‚‹
 	float X = Vector3::Dot( VecZ, Direction) / (VecZ.Length() * Direction.Length());
 	if (X == 1.0f)
 	{
 		X -= 0.0001f;
 	}
-	float Angle = acos( X);			//‚È‚·Šp
+	float Angle = acos( X);			//ãªã™è§’
 
-	//‰ñ“]²‚Ìİ’è
+	//å›è»¢è»¸ã®è¨­å®š
 	Vector3 cross = Vector3::Cross( VecZ, Direction);
 
-	//ŠOÏ‚ªƒ[ƒƒxƒNƒgƒ‹i2‚Â‚ÌƒxƒNƒgƒ‹‚ªˆê’¼üj‚Ì‚Æ‚«VecUp‚ğ‰ñ“]²‚É‚·‚é
+	//å¤–ç©ãŒã‚¼ãƒ­ãƒ™ã‚¯ãƒˆãƒ«ï¼ˆ2ã¤ã®ãƒ™ã‚¯ãƒˆãƒ«ãŒä¸€ç›´ç·šï¼‰ã®ã¨ãVecUpã‚’å›è»¢è»¸ã«ã™ã‚‹
 	if (cross.Length() <= 0.1f)
 	{
 		cross = Vector3( 0.0f, 1.0f, 0.0f);
 	}
 
-	//‰ñ“]—Ê‚ÌXV
-	//e‚ªƒ‹[ƒg‚Ìê‡
+	//å›è»¢é‡ã®æ›´æ–°
+	//è¦ªãŒãƒ«ãƒ¼ãƒˆã®å ´åˆ
 	if (m_pTransform->GetParent() == m_pGameObject->GetRoot()->m_pTransform)
 	{
 		D3DXQuaternionIdentity( &m_Rotation);
 		D3DXQuaternionRotationAxis( &m_Rotation, &cross.ConvertToDX(), Angle);
 	}
 	
-	//‚»‚êˆÈŠO‚Ìê‡
+	//ãã‚Œä»¥å¤–ã®å ´åˆ
 	else
 	{
-		//‰ñ“]‚µ‚Äƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-		auto quatW = GetWorldRotation();	//ƒ[ƒ‹ƒh‰ñ“]—Ê
-		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//e‚Ìƒ[ƒ‹ƒh‰ñ“]—Ê‚Ì‹t‰ñ“]
+		//å›è»¢ã—ã¦ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+		auto quatW = GetWorldRotation();	//ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡
+		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//è¦ªã®ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡ã®é€†å›è»¢
 		D3DXQuaternionInverse( &WorldRotInv, &WorldRotInv);
 
 		D3DXQuaternionIdentity( &quatW);
@@ -542,7 +542,7 @@ void Transform::SetWorldRotationLookDirection(const Vector3& Direction)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒJƒ‹F‰ñ“]—Êİ’èiƒIƒCƒ‰[Špj
+	ãƒ­ãƒ¼ã‚«ãƒ«ï¼šå›è»¢é‡è¨­å®šï¼ˆã‚ªã‚¤ãƒ©ãƒ¼è§’ï¼‰
 ------------------------------------------------------------------------------*/
 void Transform::SetLocalRotationEuler( const Vector3& Euler)
 { 
@@ -558,34 +558,34 @@ void Transform::SetLocalRotationEuler( const float x, const float y, const float
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒJƒ‹F‰ñ“]—Êİ’èiw’è‚µ‚½²‚Å‰ñ“]j
+	ãƒ­ãƒ¼ã‚«ãƒ«ï¼šå›è»¢é‡è¨­å®šï¼ˆæŒ‡å®šã—ãŸè»¸ã§å›è»¢ï¼‰
 ------------------------------------------------------------------------------*/
 void Transform::SetLocalRotationAxis( const Vector3& Axis, float Value)
 {
-	//w’è‚µ‚½²‚Å‰ñ“]
+	//æŒ‡å®šã—ãŸè»¸ã§å›è»¢
 	D3DXQuaternionRotationAxis( &m_Rotation, &Axis.ConvertToDX(), Value);
 
 	m_bLocalMatrixUpdate = true;
 }
 
 /*------------------------------------------------------------------------------
-	ƒXƒ‰[ƒv‰ñ“]
+	ã‚¹ãƒ©ãƒ¼ãƒ—å›è»¢
 ------------------------------------------------------------------------------*/
 void Transform::RotateSlerp( const D3DXQUATERNION& Quaternion, float Value)
 {
-	//ƒXƒ‰[ƒv‰ñ“]
-	//e‚ªƒ‹[ƒg‚Ìê‡
+	//ã‚¹ãƒ©ãƒ¼ãƒ—å›è»¢
+	//è¦ªãŒãƒ«ãƒ¼ãƒˆã®å ´åˆ
 	if (m_pTransform->GetParent() == m_pGameObject->GetRoot()->m_pTransform)
 	{
 		D3DXQuaternionSlerp( &m_Rotation, &m_Rotation, &Quaternion, Value);
 	}
 	
-	//‚»‚êˆÈŠO‚Ìê‡
+	//ãã‚Œä»¥å¤–ã®å ´åˆ
 	else
 	{
-		//‰ñ“]‚µ‚Äƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-		auto quatW = GetWorldRotation();								//ƒ[ƒ‹ƒh‰ñ“]—Ê
-		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//e‚Ìƒ[ƒ‹ƒh‰ñ“]—Ê‚Ì‹t‰ñ“]
+		//å›è»¢ã—ã¦ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+		auto quatW = GetWorldRotation();								//ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡
+		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//è¦ªã®ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡ã®é€†å›è»¢
 		D3DXQuaternionInverse( &WorldRotInv, &WorldRotInv);
 
 		D3DXQuaternionSlerp( &quatW, &quatW, &Quaternion, Value);
@@ -596,12 +596,12 @@ void Transform::RotateSlerp( const D3DXQUATERNION& Quaternion, float Value)
 }
 
 /*------------------------------------------------------------------------------
-	w’è‚µ‚½²‚Å‰ñ“]
+	æŒ‡å®šã—ãŸè»¸ã§å›è»¢
 ------------------------------------------------------------------------------*/
 void Transform::RotateAxis( const Vector3& Axis, float Value)
 {
-	//w’è‚µ‚½²‚Å‰ñ“]
-	//e‚ªƒ‹[ƒg‚Ìê‡
+	//æŒ‡å®šã—ãŸè»¸ã§å›è»¢
+	//è¦ªãŒãƒ«ãƒ¼ãƒˆã®å ´åˆ
 	if (m_pTransform->GetParent() == m_pGameObject->GetRoot()->m_pTransform)
 	{
 		D3DXQUATERNION quat;
@@ -609,12 +609,12 @@ void Transform::RotateAxis( const Vector3& Axis, float Value)
 		m_Rotation *= quat;
 	}
 	
-	//‚»‚êˆÈŠO‚Ìê‡
+	//ãã‚Œä»¥å¤–ã®å ´åˆ
 	else
 	{
-		//‰ñ“]‚µ‚Äƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-		auto quatW = GetWorldRotation();								//ƒ[ƒ‹ƒh‰ñ“]—Ê
-		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//e‚Ìƒ[ƒ‹ƒh‰ñ“]—Ê‚Ì‹t‰ñ“]
+		//å›è»¢ã—ã¦ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+		auto quatW = GetWorldRotation();								//ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡
+		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//è¦ªã®ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡ã®é€†å›è»¢
 		D3DXQuaternionInverse( &WorldRotInv, &WorldRotInv);
 
 		D3DXQuaternionRotationAxis( &quatW, &Axis.ConvertToDX(), Value);
@@ -625,7 +625,7 @@ void Transform::RotateAxis( const Vector3& Axis, float Value)
 }
 
 /*------------------------------------------------------------------------------
-	w’èˆÊ’u‚ğŒü‚­‚æ‚¤‚É‰ñ“]
+	æŒ‡å®šä½ç½®ã‚’å‘ãã‚ˆã†ã«å›è»¢
 ------------------------------------------------------------------------------*/
 void Transform::RotateLookAt(const Vector3& Position, float Value)
 {
@@ -634,44 +634,44 @@ void Transform::RotateLookAt(const Vector3& Position, float Value)
 		return;
 	}
 
-	Vector3 Vec = Position - GetWorldPosition();	//Œü‚­•ûŒü
-	Vector3 VecZ = Vector3( 0.0f, 0.0f, 1.0f);		//‰Šú•ûŒü
+	Vector3 Vec = Position - GetWorldPosition();	//å‘ãæ–¹å‘
+	Vector3 VecZ = Vector3( 0.0f, 0.0f, 1.0f);		//åˆæœŸæ–¹å‘
 
-	//“ñ‚Â‚ÌƒxƒNƒgƒ‹‚ª‚È‚·Šp‚ğ‹‚ß‚é
+	//äºŒã¤ã®ãƒ™ã‚¯ãƒˆãƒ«ãŒãªã™è§’ã‚’æ±‚ã‚ã‚‹
 	float X = Vector3::Dot( VecZ, Vec) / (VecZ.Length() * Vec.Length());
 	if (X == 1.0f)
 	{
 		X -= 0.0001f;
 	}
-	float Angle = acos( X);				//‚È‚·Šp
+	float Angle = acos( X);				//ãªã™è§’
 
-	//‰ñ“]²‚Ìİ’è
+	//å›è»¢è»¸ã®è¨­å®š
 	Vector3 cross = Vector3::Cross( VecZ, Vec);
 
-	//ŠOÏ‚ªƒ[ƒƒxƒNƒgƒ‹i2‚Â‚ÌƒxƒNƒgƒ‹‚ªˆê’¼üj‚Ì‚Æ‚«VecUp‚ğ‰ñ“]²‚É‚·‚é
+	//å¤–ç©ãŒã‚¼ãƒ­ãƒ™ã‚¯ãƒˆãƒ«ï¼ˆ2ã¤ã®ãƒ™ã‚¯ãƒˆãƒ«ãŒä¸€ç›´ç·šï¼‰ã®ã¨ãVecUpã‚’å›è»¢è»¸ã«ã™ã‚‹
 	if (cross.Length() <= 0.1f)
 	{
 		cross = Vector3( 0.0f, 1.0f, 0.0f);
 	}
 
-	//ƒNƒH[ƒ^ƒjƒIƒ“‚Ìì¬
-	D3DXQUATERNION quat;							//ƒNƒH[ƒ^ƒjƒIƒ“
+	//ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã®ä½œæˆ
+	D3DXQUATERNION quat;							//ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³
 	D3DXQuaternionIdentity( &quat);
 	D3DXQuaternionRotationAxis( &quat, &cross.ConvertToDX(), Angle);
 	
-	//ì¬‚µ‚½ƒNƒH[ƒ^ƒjƒIƒ“‚ÉŒü‚¯‚Ä‰ñ“]
-	//e‚ªƒ‹[ƒg‚Ìê‡
+	//ä½œæˆã—ãŸã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã«å‘ã‘ã¦å›è»¢
+	//è¦ªãŒãƒ«ãƒ¼ãƒˆã®å ´åˆ
 	if (m_pTransform->GetParent() == m_pGameObject->GetRoot()->m_pTransform)
 	{
 		D3DXQuaternionSlerp( &m_Rotation, &m_Rotation, &quat, Value);
 	}
 	
-	//‚»‚êˆÈŠO‚Ìê‡
+	//ãã‚Œä»¥å¤–ã®å ´åˆ
 	else
 	{
-		//‰ñ“]‚µ‚Äƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-		auto quatW = GetWorldRotation();								//ƒ[ƒ‹ƒh‰ñ“]—Ê
-		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//e‚Ìƒ[ƒ‹ƒh‰ñ“]—Ê‚Ì‹t‰ñ“]
+		//å›è»¢ã—ã¦ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+		auto quatW = GetWorldRotation();								//ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡
+		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//è¦ªã®ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡ã®é€†å›è»¢
 		D3DXQuaternionInverse( &WorldRotInv, &WorldRotInv);
 
 		D3DXQuaternionSlerp( &quatW, &quatW, &quat, Value);
@@ -682,7 +682,7 @@ void Transform::RotateLookAt(const Vector3& Position, float Value)
 }
 
 /*------------------------------------------------------------------------------
-	w’èˆÊ’u‚ğŒü‚­‚æ‚¤‚É’n–Ê‚Æ…•½‚É‰ñ“]
+	æŒ‡å®šä½ç½®ã‚’å‘ãã‚ˆã†ã«åœ°é¢ã¨æ°´å¹³ã«å›è»¢
 ------------------------------------------------------------------------------*/
 void Transform::RotateLookAtHorizontal(const Vector3& Position, float Value)
 {
@@ -691,45 +691,45 @@ void Transform::RotateLookAtHorizontal(const Vector3& Position, float Value)
 		return;
 	}
 
-	Vector3 Vec = Position - GetWorldPosition();	//Œü‚­•ûŒü
+	Vector3 Vec = Position - GetWorldPosition();	//å‘ãæ–¹å‘
 	Vec.y = 0.0f;
-	Vector3 VecZ = Vector3( 0.0f, 0.0f, 1.0f);		//‰Šú•ûŒü
+	Vector3 VecZ = Vector3( 0.0f, 0.0f, 1.0f);		//åˆæœŸæ–¹å‘
 
-	//“ñ‚Â‚ÌƒxƒNƒgƒ‹‚ª‚È‚·Šp‚ğ‹‚ß‚é
+	//äºŒã¤ã®ãƒ™ã‚¯ãƒˆãƒ«ãŒãªã™è§’ã‚’æ±‚ã‚ã‚‹
 	float X = Vector3::Dot( VecZ, Vec) / (VecZ.Length() * Vec.Length());
 	if (X == 1.0f)
 	{
 		X -= 0.0001f;
 	}
-	float Angle = acos( X);				//‚È‚·Šp
+	float Angle = acos( X);				//ãªã™è§’
 
-	//‰ñ“]²‚Ìİ’è
+	//å›è»¢è»¸ã®è¨­å®š
 	Vector3 cross = Vector3::Cross( VecZ, Vec);
 
-	//ŠOÏ‚ªƒ[ƒƒxƒNƒgƒ‹i2‚Â‚ÌƒxƒNƒgƒ‹‚ªˆê’¼üj‚Ì‚Æ‚«VecUp‚ğ‰ñ“]²‚É‚·‚é
+	//å¤–ç©ãŒã‚¼ãƒ­ãƒ™ã‚¯ãƒˆãƒ«ï¼ˆ2ã¤ã®ãƒ™ã‚¯ãƒˆãƒ«ãŒä¸€ç›´ç·šï¼‰ã®ã¨ãVecUpã‚’å›è»¢è»¸ã«ã™ã‚‹
 	if (cross.Length() <= 0.1f)
 	{
 		cross = Vector3( 0.0f, 1.0f, 0.0f);
 	}
 
-	//ƒNƒH[ƒ^ƒjƒIƒ“‚Ìì¬
-	D3DXQUATERNION quat;							//ƒNƒH[ƒ^ƒjƒIƒ“
+	//ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã®ä½œæˆ
+	D3DXQUATERNION quat;							//ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³
 	D3DXQuaternionIdentity( &quat);
 	D3DXQuaternionRotationAxis( &quat, &cross.ConvertToDX(), Angle);
 	
-	//ì¬‚µ‚½ƒNƒH[ƒ^ƒjƒIƒ“‚ÉŒü‚¯‚Ä‰ñ“]
-	//e‚ªƒ‹[ƒg‚Ìê‡
+	//ä½œæˆã—ãŸã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã«å‘ã‘ã¦å›è»¢
+	//è¦ªãŒãƒ«ãƒ¼ãƒˆã®å ´åˆ
 	if (m_pTransform->GetParent() == m_pGameObject->GetRoot()->m_pTransform)
 	{
 		D3DXQuaternionSlerp( &m_Rotation, &m_Rotation, &quat, Value);
 	}
 	
-	//‚»‚êˆÈŠO‚Ìê‡
+	//ãã‚Œä»¥å¤–ã®å ´åˆ
 	else
 	{
-		//‰ñ“]‚µ‚Äƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-		auto quatW = GetWorldRotation();								//ƒ[ƒ‹ƒh‰ñ“]—Ê
-		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//e‚Ìƒ[ƒ‹ƒh‰ñ“]—Ê‚Ì‹t‰ñ“]
+		//å›è»¢ã—ã¦ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+		auto quatW = GetWorldRotation();								//ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡
+		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//è¦ªã®ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡ã®é€†å›è»¢
 		D3DXQuaternionInverse( &WorldRotInv, &WorldRotInv);
 
 		D3DXQuaternionSlerp( &quatW, &quatW, &quat, Value);
@@ -740,7 +740,7 @@ void Transform::RotateLookAtHorizontal(const Vector3& Position, float Value)
 }
 
 /*------------------------------------------------------------------------------
-	w’è•ûŒü‚ğŒü‚­‚æ‚¤‚É‰ñ“]
+	æŒ‡å®šæ–¹å‘ã‚’å‘ãã‚ˆã†ã«å›è»¢
 ------------------------------------------------------------------------------*/
 void Transform::RotateLookDirection(const Vector3& Direction, float Value)
 {
@@ -749,43 +749,43 @@ void Transform::RotateLookDirection(const Vector3& Direction, float Value)
 		return;
 	}
 
-	Vector3 VecZ = Vector3( 0.0f, 0.0f, 1.0f);		//‰Šú•ûŒü
+	Vector3 VecZ = Vector3( 0.0f, 0.0f, 1.0f);		//åˆæœŸæ–¹å‘
 
-	//“ñ‚Â‚ÌƒxƒNƒgƒ‹‚ª‚È‚·Šp‚ğ‹‚ß‚é
+	//äºŒã¤ã®ãƒ™ã‚¯ãƒˆãƒ«ãŒãªã™è§’ã‚’æ±‚ã‚ã‚‹
 	float X = Vector3::Dot( VecZ, Direction) / (VecZ.Length() * Direction.Length());
 	if (X == 1.0f)
 	{
 		X -= 0.0001f;
 	}
-	float Angle = acos( X);			//‚È‚·Šp
+	float Angle = acos( X);			//ãªã™è§’
 
-	//‰ñ“]²‚Ìİ’è
+	//å›è»¢è»¸ã®è¨­å®š
 	Vector3 cross = Vector3::Cross( VecZ, Direction);
 
-	//ŠOÏ‚ªƒ[ƒƒxƒNƒgƒ‹i2‚Â‚ÌƒxƒNƒgƒ‹‚ªˆê’¼üj‚Ì‚Æ‚«VecUp‚ğ‰ñ“]²‚É‚·‚é
+	//å¤–ç©ãŒã‚¼ãƒ­ãƒ™ã‚¯ãƒˆãƒ«ï¼ˆ2ã¤ã®ãƒ™ã‚¯ãƒˆãƒ«ãŒä¸€ç›´ç·šï¼‰ã®ã¨ãVecUpã‚’å›è»¢è»¸ã«ã™ã‚‹
 	if (cross.Length() <= 0.1f)
 	{
 		cross = Vector3( 0.0f, 1.0f, 0.0f);
 	}
 
-	//ƒNƒH[ƒ^ƒjƒIƒ“‚Ìì¬
-	D3DXQUATERNION quat;							//ƒNƒH[ƒ^ƒjƒIƒ“
+	//ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã®ä½œæˆ
+	D3DXQUATERNION quat;							//ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³
 	D3DXQuaternionIdentity( &quat);
 	D3DXQuaternionRotationAxis( &quat, &cross.ConvertToDX(), Angle);
 
-	//ì¬‚µ‚½ƒNƒH[ƒ^ƒjƒIƒ“‚ÉŒü‚¯‚Ä‰ñ“]
-	//e‚ªƒ‹[ƒg‚Ìê‡
+	//ä½œæˆã—ãŸã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã«å‘ã‘ã¦å›è»¢
+	//è¦ªãŒãƒ«ãƒ¼ãƒˆã®å ´åˆ
 	if (m_pTransform->GetParent() == m_pGameObject->GetRoot()->m_pTransform)
 	{
 		D3DXQuaternionSlerp( &m_Rotation, &m_Rotation, &quat, Value);
 	}
 	
-	//‚»‚êˆÈŠO‚Ìê‡
+	//ãã‚Œä»¥å¤–ã®å ´åˆ
 	else
 	{
-		//‰ñ“]‚µ‚Äƒ[ƒ‹ƒh¨ƒ[ƒJƒ‹
-		auto quatW = GetWorldRotation();								//ƒ[ƒ‹ƒh‰ñ“]—Ê
-		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//e‚Ìƒ[ƒ‹ƒh‰ñ“]—Ê‚Ì‹t‰ñ“]
+		//å›è»¢ã—ã¦ãƒ¯ãƒ¼ãƒ«ãƒ‰â†’ãƒ­ãƒ¼ã‚«ãƒ«
+		auto quatW = GetWorldRotation();								//ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡
+		D3DXQUATERNION WorldRotInv = m_pParent->GetWorldRotation();		//è¦ªã®ãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢é‡ã®é€†å›è»¢
 		D3DXQuaternionInverse( &WorldRotInv, &WorldRotInv);
 
 		D3DXQuaternionSlerp( &quatW, &quatW, &quat, Value);
@@ -796,13 +796,13 @@ void Transform::RotateLookDirection(const Vector3& Direction, float Value)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒJƒ‹FƒXƒP[ƒ‹İ’è
+	ãƒ­ãƒ¼ã‚«ãƒ«ï¼šã‚¹ã‚±ãƒ¼ãƒ«è¨­å®š
 ------------------------------------------------------------------------------*/
 void Transform::SetLocalScale( const Vector3& Scale)
 { 
 	if (Scale.x == 0.0f || Scale.y == 0.0f || Scale.z == 0.0f)
 	{
-		//MessageBox( NULL, "ƒXƒP[ƒ‹’l‚É0.0f‚ªİ’è‚³‚ê‚Ü‚µ‚½\n", "ƒGƒ‰[", MB_OK);
+		//MessageBox( NULL, "ã‚¹ã‚±ãƒ¼ãƒ«å€¤ã«0.0fãŒè¨­å®šã•ã‚Œã¾ã—ãŸ\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		//assert(false);
 	}
 	m_Scale = Scale;
@@ -812,7 +812,7 @@ void Transform::SetLocalScale( const float x, const float y, const float z)
 {
 	if (x == 0.0f || y == 0.0f || z == 0.0f)
 	{
-		//MessageBox( NULL, "ƒXƒP[ƒ‹’l‚É0.0f‚ªİ’è‚³‚ê‚Ü‚µ‚½\n", "ƒGƒ‰[", MB_OK);
+		//MessageBox( NULL, "ã‚¹ã‚±ãƒ¼ãƒ«å€¤ã«0.0fãŒè¨­å®šã•ã‚Œã¾ã—ãŸ\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		//assert(false);
 	}
 	m_Scale = Vector3( x, y, z); 
@@ -822,7 +822,7 @@ void Transform::SetLocalScaleX( const float x)
 {
 	if (x == 0.0f)
 	{
-		//MessageBox( NULL, "ƒXƒP[ƒ‹’l‚É0.0f‚ªİ’è‚³‚ê‚Ü‚µ‚½\n", "ƒGƒ‰[", MB_OK);
+		//MessageBox( NULL, "ã‚¹ã‚±ãƒ¼ãƒ«å€¤ã«0.0fãŒè¨­å®šã•ã‚Œã¾ã—ãŸ\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		//assert(false);
 	}
 	m_Scale.x = x;  
@@ -832,7 +832,7 @@ void Transform::SetLocalScaleY( const float y)
 {
 	if (y == 0.0f)
 	{
-		//MessageBox( NULL, "ƒXƒP[ƒ‹’l‚É0.0f‚ªİ’è‚³‚ê‚Ü‚µ‚½\n", "ƒGƒ‰[", MB_OK);
+		//MessageBox( NULL, "ã‚¹ã‚±ãƒ¼ãƒ«å€¤ã«0.0fãŒè¨­å®šã•ã‚Œã¾ã—ãŸ\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		//assert(false);
 	}
 	m_Scale.y = y;  
@@ -842,7 +842,7 @@ void Transform::SetLocalScaleZ( const float z)
 {
 	if (z == 0.0f)
 	{
-		MessageBox( NULL, "ƒXƒP[ƒ‹’l‚É0.0f‚ªİ’è‚³‚ê‚Ü‚µ‚½\n", "ƒGƒ‰[", MB_OK);
+		MessageBox( NULL, "ã‚¹ã‚±ãƒ¼ãƒ«å€¤ã«0.0fãŒè¨­å®šã•ã‚Œã¾ã—ãŸ\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		//assert(false);
 	}
 	m_Scale.z = z; 
@@ -850,7 +850,7 @@ void Transform::SetLocalScaleZ( const float z)
 }
 
 /*------------------------------------------------------------------------------
-	eTransform‚ğİ’è
+	è¦ªTransformã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void Transform::SetParent(Transform* pParent)
 {
@@ -862,7 +862,7 @@ void Transform::SetParent(Transform* pParent)
 	m_LocalMatrix = m_LocalMatrix * m_pParent->WorldMatrix() * mtxInv;
 	m_pParent = pParent;
 
-	//ƒf[ƒ^æ“¾
+	//ãƒ‡ãƒ¼ã‚¿å–å¾—
 	m_Position = Vector3( m_LocalMatrix._41, m_LocalMatrix._42, m_LocalMatrix._43);
 	D3DXQuaternionRotationMatrix( &m_Rotation, &m_LocalMatrix);
 
@@ -874,8 +874,8 @@ void Transform::SetParent(Transform* pParent)
 }
 
 /*------------------------------------------------------------------------------
-	eTransform‚©‚çØ‚è—£‚·
-	eObject‚ÌTransform‚ğİ’è
+	è¦ªTransformã‹ã‚‰åˆ‡ã‚Šé›¢ã™
+	è¦ªObjectã®Transformã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void Transform::UnParent( void)
 {
@@ -893,7 +893,7 @@ void Transform::UnParent( void)
 	m_LocalMatrix = m_LocalMatrix * m_pParent->WorldMatrix() * mtxInv;
 	m_pParent = pParent;
 
-	//ƒf[ƒ^æ“¾
+	//ãƒ‡ãƒ¼ã‚¿å–å¾—
 	m_Position = Vector3( m_LocalMatrix._41, m_LocalMatrix._42, m_LocalMatrix._43);
 	D3DXQuaternionRotationMatrix( &m_Rotation, &m_LocalMatrix);
 	
@@ -905,11 +905,11 @@ void Transform::UnParent( void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void Transform::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -944,7 +944,7 @@ void Transform::Load(Text& text)
 			m_Rotation.w = std::stof(text.GetWord());
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
@@ -954,7 +954,7 @@ void Transform::Load(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void Transform::Save(Text& text)
 {
@@ -972,7 +972,7 @@ void Transform::Save(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ImGui‚Ì•\¦î•ñİ’è
+	ImGuiã®è¡¨ç¤ºæƒ…å ±è¨­å®š
 ------------------------------------------------------------------------------*/
 void Transform::SetImGuiView()
 {

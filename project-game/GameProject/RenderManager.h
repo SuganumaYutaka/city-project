@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    RenderManager.h - •`‰æiƒŒƒ“ƒ_ƒŠƒ“ƒOjŠÇ—
+    RenderManager.h - æç”»ï¼ˆãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ï¼‰ç®¡ç†
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/4
 ==============================================================================*/
@@ -8,12 +8,12 @@
 #define _RENDER_MANAGER_H_
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
 
 /*------------------------------------------------------------------------------
-	‘O•ûéŒ¾
+	å‰æ–¹å®£è¨€
 ------------------------------------------------------------------------------*/
 class Renderer;
 class Camera;
@@ -21,7 +21,7 @@ class Light;
 class DebugRenderer;
 
 /*------------------------------------------------------------------------------
-	ƒNƒ‰ƒX’è‹`
+	ã‚¯ãƒ©ã‚¹å®šç¾©
 ------------------------------------------------------------------------------*/
 class RenderManager
 {
@@ -69,18 +69,18 @@ public:
 	}
 
 private:
-	LPDIRECT3D9 m_pD3D;								//Direct3DƒIƒuƒWƒFƒNƒg
-	LPDIRECT3DDEVICE9 m_pDevice;					//DeviceƒIƒuƒWƒFƒNƒg
-	std::list< Renderer *> m_listRenderer;			//ƒŒƒ“ƒ_ƒ‰[ƒŠƒXƒg
-	std::list< Renderer *> m_listReleaseRenderer;	//Á‹‚·‚éƒŒƒ“ƒ_ƒ‰[ƒŠƒXƒg
-	Camera *m_pMainCamera;							//ƒƒCƒ“ƒJƒƒ‰
+	LPDIRECT3D9 m_pD3D;								//Direct3Dã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	LPDIRECT3DDEVICE9 m_pDevice;					//Deviceã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	std::list< Renderer *> m_listRenderer;			//ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼ãƒªã‚¹ãƒˆ
+	std::list< Renderer *> m_listReleaseRenderer;	//æ¶ˆå»ã™ã‚‹ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼ãƒªã‚¹ãƒˆ
+	Camera *m_pMainCamera;							//ãƒ¡ã‚¤ãƒ³ã‚«ãƒ¡ãƒ©
 
-	std::list< Camera *> m_listCamera;				//ƒJƒƒ‰ƒŠƒXƒg
+	std::list< Camera *> m_listCamera;				//ã‚«ãƒ¡ãƒ©ãƒªã‚¹ãƒˆ
 
 	void DrawRenderer( Camera* camera, int layer);
 	
 #ifdef _DEBUG
-	DebugRenderer *m_pDebugRenderer;				//ƒfƒoƒbƒO•\¦
+	DebugRenderer *m_pDebugRenderer;				//ãƒ‡ãƒãƒƒã‚°è¡¨ç¤º
 #endif // _DEBUG
 };
 

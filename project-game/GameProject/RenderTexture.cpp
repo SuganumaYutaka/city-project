@@ -1,17 +1,17 @@
 /*==============================================================================
 
-    RenderTexture.cpp - �����_�[�e�N�X�`��
+    RenderTexture.cpp - レンダーテクスチャ
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/8/8
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	�C���N���[�h�t�@�C��
+	インクルードファイル
 ------------------------------------------------------------------------------*/
 #include "RenderTexture.h"
 
 /*------------------------------------------------------------------------------
-	�}�N����`
+	マクロ定義
 ------------------------------------------------------------------------------*/
 //#define TEXTURE_WIDTH (1024)
 //#define TEXTURE_HEIGHT (1024)
@@ -19,16 +19,16 @@
 #define TEXTURE_HEIGHT (2048)
 
 /*------------------------------------------------------------------------------
-	�R���X�g���N�^
+	コンストラクタ
 ------------------------------------------------------------------------------*/
 RenderTexture::RenderTexture( bool isBuckBuffer)
 {
 	auto pDevice = Manager::GetDevice();
 
-	//�o�b�N�o�b�t�@���ǂ���
+	//バックバッファかどうか
 	m_bBuckBuffer = isBuckBuffer;
 
-	//�o�b�N�o�b�t�@�̏ꍇ
+	//バックバッファの場合
 	if (isBuckBuffer == true)
 	{
 		m_pTexture = NULL;
@@ -37,44 +37,44 @@ RenderTexture::RenderTexture( bool isBuckBuffer)
 		return;
 	}
 
-	//�����_�[�e�N�X�`���̍쐬
+	//レンダーテクスチャの作成
 	HRESULT hr;
 	hr = pDevice->CreateTexture(
-		SCREEN_WIDTH, SCREEN_HEIGHT,		//�e�N�X�`���T�C�Y
+		SCREEN_WIDTH, SCREEN_HEIGHT,		//テクスチャサイズ
 		1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT,
 		&m_pTexture, NULL);
 	if (hr == E_FAIL)
 	{
-		MessageBox( NULL, "�����_�[�e�N�X�`���̍쐬�Ɏ��s���܂���\n", "�G���[", MB_OK);
+		MessageBox( NULL, "レンダーテクスチャの作成に失敗しました\n", "エラー", MB_OK);
 		return;
 	}
 
-	//�e�N�X�`���T�[�t�F�X�̎擾
+	//テクスチャサーフェスの取得
 	m_pTexture->GetSurfaceLevel( 0, &m_pTexSurface);
 	if (hr == E_FAIL)
 	{
-		MessageBox( NULL, "�e�N�X�`���T�[�t�F�X�̎擾�Ɏ��s���܂���\n", "�G���[", MB_OK);
+		MessageBox( NULL, "テクスチャサーフェスの取得に失敗しました\n", "エラー", MB_OK);
 		return;
 	}
 
-	//�[�x�o�b�t�@�̍쐬
+	//深度バッファの作成
 	hr = pDevice->CreateDepthStencilSurface(
 		SCREEN_WIDTH, SCREEN_HEIGHT,
 		D3DFMT_D24S8, D3DMULTISAMPLE_NONE, 0, FALSE,
 		&m_pTexZ, NULL);
 	if (hr == E_FAIL)
 	{
-		MessageBox( NULL, "�[�x�o�b�t�@�̍쐬�Ɏ��s���܂���\n", "�G���[", MB_OK);
+		MessageBox( NULL, "深度バッファの作成に失敗しました\n", "エラー", MB_OK);
 		return;
 	}
 
-	//�e�N�X�`���T�C�Y�̐ݒ�
+	//テクスチャサイズの設定
 	m_Size.x = SCREEN_WIDTH;
 	m_Size.y = SCREEN_HEIGHT;
 }
 
 /*------------------------------------------------------------------------------
-	�f�X�g���N�^
+	デストラクタ
 ------------------------------------------------------------------------------*/
 RenderTexture::~RenderTexture()
 {
@@ -87,49 +87,49 @@ RenderTexture::~RenderTexture()
 }
 
 /*------------------------------------------------------------------------------
-	�[�x�o�b�t�@�`��p�t�H�[�}�b�g�ɕύX
+	深度バッファ描画用フォーマットに変更
 ------------------------------------------------------------------------------*/
 bool RenderTexture::ChangeDepthRenderFormat( void)
 {
-	//�e�N�X�`���̔j��
+	//テクスチャの破棄
 	SAFE_RELEASE( m_pTexture);
 	SAFE_RELEASE( m_pTexSurface);
 	SAFE_RELEASE( m_pTexZ);
 
 	auto pDevice = Manager::GetDevice();
 
-	//�����_�[�e�N�X�`���̍쐬
+	//レンダーテクスチャの作成
 	HRESULT hr;
 	hr = pDevice->CreateTexture(
-		TEXTURE_WIDTH, TEXTURE_HEIGHT,		//�e�N�X�`���T�C�Y
+		TEXTURE_WIDTH, TEXTURE_HEIGHT,		//テクスチャサイズ
 		1, D3DUSAGE_RENDERTARGET, D3DFMT_R32F, D3DPOOL_DEFAULT,
 		&m_pTexture, NULL);
 	if (hr == E_FAIL)
 	{
-		MessageBox( NULL, "�����_�[�e�N�X�`���̍쐬�Ɏ��s���܂���\n", "�G���[", MB_OK);
+		MessageBox( NULL, "レンダーテクスチャの作成に失敗しました\n", "エラー", MB_OK);
 		return false;
 	}
 
-	//�e�N�X�`���T�[�t�F�X�̎擾
+	//テクスチャサーフェスの取得
 	m_pTexture->GetSurfaceLevel( 0, &m_pTexSurface);
 	if (hr == E_FAIL)
 	{
-		MessageBox( NULL, "�e�N�X�`���T�[�t�F�X�̎擾�Ɏ��s���܂���\n", "�G���[", MB_OK);
+		MessageBox( NULL, "テクスチャサーフェスの取得に失敗しました\n", "エラー", MB_OK);
 		return false;
 	}
 
-	//�[�x�o�b�t�@�̍쐬
+	//深度バッファの作成
 	hr = pDevice->CreateDepthStencilSurface(
 		TEXTURE_WIDTH, TEXTURE_HEIGHT,
 		D3DFMT_D24S8, D3DMULTISAMPLE_NONE, 0, FALSE,
 		&m_pTexZ, NULL);
 	if (hr == E_FAIL)
 	{
-		MessageBox( NULL, "�[�x�o�b�t�@�̍쐬�Ɏ��s���܂���\n", "�G���[", MB_OK);
+		MessageBox( NULL, "深度バッファの作成に失敗しました\n", "エラー", MB_OK);
 		return false;
 	}
 
-	//�e�N�X�`���T�C�Y�̐ݒ�
+	//テクスチャサイズの設定
 	m_Size.x = TEXTURE_WIDTH;
 	m_Size.y = TEXTURE_HEIGHT;
 

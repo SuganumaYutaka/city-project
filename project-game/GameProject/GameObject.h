@@ -1,6 +1,6 @@
 /*==============================================================================
 	
-	GameObject.h - ƒIƒuƒWƒFƒNƒgƒm[ƒh
+	GameObject.h - ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒãƒ¼ãƒ‰
 														Author : Yutaka Suganuma
 														Date   : 2017/4/29
 ==============================================================================*/
@@ -8,7 +8,7 @@
 #define _GAME_OBJECT_H_
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
 
@@ -16,12 +16,12 @@
 #include "Transform.h"
 
 /*------------------------------------------------------------------------------
-	‘O•ûéŒ¾
+	å‰æ–¹å®£è¨€
 ------------------------------------------------------------------------------*/
 class Transform;
 
 /*------------------------------------------------------------------------------
-	ƒNƒ‰ƒX’è‹`
+	ã‚¯ãƒ©ã‚¹å®šç¾©
 ------------------------------------------------------------------------------*/
 class GameObject
 {
@@ -32,13 +32,13 @@ public:
 	void UpdateAll();
 	void DrawAll();
 	
-	void OnCollision( Collider *pCollider);			//Õ“Ë‚µ‚½‚Æ‚«ŒÄ‚Ño‚³‚ê‚é
+	void OnCollision( Collider *pCollider);			//è¡çªã—ãŸã¨ãå‘¼ã³å‡ºã•ã‚Œã‚‹
 	
 	GameObject* GetParent() { return m_pParent;}
 	GameObject* GetRoot() { return m_pRoot;}
 	
-	Transform* m_pTransform;						//ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€ƒRƒ“ƒ|[ƒlƒ“ƒg
-	std::string m_Tag;								//ƒ^ƒO
+	Transform* m_pTransform;						//ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
+	std::string m_Tag;								//ã‚¿ã‚°
 
 	void ReleaseReserve( void );
 	static void ReleaseList( void);
@@ -58,10 +58,10 @@ private:
 	GameObject();
 	~GameObject() {}
 
-	GameObject* m_pParent;							//eƒm[ƒh
-	GameObject* m_pRoot;							//ƒ‹[ƒgƒm[ƒh
-	std::list< GameObject*> m_listChild;			//qƒm[ƒhƒŠƒXƒg
-	std::list< Component*> m_listComponent;			//ƒRƒ“ƒ|[ƒlƒ“ƒgƒŠƒXƒg
+	GameObject* m_pParent;							//è¦ªãƒãƒ¼ãƒ‰
+	GameObject* m_pRoot;							//ãƒ«ãƒ¼ãƒˆãƒãƒ¼ãƒ‰
+	std::list< GameObject*> m_listChild;			//å­ãƒãƒ¼ãƒ‰ãƒªã‚¹ãƒˆ
+	std::list< Component*> m_listComponent;			//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒªã‚¹ãƒˆ
 	
 	void InitGameObject( GameObject* pParent);
 	void Update();
@@ -70,13 +70,13 @@ private:
 	void ReleaseObject();
 	void ReleaseRecursive();
 	
-	static std::list<GameObject*> m_listReleaseObject;	//Á‹ƒŠƒXƒg
-	bool m_bRelease;									//Á‹—\–ñÏ‚İ‚©
+	static std::list<GameObject*> m_listReleaseObject;	//æ¶ˆå»ãƒªã‚¹ãƒˆ
+	bool m_bRelease;									//æ¶ˆå»äºˆç´„æ¸ˆã¿ã‹
 
 public:
-	template< class T> T* GetComponent(void)	//ƒRƒ“ƒ|[ƒlƒ“ƒgæ“¾
+	template< class T> T* GetComponent(void)	//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆå–å¾—
 	{
-		//ƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌŒŸõ
+		//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®æ¤œç´¢
 		for (Component* pComp : m_listComponent)
 		{
 			if( typeid(*pComp) == typeid(T))
@@ -88,11 +88,11 @@ public:
 		return NULL;
 	}
 
-	template< class T> std::list<T*> GetComponentList(void)	//ƒRƒ“ƒ|[ƒlƒ“ƒgæ“¾
+	template< class T> std::list<T*> GetComponentList(void)	//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆå–å¾—
 	{
 		std::list<T*> list;
 
-		//ƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌŒŸõ
+		//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®æ¤œç´¢
 		for (Component* pComp : m_listComponent)
 		{
 			if( typeid(*pComp) == typeid(T))
@@ -104,9 +104,9 @@ public:
 		return list;
 	}
 
-	template< class T> T* GetComponentInChildren(void)	//q‚ÌƒRƒ“ƒ|[ƒlƒ“ƒgæ“¾
+	template< class T> T* GetComponentInChildren(void)	//å­ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆå–å¾—
 	{
-		//ƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌŒŸõ
+		//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®æ¤œç´¢
 		for( GameObject* pObj : m_listChild)
 		{
 			for (Component* pComp : pObj->m_listComponent)
@@ -121,11 +121,11 @@ public:
 		return NULL;
 	}
 
-	template< class T> std::list<T*> GetComponentListInChildren(void)	//q‚ÌƒRƒ“ƒ|[ƒlƒ“ƒgƒŠƒXƒgæ“¾
+	template< class T> std::list<T*> GetComponentListInChildren(void)	//å­ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒªã‚¹ãƒˆå–å¾—
 	{
 		std::list<T*> list;
 
-		//ƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌŒŸõ
+		//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®æ¤œç´¢
 		for( GameObject* pObj : m_listChild)
 		{
 			for (Component* pComp : pObj->m_listComponent)
@@ -141,9 +141,9 @@ public:
 	}
 
 
-	template< class T> T* AddComponent(void)	//ƒRƒ“ƒ|[ƒlƒ“ƒg’Ç‰Á
+	template< class T> T* AddComponent(void)	//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆè¿½åŠ 
 	{
-		//ƒRƒ“ƒ|[ƒlƒ“ƒg’Ç‰Á
+		//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆè¿½åŠ 
 		T* pComp = new T( this);
 		m_listComponent.push_back( pComp);
 		return pComp;

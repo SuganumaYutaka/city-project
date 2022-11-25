@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    BoxCollider.cpp - ƒ{ƒbƒNƒXƒRƒ‰ƒCƒ_[
+    BoxCollider.cpp - ãƒœãƒƒã‚¯ã‚¹ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/7
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "BoxCollider.h"
 #include "CollisionManager.h"
@@ -15,7 +15,7 @@
 #include "MeshBoxRenderer.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* BoxCollider::Create(GameObject* gameObject)
 {
@@ -23,7 +23,7 @@ Component* BoxCollider::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 BoxCollider::BoxCollider( GameObject *pGameObject)
 {
@@ -32,7 +32,7 @@ BoxCollider::BoxCollider( GameObject *pGameObject)
 	m_ColType = eColBox;
 	m_Size = Vector3(1.0f, 1.0f, 1.0f);
 
-	//ƒfƒoƒbƒO•\¦
+	//ãƒ‡ãƒãƒƒã‚°è¡¨ç¤º
 #ifdef _DEBUG
 	auto obj = new GameObject( m_pGameObject->GetRoot());
 	obj->IsCreatedByOtherComponent = true;
@@ -44,7 +44,7 @@ BoxCollider::BoxCollider( GameObject *pGameObject)
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void BoxCollider::Uninit( void)
 {
@@ -56,7 +56,7 @@ void BoxCollider::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void BoxCollider::Update()
 {
@@ -66,9 +66,9 @@ void BoxCollider::Update()
 }
 
 /*------------------------------------------------------------------------------
-	Õ“Ë
-	ˆø”
-		Collider *pCollider			Õ“Ë‚µ‚½ƒRƒ‰ƒCƒ_[
+	è¡çª
+	å¼•æ•°
+		Collider *pCollider			è¡çªã—ãŸã‚³ãƒ©ã‚¤ãƒ€ãƒ¼
 ------------------------------------------------------------------------------*/
 void BoxCollider::OnCollision( Collider *pCollider)
 {
@@ -76,13 +76,13 @@ void BoxCollider::OnCollision( Collider *pCollider)
 }
 
 /*------------------------------------------------------------------------------
-	’†SˆÊ’uİ’è
+	ä¸­å¿ƒä½ç½®è¨­å®š
 ------------------------------------------------------------------------------*/
 void BoxCollider::SetCenter(const Vector3& Center)
 {
 	m_Center = Center;
 
-	//ƒfƒoƒbƒO•\¦
+	//ãƒ‡ãƒãƒƒã‚°è¡¨ç¤º
 #ifdef _DEBUG
 	m_pRenderer->SetCenter( Center);
 
@@ -90,13 +90,13 @@ void BoxCollider::SetCenter(const Vector3& Center)
 }
 
 /*------------------------------------------------------------------------------
-	‘å‚«‚³İ’è
+	å¤§ãã•è¨­å®š
 ------------------------------------------------------------------------------*/
 void BoxCollider::SetSize(const Vector3& Size)
 {
 	m_Size = Size;
 
-	//ƒfƒoƒbƒO•\¦
+	//ãƒ‡ãƒãƒƒã‚°è¡¨ç¤º
 #ifdef _DEBUG
 	m_pRenderer->SetSize( Size);
 
@@ -104,18 +104,18 @@ void BoxCollider::SetSize(const Vector3& Size)
 }
 
 /*------------------------------------------------------------------------------
-	ƒAƒNƒeƒBƒuİ’è
+	ã‚¢ã‚¯ãƒ†ã‚£ãƒ–è¨­å®š
 ------------------------------------------------------------------------------*/
 void BoxCollider::SetActive(bool bEnable)
 {
 	if (m_bEnable == true && bEnable == false)
 	{
-		//ƒ}ƒl[ƒWƒƒ[‚©‚çíœ
+		//ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‹ã‚‰å‰Šé™¤
 		Manager::GetCollisionManager()->ReleaseCollider( this);
 	}
 	else if (m_bEnable == false && bEnable == true)
 	{
-		//ƒ}ƒl[ƒWƒƒ[‚É“o˜^
+		//ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã«ç™»éŒ²
 		Manager::GetCollisionManager()->AddCollider( this);
 	}
 
@@ -129,11 +129,11 @@ void BoxCollider::SetActive(bool bEnable)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void BoxCollider::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -157,7 +157,7 @@ void BoxCollider::Load(Text& text)
 			m_IsTrigger = (bool)std::stoi(text.GetWord());
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
@@ -167,7 +167,7 @@ void BoxCollider::Load(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void BoxCollider::Save(Text& text)
 {

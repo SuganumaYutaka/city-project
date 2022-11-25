@@ -1,17 +1,17 @@
 /*==============================================================================
 
-    SoundData.cpp - ƒTƒEƒ“ƒhƒf[ƒ^
+    SoundData.cpp - ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/7/18
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "SoundData.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 SoundData::SoundData(std::string fileName, int nCntLoop, IXAudio2 *pXAudio2)
 {
@@ -23,11 +23,11 @@ SoundData::SoundData(std::string fileName, int nCntLoop, IXAudio2 *pXAudio2)
 	WAVEFORMATEXTENSIBLE wfx;
 	XAUDIO2_BUFFER buffer;
 
-	//ƒoƒbƒtƒ@‚ÌƒNƒŠƒA
+	//ãƒãƒƒãƒ•ã‚¡ã®ã‚¯ãƒªã‚¢
 	memset(&wfx, 0, sizeof(WAVEFORMATEXTENSIBLE));
 	memset(&buffer, 0, sizeof(XAUDIO2_BUFFER));
 
-	//ƒTƒEƒ“ƒhƒf[ƒ^ƒtƒ@ƒCƒ‹‚Ì¶¬
+	//ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«ã®ç”Ÿæˆ
 	hFile = CreateFile(FileName.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
 	if(hFile == INVALID_HANDLE_VALUE)
 	{
@@ -35,14 +35,14 @@ SoundData::SoundData(std::string fileName, int nCntLoop, IXAudio2 *pXAudio2)
 		return;
 	}
 
-	//ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚ğæ“ª‚ÉˆÚ“®
+	//ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’å…ˆé ­ã«ç§»å‹•
 	if(SetFilePointer(hFile, 0, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER)
 	{
 		assert(false);
 		return;
 	}
 	
-	//WAVEƒtƒ@ƒCƒ‹‚Ìƒ`ƒFƒbƒN
+	//WAVEãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚§ãƒƒã‚¯
 	hr = CheckChunk(hFile, 'FFIR', &dwChunkSize, &dwChunkPosition);
 	if(FAILED(hr))
 	{
@@ -61,7 +61,7 @@ SoundData::SoundData(std::string fileName, int nCntLoop, IXAudio2 *pXAudio2)
 		return;
 	}
 	
-	//ƒtƒH[ƒ}ƒbƒgƒ`ƒFƒbƒN
+	//ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆãƒã‚§ãƒƒã‚¯
 	hr = CheckChunk(hFile, ' tmf', &dwChunkSize, &dwChunkPosition);
 	if(FAILED(hr))
 	{
@@ -75,7 +75,7 @@ SoundData::SoundData(std::string fileName, int nCntLoop, IXAudio2 *pXAudio2)
 		return;
 	}
 
-	//ƒI[ƒfƒBƒIƒf[ƒ^“Ç‚İ‚İ
+	//ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
 	hr = CheckChunk(hFile, 'atad', &m_SizeAudio, &dwChunkPosition);
 	if(FAILED(hr))
 	{
@@ -90,7 +90,7 @@ SoundData::SoundData(std::string fileName, int nCntLoop, IXAudio2 *pXAudio2)
 		return;
 	}
 	
-	// ƒ\[ƒXƒ{ƒCƒX‚Ì¶¬
+	// ã‚½ãƒ¼ã‚¹ãƒœã‚¤ã‚¹ã®ç”Ÿæˆ
 	hr = pXAudio2->CreateSourceVoice(&m_pSourceVoice, &(wfx.Format));
 	if(FAILED(hr))
 	{
@@ -98,17 +98,17 @@ SoundData::SoundData(std::string fileName, int nCntLoop, IXAudio2 *pXAudio2)
 		return;
 	}
 
-	//ƒoƒbƒtƒ@‚Ì’lİ’è
+	//ãƒãƒƒãƒ•ã‚¡ã®å€¤è¨­å®š
 	memset(&buffer, 0, sizeof(XAUDIO2_BUFFER));
 	buffer.AudioBytes = m_SizeAudio;
 	buffer.pAudioData = m_pDataAudio;
 	buffer.Flags      = XAUDIO2_END_OF_STREAM;
 	buffer.LoopCount  = m_nCntLoop;
 
-	//ƒI[ƒfƒBƒIƒoƒbƒtƒ@‚Ì“o˜^
+	//ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªãƒãƒƒãƒ•ã‚¡ã®ç™»éŒ²
 	m_pSourceVoice->SubmitSourceBuffer(&buffer);
 
-	//ƒ‹[ƒv‰ñ”İ’è
+	//ãƒ«ãƒ¼ãƒ—å›æ•°è¨­å®š
 	m_nCntLoop = nCntLoop;
 
 	FileName = fileName;
@@ -116,80 +116,80 @@ SoundData::SoundData(std::string fileName, int nCntLoop, IXAudio2 *pXAudio2)
 
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 SoundData::~SoundData()
 {
-	//’â~
+	//åœæ­¢
 	m_pSourceVoice->Stop(0);
 	
-	//ƒ\[ƒXƒ{ƒCƒX‚Ì”jŠü
+	//ã‚½ãƒ¼ã‚¹ãƒœã‚¤ã‚¹ã®ç ´æ£„
 	m_pSourceVoice->DestroyVoice();
 	m_pSourceVoice = NULL;
 	
-	//ƒI[ƒfƒBƒIƒf[ƒ^‚Ì‰ğ•ú
+	//ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªãƒ‡ãƒ¼ã‚¿ã®è§£æ”¾
 	free(m_pDataAudio);
 	m_pDataAudio = NULL;
 }
 
 /*------------------------------------------------------------------------------
-	Ä¶
+	å†ç”Ÿ
 ------------------------------------------------------------------------------*/
 void SoundData::Play(void)
 {
 	XAUDIO2_VOICE_STATE xa2state;
 	XAUDIO2_BUFFER buffer;
 
-	//ƒoƒbƒtƒ@‚Ì’lİ’è
+	//ãƒãƒƒãƒ•ã‚¡ã®å€¤è¨­å®š
 	memset(&buffer, 0, sizeof(XAUDIO2_BUFFER));
 	buffer.AudioBytes = m_SizeAudio;
 	buffer.pAudioData = m_pDataAudio;
 	buffer.Flags      = XAUDIO2_END_OF_STREAM;
 	buffer.LoopCount  = m_nCntLoop;
 
-	//ó‘Ôæ“¾
+	//çŠ¶æ…‹å–å¾—
 	m_pSourceVoice->GetState(&xa2state);
 	
-	// Ä¶’†
+	// å†ç”Ÿä¸­
 	if(xa2state.BuffersQueued != 0)
 	{
-		//ˆê’â~
+		//ä¸€æ™‚åœæ­¢
 		m_pSourceVoice->Stop(0);
 
-		//ƒI[ƒfƒBƒIƒoƒbƒtƒ@‚Ìíœ
+		//ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªãƒãƒƒãƒ•ã‚¡ã®å‰Šé™¤
 		m_pSourceVoice->FlushSourceBuffers();
 	}
 
-	//ƒI[ƒfƒBƒIƒoƒbƒtƒ@‚Ì“o˜^
+	//ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªãƒãƒƒãƒ•ã‚¡ã®ç™»éŒ²
 	m_pSourceVoice->SubmitSourceBuffer(&buffer);
 
-	//Ä¶
+	//å†ç”Ÿ
 	m_pSourceVoice->Start(0);
 }
 
 /*------------------------------------------------------------------------------
-	’â~
+	åœæ­¢
 ------------------------------------------------------------------------------*/
 void SoundData::Stop(void)
 {
 	XAUDIO2_VOICE_STATE xa2state;
 
-	// ó‘Ôæ“¾
+	// çŠ¶æ…‹å–å¾—
 	m_pSourceVoice->GetState(&xa2state);
 	
-	//Ä¶’†
+	//å†ç”Ÿä¸­
 	if(xa2state.BuffersQueued != 0)
 	{
-		//ˆê’â~
+		//ä¸€æ™‚åœæ­¢
 		m_pSourceVoice->Stop(0);
 
-		//ƒI[ƒfƒBƒIƒoƒbƒtƒ@‚Ìíœ
+		//ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªãƒãƒƒãƒ•ã‚¡ã®å‰Šé™¤
 		m_pSourceVoice->FlushSourceBuffers();
 	}
 }
 
 /*------------------------------------------------------------------------------
-	ƒ`ƒƒƒ“ƒN‚Ìƒ`ƒFƒbƒN
+	ãƒãƒ£ãƒ³ã‚¯ã®ãƒã‚§ãƒƒã‚¯
 ------------------------------------------------------------------------------*/
 HRESULT SoundData::CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWORD *pChunkDataPosition)
 {
@@ -202,7 +202,7 @@ HRESULT SoundData::CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWO
 	DWORD dwBytesRead = 0;
 	DWORD dwOffset = 0;
 	
-	//ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚ğæ“ª‚ÉˆÚ“®
+	//ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’å…ˆé ­ã«ç§»å‹•
 	if(SetFilePointer(hFile, 0, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER)
 	{
 		return HRESULT_FROM_WIN32(GetLastError());
@@ -210,13 +210,13 @@ HRESULT SoundData::CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWO
 	
 	while(hr == S_OK)
 	{
-		//ƒ`ƒƒƒ“ƒN‚Ì“Ç‚İ‚İ
+		//ãƒãƒ£ãƒ³ã‚¯ã®èª­ã¿è¾¼ã¿
 		if(ReadFile(hFile, &dwChunkType, sizeof(DWORD), &dwRead, NULL) == 0)
 		{
 			hr = HRESULT_FROM_WIN32(GetLastError());
 		}
 
-		//ƒ`ƒƒƒ“ƒNƒf[ƒ^‚Ì“Ç‚İ‚İ
+		//ãƒãƒ£ãƒ³ã‚¯ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 		if(ReadFile(hFile, &dwChunkDataSize, sizeof(DWORD), &dwRead, NULL) == 0)
 		{
 			hr = HRESULT_FROM_WIN32(GetLastError());
@@ -228,7 +228,7 @@ HRESULT SoundData::CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWO
 			dwRIFFDataSize  = dwChunkDataSize;
 			dwChunkDataSize = 4;
 
-			//ƒtƒ@ƒCƒ‹ƒ^ƒCƒv‚Ì“Ç‚İ‚İ
+			//ãƒ•ã‚¡ã‚¤ãƒ«ã‚¿ã‚¤ãƒ—ã®èª­ã¿è¾¼ã¿
 			if(ReadFile(hFile, &dwFileType, sizeof(DWORD), &dwRead, NULL) == 0)
 			{
 				hr = HRESULT_FROM_WIN32(GetLastError());
@@ -236,7 +236,7 @@ HRESULT SoundData::CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWO
 			break;
 
 		default:
-			//ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚ğƒ`ƒƒƒ“ƒNƒf[ƒ^•ªˆÚ“®
+			//ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’ãƒãƒ£ãƒ³ã‚¯ãƒ‡ãƒ¼ã‚¿åˆ†ç§»å‹•
 			if(SetFilePointer(hFile, dwChunkDataSize, NULL, FILE_CURRENT) == INVALID_SET_FILE_POINTER)
 			{
 				return HRESULT_FROM_WIN32(GetLastError());
@@ -263,19 +263,19 @@ HRESULT SoundData::CheckChunk(HANDLE hFile, DWORD format, DWORD *pChunkSize, DWO
 }
 
 /*------------------------------------------------------------------------------
-	ƒ`ƒƒƒ“ƒNƒf[ƒ^‚Ì“Ç‚İ‚İ
+	ãƒãƒ£ãƒ³ã‚¯ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 ------------------------------------------------------------------------------*/
 HRESULT SoundData::ReadChunkData(HANDLE hFile, void *pBuffer, DWORD dwBuffersize, DWORD dwBufferoffset)
 {
 	DWORD dwRead;
 	
-	//ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚ğw’èˆÊ’u‚Ü‚ÅˆÚ“®
+	//ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’æŒ‡å®šä½ç½®ã¾ã§ç§»å‹•
 	if(SetFilePointer(hFile, dwBufferoffset, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER)
 	{
 		return HRESULT_FROM_WIN32(GetLastError());
 	}
 
-	//ƒf[ƒ^‚Ì“Ç‚İ‚İ
+	//ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
 	if(ReadFile(hFile, pBuffer, dwBuffersize, &dwRead, NULL) == 0)
 	{
 		return HRESULT_FROM_WIN32(GetLastError());

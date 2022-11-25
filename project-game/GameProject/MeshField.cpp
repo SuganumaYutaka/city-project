@@ -1,12 +1,12 @@
 /*==============================================================================
 
-   MeshField.h - ƒƒbƒVƒ…ƒtƒB[ƒ‹ƒh
+   MeshField.h - ãƒ¡ãƒƒã‚·ãƒ¥ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/31
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "GameObject.h"
 #include "MeshField.h"
@@ -14,15 +14,15 @@
 #include "TextureManager.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
-#define MESH_FIELD_NUM_VERTEX_X (4)		//ƒtƒB[ƒ‹ƒh‚Ì•ªŠ„”
-#define MESH_FIELD_NUM_VERTEX_Z (4)		//ƒtƒB[ƒ‹ƒh‚Ì•ªŠ„”
-#define P_WIDTH( ALL_WIDTH, NUM_FIELD_X)			( ALL_WIDTH / NUM_FIELD_X)				//ƒ|ƒŠƒSƒ“ˆê–‡‚ ‚½‚è‚Ì•
-#define P_HEIGHT( ALL_HEIGHT, NUM_FIELD_Z)			( ALL_HEIGHT / NUM_FIELD_Z)				//ƒ|ƒŠƒSƒ“ˆê–‡‚ ‚½‚è‚Ì‚‚³
+#define MESH_FIELD_NUM_VERTEX_X (4)		//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®åˆ†å‰²æ•°
+#define MESH_FIELD_NUM_VERTEX_Z (4)		//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®åˆ†å‰²æ•°
+#define P_WIDTH( ALL_WIDTH, NUM_FIELD_X)			( ALL_WIDTH / NUM_FIELD_X)				//ãƒãƒªã‚´ãƒ³ä¸€æšã‚ãŸã‚Šã®å¹…
+#define P_HEIGHT( ALL_HEIGHT, NUM_FIELD_Z)			( ALL_HEIGHT / NUM_FIELD_Z)				//ãƒãƒªã‚´ãƒ³ä¸€æšã‚ãŸã‚Šã®é«˜ã•
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* MeshField::Create(GameObject* gameObject)
 {
@@ -30,7 +30,7 @@ Component* MeshField::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 MeshField::MeshField( GameObject *pGameObject)
 {
@@ -38,21 +38,21 @@ MeshField::MeshField( GameObject *pGameObject)
 	m_nLayer = eLayerBack;
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 
-	//ƒŒƒ“ƒ_ƒ‰[’Ç‰Á
+	//ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼è¿½åŠ 
 	m_pMeshFieldRenderer = pGameObject->AddComponent<MeshFieldRenderer>();
 	m_pMeshFieldRenderer->IsCreatedByOtherComponent = true;
 	
-	//ƒRƒ‰ƒCƒ_[’Ç‰Á
+	//ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼è¿½åŠ 
 	m_pMeshFieldCollider = pGameObject->AddComponent<MeshFieldCollider>();
 	m_pMeshFieldCollider->IsCreatedByOtherComponent = true;
 
-	//ƒƒbƒVƒ…ƒtƒB[ƒ‹ƒh‚Ìİ’è
+	//ãƒ¡ãƒƒã‚·ãƒ¥ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®è¨­å®š
 	m_nNumBlockX = MESH_FIELD_NUM_VERTEX_X;
 	m_nNumBlockZ = MESH_FIELD_NUM_VERTEX_Z;
 	m_fWidth = 15.0f;
 	m_fHeight = 15.0f;
-	m_fBlockWidth = P_WIDTH( m_fWidth, m_nNumBlockX);		//ƒ|ƒŠƒSƒ“1–‡‚ ‚½‚è‚Ì•
-	m_fBlockHeight = P_HEIGHT( m_fHeight, m_nNumBlockZ);	//ƒ|ƒŠƒSƒ“1–‡‚ ‚½‚è‚Ì‚‚³
+	m_fBlockWidth = P_WIDTH( m_fWidth, m_nNumBlockX);		//ãƒãƒªã‚´ãƒ³1æšã‚ãŸã‚Šã®å¹…
+	m_fBlockHeight = P_HEIGHT( m_fHeight, m_nNumBlockZ);	//ãƒãƒªã‚´ãƒ³1æšã‚ãŸã‚Šã®é«˜ã•
 
 	m_pVertexHeight = new float[ ( m_nNumBlockZ + 1) * ( m_nNumBlockX + 1)];
 	for (int nCnt = 0; nCnt < ( m_nNumBlockZ + 1) * ( m_nNumBlockX + 1); nCnt++)
@@ -60,22 +60,22 @@ MeshField::MeshField( GameObject *pGameObject)
 		m_pVertexHeight[ nCnt] = 0.0f;
 	}
 
-	//‘¼‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚Éİ’èî•ñ‚ğ“`‚¦‚é
+	//ä»–ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã«è¨­å®šæƒ…å ±ã‚’ä¼ãˆã‚‹
 	m_pMeshFieldCollider->SetField( m_nNumBlockX, m_nNumBlockZ, m_fBlockWidth, m_fBlockHeight, m_pVertexHeight);
 	m_pMeshFieldRenderer->SetField( m_nNumBlockX, m_nNumBlockZ, m_fBlockWidth, m_fBlockHeight, m_pVertexHeight);
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void MeshField::Uninit( void)
 {
-	//’¸“_‚²‚Æ‚Ì‚‚³‰ğ•ú
+	//é ‚ç‚¹ã”ã¨ã®é«˜ã•è§£æ”¾
 	delete[] m_pVertexHeight;
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void MeshField::Update( void)
 {
@@ -83,7 +83,7 @@ void MeshField::Update( void)
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æ
+	æç”»
 ------------------------------------------------------------------------------*/
 void MeshField::Draw( void)
 {
@@ -91,7 +91,7 @@ void MeshField::Draw( void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒtƒB[ƒ‹ƒh‚ğİ’è
+	ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshField::SetField( int X, int Z, float BlockWidth, float BlockHeight, float *pVertexHeight)
 {
@@ -107,7 +107,7 @@ void MeshField::SetField( int X, int Z, float BlockWidth, float BlockHeight, flo
 }
 
 /*------------------------------------------------------------------------------
-	ƒ|ƒŠƒSƒ“ˆê–‡‚ ‚½‚è‚Ì•E‚‚³‚ğİ’è
+	ãƒãƒªã‚´ãƒ³ä¸€æšã‚ãŸã‚Šã®å¹…ãƒ»é«˜ã•ã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshField::SetBlockSize( float Width, float Height)
 {
@@ -121,7 +121,7 @@ void MeshField::SetBlockSize( float Width, float Height)
 }
 
 /*------------------------------------------------------------------------------
-	•E‚‚³‚ğİ’è
+	å¹…ãƒ»é«˜ã•ã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshField::SetSize( float Width, float Height)
 {
@@ -135,7 +135,7 @@ void MeshField::SetSize( float Width, float Height)
 }
 
 /*------------------------------------------------------------------------------
-	ƒeƒNƒXƒ`ƒƒİ’è
+	ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshField::LoadTexture(std::string fileName)
 {
@@ -143,7 +143,7 @@ void MeshField::LoadTexture(std::string fileName)
 }
 
 /*------------------------------------------------------------------------------
-	ƒeƒNƒXƒ`ƒƒ–¼æ“¾
+	ãƒ†ã‚¯ã‚¹ãƒãƒ£åå–å¾—
 ------------------------------------------------------------------------------*/
 std::string MeshField::GetTextureName()
 {
@@ -151,11 +151,11 @@ std::string MeshField::GetTextureName()
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void MeshField::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -212,20 +212,20 @@ void MeshField::Load(Text& text)
 			LoadTexture(text.GetWord());
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
 		}
 	}
 
-	//‘¼‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚Éİ’èî•ñ‚ğ“`‚¦‚é
+	//ä»–ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã«è¨­å®šæƒ…å ±ã‚’ä¼ãˆã‚‹
 	m_pMeshFieldCollider->SetField( m_nNumBlockX, m_nNumBlockZ, m_fBlockWidth, m_fBlockHeight, m_pVertexHeight);
 	m_pMeshFieldRenderer->SetField( m_nNumBlockX, m_nNumBlockZ, m_fBlockWidth, m_fBlockHeight, m_pVertexHeight);
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void MeshField::Save(Text& text)
 {

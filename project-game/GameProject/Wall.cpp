@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    Wall.cpp - Œš•¨‚Ì©“®¶¬[•Ç
+    Wall.cpp - å»ºç‰©ã®è‡ªå‹•ç”Ÿæˆãƒ¼å£
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/12/7
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Wall.h"
 #include "Floor.h"
@@ -17,12 +17,12 @@
 #include <math.h>
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
 #define SPLIT_EPSILON (0.00001f)
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Wall::Wall( GameObject* buildingObject)
 {
@@ -34,11 +34,11 @@ Wall::Wall( GameObject* buildingObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Wall::~Wall()
 {
-	//ƒtƒƒA‚ÌÁ‹
+	//ãƒ•ãƒ­ã‚¢ã®æ¶ˆå»
 	for (auto floor : m_Floors)
 	{
 		delete floor;
@@ -48,7 +48,7 @@ Wall::~Wall()
 
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»
+	åˆæœŸåŒ–
 ------------------------------------------------------------------------------*/
 void Wall::InitDefault( D3DXMATRIX shapeMatrix, float height, float width, const Vector3& bottomLeftPosition, const Vector3& normal)
 {
@@ -62,7 +62,7 @@ void Wall::InitDefault( D3DXMATRIX shapeMatrix, float height, float width, const
 }
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»i‰~‚É‰ˆ‚Á‚Ä‹È‚°‚éj
+	åˆæœŸåŒ–ï¼ˆå††ã«æ²¿ã£ã¦æ›²ã’ã‚‹ï¼‰
 ------------------------------------------------------------------------------*/
 void Wall::InitCurve( D3DXMATRIX shapeMatrix, float height, float width, const Vector3& bottomLeftPosition)
 {
@@ -76,14 +76,14 @@ void Wall::InitCurve( D3DXMATRIX shapeMatrix, float height, float width, const V
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æî•ñ‚ÌXV
+	æç”»æƒ…å ±ã®æ›´æ–°
 ------------------------------------------------------------------------------*/
 bool Wall::UpdateView( D3DXMATRIX shapeMatrix)
 {
-	//•Ç‚ÌXV
+	//å£ã®æ›´æ–°
 	Transform( shapeMatrix);
 
-	//Renderer‚ÌXV
+	//Rendererã®æ›´æ–°
 	auto pVtx = m_Renderer->StartSetVertexBuffer( CulcCountVertex() + 1, CulcCountPolygon());
 	for (auto floor : m_Floors)
 	{
@@ -97,7 +97,7 @@ bool Wall::UpdateView( D3DXMATRIX shapeMatrix)
 }
 
 /*------------------------------------------------------------------------------
-	ˆÊ’u‚Æ–@ü‚ÌXV
+	ä½ç½®ã¨æ³•ç·šã®æ›´æ–°
 ------------------------------------------------------------------------------*/
 void Wall::Transform(D3DXMATRIX shapeMatrix)
 {
@@ -112,7 +112,7 @@ void Wall::Transform(D3DXMATRIX shapeMatrix)
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_”‚ğZo
+	é ‚ç‚¹æ•°ã‚’ç®—å‡º
 ------------------------------------------------------------------------------*/
 int Wall::CulcCountVertex(void)
 {
@@ -125,7 +125,7 @@ int Wall::CulcCountVertex(void)
 	return count - 1;
 }
 /*------------------------------------------------------------------------------
-	ƒ|ƒŠƒSƒ“”‚ğZo
+	ãƒãƒªã‚´ãƒ³æ•°ã‚’ç®—å‡º
 ------------------------------------------------------------------------------*/
 int Wall::CulcCountPolygon(void)
 {
@@ -139,7 +139,7 @@ int Wall::CulcCountPolygon(void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒtƒƒA‚Ì’Ç‰Á
+	ãƒ•ãƒ­ã‚¢ã®è¿½åŠ 
 ------------------------------------------------------------------------------*/
 void Wall::AddFloor( Floor* floor)
 { 
@@ -147,7 +147,7 @@ void Wall::AddFloor( Floor* floor)
 }
 
 /*------------------------------------------------------------------------------
-	ƒtƒƒA‚Ìíœ
+	ãƒ•ãƒ­ã‚¢ã®å‰Šé™¤
 ------------------------------------------------------------------------------*/
 void Wall::SubFloor(Floor* floor)
 {
@@ -161,11 +161,11 @@ void Wall::SubFloor(Floor* floor)
 		}
 	}
 
-	DebugLog::Add( "Wall‚ÉFloor‚ªŒ©‚Â‚©‚ç‚È‚¢\n");
+	DebugLog::Add( "Wallã«FloorãŒè¦‹ã¤ã‹ã‚‰ãªã„\n");
 }
 
 /*------------------------------------------------------------------------------
-	ƒeƒNƒXƒ`ƒƒ‚Ìƒ[ƒh
+	ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void Wall::LoadTexture(std::string fileName)
 {
@@ -173,11 +173,11 @@ void Wall::LoadTexture(std::string fileName)
 }
 
 /*------------------------------------------------------------------------------
-	“¯ˆêShape‚ÌWall‚Æ—Z‡‚·‚é
+	åŒä¸€Shapeã®Wallã¨èåˆã™ã‚‹
 ------------------------------------------------------------------------------*/
 void Wall::FusionSameShape(Wall* other)
 {
-	//Floor‚Ì—Z‡
+	//Floorã®èåˆ
 	auto destFloor = other->m_Floors.begin();
 	for (auto sourceFloor = m_Floors.begin(); sourceFloor != m_Floors.end(); ++sourceFloor)
 	{
@@ -185,13 +185,13 @@ void Wall::FusionSameShape(Wall* other)
 		++destFloor;
 	}
 
-	//Renderer‚ÌÁ‹
+	//Rendererã®æ¶ˆå»
 	other->m_Renderer->ReleaseReserve();
 	other->m_Renderer = NULL;
 }
 
 /*------------------------------------------------------------------------------
-	ŠÂóƒŠƒXƒg‚É•ÏX
+	ç’°çŠ¶ãƒªã‚¹ãƒˆã«å¤‰æ›´
 ------------------------------------------------------------------------------*/
 bool Wall::ChangeRingList(void)
 {
@@ -207,7 +207,7 @@ bool Wall::ChangeRingList(void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒxƒNƒgƒ‹‚Ìæ“¾
+	ãƒ™ã‚¯ãƒˆãƒ«ã®å–å¾—
 ------------------------------------------------------------------------------*/
 Vector3 Wall::GetVector(void)
 {
@@ -220,7 +220,7 @@ Vector3 Wall::GetVector(void)
 }
 
 /*------------------------------------------------------------------------------
-	’†SˆÊ’u‚Ìæ“¾
+	ä¸­å¿ƒä½ç½®ã®å–å¾—
 ------------------------------------------------------------------------------*/
 Vector3 Wall::GetCenter(void)
 {
@@ -233,7 +233,7 @@ Vector3 Wall::GetCenter(void)
 }
 
 /*------------------------------------------------------------------------------
-	”¼Œa‚Ìæ“¾
+	åŠå¾„ã®å–å¾—
 ------------------------------------------------------------------------------*/
 float Wall::GetRadius(void)
 {
@@ -246,7 +246,7 @@ float Wall::GetRadius(void)
 }
 
 /*------------------------------------------------------------------------------
-	•Ç‚Æ‚Ì—ô‚¯–Úˆ—
+	å£ã¨ã®è£‚ã‘ç›®å‡¦ç†
 ------------------------------------------------------------------------------*/
 bool Wall::Split(Wall* other)
 {
@@ -289,26 +289,26 @@ bool Wall::Split(Wall* other)
 }
 
 /*------------------------------------------------------------------------------
-	•Ç‚Æ‚Ì—ô‚¯–Úˆ—i•½–Ê‚Æ•½–Êj
+	å£ã¨ã®è£‚ã‘ç›®å‡¦ç†ï¼ˆå¹³é¢ã¨å¹³é¢ï¼‰
 ------------------------------------------------------------------------------*/
 bool Wall::SplitPlanes(Wall* source, Wall* dest)
 {
-	//•Ç‚Æ‚ÌŒğ“_‚ğZo
+	//å£ã¨ã®äº¤ç‚¹ã‚’ç®—å‡º
 	Vector3 positionSplit;
 	if (!CulcPositionSplitPlanes(source, dest, &positionSplit))
 	{
 		return false;
 	}
 
-	//n“_‚©‚ç‚Ì‹——£‚ğZo
+	//å§‹ç‚¹ã‹ã‚‰ã®è·é›¢ã‚’ç®—å‡º
 	float length1 = Vector3::Distance( source->GetBottomLeftPosition(), positionSplit);
 	float length2 = Vector3::Distance( dest->GetBottomLeftPosition(), positionSplit);
 	
-	//ÅŒã‚Ì—]”’•ª‚ğœ‚­ƒtƒƒAŠK‘w•ª‹«–Ú‚ğİ’è
+	//æœ€å¾Œã®ä½™ç™½åˆ†ã‚’é™¤ããƒ•ãƒ­ã‚¢éšå±¤åˆ†å¢ƒç›®ã‚’è¨­å®š
 	auto floors1 = source->GetFloors();
 	auto floors2 = dest->GetFloors();
 
-	//ŠK”‚ª­‚È‚¢•Ç‚ğŠî€‚Æ‚µ‚Ä‘}“üˆ—
+	//éšæ•°ãŒå°‘ãªã„å£ã‚’åŸºæº–ã¨ã—ã¦æŒ¿å…¥å‡¦ç†
 	if (floors1.size() <= floors2.size())
 	{
 		if (!InsertSplit(floors1, floors2, length1, length2, positionSplit))
@@ -328,18 +328,18 @@ bool Wall::SplitPlanes(Wall* source, Wall* dest)
 }
 
 /*------------------------------------------------------------------------------
-	•Ç‚Æ‚Ì—ô‚¯–Úˆ—i‰~’Œ‚Æ‰~’Œj
+	å£ã¨ã®è£‚ã‘ç›®å‡¦ç†ï¼ˆå††æŸ±ã¨å††æŸ±ï¼‰
 ------------------------------------------------------------------------------*/
 bool Wall::SplitCylinders(Wall* source, Wall* dest)
 {
-	//‰~“¯m‚ÌŒğ“_‚ğ“ñ‚ÂZo
+	//å††åŒå£«ã®äº¤ç‚¹ã‚’äºŒã¤ç®—å‡º
 	Vector3 point1, point2;
 	if (!CulcPositionSplitCylinders(source, dest, &point1, &point2))
 	{
 		return false;
 	}
 
-	//Œğ“_‚Æ•Ç‚Ìn“_‚Æ‚Ì‹——£‚ğZo
+	//äº¤ç‚¹ã¨å£ã®å§‹ç‚¹ã¨ã®è·é›¢ã‚’ç®—å‡º
 	Vector3 center1 = source->GetCenter();
 	float radius1 = source->GetRadius();
 	Vector3 center2 = dest->GetCenter();
@@ -349,11 +349,11 @@ bool Wall::SplitCylinders(Wall* source, Wall* dest)
 	float lengthDest1 = CulcLengthArc( dest->GetBottomLeftPosition(), point1, center2, radius2);
 	float lengthDest2 = CulcLengthArc( dest->GetBottomLeftPosition(), point2, center2, radius2);
 
-	//ÅŒã‚Ì—]”’•ª‚ğœ‚­ƒtƒƒAŠK‘w•ª‹«–Ú‚ğİ’è
+	//æœ€å¾Œã®ä½™ç™½åˆ†ã‚’é™¤ããƒ•ãƒ­ã‚¢éšå±¤åˆ†å¢ƒç›®ã‚’è¨­å®š
 	auto floors1 = source->GetFloors();
 	auto floors2 = dest->GetFloors();
 
-	//ŠK”‚ª­‚È‚¢•Ç‚ğŠî€‚Æ‚µ‚Ä‘}“üˆ—
+	//éšæ•°ãŒå°‘ãªã„å£ã‚’åŸºæº–ã¨ã—ã¦æŒ¿å…¥å‡¦ç†
 	if (floors1.size() <= floors2.size())
 	{
 		if (!InsertSplit(floors1, floors2, lengthSource1, lengthDest1, point1))
@@ -381,7 +381,7 @@ bool Wall::SplitCylinders(Wall* source, Wall* dest)
 }
 
 /*------------------------------------------------------------------------------
-	•Ç‚Æ‚Ì—ô‚¯–Úˆ—i•½–Ê‚Æ‰~’Œj
+	å£ã¨ã®è£‚ã‘ç›®å‡¦ç†ï¼ˆå¹³é¢ã¨å††æŸ±ï¼‰
 ------------------------------------------------------------------------------*/
 bool Wall::SplitPlaneCylinder(Wall* plane, Wall* cylinder)
 {
@@ -391,11 +391,11 @@ bool Wall::SplitPlaneCylinder(Wall* plane, Wall* cylinder)
 }
 
 /*------------------------------------------------------------------------------
-	•Ç‚Æ‚ÌŒğ“_‚ğZoi•½–Ê‚Æ•½–Êj
+	å£ã¨ã®äº¤ç‚¹ã‚’ç®—å‡ºï¼ˆå¹³é¢ã¨å¹³é¢ï¼‰
 ------------------------------------------------------------------------------*/
 bool Wall::CulcPositionSplitPlanes(Wall* source, Wall* dest, Vector3* out)
 {
-	//•Ï”‚Ìİ’è
+	//å¤‰æ•°ã®è¨­å®š
 	Vector3 s1 = source->GetBottomLeftPosition();
 	Vector3 s2 = dest->GetBottomLeftPosition();
 	Vector3 v1 = source->GetVector();
@@ -405,35 +405,35 @@ bool Wall::CulcPositionSplitPlanes(Wall* source, Wall* dest, Vector3* out)
 	float work1 = Vector3::Dot( n1, n2);
 	float work2 = 1 - work1 * work1;
 
-	//•½s‚©Šm”F
+	//å¹³è¡Œã‹ç¢ºèª
 	if( work2 > -SPLIT_EPSILON && work2 < SPLIT_EPSILON){ return 0;}
 
-	//n“_‚ğŒ‹‚ÔƒxƒNƒgƒ‹
+	//å§‹ç‚¹ã‚’çµã¶ãƒ™ã‚¯ãƒˆãƒ«
 	Vector3 vs = s2 - s1;
 
-	//n“_‚©‚ç‚Ì‹——£
+	//å§‹ç‚¹ã‹ã‚‰ã®è·é›¢
 	float d1 = ( Vector3::Dot( vs, n1) - work1 * Vector3::Dot( vs, n2)) / work2;
 	float d2 = ( work1 * Vector3::Dot( vs, n1) - Vector3::Dot( vs, n2)) / work2;
 
-	//v1ã‚ÌÅ‹ß“_
+	//v1ä¸Šã®æœ€è¿‘ç‚¹
 	Vector3 p1;
 	p1.x = s1.x + d1 * n1.x;
 	p1.y = s1.y + d1 * n1.y;
 	p1.z = s1.z + d1 * n1.z;
 
-	//v2ã‚ÌÅ‹ß“_
+	//v2ä¸Šã®æœ€è¿‘ç‚¹
 	Vector3 p2;
 	p2.x = s2.x + d2 * n2.x;
 	p2.y = s2.y + d2 * n2.y;
 	p2.z = s2.z + d2 * n2.z;
 
-	//Œğ·”»’è
+	//äº¤å·®åˆ¤å®š
 	if (Vector3::Distance(p1, p2) > 0.01f)
 	{
 		return false;
 	}
 
-	//ü•ª‚Ì’·‚³”»’è
+	//ç·šåˆ†ã®é•·ã•åˆ¤å®š
 	if (v1.Length() < d1)
 	{
 		return false;
@@ -443,7 +443,7 @@ bool Wall::CulcPositionSplitPlanes(Wall* source, Wall* dest, Vector3* out)
 		return false;
 	}
 
-	//ü•ª‚Ì•ûŒü”»’è
+	//ç·šåˆ†ã®æ–¹å‘åˆ¤å®š
 	auto vec1 = p1 - s1;
 	auto dot1 = Vector3::Dot( n1, vec1.Normalize());
 	if (dot1 < 0)
@@ -466,7 +466,7 @@ bool Wall::CulcPositionSplitPlanes(Wall* source, Wall* dest, Vector3* out)
 }
 
 /*------------------------------------------------------------------------------
-	•Ç‚Æ‚ÌŒğ“_‚ğZoi‰~’Œ‚Ì‘¤–Ê“¯mj
+	å£ã¨ã®äº¤ç‚¹ã‚’ç®—å‡ºï¼ˆå††æŸ±ã®å´é¢åŒå£«ï¼‰
 ------------------------------------------------------------------------------*/
 bool Wall::CulcPositionSplitCylinders(Wall* source, Wall* dest, Vector3* out1, Vector3* out2)
 {
@@ -477,34 +477,34 @@ bool Wall::CulcPositionSplitCylinders(Wall* source, Wall* dest, Vector3* out1, V
 	Vector3 vec = center2 - center1;
 	float len = vec.Length();
 
-	//‹——£‚ª—£‚ê‚Ä‚¢‚é‚©”»’è
+	//è·é›¢ãŒé›¢ã‚Œã¦ã„ã‚‹ã‹åˆ¤å®š
 	if (len >= radius1 + radius2)
 	{
 		return false;
 	}
 
-	//‰~‚ª‰~‚ğ“à•ï‚µ‚Ä‚¢‚é‚©”»’è
+	//å††ãŒå††ã‚’å†…åŒ…ã—ã¦ã„ã‚‹ã‹åˆ¤å®š
 	if (abs(radius1 - radius2) >= len)
 	{
 		return false;
 	}
 
-	//Š®‘S‚Éd‚È‚é‚©”»’è
+	//å®Œå…¨ã«é‡ãªã‚‹ã‹åˆ¤å®š
 	if (radius1 == radius2 && len == 0)
 	{
 		return false;
 	}
 
-	//X²‚É‘Î‚·‚év‚ÌŠp“x
+	//Xè»¸ã«å¯¾ã™ã‚‹vã®è§’åº¦
 	float angle = atan2f( vec.z, vec.x);
 
-	//’†S‚ğŒ‹‚ñ‚¾ƒxƒNƒgƒ‹‚ÆŒğ“_‚Ì‚È‚·Šp‚ğZo
+	//ä¸­å¿ƒã‚’çµã‚“ã ãƒ™ã‚¯ãƒˆãƒ«ã¨äº¤ç‚¹ã®ãªã™è§’ã‚’ç®—å‡º
 	float value = acosf( (len * len + radius1 * radius1 - radius2 * radius2) / ( radius1 * 2.0f * len));
 
 	*out1 = center1 + Vector3( radius1 * cosf( angle + value), 0.0f, radius1 * sinf( angle + value));
 	*out2 = center2 + Vector3( radius1 * cosf( angle - value), 0.0f, radius1 * sinf( angle - value));
 
-	//Œğ“_‚ª‹ß‚·‚¬‚éê‡
+	//äº¤ç‚¹ãŒè¿‘ã™ãã‚‹å ´åˆ
 	if (Vector3::Distance(*out1, *out2) < SPLIT_EPSILON)
 	{
 		return false;
@@ -514,16 +514,16 @@ bool Wall::CulcPositionSplitCylinders(Wall* source, Wall* dest, Vector3* out1, V
 }
 
 /*------------------------------------------------------------------------------
-	ŒÊ‚Ì’·‚³‚ğZo
+	å¼§ã®é•·ã•ã‚’ç®—å‡º
 ------------------------------------------------------------------------------*/
 float Wall::CulcLengthArc(const Vector3& point1, const Vector3& point2, const Vector3& center, float radius)
 {
-	//“àÏ‚ÅŠp“x‚ğZo
+	//å†…ç©ã§è§’åº¦ã‚’ç®—å‡º
 	Vector3 v1 = point1 - center;
 	Vector3 v2 = point2 - center;
 	float angle = acos( Vector3::Dot( v1.Normalize(), v2.Normalize()));
 
-	//ŠOÏ‚Å0`2PI‚É‚·‚é
+	//å¤–ç©ã§0ã€œ2PIã«ã™ã‚‹
 	Vector3 cross = Vector3::Cross( v1, v2);
 	if (cross.y > 0.0f)
 	{
@@ -534,7 +534,7 @@ float Wall::CulcLengthArc(const Vector3& point1, const Vector3& point2, const Ve
 }
 
 /*------------------------------------------------------------------------------
-	‹«–Ú‚Ì‘}“ü
+	å¢ƒç›®ã®æŒ¿å…¥
 ------------------------------------------------------------------------------*/
 bool Wall::InsertSplit(const std::list<Floor*>& floors1, const std::list<Floor*>& floors2, float length1, float length2, Vector3 positionSplit)
 {
@@ -551,7 +551,7 @@ bool Wall::InsertSplit(const std::list<Floor*>& floors1, const std::list<Floor*>
 			break;
 		}
 
-		//‹«–Ú‚Æ‚È‚éƒ^ƒCƒ‹‚ğ¶¬‚µ‚ÄŠeƒtƒƒA‚É‘}“ü‚·‚é
+		//å¢ƒç›®ã¨ãªã‚‹ã‚¿ã‚¤ãƒ«ã‚’ç”Ÿæˆã—ã¦å„ãƒ•ãƒ­ã‚¢ã«æŒ¿å…¥ã™ã‚‹
 		TileSplit* split1 = new TileSplit();
 		TileSplit* split2 = new TileSplit();
 		split1->Init( split2, positionSplit);
@@ -570,7 +570,7 @@ bool Wall::InsertSplit(const std::list<Floor*>& floors1, const std::list<Floor*>
 			return false;
 		}
 
-		//‹«–Ú‚ÌˆÊ’u‚ğ‚‚³•ª‚¸‚ç‚·
+		//å¢ƒç›®ã®ä½ç½®ã‚’é«˜ã•åˆ†ãšã‚‰ã™
 		positionSplit.y += (*ite1)->GetHeight();
 
 		++ite1;
@@ -581,11 +581,11 @@ bool Wall::InsertSplit(const std::list<Floor*>& floors1, const std::list<Floor*>
 }
 
 /*------------------------------------------------------------------------------
-	ƒtƒƒA‚Ìæ“ªƒ^ƒCƒ‹‚ğæ“¾
+	ãƒ•ãƒ­ã‚¢ã®å…ˆé ­ã‚¿ã‚¤ãƒ«ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 Tile* Wall::GetStartTile(int floorCount)
 {
-	//ŠK‘w‚ªˆê’v‚·‚éƒtƒƒA‚Ìæ“ªƒ^ƒCƒ‹‚ğ•Ô‚·
+	//éšå±¤ãŒä¸€è‡´ã™ã‚‹ãƒ•ãƒ­ã‚¢ã®å…ˆé ­ã‚¿ã‚¤ãƒ«ã‚’è¿”ã™
 	int count = 0;
 	for (auto floor : m_Floors)
 	{
@@ -600,7 +600,7 @@ Tile* Wall::GetStartTile(int floorCount)
 }
 
 /*------------------------------------------------------------------------------
-	ƒŒƒ“ƒ_ƒ‰[‚ÌÁ‹
+	ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼ã®æ¶ˆå»
 ------------------------------------------------------------------------------*/
 void Wall::ClearRenderer(void)
 {
@@ -612,7 +612,7 @@ void Wall::ClearRenderer(void)
 }
 
 /*------------------------------------------------------------------------------
-	ˆê”Ôã‚Ìƒ^ƒCƒ‹‚ğæ“¾
+	ä¸€ç•ªä¸Šã®ã‚¿ã‚¤ãƒ«ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 Tile* Wall::GetTopTile(void)
 {

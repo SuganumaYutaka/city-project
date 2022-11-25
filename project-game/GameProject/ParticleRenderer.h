@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    ParticleRenderer.h - ƒp[ƒeƒBƒNƒ‹•`‰æ
+    ParticleRenderer.h - ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«æç”»
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/8/16
 ==============================================================================*/
@@ -8,33 +8,33 @@
 #define _PARTICLE_RENDERER_H_
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
 #include "Renderer.h"
 #include "ShaderManager.h"
 
 /*------------------------------------------------------------------------------
-	‘O•ûéŒ¾
+	å‰æ–¹å®£è¨€
 ------------------------------------------------------------------------------*/
 class Material;
 
 /*------------------------------------------------------------------------------
-	\‘¢‘Ì’è‹`
+	æ§‹é€ ä½“å®šç¾©
 ------------------------------------------------------------------------------*/
-//’¸“_ƒf[ƒ^
+//é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿
 typedef struct
 {
-	D3DXVECTOR3 Pos;		//ˆÊ’u
-	D3DCOLOR Color;			//’¸“_ƒJƒ‰[
-	float Size;				//ƒTƒCƒY
-	D3DXVECTOR3 Dir;		//‰‘¬“x‚Æ•ûŒü
-	float Life;				//Œp‘±ŠÔiI—¹Œãƒ‹[ƒvj
-	float Start;			//ŠJnŠÔiLife‚©‚ç‚Ç‚ê‚­‚ç‚¢è‘O‚©j
+	D3DXVECTOR3 Pos;		//ä½ç½®
+	D3DCOLOR Color;			//é ‚ç‚¹ã‚«ãƒ©ãƒ¼
+	float Size;				//ã‚µã‚¤ã‚º
+	D3DXVECTOR3 Dir;		//åˆé€Ÿåº¦ã¨æ–¹å‘
+	float Life;				//ç¶™ç¶šæ™‚é–“ï¼ˆçµ‚äº†å¾Œãƒ«ãƒ¼ãƒ—ï¼‰
+	float Start;			//é–‹å§‹æ™‚é–“ï¼ˆLifeã‹ã‚‰ã©ã‚Œãã‚‰ã„æ‰‹å‰ã‹ï¼‰
 }VERTEX_PARTICLE;
 
 /*------------------------------------------------------------------------------
-	ƒNƒ‰ƒX’è‹`
+	ã‚¯ãƒ©ã‚¹å®šç¾©
 ------------------------------------------------------------------------------*/
 class ParticleRenderer : public Renderer
 {
@@ -67,22 +67,22 @@ public:
 private:
 	void SetVtxBuffer( void);
 
-	Material*	m_pMaterial;			//ƒ}ƒeƒŠƒAƒ‹
-	D3DXCOLOR	m_Color;			//Fi0.0f`1.0fj
-	float		m_AlphaRange;		//ƒAƒ‹ƒtƒ@’li”ÍˆÍj
-	Vector3		m_PosRange;			//ˆÊ’ui”ÍˆÍj
-	float		m_SizeCenter;		//ƒTƒCƒYi’†‰›’lj
-	float		m_SizeRange;		//ƒTƒCƒYi”ÍˆÍj
-	Vector3		m_DirCenter;		//•ûŒüi’†‰›’lj
-	Vector3		m_DirRange;			//•ûŒüi”ÍˆÍj
-	float		m_SpeedCenter;		//‰‘¬“xi’†‰›’lj
-	float		m_SpeedRange;		//‰‘¬“xi”ÍˆÍj
-	float		m_LifeCenter;		//Œp‘±ŠÔi’†‰›’lj
-	float		m_LifeRenge;		//Œp‘±ŠÔi”ÍˆÍj
-	float		m_StartRange;		//ŠJnŠÔi”ÍˆÍj
+	Material*	m_pMaterial;			//ãƒãƒ†ãƒªã‚¢ãƒ«
+	D3DXCOLOR	m_Color;			//è‰²ï¼ˆ0.0fã€œ1.0fï¼‰
+	float		m_AlphaRange;		//ã‚¢ãƒ«ãƒ•ã‚¡å€¤ï¼ˆç¯„å›²ï¼‰
+	Vector3		m_PosRange;			//ä½ç½®ï¼ˆç¯„å›²ï¼‰
+	float		m_SizeCenter;		//ã‚µã‚¤ã‚ºï¼ˆä¸­å¤®å€¤ï¼‰
+	float		m_SizeRange;		//ã‚µã‚¤ã‚ºï¼ˆç¯„å›²ï¼‰
+	Vector3		m_DirCenter;		//æ–¹å‘ï¼ˆä¸­å¤®å€¤ï¼‰
+	Vector3		m_DirRange;			//æ–¹å‘ï¼ˆç¯„å›²ï¼‰
+	float		m_SpeedCenter;		//åˆé€Ÿåº¦ï¼ˆä¸­å¤®å€¤ï¼‰
+	float		m_SpeedRange;		//åˆé€Ÿåº¦ï¼ˆç¯„å›²ï¼‰
+	float		m_LifeCenter;		//ç¶™ç¶šæ™‚é–“ï¼ˆä¸­å¤®å€¤ï¼‰
+	float		m_LifeRenge;		//ç¶™ç¶šæ™‚é–“ï¼ˆç¯„å›²ï¼‰
+	float		m_StartRange;		//é–‹å§‹æ™‚é–“ï¼ˆç¯„å›²ï¼‰
 
-	int m_nNumParticle;				//ƒp[ƒeƒBƒNƒ‹‚Ì”
-	bool m_bNeedUpdateVtx;			//’¸“_ƒoƒbƒtƒ@‚ÌXV‚ª•K—v‚©
+	int m_nNumParticle;				//ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®æ•°
+	bool m_bNeedUpdateVtx;			//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®æ›´æ–°ãŒå¿…è¦ã‹
 };
 
 #endif

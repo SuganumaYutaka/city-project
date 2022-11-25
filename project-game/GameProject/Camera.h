@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    Camera.h - ƒJƒƒ‰
+    Camera.h - ã‚«ãƒ¡ãƒ©
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/7
 ==============================================================================*/
@@ -8,18 +8,18 @@
 #define _CAMERA_H_
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
 #include "Component.h"
 
 /*------------------------------------------------------------------------------
-	‘O•ûéŒ¾
+	å‰æ–¹å®£è¨€
 ------------------------------------------------------------------------------*/
 class RenderTexture;
 
 /*------------------------------------------------------------------------------
-	—ñ‹“Œ^’è‹`
+	åˆ—æŒ™å‹å®šç¾©
 ------------------------------------------------------------------------------*/
 typedef enum
 {
@@ -31,7 +31,7 @@ typedef enum
 }ECameraType;
 
 /*------------------------------------------------------------------------------
-	ƒNƒ‰ƒX’è‹`
+	ã‚¯ãƒ©ã‚¹å®šç¾©
 ------------------------------------------------------------------------------*/
 class Camera : public Component
 {
@@ -98,19 +98,19 @@ public:
 	virtual void Load( Text& text);
 
 private:
-	Vector3 m_PosAt;					//’‹“_iƒ[ƒ‹ƒhÀ•Wj
-	Vector3 m_VecUp;					//ƒJƒƒ‰‚Ìã•ûŒü
-	float m_fFovY;						//‰æŠpi‹–ìŠpj
-	float m_fAspect;					//ƒAƒXƒyƒNƒg”ä
-	float m_fNear;						//ƒjƒA
-	float m_fFar;						//ƒtƒ@[
+	Vector3 m_PosAt;					//æ³¨è¦–ç‚¹ï¼ˆãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ï¼‰
+	Vector3 m_VecUp;					//ã‚«ãƒ¡ãƒ©ã®ä¸Šæ–¹å‘
+	float m_fFovY;						//ç”»è§’ï¼ˆè¦–é‡è§’ï¼‰
+	float m_fAspect;					//ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”
+	float m_fNear;						//ãƒ‹ã‚¢
+	float m_fFar;						//ãƒ•ã‚¡ãƒ¼
 	
-	D3DXMATRIX m_mtxView;				//ƒrƒ…[À•W•ÏŠ·s—ñ
-	D3DXMATRIX m_mtxProj;				//ƒvƒƒWƒFƒNƒVƒ‡ƒ“À•W•ÏŠ·s—ñ
-	D3DVIEWPORT9 m_ViewPort;			//ƒrƒ…[ƒ|[ƒg
-	RenderTexture* m_RenderTarget;		//ƒŒƒ“ƒ_[o—Íæ
-	std::list<int> m_listRenderLayer;	//ƒŒƒ“ƒ_ƒŠƒ“ƒO‚·‚éƒŒƒCƒ„[isize‚ª0‚È‚ç‚·‚×‚Ä•`‰æj
-	ECameraType m_Type;					//ƒJƒƒ‰‚Ìí—Ş
+	D3DXMATRIX m_mtxView;				//ãƒ“ãƒ¥ãƒ¼åº§æ¨™å¤‰æ›è¡Œåˆ—
+	D3DXMATRIX m_mtxProj;				//ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³åº§æ¨™å¤‰æ›è¡Œåˆ—
+	D3DVIEWPORT9 m_ViewPort;			//ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆ
+	RenderTexture* m_RenderTarget;		//ãƒ¬ãƒ³ãƒ€ãƒ¼å‡ºåŠ›å…ˆ
+	std::list<int> m_listRenderLayer;	//ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã™ã‚‹ãƒ¬ã‚¤ãƒ¤ãƒ¼ï¼ˆsizeãŒ0ãªã‚‰ã™ã¹ã¦æç”»ï¼‰
+	ECameraType m_Type;					//ã‚«ãƒ¡ãƒ©ã®ç¨®é¡
 
 	Vector3 CalcScreenPointToWorldPosition( Vector2 screenPoint, float positionZ);
 };

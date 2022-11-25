@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    CollisionManager.h - Õ“Ë”»’èiƒRƒ‰ƒCƒ_[jŠÇ—
+    CollisionManager.h - è¡çªåˆ¤å®šï¼ˆã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ï¼‰ç®¡ç†
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/7
 ==============================================================================*/
@@ -8,26 +8,26 @@
 #define _COLLISION_MANAGER_H_
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
 #include "RaycastHit.h"
 #include <list>
 
 /*------------------------------------------------------------------------------
-	‘O•ûéŒ¾
+	å‰æ–¹å®£è¨€
 ------------------------------------------------------------------------------*/
 class Collider;
 class BoxCollider;
 class MeshFieldCollider;
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
 #define RAY_LENGTH_INFINITY (-1.0f)
 
 /*------------------------------------------------------------------------------
-	ƒNƒ‰ƒX’è‹`
+	ã‚¯ãƒ©ã‚¹å®šç¾©
 ------------------------------------------------------------------------------*/
 class CollisionManager
 {
@@ -47,8 +47,8 @@ public:
 	std::list<RaycastHit> RaycastAll( const Vector3& position, const Vector3& direction, float maxDistance = RAY_LENGTH_INFINITY);
 
 private:
-	std::list< Collider *> m_listCollider;				//ƒRƒ‰ƒCƒ_[ƒŠƒXƒg
-	std::list< Collider *> m_listReleaseCollider;		//Á‹‚·‚éƒRƒ‰ƒCƒ_[ƒŠƒXƒg
+	std::list< Collider *> m_listCollider;				//ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒªã‚¹ãƒˆ
+	std::list< Collider *> m_listReleaseCollider;		//æ¶ˆå»ã™ã‚‹ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒªã‚¹ãƒˆ
 	bool IsCollision( std::list< Collider *>::iterator Source, std::list< Collider *>::iterator Dest);
 
 	bool BoxBox( BoxCollider *pSource, BoxCollider *pDest);

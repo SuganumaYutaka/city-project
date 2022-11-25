@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    PartsAnimator.cpp - ƒp[ƒcƒAƒjƒ[ƒVƒ‡ƒ“
+    PartsAnimator.cpp - ãƒ‘ãƒ¼ãƒ„ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/7/6
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "PartsAnimator.h"
 #include "GameObject.h"
@@ -14,13 +14,13 @@
 #include "XModelRenderer.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
 #define MAX_BUF (1024)
-#define TIME_CHANGE (5)					//ƒ‚[ƒVƒ‡ƒ“Ø‚è‘Ö‚¦‚É‚©‚©‚éƒtƒŒ[ƒ€
+#define TIME_CHANGE (5)					//ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³åˆ‡ã‚Šæ›¿ãˆã«ã‹ã‹ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ 
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* PartsAnimator::Create(GameObject* gameObject)
 {
@@ -28,7 +28,7 @@ Component* PartsAnimator::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 PartsAnimator::PartsAnimator( GameObject *pGameObject)
 {
@@ -44,17 +44,17 @@ PartsAnimator::PartsAnimator( GameObject *pGameObject)
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void PartsAnimator::Uninit( void)
 {
-	//ƒ‚[ƒVƒ‡ƒ“ƒf[ƒ^‚Ì‰ğ•ú
+	//ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã®è§£æ”¾
 	for (MOTION Motion : vecMotion)
 	{
-		//ƒL[ƒZƒbƒg‚Ì‰ğ•ú
+		//ã‚­ãƒ¼ã‚»ãƒƒãƒˆã®è§£æ”¾
 		for (KEYSET Keyset : Motion.vecKeySet)
 		{
-			//ƒL[‚Ì‰ğ•ú
+			//ã‚­ãƒ¼ã®è§£æ”¾
 			Keyset.vecKey.clear();
 		}
 		Motion.vecKeySet.clear();
@@ -63,19 +63,19 @@ void PartsAnimator::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void PartsAnimator::Update(void)
 {
-	//ƒ‚[ƒVƒ‡ƒ“İ’è
-	MOTION motNow = vecMotion[ m_nNowMotion];			//Œ»İ‚Ìƒ‚[ƒVƒ‡ƒ“ƒf[ƒ^
-	MOTION motNext = vecMotion[ m_nNextMotion];		//Ÿ‚Ìƒ‚[ƒVƒ‡ƒ“ƒf[ƒ^
+	//ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³è¨­å®š
+	MOTION motNow = vecMotion[ m_nNowMotion];			//ç¾åœ¨ã®ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿
+	MOTION motNext = vecMotion[ m_nNextMotion];		//æ¬¡ã®ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿
 
-	//ƒL[ƒZƒbƒgİ’è
-	KEYSET keysetNow =	motNow.vecKeySet[ m_nNowKey];		//Œ»İ‚ÌƒL[ƒZƒbƒgƒf[ƒ^
-	KEYSET keysetNext =	motNext.vecKeySet[ m_nNextKey];		//Ÿ‚ÌƒL[ƒZƒbƒgƒf[ƒ^
+	//ã‚­ãƒ¼ã‚»ãƒƒãƒˆè¨­å®š
+	KEYSET keysetNow =	motNow.vecKeySet[ m_nNowKey];		//ç¾åœ¨ã®ã‚­ãƒ¼ã‚»ãƒƒãƒˆãƒ‡ãƒ¼ã‚¿
+	KEYSET keysetNext =	motNext.vecKeySet[ m_nNextKey];		//æ¬¡ã®ã‚­ãƒ¼ã‚»ãƒƒãƒˆãƒ‡ãƒ¼ã‚¿
 
-	//ƒf[ƒ^‚©‚çƒp[ƒc‚ÌˆÊ’uEŠp“xXV
+	//ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰ãƒ‘ãƒ¼ãƒ„ã®ä½ç½®ãƒ»è§’åº¦æ›´æ–°
 	Vector3 Pos;
 	D3DXQUATERNION OffsetRot;
 	D3DXQUATERNION NowRot;
@@ -84,11 +84,11 @@ void PartsAnimator::Update(void)
 	int sizeParts = vecParts.size();
 	for( int nCntParts = 0; nCntParts < sizeParts; nCntParts++)
 	{
-		//ˆÊ’u
+		//ä½ç½®
 		//Pos = keysetNow.vecKey[ nCntParts].Position + ( keysetNext.vecKey[ nCntParts].Position - keysetNow.vecKey[ nCntParts].Position) * (float)m_nCntFrame / m_nChangeFrame;
 		//vecParts[ nCntParts]->m_pTransform->SetLocalPosition( vecOfsetPos[ nCntParts] + Pos);
 
-		//Šp“x
+		//è§’åº¦
 		D3DXQuaternionRotationYawPitchRoll( &OffsetRot, vecOfsetRot[ nCntParts].y, vecOfsetRot[ nCntParts].x, vecOfsetRot[ nCntParts].z);
 		D3DXQuaternionRotationYawPitchRoll( &NowRot, keysetNow.vecKey[ nCntParts].Rotation.y, keysetNow.vecKey[ nCntParts].Rotation.x, keysetNow.vecKey[ nCntParts].Rotation.z);
 		D3DXQuaternionRotationYawPitchRoll( &NextRot, keysetNext.vecKey[ nCntParts].Rotation.y, keysetNext.vecKey[ nCntParts].Rotation.x, keysetNext.vecKey[ nCntParts].Rotation.z);
@@ -97,13 +97,13 @@ void PartsAnimator::Update(void)
 		vecParts[ nCntParts]->m_pTransform->SetLocalRotation( OffsetRot);
 	}
 
-	//ƒtƒŒ[ƒ€‚ÌXV
+	//ãƒ•ãƒ¬ãƒ¼ãƒ ã®æ›´æ–°
 	if( motNow.nLoop == 1 || m_nNextKey + 1 < motNow.nNumKey || m_nCntFrame < m_nChangeFrame - 1)
 	{
 		m_nCntFrame++;
 	}
 
-	//ƒL[‚Ì•ÏX
+	//ã‚­ãƒ¼ã®å¤‰æ›´
 	if( m_nCntFrame >= m_nChangeFrame)
 	{
 		m_nCntFrame = 0;
@@ -119,37 +119,37 @@ void PartsAnimator::Update(void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒAƒjƒ[ƒVƒ‡ƒ“ƒf[ƒ^‚ğƒ[ƒh
+	ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void PartsAnimator::LoadAnimator( std::string fileName)
 {
-	//ƒXƒNƒŠƒvƒg“Ç‚İ‚İ
-	FILE *fp;			//ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^
-	char aBuf[MAX_BUF];	//“Ç‚İæ‚è—p
-	int nCnt = 0;		//ƒJƒEƒ“ƒ^
-	std::vector<std::string> vecFileName;		//“Ç‚İ‚Şƒtƒ@ƒCƒ‹–¼
+	//ã‚¹ã‚¯ãƒªãƒ—ãƒˆèª­ã¿è¾¼ã¿
+	FILE *fp;			//ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿
+	char aBuf[MAX_BUF];	//èª­ã¿å–ã‚Šç”¨
+	int nCnt = 0;		//ã‚«ã‚¦ãƒ³ã‚¿
+	std::vector<std::string> vecFileName;		//èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«å
 	int nNumModel = 0;
 	int nNumParts = 0;
 	
-	//ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
+	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ¼ãƒ—ãƒ³
 	fp =fopen( fileName.c_str(), "r");
 	if( fp == NULL)
 	{
-		MessageBox( NULL, "model.cpp\nƒXƒNƒŠƒvƒg‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½\n", "ƒGƒ‰[", MB_OK);
+		MessageBox( NULL, "model.cpp\nã‚¹ã‚¯ãƒªãƒ—ãƒˆã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		fclose(fp);
 		return;
 	}
 
-	//ƒXƒNƒŠƒvƒgƒtƒ@ƒCƒ‹‚©ƒ`ƒFƒbƒN(1)
+	//ã‚¹ã‚¯ãƒªãƒ—ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã‹ãƒã‚§ãƒƒã‚¯(1)
 	while( 1)
 	{
 		if( fscanf( fp, "%s", aBuf) == EOF)
 		{
-			MessageBox( NULL, "model.cpp\nƒXƒNƒŠƒvƒg‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ(1)\n", "ƒGƒ‰[", MB_OK);
+			MessageBox( NULL, "model.cpp\nã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“(1)\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 			fclose(fp);
 			return;
 		}
-		//ƒRƒƒ“ƒg
+		//ã‚³ãƒ¡ãƒ³ãƒˆ
 		if( aBuf[ 0] == '#')
 		{
 			fgets( aBuf, MAX_BUF, fp);
@@ -160,16 +160,16 @@ void PartsAnimator::LoadAnimator( std::string fileName)
 		}
 	}
 
-	//ƒ‚ƒfƒ‹”(2)
+	//ãƒ¢ãƒ‡ãƒ«æ•°(2)
 	while( 1)
 	{
 		if( fscanf( fp, "%s", aBuf) == EOF)
 		{
-			MessageBox( NULL, "model.cpp\nƒXƒNƒŠƒvƒg‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ(2)\n", "ƒGƒ‰[", MB_OK);
+			MessageBox( NULL, "model.cpp\nã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“(2)\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 			fclose(fp);
 			return;
 		}
-		//ƒRƒƒ“ƒg
+		//ã‚³ãƒ¡ãƒ³ãƒˆ
 		if( aBuf[ 0] == '#')
 		{
 			fgets( aBuf, MAX_BUF, fp);
@@ -177,23 +177,23 @@ void PartsAnimator::LoadAnimator( std::string fileName)
 		if( strcmp( aBuf, "NUM_MODEL") == 0)
 		{
 			fscanf( fp, "%s", aBuf);
-			fscanf( fp, "%d", &nNumModel);		//ƒ‚ƒfƒ‹”
+			fscanf( fp, "%d", &nNumModel);		//ãƒ¢ãƒ‡ãƒ«æ•°
 			//fscanf( fp, "%s", aFileName[ nCnt]);
 			break;
 		}
 	}
 
-	//ƒ‚ƒfƒ‹ƒtƒ@ƒCƒ‹–¼(3)
+	//ãƒ¢ãƒ‡ãƒ«ãƒ•ã‚¡ã‚¤ãƒ«å(3)
 	nCnt = 0;
-	while( nCnt < nNumModel)		//ƒ‚ƒfƒ‹”•ª
+	while( nCnt < nNumModel)		//ãƒ¢ãƒ‡ãƒ«æ•°åˆ†
 	{
 		if( fscanf( fp, "%s", aBuf) == EOF)
 		{
-			MessageBox( NULL, "model.cpp\nƒXƒNƒŠƒvƒg‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ(3)\n", "ƒGƒ‰[", MB_OK);
+			MessageBox( NULL, "model.cpp\nã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“(3)\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 			fclose(fp);
 			return;
 		}
-		//ƒRƒƒ“ƒg
+		//ã‚³ãƒ¡ãƒ³ãƒˆ
 		if( aBuf[ 0] == '#')
 		{
 			fgets( aBuf, MAX_BUF, fp);
@@ -202,55 +202,55 @@ void PartsAnimator::LoadAnimator( std::string fileName)
 		{
 			fscanf( fp, "%s", aBuf);
 			fscanf( fp, "%s", aBuf);
-			vecFileName.push_back( aBuf);		//ƒ‚ƒfƒ‹‚Ìƒtƒ@ƒCƒ‹–¼
+			vecFileName.push_back( aBuf);		//ãƒ¢ãƒ‡ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«å
 
-			nCnt++;		//ƒ‚ƒfƒ‹ƒJƒEƒ“ƒgƒAƒbƒv
+			nCnt++;		//ãƒ¢ãƒ‡ãƒ«ã‚«ã‚¦ãƒ³ãƒˆã‚¢ãƒƒãƒ—
 		}
 	}
 
-	//ƒLƒƒƒ‰ƒNƒ^[î•ñ(4)
+	//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼æƒ…å ±(4)
 	while( strcmp( aBuf, "END_CHARACTERSET") != 0)
 	{
 		if( fscanf( fp, "%s", aBuf) == EOF)
 		{
-			MessageBox( NULL, "model.cpp\nƒXƒNƒŠƒvƒg‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ(4)\n", "ƒGƒ‰[", MB_OK);
+			MessageBox( NULL, "model.cpp\nã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“(4)\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 			fclose(fp);
 			return;
 		}
-		//ƒRƒƒ“ƒg
+		//ã‚³ãƒ¡ãƒ³ãƒˆ
 		if( aBuf[ 0] == '#')
 		{
 			fgets( aBuf, MAX_BUF, fp);
 		}
 		if( strcmp( aBuf, "CHARACTERSET") == 0)
 		{
-			//ƒLƒƒƒ‰ƒNƒ^[î•ñ(5)
+			//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼æƒ…å ±(5)
 			while( strcmp( aBuf, "END_CHARACTERSET") != 0)
 			{
 				if( fscanf( fp, "%s", aBuf) == EOF)
 				{
-					MessageBox( NULL, "model.cpp\nƒXƒNƒŠƒvƒg‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ(5)\n", "ƒGƒ‰[", MB_OK);
+					MessageBox( NULL, "model.cpp\nã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“(5)\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 					fclose(fp);
 					return;
 				}
-				//ƒRƒƒ“ƒg
+				//ã‚³ãƒ¡ãƒ³ãƒˆ
 				if( aBuf[ 0] == '#')
 				{
 					fgets( aBuf, MAX_BUF, fp);
 				}
-				//ƒp[ƒc”
+				//ãƒ‘ãƒ¼ãƒ„æ•°
 				if( strcmp( aBuf, "NUM_PARTS") == 0)
 				{
 					fscanf( fp, "%s", aBuf);
 					fscanf( fp, "%d", &nNumParts);
-					break;		//ƒ‹[ƒv”²‚¯‚é
+					break;		//ãƒ«ãƒ¼ãƒ—æŠœã‘ã‚‹
 				}
 			}
 
-			//ƒp[ƒc‚ğ¶¬
+			//ãƒ‘ãƒ¼ãƒ„ã‚’ç”Ÿæˆ
 			if( nNumParts <= 0)
 			{
-				MessageBox( NULL, "model.cpp\nƒp[ƒc”‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢\n", "ƒGƒ‰[", MB_OK);
+				MessageBox( NULL, "model.cpp\nãƒ‘ãƒ¼ãƒ„æ•°ã‚’è¨­å®šã—ã¦ãã ã•ã„\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 				fclose(fp);
 				return;
 			}
@@ -263,17 +263,17 @@ void PartsAnimator::LoadAnimator( std::string fileName)
 				vecParts.push_back( pObj);
 			}
 
-			//ƒp[ƒcî•ñ(6)
+			//ãƒ‘ãƒ¼ãƒ„æƒ…å ±(6)
 			nCnt = 0;
 			while( strcmp( aBuf, "END_CHARACTERSET") != 0 && nCnt <= nNumParts)
 			{
 				if( fscanf( fp, "%s", aBuf) == EOF)
 				{
-					MessageBox( NULL, "model.cpp\nƒXƒNƒŠƒvƒg‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ(6)\n", "ƒGƒ‰[", MB_OK);
+					MessageBox( NULL, "model.cpp\nã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“(6)\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 					fclose(fp);
 					return;
 				}
-				//ƒRƒƒ“ƒg
+				//ã‚³ãƒ¡ãƒ³ãƒˆ
 				if( aBuf[ 0] == '#')
 				{
 					fgets( aBuf, MAX_BUF, fp);
@@ -285,26 +285,26 @@ void PartsAnimator::LoadAnimator( std::string fileName)
 					{
 						if( fscanf( fp, "%s", aBuf) == EOF)
 						{
-							MessageBox( NULL, "model.cpp\nƒXƒNƒŠƒvƒg‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ(6')\n", "ƒGƒ‰[", MB_OK);
+							MessageBox( NULL, "model.cpp\nã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“(6')\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 							fclose(fp);
 							return;
 						}
-						//ƒRƒƒ“ƒg
+						//ã‚³ãƒ¡ãƒ³ãƒˆ
 						if( aBuf[ 0] == '#')
 						{
 							fgets( aBuf, MAX_BUF, fp);
 						}
-						//ƒ‚ƒfƒ‹‚ÌƒCƒ“ƒfƒbƒNƒX”Ô†
+						//ãƒ¢ãƒ‡ãƒ«ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·
 						if( strcmp( aBuf, "INDEX") == 0)
 						{
 							int nModelIdx = 0;
 							fscanf( fp, "%s", aBuf);
 							fscanf( fp, "%d", &nModelIdx);
 
-							//ƒ‚ƒfƒ‹‚ğİ’è
+							//ãƒ¢ãƒ‡ãƒ«ã‚’è¨­å®š
 							vecParts[nCnt]->GetComponent<XModelRenderer>()->LoadXModel( vecFileName[nModelIdx]);
 						}
-						//e‚ÌƒCƒ“ƒfƒbƒNƒX”Ô†
+						//è¦ªã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·
 						if( strcmp( aBuf, "PARENT") == 0)
 						{
 							int nParent;
@@ -312,10 +312,10 @@ void PartsAnimator::LoadAnimator( std::string fileName)
 							fscanf( fp, "%d", &nParent);
 							if( nParent >= 0)
 							{
-								vecParts[nCnt]->m_pTransform->SetParent( vecParts[nParent]->m_pTransform);	//e‚Ìİ’è
+								vecParts[nCnt]->m_pTransform->SetParent( vecParts[nParent]->m_pTransform);	//è¦ªã®è¨­å®š
 							}
 						}
-						//ˆÊ’u
+						//ä½ç½®
 						if( strcmp( aBuf, "POS") == 0)
 						{
 							Vector3 pos;
@@ -326,7 +326,7 @@ void PartsAnimator::LoadAnimator( std::string fileName)
 							vecOfsetPos.push_back(pos);
 							vecParts[nCnt]->m_pTransform->SetLocalPosition( pos);
 						}
-						//Šp“x
+						//è§’åº¦
 						if( strcmp( aBuf, "ROT") == 0)
 						{
 							Vector3 rot;
@@ -338,96 +338,96 @@ void PartsAnimator::LoadAnimator( std::string fileName)
 							vecParts[nCnt]->m_pTransform->SetLocalRotationEuler( rot);
 						}
 					}
-					nCnt++;		//ƒp[ƒcƒJƒEƒ“ƒgƒAƒbƒv
+					nCnt++;		//ãƒ‘ãƒ¼ãƒ„ã‚«ã‚¦ãƒ³ãƒˆã‚¢ãƒƒãƒ—
 				}
 			}
 		}
 	}
 
-	//ƒ‚[ƒVƒ‡ƒ“î•ñ(7)
+	//ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³æƒ…å ±(7)
 	nCnt = 0;
 	while( strcmp( aBuf, "END_SCRIPT") != 0)
 	{
 		if( fscanf( fp, "%s", aBuf) == EOF)
 		{
-			MessageBox( NULL, "model.cpp\nƒXƒNƒŠƒvƒg‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ(7)\n", "ƒGƒ‰[", MB_OK);
+			MessageBox( NULL, "model.cpp\nã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“(7)\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 			fclose(fp);
 			return;
 		}
-		//ƒRƒƒ“ƒg
+		//ã‚³ãƒ¡ãƒ³ãƒˆ
 		if( aBuf[ 0] == '#')
 		{
 			fgets( aBuf, MAX_BUF, fp);
 		}
 		if( strcmp( aBuf, "MOTIONSET") == 0)
 		{
-			//ƒ‚[ƒVƒ‡ƒ“’Ç‰Á
+			//ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³è¿½åŠ 
 			MOTION motion;
 			
-			//ƒ‚[ƒVƒ‡ƒ“î•ñ(8)
+			//ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³æƒ…å ±(8)
 			while( strcmp( aBuf, "END_MOTIONSET") != 0)
 			{
 				if( fscanf( fp, "%s", aBuf) == EOF)
 				{
-					MessageBox( NULL, "model.cpp\nƒXƒNƒŠƒvƒg‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ(8)\n", "ƒGƒ‰[", MB_OK);
+					MessageBox( NULL, "model.cpp\nã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“(8)\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 					fclose(fp);
 					return;
 				}
-				//ƒRƒƒ“ƒg
+				//ã‚³ãƒ¡ãƒ³ãƒˆ
 				if( aBuf[ 0] == '#')
 				{
 					fgets( aBuf, MAX_BUF, fp);
 				}
-				//ƒ‹[ƒvƒtƒ‰ƒO
+				//ãƒ«ãƒ¼ãƒ—ãƒ•ãƒ©ã‚°
 				if( strcmp( aBuf, "LOOP") == 0)
 				{
 					fscanf( fp, "%s", aBuf);
 					fscanf( fp, "%d", &motion.nLoop);
 
 				}
-				//ƒL[”
+				//ã‚­ãƒ¼æ•°
 				if( strcmp( aBuf, "NUM_KEY") == 0)
 				{
 					fscanf( fp, "%s", aBuf);
 					fscanf( fp, "%d", &motion.nNumKey);
 
-					//ƒL[ƒZƒbƒg¶¬
+					//ã‚­ãƒ¼ã‚»ãƒƒãƒˆç”Ÿæˆ
 					motion.vecKeySet.resize( motion.nNumKey);
 
-					//ƒL[ƒZƒbƒgî•ñ(9)
-					int nCntKeySet = 0;		//ƒL[ƒZƒbƒgƒJƒEƒ“ƒ^
+					//ã‚­ãƒ¼ã‚»ãƒƒãƒˆæƒ…å ±(9)
+					int nCntKeySet = 0;		//ã‚­ãƒ¼ã‚»ãƒƒãƒˆã‚«ã‚¦ãƒ³ã‚¿
 					while( strcmp( aBuf, "END_MOTIONSET") != 0)
 					{
 						if( fscanf( fp, "%s", aBuf) == EOF)
 						{
-							MessageBox( NULL, "model.cpp\nƒXƒNƒŠƒvƒg‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ(9)\n", "ƒGƒ‰[", MB_OK);
+							MessageBox( NULL, "model.cpp\nã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“(9)\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 							fclose(fp);
 							return;
 						}
-						//ƒRƒƒ“ƒg
+						//ã‚³ãƒ¡ãƒ³ãƒˆ
 						if( aBuf[ 0] == '#')
 						{
 							fgets( aBuf, MAX_BUF, fp);
 						}
 						if( strcmp( aBuf, "KEYSET") == 0)
 						{
-							//ƒL[¶¬
+							//ã‚­ãƒ¼ç”Ÿæˆ
 							motion.vecKeySet[ nCntKeySet].vecKey.resize( nNumParts);
 
 							while( strcmp( aBuf, "END_KEYSET") != 0)
 							{
 								if( fscanf( fp, "%s", aBuf) == EOF)
 								{
-									MessageBox( NULL, "model.cpp\nƒXƒNƒŠƒvƒg‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ(9)\n", "ƒGƒ‰[", MB_OK);
+									MessageBox( NULL, "model.cpp\nã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“(9)\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 									fclose(fp);
 									return;
 								}
-								//ƒRƒƒ“ƒg
+								//ã‚³ãƒ¡ãƒ³ãƒˆ
 								if( aBuf[ 0] == '#')
 								{
 									fgets( aBuf, MAX_BUF, fp);
 								}
-								//ƒtƒŒ[ƒ€”
+								//ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
 								if( strcmp( aBuf, "FRAME") == 0)
 								{
 									fscanf( fp, "%s", aBuf);
@@ -436,38 +436,38 @@ void PartsAnimator::LoadAnimator( std::string fileName)
 								}
 							}
 
-							//ƒL[ƒZƒbƒgî•ñ(10)
-							int nCntKey = 0;		//ƒL[ƒJƒEƒ“ƒ^
+							//ã‚­ãƒ¼ã‚»ãƒƒãƒˆæƒ…å ±(10)
+							int nCntKey = 0;		//ã‚­ãƒ¼ã‚«ã‚¦ãƒ³ã‚¿
 							while( strcmp( aBuf, "END_KEYSET") != 0)
 							{
 								if( fscanf( fp, "%s", aBuf) == EOF)
 								{
-									MessageBox( NULL, "model.cpp\nƒXƒNƒŠƒvƒg‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ(10)\n", "ƒGƒ‰[", MB_OK);
+									MessageBox( NULL, "model.cpp\nã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“(10)\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 									fclose(fp);
 									return;
 								}
-								//ƒRƒƒ“ƒg
+								//ã‚³ãƒ¡ãƒ³ãƒˆ
 								if( aBuf[ 0] == '#')
 								{
 									fgets( aBuf, MAX_BUF, fp);
 								}
-								//ƒL[î•ñ(11)
+								//ã‚­ãƒ¼æƒ…å ±(11)
 								if( strcmp( aBuf, "KEY") == 0)
 								{
 									while( strcmp( aBuf, "END_KEY") != 0)
 									{
 										if( fscanf( fp, "%s", aBuf) == EOF)
 										{
-											MessageBox( NULL, "model.cpp\nƒXƒNƒŠƒvƒg‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñ(11)\n", "ƒGƒ‰[", MB_OK);
+											MessageBox( NULL, "model.cpp\nã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒæ­£ã—ãã‚ã‚Šã¾ã›ã‚“(11)\n", "ã‚¨ãƒ©ãƒ¼", MB_OK);
 											fclose(fp);
 											return;
 										}
-										//ƒRƒƒ“ƒg
+										//ã‚³ãƒ¡ãƒ³ãƒˆ
 										if( aBuf[ 0] == '#')
 										{
 											fgets( aBuf, MAX_BUF, fp);
 										}
-										//ˆÊ’u
+										//ä½ç½®
 										if( strcmp( aBuf, "POS") == 0)
 										{
 											Vector3 pos;
@@ -477,7 +477,7 @@ void PartsAnimator::LoadAnimator( std::string fileName)
 											fscanf( fp, "%f", &pos.z);
 											motion.vecKeySet[ nCntKeySet].vecKey[nCntKey].Position = pos;
 										}
-										//Šp“x
+										//è§’åº¦
 										if( strcmp( aBuf, "ROT") == 0)
 										{
 											Vector3 rot;
@@ -489,37 +489,37 @@ void PartsAnimator::LoadAnimator( std::string fileName)
 										}
 									}
 
-									nCntKey++;	//ƒL[ƒJƒEƒ“ƒgƒAƒbƒv
+									nCntKey++;	//ã‚­ãƒ¼ã‚«ã‚¦ãƒ³ãƒˆã‚¢ãƒƒãƒ—
 								}
 							}
-							nCntKeySet++;		//ƒL[ƒZƒbƒgƒJƒEƒ“ƒgƒAƒbƒv
+							nCntKeySet++;		//ã‚­ãƒ¼ã‚»ãƒƒãƒˆã‚«ã‚¦ãƒ³ãƒˆã‚¢ãƒƒãƒ—
 						}
 					}
 				}
 			}
 			vecMotion.push_back(motion);
-			nCnt++;		//ƒ‚[ƒVƒ‡ƒ“ƒJƒEƒ“ƒgƒAƒbƒv
+			nCnt++;		//ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã‚«ã‚¦ãƒ³ãƒˆã‚¢ãƒƒãƒ—
 		}
 	}
 	
-	//ƒtƒ@ƒCƒ‹ƒNƒ[ƒY
+	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚¯ãƒ­ãƒ¼ã‚º
 	fclose(fp);
 
-	//‰Šú’l‘ã“ü
+	//åˆæœŸå€¤ä»£å…¥
 	m_nChangeFrame = vecMotion[ m_nNowMotion].vecKeySet[ m_nNowKey].nFrame;
 
-	//Šp“xC³
+	//è§’åº¦ä¿®æ­£
 	vecOfsetRot[0].y += D3DX_PI;
 
 	FileName = fileName;
 }
 
 /*------------------------------------------------------------------------------
-	Å‰‚Ìƒ‚[ƒVƒ‡ƒ“İ’èˆ—ŠÖ”
+	æœ€åˆã®ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³è¨­å®šå‡¦ç†é–¢æ•°
 ------------------------------------------------------------------------------*/
 void PartsAnimator::SetFirstMotion()
 {
-	//ƒf[ƒ^‚©‚çƒp[ƒc‚ÌˆÊ’uEŠp“xİ’è
+	//ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰ãƒ‘ãƒ¼ãƒ„ã®ä½ç½®ãƒ»è§’åº¦è¨­å®š
 	int sizeParts = vecParts.size();
 	for( int nCntParts = 0; nCntParts < sizeParts; nCntParts++)
 	{
@@ -529,42 +529,42 @@ void PartsAnimator::SetFirstMotion()
 }
 
 /*------------------------------------------------------------------------------
-	Ÿ‚Ìƒ‚[ƒVƒ‡ƒ“İ’èˆ—ŠÖ”
+	æ¬¡ã®ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³è¨­å®šå‡¦ç†é–¢æ•°
 ------------------------------------------------------------------------------*/
 void PartsAnimator::SetNextMotion( int nNextMotion, int nNextKey)
 {
-	//Œ»İ‚Ìƒ‚[ƒVƒ‡ƒ“AƒL[‚ğXV
+	//ç¾åœ¨ã®ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã€ã‚­ãƒ¼ã‚’æ›´æ–°
 	m_nNowMotion = m_nNextMotion;
 	m_nNowKey = m_nNextKey;
 
-	//Ÿ‚Ìƒ‚[ƒVƒ‡ƒ“AƒL[‚ğİ’è
+	//æ¬¡ã®ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã€ã‚­ãƒ¼ã‚’è¨­å®š
 	m_nNextMotion = nNextMotion;
 	m_nNextKey = nNextKey;
 
-	//ƒtƒŒ[ƒ€İ’è
+	//ãƒ•ãƒ¬ãƒ¼ãƒ è¨­å®š
 	m_nChangeFrame = m_nCntFrame + TIME_CHANGE;
 }
 
 /*------------------------------------------------------------------------------
-	ƒ‚[ƒVƒ‡ƒ“Ø‚è‘Ö‚¦ˆ—ŠÖ”
+	ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³åˆ‡ã‚Šæ›¿ãˆå‡¦ç†é–¢æ•°
 ------------------------------------------------------------------------------*/
 void PartsAnimator::ChangeMotion( int nNextMotion, int nNextKey)
 {
-	//Œ»İ‚Ìƒ‚[ƒVƒ‡ƒ“AƒL[‚ğXV
+	//ç¾åœ¨ã®ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã€ã‚­ãƒ¼ã‚’æ›´æ–°
 	m_nNowMotion = m_nNextMotion;
 	m_nNowKey = m_nNextKey;
 
-	//Ÿ‚Ìƒ‚[ƒVƒ‡ƒ“AƒL[‚ğİ’è
+	//æ¬¡ã®ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã€ã‚­ãƒ¼ã‚’è¨­å®š
 	m_nNextMotion = nNextMotion;
 	m_nNextKey = nNextKey;
 
-	//ƒtƒŒ[ƒ€”ƒŠƒZƒbƒg
+	//ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ãƒªã‚»ãƒƒãƒˆ
 	m_nCntFrame = 0;
 	m_nChangeFrame = vecMotion[ m_nNowMotion].vecKeySet[ m_nNowKey].nFrame;
 }
 
 /*------------------------------------------------------------------------------
-	ƒ‚[ƒVƒ‡ƒ“‚ªI—¹‚µ‚½‚©
+	ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚äº†ã—ãŸã‹
 ------------------------------------------------------------------------------*/
 bool PartsAnimator::IsEndMotion(void)
 {
@@ -578,11 +578,11 @@ bool PartsAnimator::IsEndMotion(void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void PartsAnimator::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -596,7 +596,7 @@ void PartsAnimator::Load(Text& text)
 			LoadAnimator( text.GetWord());
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
@@ -606,7 +606,7 @@ void PartsAnimator::Load(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void PartsAnimator::Save(Text& text)
 {

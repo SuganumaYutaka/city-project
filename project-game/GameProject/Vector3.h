@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    Vector3.h - 3DƒxƒNƒgƒ‹
+    Vector3.h - 3Dãƒ™ã‚¯ãƒˆãƒ«
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/3/30
 ==============================================================================*/
@@ -8,44 +8,44 @@
 #define _VECTOR3_H_
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include <d3dx9.h>
 #include <string>
 
 /*------------------------------------------------------------------------------
-	ƒNƒ‰ƒX’è‹`
+	ã‚¯ãƒ©ã‚¹å®šç¾©
 ------------------------------------------------------------------------------*/
 class Vector3
 {
 public:
-	float x;	//xÀ•W
-	float y;	//yÀ•W
-	float z;	//zÀ•W
+	float x;	//xåº§æ¨™
+	float y;	//yåº§æ¨™
+	float z;	//zåº§æ¨™
 
 	Vector3() : x( 0.0f), y( 0.0f), z( 0.0f) {}
 	Vector3( float X, float Y, float Z) : x(X), y(Y), z(Z) {}
 	Vector3( D3DXVECTOR3 Vec) : x(Vec.x), y(Vec.y), z(Vec.z) {}
 	
-	float Length( void) const;												//’·‚³
-	static float Length( const Vector3 &V1);								//’·‚³
-	Vector3 Normalize( void) const;											//³‹K‰»
-	static Vector3 Normalize( const Vector3 &V1);							//³‹K‰»
-	float Dot( const Vector3 &V1) const;									//“àÏ
-	static float Dot( const Vector3 &V1, const Vector3 &V2);				//“àÏ
-	Vector3 Cross( const Vector3 &V1) const;								//ŠOÏ
-	static Vector3 Cross( const Vector3 &V1, const Vector3 &V2);			//ŠOÏ
-	float Distance( const Vector3 &V1) const;								//2“_ŠÔ‚Ì‹——£
-	static float Distance( const Vector3 &V1, const Vector3 &V2);			//2“_ŠÔ‚Ì‹——£
-	D3DXVECTOR3 ConvertToDX() const { return D3DXVECTOR3( x, y, z);}		//D3DXVECTOR3‚É•ÏŠ·
-	static Vector3 ConvertFromDX( D3DXVECTOR3 Vec) 							//D3DXVECTOR3‚©‚ç•ÏŠ·
+	float Length( void) const;												//é•·ã•
+	static float Length( const Vector3 &V1);								//é•·ã•
+	Vector3 Normalize( void) const;											//æ­£è¦åŒ–
+	static Vector3 Normalize( const Vector3 &V1);							//æ­£è¦åŒ–
+	float Dot( const Vector3 &V1) const;									//å†…ç©
+	static float Dot( const Vector3 &V1, const Vector3 &V2);				//å†…ç©
+	Vector3 Cross( const Vector3 &V1) const;								//å¤–ç©
+	static Vector3 Cross( const Vector3 &V1, const Vector3 &V2);			//å¤–ç©
+	float Distance( const Vector3 &V1) const;								//2ç‚¹é–“ã®è·é›¢
+	static float Distance( const Vector3 &V1, const Vector3 &V2);			//2ç‚¹é–“ã®è·é›¢
+	D3DXVECTOR3 ConvertToDX() const { return D3DXVECTOR3( x, y, z);}		//D3DXVECTOR3ã«å¤‰æ›
+	static Vector3 ConvertFromDX( D3DXVECTOR3 Vec) 							//D3DXVECTOR3ã‹ã‚‰å¤‰æ›
 	{ 
 		return Vector3(Vec.x, Vec.y, Vec.z);
 	}
 	std::string ConvertToString();
 	int ConvertFromString(std::string& str, int current);
 	
-	//‰‰ZqƒI[ƒo[ƒ[ƒh
+	//æ¼”ç®—å­ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰
 	Vector3 &operator = ( const Vector3 &V1);
 	Vector3 &operator += ( const Vector3 &V1);
 	Vector3 &operator -= ( const Vector3 &V1);

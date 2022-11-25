@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    Component.h - ƒRƒ“ƒ|[ƒlƒ“ƒgiŠî’êƒNƒ‰ƒXj
+    Component.h - ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆï¼ˆåŸºåº•ã‚¯ãƒ©ã‚¹ï¼‰
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/4/27
 ==============================================================================*/
@@ -8,24 +8,24 @@
 #define _COMPONENT_H_
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
 
 /*------------------------------------------------------------------------------
-	‘O•ûéŒ¾
+	å‰æ–¹å®£è¨€
 ------------------------------------------------------------------------------*/
 class GameObject;
 class Transform;
 class Collider;
 
 /*------------------------------------------------------------------------------
-	—ñ‹“Œ^’è‹`
+	åˆ—æŒ™å‹å®šç¾©
 ------------------------------------------------------------------------------*/
 
 
 /*------------------------------------------------------------------------------
-	ƒNƒ‰ƒX’è‹`
+	ã‚¯ãƒ©ã‚¹å®šç¾©
 ------------------------------------------------------------------------------*/
 class Component
 {
@@ -33,7 +33,7 @@ public:
 	Component( GameObject *pGameObject);
 	~Component();
 
-	GameObject *GetGameObject() { return m_pGameObject;}	//Š—LÒî•ñ‚ğ“n‚·
+	GameObject *GetGameObject() { return m_pGameObject;}	//æ‰€æœ‰è€…æƒ…å ±ã‚’æ¸¡ã™
 	Transform *GetTransform() { return m_pTransform;}
 
 	virtual void Update( void) {}
@@ -45,10 +45,10 @@ public:
 	//virtual void OnCollisionEnter( Collider *pCollider) {}
 	//virtual void OnCollisionExit( Collider *pCollider) {}
 
-	int m_nLayer;					//ƒŒƒCƒ„[
+	int m_nLayer;					//ãƒ¬ã‚¤ãƒ¤ãƒ¼
 
-	GameObject *m_pGameObject;		//Š—LÒiej
-	Transform *m_pTransform;		//Š—LÒ‚ÌˆÊ’uE‰ñ“]EƒXƒP[ƒ‹
+	GameObject *m_pGameObject;		//æ‰€æœ‰è€…ï¼ˆè¦ªï¼‰
+	Transform *m_pTransform;		//æ‰€æœ‰è€…ã®ä½ç½®ãƒ»å›è»¢ãƒ»ã‚¹ã‚±ãƒ¼ãƒ«
 
 	void ReleaseReserve( void );
 	static void ReleaseList( void);
@@ -63,14 +63,14 @@ public:
 
 protected:
 	Component();
-	bool m_bEnable;					//Às‰Â”\‚©
+	bool m_bEnable;					//å®Ÿè¡Œå¯èƒ½ã‹
 
 	void StartSave( Text& text);
 	void EndSave( Text& text);
 	
 private:
-	static std::list<Component*> m_listReleaseComponent;	//Á‹ƒŠƒXƒg
-	bool m_bRelease;										//Á‹—\–ñÏ‚İ‚©
+	static std::list<Component*> m_listReleaseComponent;	//æ¶ˆå»ãƒªã‚¹ãƒˆ
+	bool m_bRelease;										//æ¶ˆå»äºˆç´„æ¸ˆã¿ã‹
 
 };
 

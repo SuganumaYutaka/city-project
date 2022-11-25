@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    Random.h - —”¶¬
+    Random.h - ä¹±æ•°ç”Ÿæˆ
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/12/21
 ==============================================================================*/
@@ -8,15 +8,15 @@
 #define _RANDOM_H_
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include <random>
 
 /*------------------------------------------------------------------------------
-	ƒNƒ‰ƒX’è‹`
+	ã‚¯ãƒ©ã‚¹å®šç¾©
 ------------------------------------------------------------------------------*/
 
-// ƒfƒoƒCƒX
+// ãƒ‡ãƒã‚¤ã‚¹
 class RandomDevice
 {
 public:
@@ -25,7 +25,7 @@ public:
 	virtual float GetFloat( void) = 0;
 };
 
-//‹[——”
+//æ“¬ä¼¼ä¹±æ•°
 class RandomMt19937 : public RandomDevice
 {
 public:
@@ -37,7 +37,7 @@ private:
 	std::mt19937* m_Mt19937;
 };
 
-//ˆê—l•ª•ziintj
+//ä¸€æ§˜åˆ†å¸ƒï¼ˆintï¼‰
 class RandomUniformIntDistribution : public RandomDevice
 {
 public:
@@ -50,7 +50,7 @@ private:
 	std::uniform_int_distribution<int>* m_Uniform;
 };
 
-//ˆê—l•ª•zifloatj
+//ä¸€æ§˜åˆ†å¸ƒï¼ˆfloatï¼‰
 class RandomUniformFloatDistribution : public RandomDevice
 {
 public:
@@ -63,7 +63,7 @@ private:
 	std::uniform_real_distribution<float>* m_Uniform;
 };
 
-//g—pƒNƒ‰ƒX
+//ä½¿ç”¨ã‚¯ãƒ©ã‚¹
 class Random
 {
 public:

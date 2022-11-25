@@ -1,12 +1,12 @@
 /*==============================================================================
 	
-	Slider.cpp - ƒXƒ‰ƒCƒ_[
+	Slider.cpp - ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼
 														Author : Yutaka Suganuma
 														Date   : 2017/7/19
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Slider.h"
 #include "GameObject.h"
@@ -15,7 +15,7 @@
 #include "SpriteRenderer.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* Slider::Create(GameObject* gameObject)
 {
@@ -23,19 +23,19 @@ Component* Slider::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Slider::Slider( GameObject* pGameObject)
 {
 	m_pGameObject = pGameObject;
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 
-	//‰Šú’lİ’è
+	//åˆæœŸå€¤è¨­å®š
 	m_Size = Vector2( 200.0f, 50.0f);
 	m_fMaxValue = 1.0f;
 	m_fValue = 1.0f;
 
-	//ƒŒƒ“ƒ_ƒ‰[’Ç‰Á
+	//ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼è¿½åŠ 
 	GameObject* obj = new GameObject( pGameObject);
 	obj->IsCreatedByOtherComponent = true;
 	m_pBack = obj->AddComponent<SpriteRenderer>();
@@ -45,12 +45,12 @@ Slider::Slider( GameObject* pGameObject)
 	m_pSlider = obj->AddComponent<SpriteRenderer>();
 	m_pSlider->IsCreatedByOtherComponent = true;
 
-	//XV
+	//æ›´æ–°
 	UpdateSprite();
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void Slider::Uninit( void)
 {
@@ -58,7 +58,7 @@ void Slider::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒXƒvƒ‰ƒCƒgƒŒƒ“ƒ_ƒ‰[XV
+	ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼æ›´æ–°
 ------------------------------------------------------------------------------*/
 void Slider::UpdateSprite( void)
 {
@@ -74,11 +74,11 @@ void Slider::UpdateSprite( void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void Slider::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -102,7 +102,7 @@ void Slider::Load(Text& text)
 			text.SetPosition( m_Size.ConvertFromString(text.GetAllText(), text.GetPosition()));
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
@@ -112,7 +112,7 @@ void Slider::Load(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void Slider::Save(Text& text)
 {

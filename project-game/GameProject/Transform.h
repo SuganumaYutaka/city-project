@@ -1,6 +1,6 @@
 /*==============================================================================
 
-    Transform.h - ˆÊ’uE‰ñ“]EƒXƒP[ƒ‹
+    Transform.h - ä½ç½®ãƒ»å›è»¢ãƒ»ã‚¹ã‚±ãƒ¼ãƒ«
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/4/27
 ==============================================================================*/
@@ -8,23 +8,23 @@
 #define _TRANSFORM_H_
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
 #include "Component.h"
 
 /*------------------------------------------------------------------------------
-	‘O•ûéŒ¾
+	å‰æ–¹å®£è¨€
 ------------------------------------------------------------------------------*/
 
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
 #define GRAVITY_ ( 0.012f)
 
 /*------------------------------------------------------------------------------
-	—ñ‹“Œ^’è‹`
+	åˆ—æŒ™å‹å®šç¾©
 ------------------------------------------------------------------------------*/
 typedef struct
 {
@@ -34,7 +34,7 @@ typedef struct
 }Axis;
 
 /*------------------------------------------------------------------------------
-	ƒNƒ‰ƒX’è‹`
+	ã‚¯ãƒ©ã‚¹å®šç¾©
 ------------------------------------------------------------------------------*/
 class Transform : public Component
 {
@@ -46,7 +46,7 @@ public:
 
 	D3DXMATRIX WorldMatrix();
 	
-	//ƒf[ƒ^‚ğæ“¾
+	//ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
 	Vector3 GetLocalPosition() const { return m_Position;}
 	Vector3 GetLocalScale() const { return m_Scale;}
 	D3DXQUATERNION GetLocalRotation() const { return m_Rotation;}
@@ -56,9 +56,9 @@ public:
 	Vector3 GetForward();
 	Axis GetAxis();
 
-	//ƒf[ƒ^‚ğİ’è
+	//ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®š
 
-	//ˆÊ’u
+	//ä½ç½®
 	void SetWorldPosition( const Vector3& Pos);
 	void SetWorldPosition( const float x, const float y, const float z);
 	void SetWorldPositionX( const float x);
@@ -73,7 +73,7 @@ public:
 
 	void Move( const Vector3& Value);
 
-	//‰ñ“]
+	//å›è»¢
 	void SetWorldRotation( const D3DXQUATERNION& Rot);
 	void SetWorldRotationEuler( const Vector3& Euler);
 	void SetWorldRotationEuler( const float x, const float y, const float z);
@@ -94,7 +94,7 @@ public:
 	void RotateLookAtHorizontal(const Vector3& Position, float Value);
 	void RotateLookDirection(const Vector3& Direction, float Value);
 
-	//ƒXƒP[ƒ‹
+	//ã‚¹ã‚±ãƒ¼ãƒ«
 	void SetLocalScale( const Vector3& Scale);
 	void SetLocalScale( const float x, const float y, const float z);
 	void SetLocalScaleX( const float x);
@@ -104,7 +104,7 @@ public:
 	void ScaleUpDown( const Vector3& Value) { m_Scale += Value;  m_bLocalMatrixUpdate = true;}
 	void ScaleUpDown( const float& Value) { m_Scale.x += Value; m_Scale.y += Value; m_Scale.z += Value;  m_bLocalMatrixUpdate = true;}
 	
-	//eî•ñ‚ğİ’èEæ“¾
+	//è¦ªæƒ…å ±ã‚’è¨­å®šãƒ»å–å¾—
 	void SetParent( Transform* pParent);
 	void UnParent( void);
 	Transform* GetParent( void) const { return m_pParent;}
@@ -119,14 +119,14 @@ private:
 	void Update( void);
 	void UpdateLocalMatrix( void);
 
-	D3DXMATRIX m_LocalMatrix;			//ƒ[ƒJƒ‹s—ñ
-	bool m_bLocalMatrixUpdate;			//ƒ[ƒJƒ‹s—ñXVƒtƒ‰ƒO
+	D3DXMATRIX m_LocalMatrix;			//ãƒ­ãƒ¼ã‚«ãƒ«è¡Œåˆ—
+	bool m_bLocalMatrixUpdate;			//ãƒ­ãƒ¼ã‚«ãƒ«è¡Œåˆ—æ›´æ–°ãƒ•ãƒ©ã‚°
 
-	Transform *m_pParent;				//e‚ÌTransformƒ|ƒCƒ“ƒ^
+	Transform *m_pParent;				//è¦ªã®Transformãƒã‚¤ãƒ³ã‚¿
 
-	Vector3 m_Position;					//ˆÊ’u
-	Vector3 m_Scale;					//ƒXƒP[ƒ‹
-	D3DXQUATERNION m_Rotation;			//‰ñ“]—ÊiƒNƒH[ƒ^ƒjƒIƒ“j
+	Vector3 m_Position;					//ä½ç½®
+	Vector3 m_Scale;					//ã‚¹ã‚±ãƒ¼ãƒ«
+	D3DXQUATERNION m_Rotation;			//å›è»¢é‡ï¼ˆã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ï¼‰
 };
 
 #endif

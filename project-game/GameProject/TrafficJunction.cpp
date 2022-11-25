@@ -1,12 +1,12 @@
 /*==============================================================================
 	
-	TrafficJunction.cpp - Œğ’ÊƒVƒXƒeƒ€[Œğ·“_
+	TrafficJunction.cpp - äº¤é€šã‚·ã‚¹ãƒ†ãƒ ãƒ¼äº¤å·®ç‚¹
 														Author : Yutaka Suganuma
 														Date   : 2017/12/25
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "TrafficJunction.h"
 #include "GameObject.h"
@@ -24,14 +24,14 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
-#define ONCOMING_CAR_MAX_NEAR_DISTANCE ( 5.0f)		//‘ÎŒüÔ‚ÆŒğ·“_‚ÌÅÚ‹ß‹——£i‚±‚ê‚æ‚è‹ß‚¢‚Æ‘ÎŒüÔ‚ ‚è‚Æ‚İ‚È‚·j
+#define ONCOMING_CAR_MAX_NEAR_DISTANCE ( 5.0f)		//å¯¾å‘è»Šã¨äº¤å·®ç‚¹ã®æœ€æ¥è¿‘è·é›¢ï¼ˆã“ã‚Œã‚ˆã‚Šè¿‘ã„ã¨å¯¾å‘è»Šã‚ã‚Šã¨ã¿ãªã™ï¼‰
 #define TRAFFIC_CHANGE_COUNT (120)
 #define TRAFFIC_WAIT_COUNT (30)
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* TrafficJunction::Create(GameObject* gameObject)
 {
@@ -39,7 +39,7 @@ Component* TrafficJunction::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 TrafficJunction::TrafficJunction( GameObject* pGameObject)
 {
@@ -56,7 +56,7 @@ TrafficJunction::TrafficJunction( GameObject* pGameObject)
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void TrafficJunction::Uninit( void)
 {
@@ -64,7 +64,7 @@ void TrafficJunction::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	XVˆ—
+	æ›´æ–°å‡¦ç†
 ------------------------------------------------------------------------------*/
 void TrafficJunction::Update( void)
 {
@@ -75,7 +75,7 @@ void TrafficJunction::Update( void)
 		m_IsUpdatedAttribute = false;
 	}
 
-	//M†‹@‚ÌXV
+	//ä¿¡å·æ©Ÿã®æ›´æ–°
 	if (m_Roads.size() <= 2)
 	{
 		m_CanMoveVertical = true;
@@ -108,7 +108,7 @@ void TrafficJunction::Update( void)
 }
 
 /*------------------------------------------------------------------------------
-	‘®«î•ñ‚Ìİ’è
+	å±æ€§æƒ…å ±ã®è¨­å®š
 ------------------------------------------------------------------------------*/
 void TrafficJunction::SetAttribute( JunctionAttribute* attribute)
 { 
@@ -122,7 +122,7 @@ void TrafficJunction::SetAttribute( JunctionAttribute* attribute)
 }
 
 /*------------------------------------------------------------------------------
-	Œğ·“_î•ñ‚ÌXV
+	äº¤å·®ç‚¹æƒ…å ±ã®æ›´æ–°
 ------------------------------------------------------------------------------*/
 void TrafficJunction::UpdateJunction(void)
 {
@@ -132,16 +132,16 @@ void TrafficJunction::UpdateJunction(void)
 		return;
 	}
 	
-	//‚kšA‚sšA\š‚Ìİ’è
+	//ï¼¬å­—ã€ï¼´å­—ã€åå­—ã®è¨­å®š
 	RoadAttribute* roadAttribute = NULL;
 
 	switch (edges.size())
 	{
-	case 2:		//‚kš
+	case 2:		//ï¼¬å­—
 	{
 		m_Roads.resize( 2);
 
-		//ƒxƒNƒgƒ‹‚Ìæ“¾
+		//ãƒ™ã‚¯ãƒˆãƒ«ã®å–å¾—
 		auto edgeBegin = edges.begin();
 		Vector3 vec1 = (*edgeBegin)->GetVector();
 		if (!(*edgeBegin)->GetRight())
@@ -155,7 +155,7 @@ void TrafficJunction::UpdateJunction(void)
 			vec2 *= -1.0f;
 		}
 
-		//ŠOÏ‚É‰‚¶‚Äİ’è
+		//å¤–ç©ã«å¿œã˜ã¦è¨­å®š
 		edgeBegin = edges.begin();
 		if (Vector3::Cross(vec1, vec2).y < 0.0f)
 		{
@@ -177,17 +177,17 @@ void TrafficJunction::UpdateJunction(void)
 		break;
 	}
 
-	case 3:		//‚sš
+	case 3:		//ï¼´å­—
 	{
 		m_Roads.resize( 3);
 
-		//Œü‚©‚¢‡‚Á‚Ä‚¢‚é“¹˜H‚ª‚È‚¢“¹˜H(Back)‚ğæ“¾
+		//å‘ã‹ã„åˆã£ã¦ã„ã‚‹é“è·¯ãŒãªã„é“è·¯(Back)ã‚’å–å¾—
 		Edge* targetEdge = NULL;
 		for (auto edge1 : edges)
 		{
 			bool isTarget = true;
 
-			//‘¼•Ó‚ÆŒü‚©‚¢‡‚Á‚Ä‚¢‚é‚©
+			//ä»–è¾ºã¨å‘ã‹ã„åˆã£ã¦ã„ã‚‹ã‹
 			for(auto edge2 : edges)
 			{
 				if (edge1 != edge2)
@@ -210,7 +210,7 @@ void TrafficJunction::UpdateJunction(void)
 		roadAttribute = (RoadAttribute*)(targetEdge->GetAttribute());
 		m_Roads[ eJunctionBranchBack] = roadAttribute->GetTrafficRoad();
 
-		//ŠOÏ‚©‚ç¶‰E‚Ì“¹˜H‚ğİ’è
+		//å¤–ç©ã‹ã‚‰å·¦å³ã®é“è·¯ã‚’è¨­å®š
 		Vector3 vec1 = targetEdge->GetVector();
 		if ( targetEdge->GetEnd() == m_Attribute->GetVertex())
 		{
@@ -244,11 +244,11 @@ void TrafficJunction::UpdateJunction(void)
 		break;
 	}
 
-	case 4:		//\š
+	case 4:		//åå­—
 	{
 		m_Roads.resize( 4);
 
-		//begin‚ğŠî€‚É“àÏ‚ÆŠOÏ‚Å4•ûŒü‚Éİ’è
+		//beginã‚’åŸºæº–ã«å†…ç©ã¨å¤–ç©ã§4æ–¹å‘ã«è¨­å®š
 		auto edgeBegin = edges.begin();
 		roadAttribute = (RoadAttribute*)((*edgeBegin)->GetAttribute());
 		m_Roads[ eJunctionBranchBack] = roadAttribute->GetTrafficRoad();
@@ -270,7 +270,7 @@ void TrafficJunction::UpdateJunction(void)
 				vec2 *= -1.0f;
 			}
 			
-			//“àÏ‚Å”½‘Î‘¤
+			//å†…ç©ã§åå¯¾å´
 			auto dot = Vector3::Dot( vec1.Normalize(), vec2.Normalize());
 			if (dot < -0.5f)
 			{
@@ -279,7 +279,7 @@ void TrafficJunction::UpdateJunction(void)
 				continue;
 			}
 
-			//ŠOÏ‚Å¶‰E
+			//å¤–ç©ã§å·¦å³
 			if (Vector3::Cross(vec1, vec2).y > 0.0f)
 			{
 				roadAttribute = (RoadAttribute*)(edge->GetAttribute());
@@ -301,7 +301,7 @@ void TrafficJunction::UpdateJunction(void)
 }
 
 /*------------------------------------------------------------------------------
-	‰E‚É‚ ‚é“¹˜H‚ğæ“¾
+	å³ã«ã‚ã‚‹é“è·¯ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 TrafficRoad* TrafficJunction::GetRightRoad(TrafficRoad* currentRoad)
 {
@@ -314,7 +314,7 @@ TrafficRoad* TrafficJunction::GetRightRoad(TrafficRoad* currentRoad)
 		break;
 
 	case eJunctionBranchRight:
-		//LšATš‚Í“¹˜H‚ª‚È‚¢
+		//Lå­—ã€Tå­—ã¯é“è·¯ãŒãªã„
 		if (size != 4)
 		{
 			return NULL;
@@ -338,7 +338,7 @@ TrafficRoad* TrafficJunction::GetRightRoad(TrafficRoad* currentRoad)
 }
 
 /*------------------------------------------------------------------------------
-	¶‚É‚ ‚é“¹˜H‚ğæ“¾
+	å·¦ã«ã‚ã‚‹é“è·¯ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 TrafficRoad* TrafficJunction::GetLeftRoad(TrafficRoad* currentRoad)
 {
@@ -347,7 +347,7 @@ TrafficRoad* TrafficJunction::GetLeftRoad(TrafficRoad* currentRoad)
 	switch (currentBranch)
 	{
 	case eJunctionBranchBack:
-		//Lš‚Í“¹˜H‚ª‚È‚¢
+		//Lå­—ã¯é“è·¯ãŒãªã„
 		if (size == 2)
 		{
 			return NULL;
@@ -360,7 +360,7 @@ TrafficRoad* TrafficJunction::GetLeftRoad(TrafficRoad* currentRoad)
 		break;
 
 	case eJunctionBranchLeft:
-		//LšATš‚Í“¹˜H‚ª‚È‚¢
+		//Lå­—ã€Tå­—ã¯é“è·¯ãŒãªã„
 		if (size != 4)
 		{
 			return NULL;
@@ -380,7 +380,7 @@ TrafficRoad* TrafficJunction::GetLeftRoad(TrafficRoad* currentRoad)
 }
 
 /*------------------------------------------------------------------------------
-	’¼i‚·‚é“¹˜H‚ğæ“¾
+	ç›´é€²ã™ã‚‹é“è·¯ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 TrafficRoad* TrafficJunction::GetStraightRoad(TrafficRoad* currentRoad)
 {
@@ -389,7 +389,7 @@ TrafficRoad* TrafficJunction::GetStraightRoad(TrafficRoad* currentRoad)
 	switch (currentBranch)
 	{
 	case eJunctionBranchBack:
-		//LšATš‚Í“¹˜H‚ª‚È‚¢
+		//Lå­—ã€Tå­—ã¯é“è·¯ãŒãªã„
 		if (size != 4)
 		{
 			return NULL;
@@ -398,7 +398,7 @@ TrafficRoad* TrafficJunction::GetStraightRoad(TrafficRoad* currentRoad)
 		break;
 
 	case eJunctionBranchRight:
-		//Lš‚Í“¹˜H‚ª‚È‚¢
+		//Lå­—ã¯é“è·¯ãŒãªã„
 		if (size == 2)
 		{
 			return NULL;
@@ -422,32 +422,32 @@ TrafficRoad* TrafficJunction::GetStraightRoad(TrafficRoad* currentRoad)
 }
 
 /*------------------------------------------------------------------------------
-	‰EÜ‚Å‚«‚é‚©
+	å³æŠ˜ã§ãã‚‹ã‹
 ------------------------------------------------------------------------------*/
 bool TrafficJunction::CanTurnRight(TrafficRoad* currentRoad)
 {
-	//Œ»İ‚Ìƒuƒ‰ƒ“ƒ`‚ğƒ`ƒFƒbƒN
+	//ç¾åœ¨ã®ãƒ–ãƒ©ãƒ³ãƒã‚’ãƒã‚§ãƒƒã‚¯
 	auto currentBranch = CheckBranch( currentRoad);
 
-	//M†‚ğŠm”F
+	//ä¿¡å·ã‚’ç¢ºèª
 	if (!CanMoveTraffic(currentBranch))
 	{
 		return false;
 	}
 
-	//‹È‚ª‚éæ‚É“¹‚ª‚ ‚é‚©Šm”F
+	//æ›²ãŒã‚‹å…ˆã«é“ãŒã‚ã‚‹ã‹ç¢ºèª
 	if (!GetRightRoad(currentRoad))
 	{
 		return false;
 	}
 
-	//‘ÎŒüÔ‚ª‚È‚¢‚©Šm”F
+	//å¯¾å‘è»ŠãŒãªã„ã‹ç¢ºèª
 	int size = m_Roads.size();
 	TrafficRoad* oncomingCar = NULL;
 	switch (currentBranch)
 	{
 	case eJunctionBranchBack:
-		//‘ÎŒüÔ‚ğİ’è
+		//å¯¾å‘è»Šã‚’è¨­å®š
 		if (size == 4)
 		{
 			oncomingCar = m_Roads[ eJunctionBranchFront];
@@ -455,17 +455,17 @@ bool TrafficJunction::CanTurnRight(TrafficRoad* currentRoad)
 		break;
 
 	case eJunctionBranchRight:
-		//‘ÎŒüÔ‚ğİ’è
+		//å¯¾å‘è»Šã‚’è¨­å®š
 		oncomingCar = m_Roads[ eJunctionBranchLeft];
 		break;
 
 	case eJunctionBranchLeft:
-		//‘ÎŒüÔ‚ğİ’è
+		//å¯¾å‘è»Šã‚’è¨­å®š
 		oncomingCar = m_Roads[ eJunctionBranchRight];
 		break;
 
 	case eJunctionBranchFront:
-		//‘ÎŒüÔ‚ğİ’è
+		//å¯¾å‘è»Šã‚’è¨­å®š
 		oncomingCar = m_Roads[ eJunctionBranchBack];
 		break;
 
@@ -473,66 +473,66 @@ bool TrafficJunction::CanTurnRight(TrafficRoad* currentRoad)
 		break;
 	}
 
-	//‘ÎŒüÔ‚ªŒğ·“_‹ß‚­‚É‚¢‚È‚¢‚©Šm”F
+	//å¯¾å‘è»ŠãŒäº¤å·®ç‚¹è¿‘ãã«ã„ãªã„ã‹ç¢ºèª
 	if (CheckOncomingCar(oncomingCar))
 	{
 		return false;
 	}
 
-	//’Ês‰Â”\
+	//é€šè¡Œå¯èƒ½
 	return true;
 }
 
 /*------------------------------------------------------------------------------
-	¶Ü‚Å‚«‚é‚©
+	å·¦æŠ˜ã§ãã‚‹ã‹
 ------------------------------------------------------------------------------*/
 bool TrafficJunction::CanTurnLeft(TrafficRoad* currentRoad)
 {
-	//Œ»İ‚Ìƒuƒ‰ƒ“ƒ`‚ğƒ`ƒFƒbƒN
+	//ç¾åœ¨ã®ãƒ–ãƒ©ãƒ³ãƒã‚’ãƒã‚§ãƒƒã‚¯
 	auto currentBranch = CheckBranch( currentRoad);
 
-	//M†‚ğŠm”F
+	//ä¿¡å·ã‚’ç¢ºèª
 	if (!CanMoveTraffic(currentBranch))
 	{
 		return false;
 	}
 
-	//‹È‚ª‚éæ‚É“¹‚ª‚ ‚é‚©Šm”F
+	//æ›²ãŒã‚‹å…ˆã«é“ãŒã‚ã‚‹ã‹ç¢ºèª
 	if (!GetLeftRoad(currentRoad))
 	{
 		return false;
 	}
 
-	//’Ês‰Â”\
+	//é€šè¡Œå¯èƒ½
 	return true;
 }
 
 /*------------------------------------------------------------------------------
-	’¼i‚Å‚«‚é‚©
+	ç›´é€²ã§ãã‚‹ã‹
 ------------------------------------------------------------------------------*/
 bool TrafficJunction::CanGoStraight(TrafficRoad* currentRoad)
 {
-	//Œ»İ‚Ìƒuƒ‰ƒ“ƒ`‚ğƒ`ƒFƒbƒN
+	//ç¾åœ¨ã®ãƒ–ãƒ©ãƒ³ãƒã‚’ãƒã‚§ãƒƒã‚¯
 	auto currentBranch = CheckBranch( currentRoad);
 
-	//M†‚ğŠm”F
+	//ä¿¡å·ã‚’ç¢ºèª
 	if (!CanMoveTraffic(currentBranch))
 	{
 		return false;
 	}
 
-	//’¼iæ‚É“¹‚ª‚ ‚é‚©Šm”F
+	//ç›´é€²å…ˆã«é“ãŒã‚ã‚‹ã‹ç¢ºèª
 	if (!GetStraightRoad(currentRoad))
 	{
 		return false;
 	}
 
-	//’Ês‰Â”\
+	//é€šè¡Œå¯èƒ½
 	return true;
 }
 
 /*------------------------------------------------------------------------------
-	ˆÊ’u‚ğæ“¾
+	ä½ç½®ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 const Vector3& TrafficJunction::GetPosition(void)
 {
@@ -540,7 +540,7 @@ const Vector3& TrafficJunction::GetPosition(void)
 }
 
 /*------------------------------------------------------------------------------
-	“¹˜H‚ª‚Ç‚Ìƒuƒ‰ƒ“ƒ`‚É“–‚½‚é‚©ƒ`ƒFƒbƒN
+	é“è·¯ãŒã©ã®ãƒ–ãƒ©ãƒ³ãƒã«å½“ãŸã‚‹ã‹ãƒã‚§ãƒƒã‚¯
 ------------------------------------------------------------------------------*/
 ETrafficJunctionBranch TrafficJunction::CheckBranch(TrafficRoad* road)
 {
@@ -561,7 +561,7 @@ ETrafficJunctionBranch TrafficJunction::CheckBranch(TrafficRoad* road)
 }
 
 /*------------------------------------------------------------------------------
-	M†‚ğŠm”F
+	ä¿¡å·ã‚’ç¢ºèª
 ------------------------------------------------------------------------------*/
 bool TrafficJunction::CanMoveTraffic(ETrafficJunctionBranch currentBranch)
 {
@@ -584,7 +584,7 @@ bool TrafficJunction::CanMoveTraffic(ETrafficJunctionBranch currentBranch)
 }
 
 /*------------------------------------------------------------------------------
-	‘ÎŒüÔ‚ª‚¢‚é‚©Šm”F
+	å¯¾å‘è»ŠãŒã„ã‚‹ã‹ç¢ºèª
 ------------------------------------------------------------------------------*/
 bool TrafficJunction::CheckOncomingCar(TrafficRoad* oncomingRoad)
 {
@@ -593,7 +593,7 @@ bool TrafficJunction::CheckOncomingCar(TrafficRoad* oncomingRoad)
 		return false;
 	}
 
-	//‘ÎŒüÔü‚Ìæ“ªÔ‚Ìæ“¾
+	//å¯¾å‘è»Šç·šã®å…ˆé ­è»Šã®å–å¾—
 	auto oncomingCars = oncomingRoad->GetCars( this);
 	if (oncomingCars.size() == 0)
 	{
@@ -601,13 +601,13 @@ bool TrafficJunction::CheckOncomingCar(TrafficRoad* oncomingRoad)
 	}
 	auto car = oncomingCars.back();
 
-	//‘ÎŒüÔ‚ªŒğ·“_‚É‹ß‚¢‚©Šm”F
+	//å¯¾å‘è»ŠãŒäº¤å·®ç‚¹ã«è¿‘ã„ã‹ç¢ºèª
 	float distance = car->CulcRemainDistanceOnRoad();
 	if ( distance > ONCOMING_CAR_MAX_NEAR_DISTANCE)
 	{
 		return false;
 	}
 
-	//‘ÎŒüÔ‚ ‚è
+	//å¯¾å‘è»Šã‚ã‚Š
 	return true;
 }

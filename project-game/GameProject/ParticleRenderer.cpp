@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    ParticleRenderer.cpp - 3DÉ|ÉäÉSÉìï`âÊ
+    ParticleRenderer.cpp - 3D„Éù„É™„Ç¥„É≥ÊèèÁîª
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/17
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ÉCÉìÉNÉãÅ[ÉhÉtÉ@ÉCÉã
+	„Ç§„É≥„ÇØ„É´„Éº„Éâ„Éï„Ç°„Ç§„É´
 ------------------------------------------------------------------------------*/
 #include "ParticleRenderer.h"
 #include "GameObject.h"
@@ -15,7 +15,7 @@
 #include "Material.h"
 
 /*------------------------------------------------------------------------------
-	ÉRÉìÉ|Å[ÉlÉìÉgê∂ê¨
+	„Ç≥„É≥„Éù„Éº„Éç„É≥„ÉàÁîüÊàê
 ------------------------------------------------------------------------------*/
 Component* ParticleRenderer::Create(GameObject* gameObject)
 {
@@ -23,7 +23,7 @@ Component* ParticleRenderer::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ÉRÉìÉXÉgÉâÉNÉ^
+	„Ç≥„É≥„Çπ„Éà„É©„ÇØ„Çø
 ------------------------------------------------------------------------------*/
 ParticleRenderer::ParticleRenderer( GameObject *pGameObject)
 {
@@ -32,9 +32,9 @@ ParticleRenderer::ParticleRenderer( GameObject *pGameObject)
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 	m_nPass = 0;
 
-	//èâä˙ílë„ì¸
+	//ÂàùÊúüÂÄ§‰ª£ÂÖ•
 	m_bNeedUpdateVtx = false;
-	m_nNumParticle = 1024;		//ÅôÉpÅ[ÉeÉBÉNÉãÇÃëçêî
+	m_nNumParticle = 1024;		//‚òÜ„Éë„Éº„ÉÜ„Ç£„ÇØ„É´„ÅÆÁ∑èÊï∞
 	m_Color = D3DXCOLOR( 0.8f, 0.8f, 0.8f, 1.0f);
 	m_AlphaRange = 0.2f;
 	m_PosRange = Vector3(0.2f, 2.0f, 0.2f);	
@@ -48,44 +48,44 @@ ParticleRenderer::ParticleRenderer( GameObject *pGameObject)
 	m_LifeRenge = 3000.0f;
 	m_StartRange = 2000.0f;
 
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ÉfÉoÉCÉXéÊìæ
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//„Éá„Éê„Ç§„ÇπÂèñÂæó
 
-	//í∏ì_ÉoÉbÉtÉ@ê∂ê¨
+	//È†ÇÁÇπ„Éê„ÉÉ„Éï„Ç°ÁîüÊàê
 	if( FAILED( pDevice->CreateVertexBuffer(
 		sizeof( VERTEX_PARTICLE) * m_nNumParticle, D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &m_pVtxBuff, NULL)))
 	{
-		//ÉGÉâÅ[
+		//„Ç®„É©„Éº
 		assert( false);
 		return;
 	}
 
-	//í∏ì_ê›íË
+	//È†ÇÁÇπË®≠ÂÆö
 	SetVtxBuffer();
 
-	//É}ÉeÉäÉAÉã
+	//„Éû„ÉÜ„É™„Ç¢„É´
 	m_pMaterial = new Material();
 	m_pMaterial->SetShader( eShaderParticle);
 	
-	//â¡éZçáê¨
+	//Âä†ÁÆóÂêàÊàê
 	m_pMaterial->SetTexture("data/TEXTURE/particle00.jpg");
 	m_nPass = 2;
 }
 
 /*------------------------------------------------------------------------------
-	èIóπèàóù
+	ÁµÇ‰∫ÜÂá¶ÁêÜ
 ------------------------------------------------------------------------------*/
 void ParticleRenderer::Uninit( void)
 {
 	Manager::GetRenderManager()->ReleaseRenderer( this);
 
-	//í∏ì_ÉoÉbÉtÉ@ÇÃâï˙
+	//È†ÇÁÇπ„Éê„ÉÉ„Éï„Ç°„ÅÆËß£Êîæ
 	if( m_pVtxBuff != NULL)
 	{
 		m_pVtxBuff->Release();
 		m_pVtxBuff = NULL;
 	}
 
-	//É}ÉeÉäÉAÉãÇÃâï˙
+	//„Éû„ÉÜ„É™„Ç¢„É´„ÅÆËß£Êîæ
 	if (m_pMaterial != NULL)
 	{
 		delete m_pMaterial;
@@ -94,50 +94,50 @@ void ParticleRenderer::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	çXêV
+	Êõ¥Êñ∞
 ------------------------------------------------------------------------------*/
 void ParticleRenderer::Update( void)
 {
-	//í∏ì_ÉoÉbÉtÉ@ÇÃçXêV
+	//È†ÇÁÇπ„Éê„ÉÉ„Éï„Ç°„ÅÆÊõ¥Êñ∞
 	if (m_bNeedUpdateVtx == true)
 	{
 		m_bNeedUpdateVtx = false;
 
-		//í∏ì_ê›íË
+		//È†ÇÁÇπË®≠ÂÆö
 		SetVtxBuffer();
 	}
 }
 
 /*------------------------------------------------------------------------------
-	ï`âÊ
+	ÊèèÁîª
 ------------------------------------------------------------------------------*/
 void ParticleRenderer::Draw( Camera* pCamera)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ÉfÉoÉCÉXéÊìæ
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//„Éá„Éê„Ç§„ÇπÂèñÂæó
 
-	//É}ÉeÉäÉAÉãÅiÉVÉFÅ[É_Å[ÅjÇÉZÉbÉg
+	//„Éû„ÉÜ„É™„Ç¢„É´Ôºà„Ç∑„Çß„Éº„ÉÄ„ÉºÔºâ„Çí„Çª„ÉÉ„Éà
 	m_pMaterial->Set( pCamera, this);
 
-	//í∏ì_èÓïÒê›íË
+	//È†ÇÁÇπÊÉÖÂ†±Ë®≠ÂÆö
 	pDevice-> SetStreamSource( 0, m_pVtxBuff, 0, sizeof( VERTEX_PARTICLE));
 
-	//ÉeÉNÉjÉbÉNäJén
+	//„ÉÜ„ÇØ„Éã„ÉÉ„ÇØÈñãÂßã
 	m_pMaterial->Begin( m_nPass);
 
-	//É|ÉäÉSÉìÇÃï`âÊ
+	//„Éù„É™„Ç¥„É≥„ÅÆÊèèÁîª
 	pDevice->DrawPrimitive( D3DPT_POINTLIST, 0,	m_nNumParticle);
 
-	//ÉeÉNÉjÉbÉNèIóπ
+	//„ÉÜ„ÇØ„Éã„ÉÉ„ÇØÁµÇ‰∫Ü
 	m_pMaterial->End();
 }
 
 /*------------------------------------------------------------------------------
-	í∏ì_ÉoÉbÉtÉ@ê›íË
+	È†ÇÁÇπ„Éê„ÉÉ„Éï„Ç°Ë®≠ÂÆö
 ------------------------------------------------------------------------------*/
 void ParticleRenderer::SetVtxBuffer( void)
 {
-	//ÉçÉbÉN
-	VERTEX_PARTICLE* pVtx;		//âºëzÉAÉhÉåÉXópÉ|ÉCÉìÉ^
+	//„É≠„ÉÉ„ÇØ
+	VERTEX_PARTICLE* pVtx;		//‰ªÆÊÉ≥„Ç¢„Éâ„É¨„ÇπÁî®„Éù„Ç§„É≥„Çø
 	m_pVtxBuff->Lock( 0, 0, (void**)&pVtx, 0);
 
 	for (int nCnt = 0; nCnt < m_nNumParticle; nCnt++)
@@ -157,12 +157,12 @@ void ParticleRenderer::SetVtxBuffer( void)
 		pVtx++;
 	}
 
-	//ÉAÉìÉçÉbÉN
+	//„Ç¢„É≥„É≠„ÉÉ„ÇØ
 	m_pVtxBuff->Unlock();
 }
 
 /*------------------------------------------------------------------------------
-	ÉpÅ[ÉeÉBÉNÉãÇÃëçêîê›íË
+	„Éë„Éº„ÉÜ„Ç£„ÇØ„É´„ÅÆÁ∑èÊï∞Ë®≠ÂÆö
 ------------------------------------------------------------------------------*/
 void ParticleRenderer::SetNumParticle(int NumParticle)
 {
@@ -172,27 +172,27 @@ void ParticleRenderer::SetNumParticle(int NumParticle)
 		return;
 	}
 
-	//ëçêîÇÃê›íË
+	//Á∑èÊï∞„ÅÆË®≠ÂÆö
 	m_nNumParticle = NumParticle;
 
-	//ÉoÉbÉtÉ@ÇÃçƒê∂ê¨
+	//„Éê„ÉÉ„Éï„Ç°„ÅÆÂÜçÁîüÊàê
 	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();
 	SAFE_RELEASE( m_pVtxBuff);
 	if( FAILED( pDevice->CreateVertexBuffer(
 		sizeof( VERTEX_PARTICLE) * m_nNumParticle, D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &m_pVtxBuff, NULL)))
 	{
-		//ÉGÉâÅ[
+		//„Ç®„É©„Éº
 		assert( false);
 		return;
 	}
 
-	//í∏ì_ê›íË
+	//È†ÇÁÇπË®≠ÂÆö
 	SetVtxBuffer();
 	m_bNeedUpdateVtx = false;
 }
 
 /*------------------------------------------------------------------------------
-	ÉeÉNÉXÉ`ÉÉê›íË
+	„ÉÜ„ÇØ„Çπ„ÉÅ„É£Ë®≠ÂÆö
 ------------------------------------------------------------------------------*/
 void ParticleRenderer::LoadTexture(std::string FileName)
 {
@@ -200,7 +200,7 @@ void ParticleRenderer::LoadTexture(std::string FileName)
 }
 
 /*------------------------------------------------------------------------------
-	ÉVÉFÅ[É_Å[ê›íË
+	„Ç∑„Çß„Éº„ÉÄ„ÉºË®≠ÂÆö
 ------------------------------------------------------------------------------*/
 void ParticleRenderer::SetShader(EShaderType Type)
 {
@@ -208,11 +208,11 @@ void ParticleRenderer::SetShader(EShaderType Type)
 }
 
 /*------------------------------------------------------------------------------
-	ÉçÅ[Éh
+	„É≠„Éº„Éâ
 ------------------------------------------------------------------------------*/
 void ParticleRenderer::Load(Text& text)
 {
-	//textÇì«Ç›êiÇﬂÇÈ
+	//text„ÇíË™≠„ÅøÈÄ≤„ÇÅ„Çã
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -304,7 +304,7 @@ void ParticleRenderer::Load(Text& text)
 			m_nNumParticle = std::stoi(text.GetWord());
 		}
 
-		//textÇì«Ç›êiÇﬂÇÈ
+		//text„ÇíË™≠„ÅøÈÄ≤„ÇÅ„Çã
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
@@ -314,7 +314,7 @@ void ParticleRenderer::Load(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ÉZÅ[Éu
+	„Çª„Éº„Éñ
 ------------------------------------------------------------------------------*/
 void ParticleRenderer::Save(Text& text)
 {

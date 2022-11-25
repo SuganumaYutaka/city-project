@@ -1,27 +1,27 @@
 /*==============================================================================
 
-    ComponentFactory.cpp - ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬ƒtƒ@ƒNƒgƒŠ[
+    ComponentFactory.cpp - ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/11/11
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "ComponentFactory.h"
 #include "ComponentInclude.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
 #define REGISTER(className) CreateMethods[#className] = className::Create
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 ComponentFactory::ComponentFactory()
 {
-	// ŠeƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌCreateŠÖ”‚ğ“o˜^
+	// å„ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®Createé–¢æ•°ã‚’ç™»éŒ²
 	CreateMethods.clear();
 	//CreateMethods["Transform"] = Transform::Create;
 	
@@ -63,14 +63,14 @@ ComponentFactory::ComponentFactory()
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* ComponentFactory::Create(std::string componentName, GameObject* gameObject)
 {
 	if (CreateMethods.find(componentName) == CreateMethods.end())
 	{
-		std::string message = "ComponentFactory‚É " + componentName + " ‚ğ“o˜^‚µ‚Ä‚­‚¾‚³‚¢";
-		MessageBox( NULL, message.c_str(), "ƒGƒ‰[", MB_OK);
+		std::string message = "ComponentFactoryã« " + componentName + " ã‚’ç™»éŒ²ã—ã¦ãã ã•ã„";
+		MessageBox( NULL, message.c_str(), "ã‚¨ãƒ©ãƒ¼", MB_OK);
 		return NULL;
 	}
 

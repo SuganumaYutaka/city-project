@@ -1,12 +1,12 @@
 /*==============================================================================
 	
-	Manager.cpp - ƒQ[ƒ€‘S‘Ì‚ÌŠÇ—
+	Manager.cpp - ã‚²ãƒ¼ãƒ å…¨ä½“ã®ç®¡ç†
 														Author : Yutaka Suganuma
 														Date   : 2017/5/10
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Manager.h"
 #include <time.h>
@@ -27,7 +27,7 @@
 #include "ModeTitle.h"
 
 /*------------------------------------------------------------------------------
-	Ã“Iƒƒ“ƒo•Ï”éŒ¾
+	é™çš„ãƒ¡ãƒ³ãƒå¤‰æ•°å®£è¨€
 ------------------------------------------------------------------------------*/
 RenderManager *Manager::m_pRenderManager = NULL;		
 TextureManager *Manager::m_pTextureManager = NULL;
@@ -42,55 +42,55 @@ std::stack<Mode*> Manager::m_stackMode;
 Mode *Manager::m_pNextMode = NULL;
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Manager::Manager( HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 {
-	//ˆø”‚Ì•Û‘¶
+	//å¼•æ•°ã®ä¿å­˜
 	m_hInstance = hInstance;
 	m_hWnd = hWnd;
 
-	//ƒ‰ƒ“ƒ_ƒ€ŠÖ”‰Šú‰»
+	//ãƒ©ãƒ³ãƒ€ãƒ é–¢æ•°åˆæœŸåŒ–
 	srand((unsigned)time(NULL));
 
-	//ƒŒƒ“ƒ_ƒ‰[
+	//ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼
 	m_pRenderManager = new RenderManager( hWnd, bWindow);
 
-	//ƒL[ƒ{[ƒh
+	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰
 	m_pInputKeyboard = new InputKeyboard( hInstance, hWnd);
 
-	//ƒ}ƒEƒX
+	//ãƒã‚¦ã‚¹
 	m_pInputMouse = new InputMouse( hInstance, hWnd);
 
-	//ƒeƒNƒXƒ`ƒƒƒ}ƒl[ƒWƒƒ[
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 	m_pTextureManager = new TextureManager();
 
-	//Xƒ‚ƒfƒ‹ƒ}ƒl[ƒWƒƒ[
+	//Xãƒ¢ãƒ‡ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 	m_pXModelManager = new XModelManager();
 
-	//Õ“Ë”»’èƒ}ƒl[ƒWƒƒ[
+	//è¡çªåˆ¤å®šãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 	m_pCollisionManager = new CollisionManager();
 
-	//ƒTƒEƒ“ƒhƒ}ƒl[ƒWƒƒ[
+	//ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 	m_pSoundManager = new SoundManager( hWnd);
 
-	//ƒVƒF[ƒ_[ƒ}ƒl[ƒWƒƒ[
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 	m_pShaderManager = new ShaderManager();
 
-	//ƒRƒ“ƒ|[ƒlƒ“ƒgƒtƒ@ƒNƒgƒŠ[
+	//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼
 	m_pComponentFactory = new ComponentFactory();
 
-	//ƒ‚[ƒh
+	//ãƒ¢ãƒ¼ãƒ‰
 	ChangeMode( new ModeGame());
 	m_pNextMode = NULL;
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Manager::~Manager()
 {
-	//ƒ‚[ƒh‚Ì”jŠü
+	//ãƒ¢ãƒ¼ãƒ‰ã®ç ´æ£„
 	int Size = m_stackMode.size();
 	for (int nCnt = 0; nCnt < Size; nCnt++)
 	{
@@ -101,85 +101,85 @@ Manager::~Manager()
 		m_stackMode.pop();
 	}
 
-	//ƒVƒF[ƒ_[ƒ}ƒl[ƒWƒƒ[‚Ì”jŠü
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ç ´æ£„
 	if (m_pShaderManager != NULL)
 	{
 		delete m_pShaderManager;
 		m_pShaderManager = NULL;
 	}
 	
-	//Xƒ‚ƒfƒ‹ƒ}ƒl[ƒWƒƒ[‚Ì”jŠü
+	//Xãƒ¢ãƒ‡ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ç ´æ£„
 	if( m_pXModelManager != NULL)
 	{
 		delete m_pXModelManager;
 		m_pXModelManager = NULL;
 	}
 
-	//ƒeƒNƒXƒ`ƒƒƒ}ƒl[ƒWƒƒ[‚Ì”jŠü
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ç ´æ£„
 	if( m_pTextureManager != NULL)
 	{
 		delete m_pTextureManager;
 		m_pTextureManager = NULL;
 	}
 
-	//ƒŒƒ“ƒ_ƒ‰[‚Ì”jŠü
+	//ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼ã®ç ´æ£„
 	if( m_pRenderManager != NULL)
 	{
 		delete m_pRenderManager;
 		m_pRenderManager = NULL;
 	}
 
-	//Õ“Ë”»’èƒ}ƒl[ƒWƒƒ[‚Ì”jŠü
+	//è¡çªåˆ¤å®šãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ç ´æ£„
 	if( m_pCollisionManager != NULL)
 	{
 		delete m_pCollisionManager;
 		m_pCollisionManager = NULL;
 	}
 
-	//ƒTƒEƒ“ƒhƒ}ƒl[ƒWƒƒ[‚Ì”jŠü
+	//ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ç ´æ£„
 	if( m_pSoundManager != NULL)
 	{
 		delete m_pSoundManager;
 		m_pSoundManager = NULL;
 	}
 
-	//ƒL[ƒ{[ƒh‚Ì”jŠü
+	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®ç ´æ£„
 	if( m_pInputKeyboard != NULL)
 	{
 		delete m_pInputKeyboard;
 		m_pInputKeyboard = NULL;
 	}
 
-	//ƒ}ƒEƒX‚Ì”jŠü
+	//ãƒã‚¦ã‚¹ã®ç ´æ£„
 	if( m_pInputMouse != NULL)
 	{
 		delete m_pInputMouse;
 		m_pInputMouse = NULL;
 	}
 
-	//ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬ƒtƒ@ƒNƒgƒŠ[‚Ì”jŠü
+	//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼ã®ç ´æ£„
 	if (m_pComponentFactory != NULL)
 	{
 		delete m_pComponentFactory;
 		m_pComponentFactory = NULL;
 	}
 
-	//ƒfƒoƒbƒOƒƒO•Û‘¶
+	//ãƒ‡ãƒãƒƒã‚°ãƒ­ã‚°ä¿å­˜
 	DebugLog::Save();
 }
 
 /*------------------------------------------------------------------------------
-	XVˆ—
+	æ›´æ–°å‡¦ç†
 ------------------------------------------------------------------------------*/
 void Manager::Update(void)
 {
-	m_pInputKeyboard->Update( m_hWnd);		//ƒL[ƒ{[ƒh‚ÌXV
-	m_pInputMouse->Update( m_hWnd);			//ƒ}ƒEƒX‚ÌXV
-	m_stackMode.top()->Update();			//ƒ‚[ƒh‚ÌXV
-	m_pCollisionManager->Collision();		//Õ“Ë”»’è
-	Component::ReleaseList();				//ƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌÁ‹
-	GameObject::ReleaseList();				//ƒIƒuƒWƒFƒNƒg‚ÌÁ‹
-	DebugLog::SetImGuiView();				//ƒfƒoƒbƒOƒƒOo—Í
+	m_pInputKeyboard->Update( m_hWnd);		//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®æ›´æ–°
+	m_pInputMouse->Update( m_hWnd);			//ãƒã‚¦ã‚¹ã®æ›´æ–°
+	m_stackMode.top()->Update();			//ãƒ¢ãƒ¼ãƒ‰ã®æ›´æ–°
+	m_pCollisionManager->Collision();		//è¡çªåˆ¤å®š
+	Component::ReleaseList();				//ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®æ¶ˆå»
+	GameObject::ReleaseList();				//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ¶ˆå»
+	DebugLog::SetImGuiView();				//ãƒ‡ãƒãƒƒã‚°ãƒ­ã‚°å‡ºåŠ›
 
 	if (m_pNextMode != NULL)
 	{
@@ -189,7 +189,7 @@ void Manager::Update(void)
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æˆ—
+	æç”»å‡¦ç†
 ------------------------------------------------------------------------------*/
 void Manager::Draw(void)
 {
@@ -197,8 +197,8 @@ void Manager::Draw(void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒoƒCƒX‚Ìæ“¾(static)
-	–ß‚è’l
+	ãƒ‡ãƒã‚¤ã‚¹ã®å–å¾—(static)
+	æˆ»ã‚Šå€¤
 		LPDIRECT3DDEVICE9
 ------------------------------------------------------------------------------*/
 LPDIRECT3DDEVICE9 Manager::GetDevice( void)
@@ -208,13 +208,13 @@ LPDIRECT3DDEVICE9 Manager::GetDevice( void)
 		return m_pRenderManager->GetDevice();
 	}
 
-	MessageBox(NULL, "Manager‚ÉDevice‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ", "ƒGƒ‰[", NULL);
+	MessageBox(NULL, "Managerã«DeviceãŒç™»éŒ²ã•ã‚Œã¦ã„ã¾ã›ã‚“", "ã‚¨ãƒ©ãƒ¼", NULL);
 	return NULL;
 }
 
 /*------------------------------------------------------------------------------
-	ƒŒƒ“ƒ_[ƒ}ƒl[ƒWƒƒ[ƒ|ƒCƒ“ƒ^‚Ìæ“¾(static)
-	–ß‚è’l
+	ãƒ¬ãƒ³ãƒ€ãƒ¼ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ãƒã‚¤ãƒ³ã‚¿ã®å–å¾—(static)
+	æˆ»ã‚Šå€¤
 		RenderManager *
 ------------------------------------------------------------------------------*/
 RenderManager *Manager::GetRenderManager( void)
@@ -224,13 +224,13 @@ RenderManager *Manager::GetRenderManager( void)
 		return m_pRenderManager;
 	}
 
-	MessageBox(NULL, "Manager‚ÉRenderManager‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ", "ƒGƒ‰[", NULL);
+	MessageBox(NULL, "Managerã«RenderManagerãŒç™»éŒ²ã•ã‚Œã¦ã„ã¾ã›ã‚“", "ã‚¨ãƒ©ãƒ¼", NULL);
 	return NULL;
 }
 
 /*------------------------------------------------------------------------------
-	ƒeƒNƒXƒ`ƒƒƒ}ƒl[ƒWƒƒ[ƒ|ƒCƒ“ƒ^‚Ìæ“¾(static)
-	–ß‚è’l
+	ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ãƒã‚¤ãƒ³ã‚¿ã®å–å¾—(static)
+	æˆ»ã‚Šå€¤
 		TextureManager *
 ------------------------------------------------------------------------------*/
 TextureManager *Manager::GetTextureManager( void)
@@ -240,13 +240,13 @@ TextureManager *Manager::GetTextureManager( void)
 		return m_pTextureManager;
 	}
 
-	MessageBox(NULL, "Manager‚ÉTextureManager‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ", "ƒGƒ‰[", NULL);
+	MessageBox(NULL, "Managerã«TextureManagerãŒç™»éŒ²ã•ã‚Œã¦ã„ã¾ã›ã‚“", "ã‚¨ãƒ©ãƒ¼", NULL);
 	return NULL;
 }
 
 /*------------------------------------------------------------------------------
-	Xƒ‚ƒfƒ‹ƒ}ƒl[ƒWƒƒ[ƒ|ƒCƒ“ƒ^‚Ìæ“¾(static)
-	–ß‚è’l
+	Xãƒ¢ãƒ‡ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ãƒã‚¤ãƒ³ã‚¿ã®å–å¾—(static)
+	æˆ»ã‚Šå€¤
 		XModelManager *
 ------------------------------------------------------------------------------*/
 XModelManager *Manager::GetXModelManager( void)
@@ -256,13 +256,13 @@ XModelManager *Manager::GetXModelManager( void)
 		return m_pXModelManager;
 	}
 
-	MessageBox(NULL, "Manager‚ÉXModelManager‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ", "ƒGƒ‰[", NULL);
+	MessageBox(NULL, "Managerã«XModelManagerãŒç™»éŒ²ã•ã‚Œã¦ã„ã¾ã›ã‚“", "ã‚¨ãƒ©ãƒ¼", NULL);
 	return NULL;
 }
 
 /*------------------------------------------------------------------------------
-	ƒL[ƒ{[ƒhƒ|ƒCƒ“ƒ^‚Ìæ“¾(static)
-	–ß‚è’l
+	ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒã‚¤ãƒ³ã‚¿ã®å–å¾—(static)
+	æˆ»ã‚Šå€¤
 		InputKeyboard *
 ------------------------------------------------------------------------------*/
 InputKeyboard *Manager::GetInputKeyboard( void)
@@ -272,13 +272,13 @@ InputKeyboard *Manager::GetInputKeyboard( void)
 		return m_pInputKeyboard;
 	}
 
-	MessageBox(NULL, "Manager‚ÉInputKeyboard‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ", "ƒGƒ‰[", NULL);
+	MessageBox(NULL, "Managerã«InputKeyboardãŒç™»éŒ²ã•ã‚Œã¦ã„ã¾ã›ã‚“", "ã‚¨ãƒ©ãƒ¼", NULL);
 	return NULL;
 }
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒEƒXƒ|ƒCƒ“ƒ^‚Ìæ“¾(static)
-	–ß‚è’l
+	ãƒã‚¦ã‚¹ãƒã‚¤ãƒ³ã‚¿ã®å–å¾—(static)
+	æˆ»ã‚Šå€¤
 		InputMouse *
 ------------------------------------------------------------------------------*/
 InputMouse *Manager::GetInputMouse( void)
@@ -288,13 +288,13 @@ InputMouse *Manager::GetInputMouse( void)
 		return m_pInputMouse;
 	}
 
-	MessageBox(NULL, "Manager‚ÉInputMouse‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ", "ƒGƒ‰[", NULL);
+	MessageBox(NULL, "Managerã«InputMouseãŒç™»éŒ²ã•ã‚Œã¦ã„ã¾ã›ã‚“", "ã‚¨ãƒ©ãƒ¼", NULL);
 	return NULL;
 }
 
 /*------------------------------------------------------------------------------
-	Õ“Ë”»’èƒ}ƒl[ƒWƒƒ[ƒ|ƒCƒ“ƒ^‚Ìæ“¾(static)
-	–ß‚è’l
+	è¡çªåˆ¤å®šãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ãƒã‚¤ãƒ³ã‚¿ã®å–å¾—(static)
+	æˆ»ã‚Šå€¤
 		CollisionManager *
 ------------------------------------------------------------------------------*/
 CollisionManager *Manager::GetCollisionManager( void)
@@ -304,13 +304,13 @@ CollisionManager *Manager::GetCollisionManager( void)
 		return m_pCollisionManager;
 	}
 
-	MessageBox(NULL, "Manager‚ÉCollisionManager‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ", "ƒGƒ‰[", NULL);
+	MessageBox(NULL, "Managerã«CollisionManagerãŒç™»éŒ²ã•ã‚Œã¦ã„ã¾ã›ã‚“", "ã‚¨ãƒ©ãƒ¼", NULL);
 	return NULL;
 }
 
 /*------------------------------------------------------------------------------
-	ƒTƒEƒ“ƒhƒ}ƒl[ƒWƒƒ[ƒ|ƒCƒ“ƒ^‚Ìæ“¾(static)
-	–ß‚è’l
+	ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ãƒã‚¤ãƒ³ã‚¿ã®å–å¾—(static)
+	æˆ»ã‚Šå€¤
 		SoundManager *
 ------------------------------------------------------------------------------*/
 SoundManager *Manager::GetSoundManager( void)
@@ -320,13 +320,13 @@ SoundManager *Manager::GetSoundManager( void)
 		return m_pSoundManager;
 	}
 
-	MessageBox(NULL, "Manager‚ÉSoundManager‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ", "ƒGƒ‰[", NULL);
+	MessageBox(NULL, "Managerã«SoundManagerãŒç™»éŒ²ã•ã‚Œã¦ã„ã¾ã›ã‚“", "ã‚¨ãƒ©ãƒ¼", NULL);
 	return NULL;
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[ƒ}ƒl[ƒWƒƒ[ƒ|ƒCƒ“ƒ^‚Ìæ“¾(static)
-	–ß‚è’l
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ãƒã‚¤ãƒ³ã‚¿ã®å–å¾—(static)
+	æˆ»ã‚Šå€¤
 		ShaderManager *
 ------------------------------------------------------------------------------*/
 ShaderManager *Manager::GetShaderManager( void)
@@ -336,13 +336,13 @@ ShaderManager *Manager::GetShaderManager( void)
 		return m_pShaderManager;
 	}
 
-	MessageBox(NULL, "Manager‚ÉShaderManager‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ", "ƒGƒ‰[", NULL);
+	MessageBox(NULL, "Managerã«ShaderManagerãŒç™»éŒ²ã•ã‚Œã¦ã„ã¾ã›ã‚“", "ã‚¨ãƒ©ãƒ¼", NULL);
 	return NULL;
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬ƒtƒ@ƒNƒgƒŠ[ƒ|ƒCƒ“ƒ^‚Ìæ“¾(static)
-	–ß‚è’l
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼ãƒã‚¤ãƒ³ã‚¿ã®å–å¾—(static)
+	æˆ»ã‚Šå€¤
 		ComponentFactory *
 ------------------------------------------------------------------------------*/
 ComponentFactory *Manager::GetComponentFactory( void)
@@ -352,13 +352,13 @@ ComponentFactory *Manager::GetComponentFactory( void)
 		return m_pComponentFactory;
 	}
 
-	MessageBox(NULL, "Manager‚ÉComponentFactory‚ª“o˜^‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ", "ƒGƒ‰[", NULL);
+	MessageBox(NULL, "Managerã«ComponentFactoryãŒç™»éŒ²ã•ã‚Œã¦ã„ã¾ã›ã‚“", "ã‚¨ãƒ©ãƒ¼", NULL);
 	return NULL;
 }
 
 /*------------------------------------------------------------------------------
-	ƒ‚[ƒh‚Ìİ’è
-	ˆø”
+	ãƒ¢ãƒ¼ãƒ‰ã®è¨­å®š
+	å¼•æ•°
 		Mode *pNextMode
 ------------------------------------------------------------------------------*/
 void Manager::SetMode( Mode *pNextMode)
@@ -369,13 +369,13 @@ void Manager::SetMode( Mode *pNextMode)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ‚[ƒhØ‚è‘Ö‚¦
-	ˆø”
+	ãƒ¢ãƒ¼ãƒ‰åˆ‡ã‚Šæ›¿ãˆ
+	å¼•æ•°
 		Mode *pNextMode
 ------------------------------------------------------------------------------*/
 void Manager::ChangeMode( Mode *pNextMode)
 {
-	//‘Oƒ‚[ƒh‚ÌI—¹
+	//å‰ãƒ¢ãƒ¼ãƒ‰ã®çµ‚äº†
 	if( m_stackMode.size() > 0)
 	{
 		delete m_stackMode.top();
@@ -384,10 +384,10 @@ void Manager::ChangeMode( Mode *pNextMode)
 	m_pCollisionManager->ClearCollider();
 	m_pRenderManager->ClearRenderer();
 
-	//ƒ‚[ƒh‚Ì•ÏX
+	//ãƒ¢ãƒ¼ãƒ‰ã®å¤‰æ›´
 	m_stackMode.push( pNextMode);
 
-	//Ÿƒ‚[ƒh‚ÌŠJn
+	//æ¬¡ãƒ¢ãƒ¼ãƒ‰ã®é–‹å§‹
 	if (pNextMode != NULL)
 	{
 		m_stackMode.top()->Init();
@@ -397,8 +397,8 @@ void Manager::ChangeMode( Mode *pNextMode)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ‚[ƒh‚Ì’Ç‰Á
-	ˆø”
+	ãƒ¢ãƒ¼ãƒ‰ã®è¿½åŠ 
+	å¼•æ•°
 		Mode *pNextMode
 ------------------------------------------------------------------------------*/
 void Manager::PushMode( Mode *pNextMode)
@@ -411,15 +411,15 @@ void Manager::PushMode( Mode *pNextMode)
 	m_pCollisionManager->ClearCollider();
 	m_pRenderManager->ClearRenderer();
 
-	//ƒ‚[ƒh‚Ì’Ç‰Á
+	//ãƒ¢ãƒ¼ãƒ‰ã®è¿½åŠ 
 	m_stackMode.push( pNextMode);
 
-	//ƒ‚[ƒh‚ÌŠJn
+	//ãƒ¢ãƒ¼ãƒ‰ã®é–‹å§‹
 	pNextMode->Init();
 }
 
 /*------------------------------------------------------------------------------
-	ƒ‚[ƒh‚Ì”jŠü
+	ãƒ¢ãƒ¼ãƒ‰ã®ç ´æ£„
 ------------------------------------------------------------------------------*/
 void Manager::PopMode( void)
 {
@@ -428,7 +428,7 @@ void Manager::PopMode( void)
 		return;
 	}
 
-	//ƒ‚[ƒh‚ÌI—¹
+	//ãƒ¢ãƒ¼ãƒ‰ã®çµ‚äº†
 	delete m_stackMode.top();
 	m_stackMode.pop();
 }

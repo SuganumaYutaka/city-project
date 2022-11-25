@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    ShapeBox.cpp - Œš•¨‚Ì©“®¶¬[ƒ{ƒbƒNƒX
+    ShapeBox.cpp - å»ºç‰©ã®è‡ªå‹•ç”Ÿæˆãƒ¼ãƒœãƒƒã‚¯ã‚¹
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/12/8
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "ShapeBox.h"
 #include "Wall.h"
@@ -14,7 +14,7 @@
 #include "DebugLog.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 ShapeBox::ShapeBox(GameObject* buildingObject)
 {
@@ -22,7 +22,7 @@ ShapeBox::ShapeBox(GameObject* buildingObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 ShapeBox::~ShapeBox()
 {
@@ -30,7 +30,7 @@ ShapeBox::~ShapeBox()
 }
 
 /*------------------------------------------------------------------------------
-	‰Šú‰»
+	åˆæœŸåŒ–
 ------------------------------------------------------------------------------*/
 void ShapeBox::Init(const Vector3& position, float rotation, const Vector3& size)
 {
@@ -38,21 +38,21 @@ void ShapeBox::Init(const Vector3& position, float rotation, const Vector3& size
 	SetRotation( rotation);
 	m_Size = size;
 
-	//‰®ª‚Ì¶¬
+	//å±‹æ ¹ã®ç”Ÿæˆ
 	auto roof = new Roof(GetBuildingObject());
 	roof->InitPlane( position, rotation, size);
 	AddRoof( roof);
 
-	//•Ç‚Ì¶¬
+	//å£ã®ç”Ÿæˆ
 	CreateWalls();
 }
 
 /*------------------------------------------------------------------------------
-	•Ç‚Ì¶¬
+	å£ã®ç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 void ShapeBox::CreateWalls(void)
 {
-	//•Ç‚ÌÁ‹
+	//å£ã®æ¶ˆå»
 	if (GetWalls().size() != 0)
 	{
 		ClearWall();
@@ -60,47 +60,47 @@ void ShapeBox::CreateWalls(void)
 
 	auto matrix = GetMatrix();
 
-	//’¸“_
+	//é ‚ç‚¹
 	Vector3 leftFront(	m_Size.x * -0.5f, 0.0f, m_Size.z * -0.5f);
 	Vector3 rightFront( m_Size.x * +0.5f, 0.0f, m_Size.z * -0.5f);
 	Vector3 rightBack(	m_Size.x * +0.5f, 0.0f, m_Size.z * +0.5f);
 	Vector3 leftBack(	m_Size.x * -0.5f, 0.0f, m_Size.z * +0.5f);
 
-	//è‘O
+	//æ‰‹å‰
 	auto frontWall = new Wall( GetBuildingObject());
 	frontWall->InitDefault( matrix, m_Size.y, m_Size.x, leftFront, Vector3(0.0f, 0.0f, -1.0f));
 	AddWall( frontWall);
 
-	//‰E
+	//å³
 	auto rightWall = new Wall( GetBuildingObject());
 	rightWall->InitDefault( matrix, m_Size.y, m_Size.z, rightFront, Vector3(1.0f, 0.0f, 0.0f));
 	AddWall( rightWall);
 
-	//‰œ
+	//å¥¥
 	auto backWall = new Wall( GetBuildingObject());
 	backWall->InitDefault( matrix, m_Size.y, m_Size.x, rightBack, Vector3(0.0f, 0.0f, 1.0f));
 	AddWall( backWall);
 
-	//¶
+	//å·¦
 	auto leftWall = new Wall( GetBuildingObject());
 	leftWall->InitDefault( matrix, m_Size.y, m_Size.z, leftBack, Vector3(-1.0f, 0.0f, 0.0f));
 	AddWall( leftWall);
 }
 
 /*------------------------------------------------------------------------------
-	ˆÚ“®
+	ç§»å‹•
 ------------------------------------------------------------------------------*/
 void ShapeBox::Move(const Vector3& value)
 {
 	UpdatePosition( value);
 
-	//•Ç‚ÌXV
+	//å£ã®æ›´æ–°
 	for( auto wall : GetWalls())
 	{
 		wall->UpdateView( GetMatrix());
 	}
 
-	//‰®ª‚ÌXV
+	//å±‹æ ¹ã®æ›´æ–°
 	for (auto roof : GetRoofs())
 	{
 		roof->UpdatePosition( GetPosition());
@@ -108,19 +108,19 @@ void ShapeBox::Move(const Vector3& value)
 }
 
 /*------------------------------------------------------------------------------
-	‰ñ“]
+	å›è»¢
 ------------------------------------------------------------------------------*/
 void ShapeBox::Rotate( float value)
 {
 	UpdateRotation( value);
 
-	//•Ç‚ÌXV
+	//å£ã®æ›´æ–°
 	for( auto wall : GetWalls())
 	{
 		wall->UpdateView( GetMatrix());
 	}
 
-	//‰®ª‚ÌXV
+	//å±‹æ ¹ã®æ›´æ–°
 	for (auto roof : GetRoofs())
 	{
 		roof->UpdateRotation( GetRotation());
@@ -128,16 +128,16 @@ void ShapeBox::Rotate( float value)
 }
 
 /*------------------------------------------------------------------------------
-	Šg‘åk¬i•Ï‰»—Êj
+	æ‹¡å¤§ç¸®å°ï¼ˆå¤‰åŒ–é‡ï¼‰
 ------------------------------------------------------------------------------*/
 void ShapeBox::ScaleUpDown(const Vector3& value)
 {
 	m_Size += value;
 
-	//•Ç‚ÌXV
+	//å£ã®æ›´æ–°
 	CreateWalls();
 
-	//‰®ª‚ÌXV
+	//å±‹æ ¹ã®æ›´æ–°
 	for (auto roof : GetRoofs())
 	{
 		roof->UpdateSize( m_Size);
@@ -145,16 +145,16 @@ void ShapeBox::ScaleUpDown(const Vector3& value)
 }
 
 /*------------------------------------------------------------------------------
-	Šg‘åk¬i”ä—¦E“™”{j
+	æ‹¡å¤§ç¸®å°ï¼ˆæ¯”ç‡ãƒ»ç­‰å€ï¼‰
 ------------------------------------------------------------------------------*/
 void ShapeBox::ScaleRate( float rate)
 {
 	m_Size *= rate;
 
-	//•Ç‚ÌXV
+	//å£ã®æ›´æ–°
 	CreateWalls();
 
-	//‰®ª‚ÌXV
+	//å±‹æ ¹ã®æ›´æ–°
 	for (auto roof : GetRoofs())
 	{
 		roof->UpdateSize( m_Size);
@@ -162,7 +162,7 @@ void ShapeBox::ScaleRate( float rate)
 }
 
 /*------------------------------------------------------------------------------
-	Šg‘åk¬i”ä—¦j
+	æ‹¡å¤§ç¸®å°ï¼ˆæ¯”ç‡ï¼‰
 ------------------------------------------------------------------------------*/
 void ShapeBox::ScaleRate(const Vector3& rate)
 {
@@ -170,10 +170,10 @@ void ShapeBox::ScaleRate(const Vector3& rate)
 	m_Size.y *= rate.y;
 	m_Size.z *= rate.z;
 
-	//•Ç‚ÌXV
+	//å£ã®æ›´æ–°
 	CreateWalls();
 
-	//‰®ª‚ÌXV
+	//å±‹æ ¹ã®æ›´æ–°
 	for (auto roof : GetRoofs())
 	{
 		roof->UpdateSize( m_Size);
@@ -181,11 +181,11 @@ void ShapeBox::ScaleRate(const Vector3& rate)
 }
 
 /*------------------------------------------------------------------------------
-	Œ`ó‚ğŠm’è‚³‚¹‚é
+	å½¢çŠ¶ã‚’ç¢ºå®šã•ã›ã‚‹
 ------------------------------------------------------------------------------*/
 void ShapeBox::ConfirmShape(void)
 {
-	//4‚Â‚Ì•Ç‚ğ—Z‡‚·‚é
+	//4ã¤ã®å£ã‚’èåˆã™ã‚‹
 	auto walls = GetWalls();
 	auto wall = walls.front();
 	for (auto other : walls)
@@ -198,33 +198,33 @@ void ShapeBox::ConfirmShape(void)
 		SubWall( other);
 	}
 
-	//•Ç‚ğŠÂóƒŠƒXƒg‚É‚·‚é
+	//å£ã‚’ç’°çŠ¶ãƒªã‚¹ãƒˆã«ã™ã‚‹
 	wall->ChangeRingList();
 }
 
 /*------------------------------------------------------------------------------
-	“_‚Æ‚Ì“–‚½‚è”»’è
+	ç‚¹ã¨ã®å½“ãŸã‚Šåˆ¤å®š
 ------------------------------------------------------------------------------*/
 bool ShapeBox::CollisionPoint(const Vector3& point)
 {
-	//“_‚ğShape‚Ìƒ[ƒJƒ‹‹óŠÔ‚ÉˆÚ“®
+	//ç‚¹ã‚’Shapeã®ãƒ­ãƒ¼ã‚«ãƒ«ç©ºé–“ã«ç§»å‹•
 	auto mtxWorld = GetMatrix();
 	D3DXMATRIX mtxWorldInv;
 	D3DXMatrixInverse( &mtxWorldInv, NULL, &mtxWorld);
 	auto pointDX = point.ConvertToDX();
 	D3DXVec3TransformCoord( &pointDX, &pointDX, &mtxWorldInv);
 
-	//”»’è
+	//åˆ¤å®š
 	if (pointDX.x < m_Size.x * 0.5f && pointDX.x > -m_Size.x * 0.5f &&
 		pointDX.z < m_Size.z * 0.5f && pointDX.z > -m_Size.z * 0.5f)
 	{
 		if( pointDX.y < m_Size.y)
 		{
-			//Õ“Ë‚ ‚è
+			//è¡çªã‚ã‚Š
 			return true;
 		}
 	}
 
-	//Õ“Ë‚È‚µ
+	//è¡çªãªã—
 	return false;
 }

@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    MeshFieldCollider.h - ƒƒbƒVƒ…ƒtƒB[ƒ‹ƒhƒRƒ‰ƒCƒ_[
+    MeshFieldCollider.h - ãƒ¡ãƒƒã‚·ãƒ¥ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/31
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "MeshFieldCollider.h"
 #include "CollisionManager.h"
@@ -14,16 +14,16 @@
 #include "Transform.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
-#define P_POS_X(P_WIDTH, NUM_FIELD_X) (0.0f + P_WIDTH * NUM_FIELD_X * -0.5f)		//ŠJn’n“_‚ÌXÀ•W
-#define P_POS_Y (0.0f)																//ŠJn’n“_‚ÌYÀ•W
-#define P_POS_Z(P_HEIGHT, NUM_FIELD_Z) (0.0f + P_HEIGHT * NUM_FIELD_Z * 0.5f)		//ŠJn’n“_‚ÌZÀ•W
-#define P_WIDTH( ALL_WIDTH, NUM_FIELD_X)			( ALL_WIDTH / NUM_FIELD_X)		//ƒ|ƒŠƒSƒ“ˆê–‡‚ ‚½‚è‚Ì•
-#define P_HEIGHT( ALL_HEIGHT, NUM_FIELD_Z)			( ALL_HEIGHT / NUM_FIELD_Z)		//ƒ|ƒŠƒSƒ“ˆê–‡‚ ‚½‚è‚Ì‚‚³
+#define P_POS_X(P_WIDTH, NUM_FIELD_X) (0.0f + P_WIDTH * NUM_FIELD_X * -0.5f)		//é–‹å§‹åœ°ç‚¹ã®Xåº§æ¨™
+#define P_POS_Y (0.0f)																//é–‹å§‹åœ°ç‚¹ã®Yåº§æ¨™
+#define P_POS_Z(P_HEIGHT, NUM_FIELD_Z) (0.0f + P_HEIGHT * NUM_FIELD_Z * 0.5f)		//é–‹å§‹åœ°ç‚¹ã®Zåº§æ¨™
+#define P_WIDTH( ALL_WIDTH, NUM_FIELD_X)			( ALL_WIDTH / NUM_FIELD_X)		//ãƒãƒªã‚´ãƒ³ä¸€æšã‚ãŸã‚Šã®å¹…
+#define P_HEIGHT( ALL_HEIGHT, NUM_FIELD_Z)			( ALL_HEIGHT / NUM_FIELD_Z)		//ãƒãƒªã‚´ãƒ³ä¸€æšã‚ãŸã‚Šã®é«˜ã•
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* MeshFieldCollider::Create(GameObject* gameObject)
 {
@@ -31,7 +31,7 @@ Component* MeshFieldCollider::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 MeshFieldCollider::MeshFieldCollider( GameObject *pGameObject)
 {
@@ -40,21 +40,21 @@ MeshFieldCollider::MeshFieldCollider( GameObject *pGameObject)
 	m_ColType = eColMeshField;
 	m_IsTrigger = false;
 
-	//ƒfƒtƒHƒ‹ƒg’lİ’è
-	m_nNumBlockX = 8;			//‰¡‚Ì•ªŠ„”
-	m_nNumBlockZ = 8;			//c‚Ì•ªŠ„”
-	m_fWidth = 8.0f;			//•
-	m_fHeight = 8.0f;			//‚‚³
-	m_fBlockWidth = P_WIDTH( m_fWidth, m_nNumBlockX);		//ƒ|ƒŠƒSƒ“1–‡‚ ‚½‚è‚Ì•
-	m_fBlockHeight = P_HEIGHT( m_fHeight, m_nNumBlockZ);	//ƒ|ƒŠƒSƒ“1–‡‚ ‚½‚è‚Ì‚‚³
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤è¨­å®š
+	m_nNumBlockX = 8;			//æ¨ªã®åˆ†å‰²æ•°
+	m_nNumBlockZ = 8;			//ç¸¦ã®åˆ†å‰²æ•°
+	m_fWidth = 8.0f;			//å¹…
+	m_fHeight = 8.0f;			//é«˜ã•
+	m_fBlockWidth = P_WIDTH( m_fWidth, m_nNumBlockX);		//ãƒãƒªã‚´ãƒ³1æšã‚ãŸã‚Šã®å¹…
+	m_fBlockHeight = P_HEIGHT( m_fHeight, m_nNumBlockZ);	//ãƒãƒªã‚´ãƒ³1æšã‚ãŸã‚Šã®é«˜ã•
 
-	//’¸“_İ’è
+	//é ‚ç‚¹è¨­å®š
 	m_pVtxPos = new Vector3[ ( m_nNumBlockZ + 1) * ( m_nNumBlockX + 1)];
 	for( int nCntHeight = 0; nCntHeight < m_nNumBlockZ + 1; nCntHeight++)
 	{
 		for( int nCntWidth = 0; nCntWidth < m_nNumBlockX + 1; nCntWidth++)
 		{
-			//’¸“_À•W‚Ìİ’è
+			//é ‚ç‚¹åº§æ¨™ã®è¨­å®š
 			m_pVtxPos[ nCntHeight * ( m_nNumBlockX + 1) + nCntWidth] = Vector3(
 				m_fWidth * -0.5f + m_fBlockWidth * nCntWidth,
 				0.0f,
@@ -62,7 +62,7 @@ MeshFieldCollider::MeshFieldCollider( GameObject *pGameObject)
 		}
 	}
 
-	//ƒ|ƒŠƒSƒ“İ’è
+	//ãƒãƒªã‚´ãƒ³è¨­å®š
 	m_pPolygon = new POLYGON[ m_nNumBlockX * m_nNumBlockZ * 2];
 	for (int nCntZ = 0; nCntZ < m_nNumBlockZ; nCntZ++)
 	{
@@ -83,23 +83,23 @@ MeshFieldCollider::MeshFieldCollider( GameObject *pGameObject)
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void MeshFieldCollider::Uninit( void)
 {
 	Manager::GetCollisionManager()->ReleaseCollider( this);
 
-	//’¸“_î•ñ‚Ì‰ğ•ú
+	//é ‚ç‚¹æƒ…å ±ã®è§£æ”¾
 	delete[] m_pVtxPos;
 	m_pVtxPos = NULL;
 
-	//ƒ|ƒŠƒSƒ“î•ñ‚Ì‰ğ•ú
+	//ãƒãƒªã‚´ãƒ³æƒ…å ±ã®è§£æ”¾
 	delete[] m_pPolygon;
 	m_pPolygon = NULL;
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void MeshFieldCollider::Update()
 {
@@ -107,9 +107,9 @@ void MeshFieldCollider::Update()
 }
 
 /*------------------------------------------------------------------------------
-	Õ“Ë
-	ˆø”
-		Collider *pCollider			Õ“Ë‚µ‚½ƒRƒ‰ƒCƒ_[
+	è¡çª
+	å¼•æ•°
+		Collider *pCollider			è¡çªã—ãŸã‚³ãƒ©ã‚¤ãƒ€ãƒ¼
 ------------------------------------------------------------------------------*/
 void MeshFieldCollider::OnCollision( Collider *pCollider)
 {
@@ -117,13 +117,13 @@ void MeshFieldCollider::OnCollision( Collider *pCollider)
 }
 
 /*------------------------------------------------------------------------------
-	ƒtƒB[ƒ‹ƒh‚ğİ’è
+	ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshFieldCollider::SetField( int X, int Z, float BlockWidth, float BlockHeight, float *pVertexHeight)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//İ’è
+	//è¨­å®š
 	m_nNumBlockX = X;
 	m_nNumBlockZ = Z;
 	m_fBlockWidth = BlockWidth;
@@ -131,15 +131,15 @@ void MeshFieldCollider::SetField( int X, int Z, float BlockWidth, float BlockHei
 	m_fWidth = m_nNumBlockX * m_fBlockWidth;
 	m_fHeight = m_nNumBlockZ * m_fBlockHeight;
 	
-	//’¸“_î•ñ‚Ì‰ğ•ú
+	//é ‚ç‚¹æƒ…å ±ã®è§£æ”¾
 	delete[] m_pVtxPos;
 	m_pVtxPos = NULL;
 
-	//ƒ|ƒŠƒSƒ“î•ñ‚Ì‰ğ•ú
+	//ãƒãƒªã‚´ãƒ³æƒ…å ±ã®è§£æ”¾
 	delete[] m_pPolygon;
 	m_pPolygon = NULL;
 
-	//’¸“_İ’è
+	//é ‚ç‚¹è¨­å®š
 	m_pVtxPos = new Vector3[ ( m_nNumBlockZ + 1) * ( m_nNumBlockX + 1)];
 	for( int nCntHeight = 0; nCntHeight < m_nNumBlockZ + 1; nCntHeight++)
 	{
@@ -147,7 +147,7 @@ void MeshFieldCollider::SetField( int X, int Z, float BlockWidth, float BlockHei
 		{
 			if( pVertexHeight != NULL)
 			{
-				//’¸“_À•W‚Ìİ’è
+				//é ‚ç‚¹åº§æ¨™ã®è¨­å®š
 				m_pVtxPos[ nCntHeight * ( m_nNumBlockX + 1) + nCntWidth] = Vector3(
 					m_fWidth * -0.5f + m_fBlockWidth * nCntWidth,
 					pVertexHeight[ nCntHeight * ( m_nNumBlockX + 1) + nCntWidth],
@@ -155,7 +155,7 @@ void MeshFieldCollider::SetField( int X, int Z, float BlockWidth, float BlockHei
 			}
 			else
 			{
-				//’¸“_À•W‚Ìİ’è
+				//é ‚ç‚¹åº§æ¨™ã®è¨­å®š
 				m_pVtxPos[ nCntHeight * ( m_nNumBlockX + 1) + nCntWidth] = Vector3(
 					m_fWidth * -0.5f + m_fBlockWidth * nCntWidth,
 					0.0f,
@@ -164,7 +164,7 @@ void MeshFieldCollider::SetField( int X, int Z, float BlockWidth, float BlockHei
 		}
 	}
 
-	//ƒ|ƒŠƒSƒ“İ’è
+	//ãƒãƒªã‚´ãƒ³è¨­å®š
 	m_pPolygon = new POLYGON[ m_nNumBlockX * m_nNumBlockZ * 2];
 	for (int nCntZ = 0; nCntZ < m_nNumBlockZ; nCntZ++)
 	{
@@ -184,22 +184,22 @@ void MeshFieldCollider::SetField( int X, int Z, float BlockWidth, float BlockHei
 }
 
 /*------------------------------------------------------------------------------
-	ƒ|ƒŠƒSƒ“ˆê–‡‚ ‚½‚è‚Ì•E‚‚³‚ğİ’è
+	ãƒãƒªã‚´ãƒ³ä¸€æšã‚ãŸã‚Šã®å¹…ãƒ»é«˜ã•ã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshFieldCollider::SetBlockSize( float Width, float Height)
 {
-	//İ’è
+	//è¨­å®š
 	m_fBlockWidth = Width;
 	m_fBlockHeight = Height;
 	m_fWidth = m_nNumBlockX * m_fBlockWidth;
 	m_fHeight = m_nNumBlockZ * m_fBlockHeight;
 	
-	//’¸“_İ’è
+	//é ‚ç‚¹è¨­å®š
 	for( int nCntHeight = 0; nCntHeight < m_nNumBlockZ + 1; nCntHeight++)
 	{
 		for( int nCntWidth = 0; nCntWidth < m_nNumBlockX + 1; nCntWidth++)
 		{
-			//’¸“_À•W‚Ìİ’è
+			//é ‚ç‚¹åº§æ¨™ã®è¨­å®š
 			m_pVtxPos[ nCntHeight * ( m_nNumBlockX + 1) + nCntWidth] = Vector3(
 				m_fWidth * -0.5f + m_fBlockWidth * nCntWidth,
 				m_pVtxPos[ nCntHeight * ( m_nNumBlockX + 1) + nCntWidth].y,
@@ -209,22 +209,22 @@ void MeshFieldCollider::SetBlockSize( float Width, float Height)
 }
 
 /*------------------------------------------------------------------------------
-	•E‚‚³‚ğİ’è
+	å¹…ãƒ»é«˜ã•ã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshFieldCollider::SetSize( float Width, float Height)
 {
-	//İ’è
+	//è¨­å®š
 	m_fWidth = Width;
 	m_fHeight = Height;
-	m_fBlockWidth = P_WIDTH( m_fWidth, m_nNumBlockX);		//ƒ|ƒŠƒSƒ“1–‡‚ ‚½‚è‚Ì•
-	m_fBlockHeight = P_HEIGHT( m_fHeight, m_nNumBlockZ);	//ƒ|ƒŠƒSƒ“1–‡‚ ‚½‚è‚Ì‚‚³
+	m_fBlockWidth = P_WIDTH( m_fWidth, m_nNumBlockX);		//ãƒãƒªã‚´ãƒ³1æšã‚ãŸã‚Šã®å¹…
+	m_fBlockHeight = P_HEIGHT( m_fHeight, m_nNumBlockZ);	//ãƒãƒªã‚´ãƒ³1æšã‚ãŸã‚Šã®é«˜ã•
 	
-	//’¸“_İ’è
+	//é ‚ç‚¹è¨­å®š
 	for( int nCntHeight = 0; nCntHeight < m_nNumBlockZ + 1; nCntHeight++)
 	{
 		for( int nCntWidth = 0; nCntWidth < m_nNumBlockX + 1; nCntWidth++)
 		{
-			//’¸“_À•W‚Ìİ’è
+			//é ‚ç‚¹åº§æ¨™ã®è¨­å®š
 			m_pVtxPos[ nCntHeight * ( m_nNumBlockX + 1) + nCntWidth] = Vector3(
 				m_fWidth * -0.5f + m_fBlockWidth * nCntWidth,
 				m_pVtxPos[ nCntHeight * ( m_nNumBlockX + 1) + nCntWidth].y,
@@ -234,22 +234,22 @@ void MeshFieldCollider::SetSize( float Width, float Height)
 }
 
 /*------------------------------------------------------------------------------
-	‚‚³‚ğæ“¾
+	é«˜ã•ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 float MeshFieldCollider::GetHeight( const Vector3& Pos)
 {
-	int nIndexPolygon = GetIndexPolygon( Pos);			//ƒ|ƒŠƒSƒ“‚ÌƒCƒ“ƒfƒbƒNƒX”Ô†
+	int nIndexPolygon = GetIndexPolygon( Pos);			//ãƒãƒªã‚´ãƒ³ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·
 
-	//Pos‚ªƒtƒB[ƒ‹ƒhã‚©
+	//PosãŒãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ä¸Šã‹
 	if (nIndexPolygon == -1)
 	{
 		return -5.0f;
 	}
 
-	//–@üæ“¾
+	//æ³•ç·šå–å¾—
 	Vector3 Normal = m_pPolygon[ nIndexPolygon].Normal;
 
-	//‚‚³‚ğZo
+	//é«˜ã•ã‚’ç®—å‡º
 	Vector3 PosZero = m_pVtxPos[ m_pPolygon[ nIndexPolygon].nVtxIndex[ 0]];
 	float Height = PosZero.y - (( Pos.x - PosZero.x) * Normal.x + ( Pos.z - PosZero.z) * Normal.z) / Normal.y;
 	
@@ -257,7 +257,7 @@ float MeshFieldCollider::GetHeight( const Vector3& Pos)
 }
 
 /*------------------------------------------------------------------------------
-	Pos‚ğ‚Æd‚È‚éƒ|ƒŠƒSƒ“iƒCƒ“ƒfƒbƒNƒXj‚ğæ“¾
+	Posã‚’ã¨é‡ãªã‚‹ãƒãƒªã‚´ãƒ³ï¼ˆã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼‰ã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 int MeshFieldCollider::GetIndexPolygon( const Vector3& Pos)
 {
@@ -270,10 +270,10 @@ int MeshFieldCollider::GetIndexPolygon( const Vector3& Pos)
 	PosZ = m_fHeight * 0.5f - PosZ;
 	nBlockZ = (int)( PosZ / m_fBlockHeight);
 
-	//ƒtƒB[ƒ‹ƒhã‚Ì‚Æ‚«
+	//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ä¸Šã®ã¨ã
 	//if (PosX >= 0 && nBlockX < m_nNumBlockX && PosZ >= 0 && nBlockZ < m_nNumBlockZ)
 	//{
-	//	//ŠOÏ‚É‚æ‚é”»’è
+	//	//å¤–ç©ã«ã‚ˆã‚‹åˆ¤å®š
 	//	if (IsPointInPolygon((nBlockZ * m_nNumBlockX + nBlockX) * 2, Pos) == true)
 	//	{
 	//		return (nBlockZ * m_nNumBlockX + nBlockX) * 2;
@@ -297,7 +297,7 @@ int MeshFieldCollider::GetIndexPolygon( const Vector3& Pos)
 }
 
 /*------------------------------------------------------------------------------
-	‚ ‚é“_‚ªƒ|ƒŠƒSƒ““à‚É‚ ‚é‚©
+	ã‚ã‚‹ç‚¹ãŒãƒãƒªã‚´ãƒ³å†…ã«ã‚ã‚‹ã‹
 ------------------------------------------------------------------------------*/
 bool MeshFieldCollider::IsPointInPolygon( int nIndex, const Vector3& Pos)
 {
@@ -329,7 +329,7 @@ bool MeshFieldCollider::IsPointInPolygon( int nIndex, const Vector3& Pos)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ|ƒŠƒSƒ“‚Ì–Ê–@ü‚ğæ“¾
+	ãƒãƒªã‚´ãƒ³ã®é¢æ³•ç·šã‚’å–å¾—
 ------------------------------------------------------------------------------*/
 Vector3 MeshFieldCollider::GetPolygonNormal( int nIndex)
 {
@@ -340,11 +340,11 @@ Vector3 MeshFieldCollider::GetPolygonNormal( int nIndex)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void MeshFieldCollider::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -395,7 +395,7 @@ void MeshFieldCollider::Load(Text& text)
 			}
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
@@ -406,7 +406,7 @@ void MeshFieldCollider::Load(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void MeshFieldCollider::Save(Text& text)
 {

@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    Edge.cpp - ƒn[ƒtƒGƒbƒW\‘¢[•Ó
+    Edge.cpp - ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸æ§‹é€ ãƒ¼è¾º
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/11/25
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Vertex.h"
 #include "Edge.h"
@@ -16,7 +16,7 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Edge::Edge( HalfEdgeDataStructure::Model* model, Vertex* start, Vertex* end)
 	: m_Model(model), m_Start(start), m_End(end), m_Left(NULL), m_Right(NULL), m_Attribute(NULL)
@@ -25,11 +25,11 @@ Edge::Edge( HalfEdgeDataStructure::Model* model, Vertex* start, Vertex* end)
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Edge::~Edge()
 { 
-	//ƒn[ƒtƒGƒbƒW‚Ìíœ
+	//ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã®å‰Šé™¤
 	if (m_Right)
 	{
 		delete m_Right;
@@ -41,7 +41,7 @@ Edge::~Edge()
 }
 
 /*------------------------------------------------------------------------------
-	íœ
+	å‰Šé™¤
 ------------------------------------------------------------------------------*/
 void Edge::Delete(void)
 {
@@ -53,7 +53,7 @@ void Edge::Delete(void)
 }
 
 /*------------------------------------------------------------------------------
-	ƒxƒNƒgƒ‹‚Ìæ“¾
+	ãƒ™ã‚¯ãƒˆãƒ«ã®å–å¾—
 ------------------------------------------------------------------------------*/
 Vector3 Edge::GetVector(void)
 {
@@ -61,34 +61,34 @@ Vector3 Edge::GetVector(void)
 }
 
 /*------------------------------------------------------------------------------
-	•ªŠ„‚·‚é
+	åˆ†å‰²ã™ã‚‹
 ------------------------------------------------------------------------------*/
 bool Edge::Divide(float rateFromStart, Vertex** ppOut)
 {
-	//ˆø”ƒ`ƒFƒbƒN
+	//å¼•æ•°ãƒã‚§ãƒƒã‚¯
 	if (rateFromStart < 0.0f || rateFromStart > 1.0f)
 	{
 		return false;
 	}
 
-	//’¸“_‚Ì¶¬
+	//é ‚ç‚¹ã®ç”Ÿæˆ
 	Vector3 direction = m_End->GetPosition() - m_Start->GetPosition();
 	Vector3 position = m_Start->GetPosition() + direction * rateFromStart;
 	auto vertex = m_Model->CreateVertex( position);
 	
-	//’¸“_‚ğo—Í
+	//é ‚ç‚¹ã‚’å‡ºåŠ›
 	if ( ppOut)
 	{
 		*ppOut = vertex;
 	}
 
-	//•Ó‚Ì¶¬
+	//è¾ºã®ç”Ÿæˆ
 	auto edge = m_Model->CreateEdge( vertex, m_End);
 
-	//•Ó‚É“_‚ğ“o˜^
+	//è¾ºã«ç‚¹ã‚’ç™»éŒ²
 	this->SetEnd( vertex);
 
-	//‰E‘¤–Ê‚Ìİ’è
+	//å³å´é¢ã®è¨­å®š
 	if (this->GetRight())
 	{
 		auto rightnext = new HalfEdge( m_Model, edge->GetEnd());
@@ -99,7 +99,7 @@ bool Edge::Divide(float rateFromStart, Vertex** ppOut)
 		this->GetRight()->SetNext( rightnext);
 		this->GetRight()->SetEnd( vertex);
 	}
-	//¶‘¤–Ê‚Ìİ’è
+	//å·¦å´é¢ã®è¨­å®š
 	if (this->GetLeft())
 	{
 		auto leftnext = new HalfEdge( m_Model, this->GetStart());
@@ -113,7 +113,7 @@ bool Edge::Divide(float rateFromStart, Vertex** ppOut)
 		edge->GetLeft()->SetEnd( vertex);
 	}
 	
-	//ƒn[ƒtƒGƒbƒW‚ÌƒyƒA‚ğİ’è
+	//ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã®ãƒšã‚¢ã‚’è¨­å®š
 	if( this->GetRight() && this->GetLeft())
 	{
 		this->GetLeft()->SetPair( this->GetRight());
@@ -122,7 +122,7 @@ bool Edge::Divide(float rateFromStart, Vertex** ppOut)
 		edge->GetRight()->SetPair( edge->GetLeft());
 	}
 
-	//“_‚É•Ó‚ğ“o˜^
+	//ç‚¹ã«è¾ºã‚’ç™»éŒ²
 	vertex->RegisterEdge( this);
 	vertex->RegisterEdge( edge);
 	edge->GetEnd()->UnregisterEdge( this);
@@ -132,20 +132,20 @@ bool Edge::Divide(float rateFromStart, Vertex** ppOut)
 }
 
 /*------------------------------------------------------------------------------
-	ˆÚ“®‚É‚æ‚éXV
+	ç§»å‹•ã«ã‚ˆã‚‹æ›´æ–°
 ------------------------------------------------------------------------------*/
 void Edge::UpdateByMove(void)
 {
 	UpdateAttribute();
 
-	//—×Ú‚·‚é–Ê‚É’m‚ç‚¹‚é
-	//‰E
+	//éš£æ¥ã™ã‚‹é¢ã«çŸ¥ã‚‰ã›ã‚‹
+	//å³
 	if (m_Right)
 	{
 		m_Right->GetFace()->UpdateByMove();
 	}
 
-	//¶
+	//å·¦
 	if (m_Left)
 	{
 		m_Left->GetFace()->UpdateByMove();
@@ -153,7 +153,7 @@ void Edge::UpdateByMove(void)
 }
 
 /*------------------------------------------------------------------------------
-	‘®«î•ñ‚ÌXV
+	å±æ€§æƒ…å ±ã®æ›´æ–°
 ------------------------------------------------------------------------------*/
 void Edge::UpdateAttribute(void)
 {

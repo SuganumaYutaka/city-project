@@ -1,4 +1,4 @@
-//\‘¢‘Ì’è‹`
+//æ§‹é€ ä½“å®šç¾©
 struct VS_INPUT
 {
 	float3 pos : POSITION0;
@@ -18,14 +18,14 @@ struct OM_INPUT
 	float4 col : SV_Target0;
 };
 
-//ƒOƒ[ƒoƒ‹•Ï”’è‹`
+//ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°å®šç¾©
 float4x4 g_mtxWorld;
 float4x4 g_mtxView;
 float4x4 g_mtxProj;
 
 texture g_texture;
 
-//ƒeƒNƒXƒ`ƒƒƒTƒ“ƒvƒ‰
+//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚µãƒ³ãƒ—ãƒ©
 sampler TextureSampler = 
 sampler_state
 {
@@ -40,7 +40,7 @@ sampler_state
 	
 };
 
-//’¸“_ƒVƒF[ƒ_[
+//é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 PS_INPUT vs(VS_INPUT input)
 {
 	PS_INPUT output;
@@ -52,7 +52,7 @@ PS_INPUT vs(VS_INPUT input)
 	return output;
 }
 
-//ƒsƒNƒZƒ‹ƒVƒF[ƒ_[
+//ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 OM_INPUT ps(PS_INPUT input)
 {
 	OM_INPUT output;
@@ -60,7 +60,7 @@ OM_INPUT ps(PS_INPUT input)
 	return output;
 }
 
-//ƒeƒNƒjƒbƒN
+//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯
 technique TShader
 {
 	pass P0
@@ -69,7 +69,7 @@ technique TShader
 		PixelShader = compile ps_3_0 ps();
 	}
 
-	pass P1		//”¼“§–¾
+	pass P1		//åŠé€æ˜
 	{
 		VertexShader = compile vs_3_0 vs();
 		PixelShader = compile ps_3_0 ps();
@@ -79,7 +79,7 @@ technique TShader
 		DestBlend = INVSRCALPHA;
 	}
 
-	pass P2		//‰ÁZ‡¬
+	pass P2		//åŠ ç®—åˆæˆ
 	{
 		VertexShader = compile vs_3_0 vs();
 		PixelShader = compile ps_3_0 ps();

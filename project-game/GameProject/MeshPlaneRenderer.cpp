@@ -1,12 +1,12 @@
 /*==============================================================================
 
-   MeshPlaneRenderer.cpp - •½–Ê•`‰æ
+   MeshPlaneRenderer.cpp - å¹³é¢æç”»
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/24
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "MeshPlaneRenderer.h"
 #include "GameObject.h"
@@ -15,19 +15,19 @@
 #include "Material.h"
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒNƒ’è‹`
+	ãƒã‚¯ãƒ­å®šç¾©
 ------------------------------------------------------------------------------*/
-#define P_POS_X(P_WIDTH, NUM_FIELD_X) (0.0f + P_WIDTH * NUM_FIELD_X * -0.5f)		//ŠJn’n“_‚ÌXÀ•W
-#define P_POS_Y (0.0f)																//ŠJn’n“_‚ÌYÀ•W
-#define P_POS_Z(P_HEIGHT, NUM_FIELD_Z) (0.0f + P_HEIGHT * NUM_FIELD_Z * 0.5f)		//ŠJn’n“_‚ÌZÀ•W
-#define P_WIDTH( ALL_WIDTH, NUM_FIELD_X)			( ALL_WIDTH / NUM_FIELD_X)										//ƒ|ƒŠƒSƒ“ˆê–‡‚ ‚½‚è‚Ì•
-#define P_HEIGHT( ALL_HEIGHT, NUM_FIELD_Z)			( ALL_HEIGHT / NUM_FIELD_Z)										//ƒ|ƒŠƒSƒ“ˆê–‡‚ ‚½‚è‚Ì‚‚³
-#define NUM_POLYGON( NUM_FIELD_X, NUM_FIELD_Z)		( 2 * NUM_FIELD_X * NUM_FIELD_Z + ( NUM_FIELD_Z - 1) * 4)		//ƒ|ƒŠƒSƒ“”
-#define NUM_VERTEX( NUM_FIELD_X, NUM_FIELD_Z)		( ( NUM_FIELD_X + 1) * ( NUM_FIELD_Z + 1))						//’¸“_”
-#define NUM_INDEX( NUM_FIELD_X, NUM_FIELD_Z)		( ( (NUM_FIELD_X + 1) * 2 + 2) * NUM_FIELD_Z - 2)				//ƒCƒ“ƒfƒbƒNƒX”
+#define P_POS_X(P_WIDTH, NUM_FIELD_X) (0.0f + P_WIDTH * NUM_FIELD_X * -0.5f)		//é–‹å§‹åœ°ç‚¹ã®Xåº§æ¨™
+#define P_POS_Y (0.0f)																//é–‹å§‹åœ°ç‚¹ã®Yåº§æ¨™
+#define P_POS_Z(P_HEIGHT, NUM_FIELD_Z) (0.0f + P_HEIGHT * NUM_FIELD_Z * 0.5f)		//é–‹å§‹åœ°ç‚¹ã®Zåº§æ¨™
+#define P_WIDTH( ALL_WIDTH, NUM_FIELD_X)			( ALL_WIDTH / NUM_FIELD_X)										//ãƒãƒªã‚´ãƒ³ä¸€æšã‚ãŸã‚Šã®å¹…
+#define P_HEIGHT( ALL_HEIGHT, NUM_FIELD_Z)			( ALL_HEIGHT / NUM_FIELD_Z)										//ãƒãƒªã‚´ãƒ³ä¸€æšã‚ãŸã‚Šã®é«˜ã•
+#define NUM_POLYGON( NUM_FIELD_X, NUM_FIELD_Z)		( 2 * NUM_FIELD_X * NUM_FIELD_Z + ( NUM_FIELD_Z - 1) * 4)		//ãƒãƒªã‚´ãƒ³æ•°
+#define NUM_VERTEX( NUM_FIELD_X, NUM_FIELD_Z)		( ( NUM_FIELD_X + 1) * ( NUM_FIELD_Z + 1))						//é ‚ç‚¹æ•°
+#define NUM_INDEX( NUM_FIELD_X, NUM_FIELD_Z)		( ( (NUM_FIELD_X + 1) * 2 + 2) * NUM_FIELD_Z - 2)				//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* MeshPlaneRenderer::Create(GameObject* gameObject)
 {
@@ -35,7 +35,7 @@ Component* MeshPlaneRenderer::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 MeshPlaneRenderer::MeshPlaneRenderer( GameObject *pGameObject)
 {
@@ -44,82 +44,82 @@ MeshPlaneRenderer::MeshPlaneRenderer( GameObject *pGameObject)
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 	m_nPass = 1;
 
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//F‚Ìİ’è
+	//è‰²ã®è¨­å®š
 	m_Color = D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f);
 
-	//ƒfƒtƒHƒ‹ƒg’lİ’è
-	m_nNumBlockX = 1;			//‰¡‚Ì•ªŠ„”
-	m_nNumBlockZ = 1;			//c‚Ì•ªŠ„”
-	m_fWidth = 1.0f;			//•
-	m_fHeight = 1.0f;			//‚‚³
-	m_fBlockWidth = P_WIDTH( m_fWidth, m_nNumBlockX);		//ƒ|ƒŠƒSƒ“1–‡‚ ‚½‚è‚Ì•
-	m_fBlockHeight = P_HEIGHT( m_fHeight, m_nNumBlockZ);	//ƒ|ƒŠƒSƒ“1–‡‚ ‚½‚è‚Ì‚‚³
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤è¨­å®š
+	m_nNumBlockX = 1;			//æ¨ªã®åˆ†å‰²æ•°
+	m_nNumBlockZ = 1;			//ç¸¦ã®åˆ†å‰²æ•°
+	m_fWidth = 1.0f;			//å¹…
+	m_fHeight = 1.0f;			//é«˜ã•
+	m_fBlockWidth = P_WIDTH( m_fWidth, m_nNumBlockX);		//ãƒãƒªã‚´ãƒ³1æšã‚ãŸã‚Šã®å¹…
+	m_fBlockHeight = P_HEIGHT( m_fHeight, m_nNumBlockZ);	//ãƒãƒªã‚´ãƒ³1æšã‚ãŸã‚Šã®é«˜ã•
 	
-	//’¸“_ƒoƒbƒtƒ@¶¬
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	if( FAILED( pDevice->CreateVertexBuffer(
-		sizeof( VERTEX_3D) * NUM_VERTEX( m_nNumBlockX, m_nNumBlockZ),				//ì¬‚µ‚½‚¢’¸“_ƒoƒbƒtƒ@‚ÌƒTƒCƒY
-		D3DUSAGE_WRITEONLY,					//’¸“_ƒoƒbƒtƒ@‚Ìg—p•û–@(‘¬‚³‚É‰e‹¿)
-		0,									//FVF(’¸“_ƒtƒH[ƒ}ƒbƒg)
-		D3DPOOL_MANAGED,					//ƒƒ‚ƒŠ‚ÌŠÇ—(MANAGED‚ÍƒfƒoƒCƒX‚É‚¨‚Ü‚©‚¹)
-		&m_pVtxBuff,						//’¸“_ƒoƒbƒtƒ@ŠÇ—ƒCƒ“ƒ^[ƒtƒFƒCƒX
+		sizeof( VERTEX_3D) * NUM_VERTEX( m_nNumBlockX, m_nNumBlockZ),				//ä½œæˆã—ãŸã„é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º
+		D3DUSAGE_WRITEONLY,					//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½¿ç”¨æ–¹æ³•(é€Ÿã•ã«å½±éŸ¿)
+		0,									//FVF(é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ)
+		D3DPOOL_MANAGED,					//ãƒ¡ãƒ¢ãƒªã®ç®¡ç†(MANAGEDã¯ãƒ‡ãƒã‚¤ã‚¹ã«ãŠã¾ã‹ã›)
+		&m_pVtxBuff,						//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç®¡ç†ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 		NULL)))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
 
-	//’¸“_ƒoƒbƒtƒ@İ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetVtxBuffer();
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ìì¬
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½œæˆ
 	HRESULT hr;
 	hr = pDevice->CreateIndexBuffer(
-		sizeof( WORD) * NUM_INDEX( m_nNumBlockX, m_nNumBlockZ),		 //ƒTƒCƒYiWORD or DWORDj*ƒCƒ“ƒfƒbƒNƒX”
-		D3DUSAGE_WRITEONLY,				 //g—p—p“rƒtƒ‰ƒO
-		D3DFMT_INDEX16,					 //ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^‚ÌƒtƒH[ƒ}ƒbƒgi16 or 32j
-		D3DPOOL_MANAGED,				 //ƒƒ‚ƒŠ‚ÌŠÇ—•û–@i‚¨‚Ü‚©‚¹j
-		&m_pIdxBuff,					 //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ƒCƒ“ƒ^[ƒtƒFƒCƒXƒ|ƒCƒ“ƒ^‚ÌƒAƒhƒŒƒX
+		sizeof( WORD) * NUM_INDEX( m_nNumBlockX, m_nNumBlockZ),		 //ã‚µã‚¤ã‚ºï¼ˆWORD or DWORDï¼‰*ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°
+		D3DUSAGE_WRITEONLY,				 //ä½¿ç”¨ç”¨é€”ãƒ•ãƒ©ã‚°
+		D3DFMT_INDEX16,					 //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆï¼ˆ16 or 32ï¼‰
+		D3DPOOL_MANAGED,				 //ãƒ¡ãƒ¢ãƒªã®ç®¡ç†æ–¹æ³•ï¼ˆãŠã¾ã‹ã›ï¼‰
+		&m_pIdxBuff,					 //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
 		NULL);
 
 	if( FAILED( hr))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@İ’è
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetIdxBuffer();
 
-	//ƒ}ƒeƒŠƒAƒ‹
+	//ãƒãƒ†ãƒªã‚¢ãƒ«
 	m_pMaterial = new Material();
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void MeshPlaneRenderer::Uninit( void)
 {
 	Manager::GetRenderManager()->ReleaseRenderer( this);
 
-	//’¸“_ƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	if( m_pVtxBuff != NULL)
 	{
 		m_pVtxBuff->Release();
 		m_pVtxBuff = NULL;
 	}
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	if( m_pIdxBuff != NULL)
 	{
 		m_pIdxBuff->Release();
 		m_pIdxBuff = NULL;
 	}
 
-	//ƒ}ƒeƒŠƒAƒ‹‚Ì‰ğ•ú
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ã®è§£æ”¾
 	if (m_pMaterial != NULL)
 	{
 		delete m_pMaterial;
@@ -128,7 +128,7 @@ void MeshPlaneRenderer::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void MeshPlaneRenderer::Update( void)
 {
@@ -136,91 +136,91 @@ void MeshPlaneRenderer::Update( void)
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æ
+	æç”»
 ------------------------------------------------------------------------------*/
 void MeshPlaneRenderer::Draw( Camera* pCamera)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//ƒ}ƒeƒŠƒAƒ‹iƒVƒF[ƒ_[j‚ğƒZƒbƒg
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ï¼ˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ï¼‰ã‚’ã‚»ãƒƒãƒˆ
 	m_pMaterial->Set( pCamera, this);
 
-	//’¸“_î•ñİ’è
+	//é ‚ç‚¹æƒ…å ±è¨­å®š
 	pDevice-> SetStreamSource( 0, m_pVtxBuff, 0, sizeof( VERTEX_3D));
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ìİ’è
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨­å®š
 	pDevice->SetIndices( m_pIdxBuff);
 
-	//ƒeƒNƒjƒbƒNŠJn
+	//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯é–‹å§‹
 	m_pMaterial->Begin( m_nPass);
 
-	//ƒvƒŠƒ~ƒeƒBƒuiƒ|ƒŠƒSƒ“E}Œ`j‚Ì•`‰æ
+	//ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ï¼ˆãƒãƒªã‚´ãƒ³ãƒ»å›³å½¢ï¼‰ã®æç”»
 	pDevice->DrawIndexedPrimitive( D3DPT_TRIANGLESTRIP,	0, 0, 
 		NUM_VERTEX( m_nNumBlockX, m_nNumBlockZ), 0,	NUM_POLYGON( m_nNumBlockX, m_nNumBlockZ));
 
-	//ƒeƒNƒjƒbƒNI—¹
+	//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯çµ‚äº†
 	m_pMaterial->End();
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_ƒoƒbƒtƒ@İ’è
+	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshPlaneRenderer::SetVtxBuffer( void)
 {
-	//’¸“_ƒoƒbƒtƒ@‚ğƒƒbƒN‚µ‚ÄA‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚é
-	VERTEX_3D* pVtx;				//‰¼‘zƒAƒhƒŒƒX—pƒ|ƒCƒ“ƒ^
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ãƒ­ãƒƒã‚¯ã—ã¦ã€ä»®æƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—ã™ã‚‹
+	VERTEX_3D* pVtx;				//ä»®æƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹ç”¨ãƒã‚¤ãƒ³ã‚¿
 	m_pVtxBuff->Lock( 0, 0, (void**)&pVtx,0);
 
-	//•Ï”éŒ¾
-	int nCntHeight = 0;		//‚½‚ÄƒJƒEƒ“ƒ^
-	int nCntWidth = 0;		//‚æ‚±ƒJƒEƒ“ƒ^
+	//å¤‰æ•°å®£è¨€
+	int nCntHeight = 0;		//ãŸã¦ã‚«ã‚¦ãƒ³ã‚¿
+	int nCntWidth = 0;		//ã‚ˆã“ã‚«ã‚¦ãƒ³ã‚¿
 
-	//ƒ|ƒŠƒSƒ“‚Ìİ’è
+	//ãƒãƒªã‚´ãƒ³ã®è¨­å®š
 	for( nCntHeight = 0; nCntHeight < m_nNumBlockZ + 1; nCntHeight++)
 	{
 		for( nCntWidth = 0; nCntWidth < m_nNumBlockX + 1; nCntWidth++)
 		{
-			//’¸“_À•W‚Ìİ’è
+			//é ‚ç‚¹åº§æ¨™ã®è¨­å®š
 			pVtx[ 0].Pos = D3DXVECTOR3(
 				m_fWidth * -0.5f + m_fBlockWidth * nCntWidth,
 				0.0f,
 				m_fHeight * 0.5f - m_fBlockHeight * nCntHeight);
 			
-			//–@ü‚Ìİ’è
+			//æ³•ç·šã®è¨­å®š
 			pVtx[ 0].Normal = D3DXVECTOR3( 0.0f, 1.0f, 0.0f);
 			
-			//’¸“_ƒJƒ‰[‚Ìİ’è
+			//é ‚ç‚¹ã‚«ãƒ©ãƒ¼ã®è¨­å®š
 			pVtx[ 0].Color = m_Color;
 			
-			//UVƒf[ƒ^‚Ìİ’è
+			//UVãƒ‡ãƒ¼ã‚¿ã®è¨­å®š
 			pVtx[ 0].Tex = D3DXVECTOR2( 1.0f * nCntWidth, 1.0f * nCntHeight);
 			
-			//ƒ|ƒCƒ“ƒ^‚ğ‚¸‚ç‚·
+			//ãƒã‚¤ãƒ³ã‚¿ã‚’ãšã‚‰ã™
 			pVtx += 1;
 		}
 	}
 
-	//ƒAƒ“ƒƒbƒN
+	//ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
 	m_pVtxBuff->Unlock();
 }
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@İ’è
+	ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshPlaneRenderer::SetIdxBuffer(void)
 {
-	//’¸“_ƒoƒbƒtƒ@‚ğƒƒbƒN‚µ‚ÄA‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚é
-	WORD* pIdx;		//ƒCƒ“ƒfƒbƒNƒXî•ñ
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ãƒ­ãƒƒã‚¯ã—ã¦ã€ä»®æƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—ã™ã‚‹
+	WORD* pIdx;		//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æƒ…å ±
 	m_pIdxBuff->Lock( 0, 0, (void**)&pIdx, 0);
 
-	//•Ï”éŒ¾
-	int nCntHeight = 0;		//‚½‚ÄƒJƒEƒ“ƒ^
-	int nCntWidth = 0;		//‚æ‚±ƒJƒEƒ“ƒ^
+	//å¤‰æ•°å®£è¨€
+	int nCntHeight = 0;		//ãŸã¦ã‚«ã‚¦ãƒ³ã‚¿
+	int nCntWidth = 0;		//ã‚ˆã“ã‚«ã‚¦ãƒ³ã‚¿
 
-	//ƒCƒ“ƒfƒbƒNƒXî•ñ‚Ìİ’è
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æƒ…å ±ã®è¨­å®š
 	for( nCntHeight = 0; nCntHeight < m_nNumBlockZ; nCntHeight++)
 	{
-		//•\¦‚·‚éƒ|ƒŠƒSƒ“‚ÌƒCƒ“ƒfƒbƒNƒXî•ñ‚Ìİ’è
+		//è¡¨ç¤ºã™ã‚‹ãƒãƒªã‚´ãƒ³ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æƒ…å ±ã®è¨­å®š
 		for( nCntWidth = 0; nCntWidth < m_nNumBlockX + 1; nCntWidth++)
 		{
 			pIdx[ 0] = ( nCntHeight + 1) * ( m_nNumBlockX + 1) + nCntWidth;
@@ -229,186 +229,186 @@ void MeshPlaneRenderer::SetIdxBuffer(void)
 			pIdx += 2;
 		}
 
-		//ÅŒã‚Ík‘Şƒ|ƒŠƒSƒ“•s—v
+		//æœ€å¾Œã¯ç¸®é€€ãƒãƒªã‚´ãƒ³ä¸è¦
 		if( nCntHeight == m_nNumBlockZ - 1)
 		{
 			break;
 		}
 
-		//k‘Şƒ|ƒŠƒSƒ“‚ÌƒCƒ“ƒfƒbƒNƒXî•ñ‚Ìİ’è
+		//ç¸®é€€ãƒãƒªã‚´ãƒ³ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æƒ…å ±ã®è¨­å®š
 		pIdx[ 0] = nCntHeight * ( m_nNumBlockX + 1) + nCntWidth - 1;
 		pIdx[ 1] = ( nCntHeight + 2) * ( m_nNumBlockX + 1);
 		
 		pIdx += 2;
 	}
 
-	//ƒAƒ“ƒƒbƒN
+	//ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
 	m_pIdxBuff->Unlock();
 }
 
 /*------------------------------------------------------------------------------
-	•ªŠ„”‚ğİ’èi1–‡“–‚½‚è‚Ì‘å‚«‚³•Ï‚¦‚È‚¢j
+	åˆ†å‰²æ•°ã‚’è¨­å®šï¼ˆ1æšå½“ãŸã‚Šã®å¤§ãã•å¤‰ãˆãªã„ï¼‰
 ------------------------------------------------------------------------------*/
 void MeshPlaneRenderer::SetBlockNum( int X, int Z)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//İ’è
+	//è¨­å®š
 	m_nNumBlockX = X;
 	m_nNumBlockZ = Z;
 	m_fWidth = m_nNumBlockX * m_fBlockWidth;
 	m_fHeight = m_nNumBlockZ * m_fBlockHeight;
 	
 
-	//’¸“_ƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	if( m_pVtxBuff != NULL)
 	{
 		m_pVtxBuff->Release();
 		m_pVtxBuff = NULL;
 	}
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	if( m_pIdxBuff != NULL)
 	{
 		m_pIdxBuff->Release();
 		m_pIdxBuff = NULL;
 	}
 	
-	//’¸“_ƒoƒbƒtƒ@¶¬
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	if( FAILED( pDevice->CreateVertexBuffer(
-		sizeof( VERTEX_3D) * NUM_VERTEX( m_nNumBlockX, m_nNumBlockZ),				//ì¬‚µ‚½‚¢’¸“_ƒoƒbƒtƒ@‚ÌƒTƒCƒY
-		D3DUSAGE_WRITEONLY,					//’¸“_ƒoƒbƒtƒ@‚Ìg—p•û–@(‘¬‚³‚É‰e‹¿)
-		0,									//FVF(’¸“_ƒtƒH[ƒ}ƒbƒg)
-		D3DPOOL_MANAGED,					//ƒƒ‚ƒŠ‚ÌŠÇ—(MANAGED‚ÍƒfƒoƒCƒX‚É‚¨‚Ü‚©‚¹)
-		&m_pVtxBuff,						//’¸“_ƒoƒbƒtƒ@ŠÇ—ƒCƒ“ƒ^[ƒtƒFƒCƒX
+		sizeof( VERTEX_3D) * NUM_VERTEX( m_nNumBlockX, m_nNumBlockZ),				//ä½œæˆã—ãŸã„é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º
+		D3DUSAGE_WRITEONLY,					//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½¿ç”¨æ–¹æ³•(é€Ÿã•ã«å½±éŸ¿)
+		0,									//FVF(é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ)
+		D3DPOOL_MANAGED,					//ãƒ¡ãƒ¢ãƒªã®ç®¡ç†(MANAGEDã¯ãƒ‡ãƒã‚¤ã‚¹ã«ãŠã¾ã‹ã›)
+		&m_pVtxBuff,						//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç®¡ç†ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 		NULL)))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
 
-	//’¸“_ƒoƒbƒtƒ@İ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetVtxBuffer();
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ìì¬
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½œæˆ
 	HRESULT hr;
 	hr = pDevice->CreateIndexBuffer(
-		sizeof( WORD) * NUM_INDEX( m_nNumBlockX, m_nNumBlockZ),		 //ƒTƒCƒYiWORD or DWORDj*ƒCƒ“ƒfƒbƒNƒX”
-		D3DUSAGE_WRITEONLY,				 //g—p—p“rƒtƒ‰ƒO
-		D3DFMT_INDEX16,					 //ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^‚ÌƒtƒH[ƒ}ƒbƒgi16 or 32j
-		D3DPOOL_MANAGED,				 //ƒƒ‚ƒŠ‚ÌŠÇ—•û–@i‚¨‚Ü‚©‚¹j
-		&m_pIdxBuff,					 //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ƒCƒ“ƒ^[ƒtƒFƒCƒXƒ|ƒCƒ“ƒ^‚ÌƒAƒhƒŒƒX
+		sizeof( WORD) * NUM_INDEX( m_nNumBlockX, m_nNumBlockZ),		 //ã‚µã‚¤ã‚ºï¼ˆWORD or DWORDï¼‰*ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°
+		D3DUSAGE_WRITEONLY,				 //ä½¿ç”¨ç”¨é€”ãƒ•ãƒ©ã‚°
+		D3DFMT_INDEX16,					 //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆï¼ˆ16 or 32ï¼‰
+		D3DPOOL_MANAGED,				 //ãƒ¡ãƒ¢ãƒªã®ç®¡ç†æ–¹æ³•ï¼ˆãŠã¾ã‹ã›ï¼‰
+		&m_pIdxBuff,					 //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
 		NULL);
 
 	if( FAILED( hr))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@İ’è
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetIdxBuffer();
 }
 
 /*------------------------------------------------------------------------------
-	ƒ|ƒŠƒSƒ“ˆê–‡‚ ‚½‚è‚Ì•E‚‚³‚ğİ’è
+	ãƒãƒªã‚´ãƒ³ä¸€æšã‚ãŸã‚Šã®å¹…ãƒ»é«˜ã•ã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshPlaneRenderer::SetBlockSize( float Width, float Height)
 {
-	//İ’è
+	//è¨­å®š
 	m_fBlockWidth = Width;
 	m_fBlockHeight = Height;
 	m_fWidth = m_nNumBlockX * m_fBlockWidth;
 	m_fHeight = m_nNumBlockZ * m_fBlockHeight;
 	
-	//’¸“_ƒoƒbƒtƒ@İ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetVtxBuffer();
 }
 
 /*------------------------------------------------------------------------------
-	•ªŠ„”‚ğİ’è
+	åˆ†å‰²æ•°ã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshPlaneRenderer::SetNum( int X, int Z)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//İ’è
-	m_nNumBlockX = X;			//‰¡‚Ì•ªŠ„”
-	m_nNumBlockZ = Z;			//c‚Ì•ªŠ„”
-	m_fBlockWidth = P_WIDTH( m_fWidth, m_nNumBlockX);		//ƒ|ƒŠƒSƒ“1–‡‚ ‚½‚è‚Ì•
-	m_fBlockHeight = P_HEIGHT( m_fHeight, m_nNumBlockZ);	//ƒ|ƒŠƒSƒ“1–‡‚ ‚½‚è‚Ì‚‚³
+	//è¨­å®š
+	m_nNumBlockX = X;			//æ¨ªã®åˆ†å‰²æ•°
+	m_nNumBlockZ = Z;			//ç¸¦ã®åˆ†å‰²æ•°
+	m_fBlockWidth = P_WIDTH( m_fWidth, m_nNumBlockX);		//ãƒãƒªã‚´ãƒ³1æšã‚ãŸã‚Šã®å¹…
+	m_fBlockHeight = P_HEIGHT( m_fHeight, m_nNumBlockZ);	//ãƒãƒªã‚´ãƒ³1æšã‚ãŸã‚Šã®é«˜ã•
 
-	//’¸“_ƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	if( m_pVtxBuff != NULL)
 	{
 		m_pVtxBuff->Release();
 		m_pVtxBuff = NULL;
 	}
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	if( m_pIdxBuff != NULL)
 	{
 		m_pIdxBuff->Release();
 		m_pIdxBuff = NULL;
 	}
 	
-	//’¸“_ƒoƒbƒtƒ@¶¬
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	if( FAILED( pDevice->CreateVertexBuffer(
-		sizeof( VERTEX_3D) * NUM_VERTEX( m_nNumBlockX, m_nNumBlockZ),				//ì¬‚µ‚½‚¢’¸“_ƒoƒbƒtƒ@‚ÌƒTƒCƒY
-		D3DUSAGE_WRITEONLY,					//’¸“_ƒoƒbƒtƒ@‚Ìg—p•û–@(‘¬‚³‚É‰e‹¿)
-		0,									//FVF(’¸“_ƒtƒH[ƒ}ƒbƒg)
-		D3DPOOL_MANAGED,					//ƒƒ‚ƒŠ‚ÌŠÇ—(MANAGED‚ÍƒfƒoƒCƒX‚É‚¨‚Ü‚©‚¹)
-		&m_pVtxBuff,						//’¸“_ƒoƒbƒtƒ@ŠÇ—ƒCƒ“ƒ^[ƒtƒFƒCƒX
+		sizeof( VERTEX_3D) * NUM_VERTEX( m_nNumBlockX, m_nNumBlockZ),				//ä½œæˆã—ãŸã„é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ã‚µã‚¤ã‚º
+		D3DUSAGE_WRITEONLY,					//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½¿ç”¨æ–¹æ³•(é€Ÿã•ã«å½±éŸ¿)
+		0,									//FVF(é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ)
+		D3DPOOL_MANAGED,					//ãƒ¡ãƒ¢ãƒªã®ç®¡ç†(MANAGEDã¯ãƒ‡ãƒã‚¤ã‚¹ã«ãŠã¾ã‹ã›)
+		&m_pVtxBuff,						//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç®¡ç†ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 		NULL)))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
 
-	//’¸“_ƒoƒbƒtƒ@İ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetVtxBuffer();
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ìì¬
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®ä½œæˆ
 	HRESULT hr;
 	hr = pDevice->CreateIndexBuffer(
-		sizeof( WORD) * NUM_INDEX( m_nNumBlockX, m_nNumBlockZ),		 //ƒTƒCƒYiWORD or DWORDj*ƒCƒ“ƒfƒbƒNƒX”
-		D3DUSAGE_WRITEONLY,				 //g—p—p“rƒtƒ‰ƒO
-		D3DFMT_INDEX16,					 //ƒCƒ“ƒfƒbƒNƒXƒf[ƒ^‚ÌƒtƒH[ƒ}ƒbƒgi16 or 32j
-		D3DPOOL_MANAGED,				 //ƒƒ‚ƒŠ‚ÌŠÇ—•û–@i‚¨‚Ü‚©‚¹j
-		&m_pIdxBuff,					 //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ƒCƒ“ƒ^[ƒtƒFƒCƒXƒ|ƒCƒ“ƒ^‚ÌƒAƒhƒŒƒX
+		sizeof( WORD) * NUM_INDEX( m_nNumBlockX, m_nNumBlockZ),		 //ã‚µã‚¤ã‚ºï¼ˆWORD or DWORDï¼‰*ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹æ•°
+		D3DUSAGE_WRITEONLY,				 //ä½¿ç”¨ç”¨é€”ãƒ•ãƒ©ã‚°
+		D3DFMT_INDEX16,					 //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒ‡ãƒ¼ã‚¿ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆï¼ˆ16 or 32ï¼‰
+		D3DPOOL_MANAGED,				 //ãƒ¡ãƒ¢ãƒªã®ç®¡ç†æ–¹æ³•ï¼ˆãŠã¾ã‹ã›ï¼‰
+		&m_pIdxBuff,					 //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ãƒã‚¤ãƒ³ã‚¿ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
 		NULL);
 
 	if( FAILED( hr))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
 
-	//ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@İ’è
+	//ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetIdxBuffer();
 }
 
 /*------------------------------------------------------------------------------
-	•E‚‚³‚ğİ’è
+	å¹…ãƒ»é«˜ã•ã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshPlaneRenderer::SetSize( float Width, float Height)
 {
-	//İ’è
+	//è¨­å®š
 	m_fWidth = Width;
 	m_fHeight = Height;
-	m_fBlockWidth = P_WIDTH( m_fWidth, m_nNumBlockX);		//ƒ|ƒŠƒSƒ“1–‡‚ ‚½‚è‚Ì•
-	m_fBlockHeight = P_HEIGHT( m_fHeight, m_nNumBlockZ);	//ƒ|ƒŠƒSƒ“1–‡‚ ‚½‚è‚Ì‚‚³
+	m_fBlockWidth = P_WIDTH( m_fWidth, m_nNumBlockX);		//ãƒãƒªã‚´ãƒ³1æšã‚ãŸã‚Šã®å¹…
+	m_fBlockHeight = P_HEIGHT( m_fHeight, m_nNumBlockZ);	//ãƒãƒªã‚´ãƒ³1æšã‚ãŸã‚Šã®é«˜ã•
 	
-	//’¸“_ƒoƒbƒtƒ@İ’è
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 	SetVtxBuffer();
 }
 
 /*------------------------------------------------------------------------------
-	ƒeƒNƒXƒ`ƒƒİ’è
+	ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshPlaneRenderer::LoadTexture(std::string FileName)
 {
@@ -416,7 +416,7 @@ void MeshPlaneRenderer::LoadTexture(std::string FileName)
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[İ’è
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshPlaneRenderer::SetShader(EShaderType Type)
 {
@@ -424,11 +424,11 @@ void MeshPlaneRenderer::SetShader(EShaderType Type)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void MeshPlaneRenderer::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -490,7 +490,7 @@ void MeshPlaneRenderer::Load(Text& text)
 			m_fBlockHeight = std::stof(text.GetWord());
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
@@ -501,7 +501,7 @@ void MeshPlaneRenderer::Load(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void MeshPlaneRenderer::Save(Text& text)
 {

@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    Face.cpp - ƒn[ƒtƒGƒbƒW\‘¢[–Ê
+    Face.cpp - ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸æ§‹é€ ãƒ¼é¢
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/11/25
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "Vertex.h"
 #include "Edge.h"
@@ -17,7 +17,7 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Face::Face( HalfEdgeDataStructure::Model* model, HalfEdge* he)
 	: m_Model(model), m_HalfEdge(he), m_Attribute( NULL)
@@ -27,7 +27,7 @@ Face::Face( HalfEdgeDataStructure::Model* model, HalfEdge* he)
 }
 
 /*------------------------------------------------------------------------------
-	ƒfƒXƒgƒ‰ƒNƒ^
+	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 Face::~Face()
 {
@@ -35,7 +35,7 @@ Face::~Face()
 }
 
 /*------------------------------------------------------------------------------
-	íœ
+	å‰Šé™¤
 ------------------------------------------------------------------------------*/
 void Face::Delete(void)
 {
@@ -47,12 +47,12 @@ void Face::Delete(void)
 }
 
 /*------------------------------------------------------------------------------
-	•ªŠ„‚·‚é
+	åˆ†å‰²ã™ã‚‹
 ------------------------------------------------------------------------------*/
 bool Face::Divide(Vertex* start, Vertex* end, Edge** ppOut)
 {
-	//ˆø”‚Ì’¸“_‚ª•ªŠ„‚É“K‚µ‚Ä‚¢‚é‚©ƒ`ƒFƒbƒN
-	//‚±‚Ì–Ê‚Ìã‚É‚ ‚éƒn[ƒtƒGƒbƒW‚ª‚ ‚é‚©
+	//å¼•æ•°ã®é ‚ç‚¹ãŒåˆ†å‰²ã«é©ã—ã¦ã„ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
+	//ã“ã®é¢ã®ä¸Šã«ã‚ã‚‹ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ãŒã‚ã‚‹ã‹
 	auto startHalfEdge = start->SearchHalfEdgeOnFace( this);
 	if (!startHalfEdge)
 	{
@@ -64,7 +64,7 @@ bool Face::Divide(Vertex* start, Vertex* end, Edge** ppOut)
 		return false;
 	}
 
-	//V‚µ‚¢–Ê‚ğ¶¬‚Å‚«‚é‚©iˆê’¼üã‚É‚ ‚é‚Æ–Ê‚ª‚Å‚«‚È‚¢j
+	//æ–°ã—ã„é¢ã‚’ç”Ÿæˆã§ãã‚‹ã‹ï¼ˆä¸€ç›´ç·šä¸Šã«ã‚ã‚‹ã¨é¢ãŒã§ããªã„ï¼‰
 	if (startHalfEdge->GetNext() == endHalfEdge || endHalfEdge->GetNext() == startHalfEdge)
 	{
 		return false;
@@ -75,7 +75,7 @@ bool Face::Divide(Vertex* start, Vertex* end, Edge** ppOut)
 		return false;
 	}
 
-	//•Ó‚Ì¶¬
+	//è¾ºã®ç”Ÿæˆ
 	auto edge = m_Model->CreateEdge( start, end);
 	auto right = new HalfEdge( m_Model, end);
 	auto left = new HalfEdge( m_Model, start);
@@ -86,30 +86,30 @@ bool Face::Divide(Vertex* start, Vertex* end, Edge** ppOut)
 	right->SetPair( left);
 	left->SetPair( right);
 
-	//“_‚É•Ó‚ğİ’è
+	//ç‚¹ã«è¾ºã‚’è¨­å®š
 	start->RegisterEdge( edge);
 	end->RegisterEdge( edge);
 
-	//•Ó‚ğo—Í
+	//è¾ºã‚’å‡ºåŠ›
 	if (ppOut)
 	{
 		*ppOut = edge;
 	}
 
-	//ŠÖŒW«‚ğİ’è
+	//é–¢ä¿‚æ€§ã‚’è¨­å®š
 	right->SetNext( endHalfEdge->GetNext());
 	left->SetNext( startHalfEdge->GetNext());
 	startHalfEdge->SetNext( right);
 	endHalfEdge->SetNext( left);
 	right->SetFace( this);
 
-	//–Ê‚Ì¶¬
+	//é¢ã®ç”Ÿæˆ
 	auto face = m_Model->CreateFace( left);
 
-	//–Ê‚Éƒn[ƒtƒGƒbƒW‚ğİ’è
+	//é¢ã«ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’è¨­å®š
 	this->SetHalfEdge( right);
 	
-	//ƒn[ƒtƒGƒbƒW‚É–Ê‚ğİ’è
+	//ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã«é¢ã‚’è¨­å®š
 	HalfEdge* he = left->GetNext();
 	for (;;)
 	{
@@ -131,7 +131,7 @@ bool Face::Divide(Vertex* start, Vertex* end, Edge** ppOut)
 		he = he->GetNext();
 	}
 
-	//–Ê‚ÌXV
+	//é¢ã®æ›´æ–°
 	if( this->m_Attribute)
 	{
 		this->m_Attribute->Update();
@@ -145,11 +145,11 @@ bool Face::Divide(Vertex* start, Vertex* end, Edge** ppOut)
 }
 
 /*------------------------------------------------------------------------------
-	•ªŠ„‚·‚é‚½‚ß‚É•K—v‚Èƒn[ƒtƒGƒbƒWin“_‚ğI“_‚Æ‚·‚é‚à‚Ìj‚ğ‚³‚ª‚·
+	åˆ†å‰²ã™ã‚‹ãŸã‚ã«å¿…è¦ãªãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ï¼ˆå§‹ç‚¹ã‚’çµ‚ç‚¹ã¨ã™ã‚‹ã‚‚ã®ï¼‰ã‚’ã•ãŒã™
 ------------------------------------------------------------------------------*/
 HalfEdge* Face::SearchStartHalfEdgeForDivide(Vertex* start, Vertex* end)
 {
-	//n“_‚ğI“_‚Æ‚·‚é‚·‚×‚Ä‚Ìƒn[ƒtƒGƒbƒW‚ğƒ`ƒFƒbƒN
+	//å§‹ç‚¹ã‚’çµ‚ç‚¹ã¨ã™ã‚‹ã™ã¹ã¦ã®ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’ãƒã‚§ãƒƒã‚¯
 	auto halfedges = start->GetHalfEdges();
 	for (auto halfedge : halfedges)
 	{
@@ -159,12 +159,12 @@ HalfEdge* Face::SearchStartHalfEdgeForDivide(Vertex* start, Vertex* end)
 		}
 	}
 
-	//Œ©‚Â‚©‚ç‚È‚¢
+	//è¦‹ã¤ã‹ã‚‰ãªã„
 	return NULL;
 }
 
 /*------------------------------------------------------------------------------
-	ˆê”Ô’·‚¢•Ó‚ğ‚³‚ª‚·
+	ä¸€ç•ªé•·ã„è¾ºã‚’ã•ãŒã™
 ------------------------------------------------------------------------------*/
 HalfEdge* Face::SearchLongestHalfEdge(void)
 {
@@ -190,7 +190,7 @@ HalfEdge* Face::SearchLongestHalfEdge(void)
 }
 
 /*------------------------------------------------------------------------------
-	ˆê’¼ü‚É‚È‚éƒn[ƒtƒGƒbƒW‚ğ‚³‚ª‚·
+	ä¸€ç›´ç·šã«ãªã‚‹ãƒãƒ¼ãƒ•ã‚¨ãƒƒã‚¸ã‚’ã•ãŒã™
 ------------------------------------------------------------------------------*/
 HalfEdge* Face::SeachStraightLine( HalfEdge* startHalfEdge)
 {
@@ -211,7 +211,7 @@ HalfEdge* Face::SeachStraightLine( HalfEdge* startHalfEdge)
 }
 
 /*------------------------------------------------------------------------------
-	ˆÚ“®‚É‚æ‚éXV
+	ç§»å‹•ã«ã‚ˆã‚‹æ›´æ–°
 ------------------------------------------------------------------------------*/
 void Face::UpdateByMove(void)
 {
@@ -219,7 +219,7 @@ void Face::UpdateByMove(void)
 }
 
 /*------------------------------------------------------------------------------
-	‘®«î•ñ‚ÌXV
+	å±æ€§æƒ…å ±ã®æ›´æ–°
 ------------------------------------------------------------------------------*/
 void Face::UpdateAttribute(void)
 {

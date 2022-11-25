@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    XModelRenderer.cpp - ƒ‚ƒfƒ‹iXƒtƒ@ƒCƒ‹j‚Ì•`‰æ
+    XModelRenderer.cpp - ãƒ¢ãƒ‡ãƒ«ï¼ˆXãƒ•ã‚¡ã‚¤ãƒ«ï¼‰ã®æç”»
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/7
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "XModelRenderer.h"
 #include "Material.h"
@@ -17,7 +17,7 @@
 #include "XModelData.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* XModelRenderer::Create(GameObject* gameObject)
 {
@@ -25,7 +25,7 @@ Component* XModelRenderer::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 XModelRenderer::XModelRenderer( GameObject *pGameObject)
 {
@@ -39,25 +39,25 @@ XModelRenderer::XModelRenderer( GameObject *pGameObject)
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void XModelRenderer::Uninit( void)
 {
 	Manager::GetRenderManager()->ReleaseRenderer( this);
 
-	//ƒ}ƒeƒŠƒAƒ‹‚Ì‰ğ•ú
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ã®è§£æ”¾
 	m_vecMaterial.clear();
 }
 
 /*------------------------------------------------------------------------------
-	Xƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+	Xãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
 ------------------------------------------------------------------------------*/
 void XModelRenderer::LoadXModel( std::string FileName)
 {
-	//Xƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚İ
+	//Xãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¿
 	m_pData = Manager::GetXModelManager()->Load( FileName);
 	
-	//ƒ}ƒeƒŠƒAƒ‹‚ğƒRƒs[
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’ã‚³ãƒ”ãƒ¼
 	m_vecMaterial.clear();
 	for (auto pMat : m_pData->m_vecMaterial)
 	{
@@ -67,7 +67,7 @@ void XModelRenderer::LoadXModel( std::string FileName)
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void XModelRenderer::Update( void)
 {
@@ -76,12 +76,12 @@ void XModelRenderer::Update( void)
 		return;
 	}
 
-	//ƒŒƒ“ƒ_[ƒ}ƒl[ƒWƒƒ[‚É“o˜^
+	//ãƒ¬ãƒ³ãƒ€ãƒ¼ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã«ç™»éŒ²
 	//Manager::GetRenderManager()->AddRenderer( this);
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æ
+	æç”»
 ------------------------------------------------------------------------------*/
 void XModelRenderer::Draw( Camera* pCamera)
 {
@@ -90,33 +90,33 @@ void XModelRenderer::Draw( Camera* pCamera)
 		return;
 	}
 
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//ƒ[ƒ‹ƒhÀ•W•ÏŠ·
-	D3DXMATRIX mtxWorld = m_pTransform->WorldMatrix();	//ƒ[ƒ‹ƒhÀ•W•ÏŠ·s—ñ
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™å¤‰æ›
+	D3DXMATRIX mtxWorld = m_pTransform->WorldMatrix();	//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™å¤‰æ›è¡Œåˆ—
 	pDevice->SetTransform( D3DTS_WORLD, &mtxWorld);
 
-	//ƒ‚ƒfƒ‹‚Ì•`‰æ
+	//ãƒ¢ãƒ‡ãƒ«ã®æç”»
 	for( int nCnt = 0; nCnt < (int)m_pData->m_nNumMaterial; nCnt++)
 	{
 		auto Mat = m_vecMaterial[ nCnt];
 
-		//ƒ}ƒeƒŠƒAƒ‹‚Ìİ’è
+		//ãƒãƒ†ãƒªã‚¢ãƒ«ã®è¨­å®š
 		Mat.Set( pCamera, this);
 
-		//ƒeƒNƒjƒbƒNŠJn
+		//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯é–‹å§‹
 		Mat.Begin( m_nPass);
 
-		//ƒƒbƒVƒ…‚Ì•`‰æ
+		//ãƒ¡ãƒƒã‚·ãƒ¥ã®æç”»
 		m_pData->m_pMeshModel->DrawSubset( nCnt);
 
-		//ƒeƒNƒjƒbƒNI—¹
+		//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯çµ‚äº†
 		Mat.End();
 	}
 }
 
 /*------------------------------------------------------------------------------
-	ƒ}ƒeƒŠƒAƒ‹‚Ìæ“¾
+	ãƒãƒ†ãƒªã‚¢ãƒ«ã®å–å¾—
 ------------------------------------------------------------------------------*/
 std::vector<Material>& XModelRenderer::GetAllMaterial()
 {
@@ -124,11 +124,11 @@ std::vector<Material>& XModelRenderer::GetAllMaterial()
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void XModelRenderer::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -143,7 +143,7 @@ void XModelRenderer::Load(Text& text)
 			LoadXModel( text.GetWord());
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
@@ -153,7 +153,7 @@ void XModelRenderer::Load(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void XModelRenderer::Save(Text& text)
 {

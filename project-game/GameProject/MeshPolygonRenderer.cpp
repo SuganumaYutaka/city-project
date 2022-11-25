@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    MeshPolygonRenderer.cpp - 3Dƒ|ƒŠƒSƒ“•`‰æ
+    MeshPolygonRenderer.cpp - 3Dãƒãƒªã‚´ãƒ³æç”»
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/5/17
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "MeshPolygonRenderer.h"
 #include "GameObject.h"
@@ -16,7 +16,7 @@
 #include "Camera.h"
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* MeshPolygonRenderer::Create(GameObject* gameObject)
 {
@@ -24,7 +24,7 @@ Component* MeshPolygonRenderer::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 MeshPolygonRenderer::MeshPolygonRenderer( GameObject *pGameObject)
 {
@@ -33,12 +33,12 @@ MeshPolygonRenderer::MeshPolygonRenderer( GameObject *pGameObject)
 	m_pTransform = m_pGameObject->GetComponent<Transform>();
 	m_nPass = 1;
 
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//F‚Ìİ’è
+	//è‰²ã®è¨­å®š
 	m_Color = D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f);
 
-	//ƒfƒtƒHƒ‹ƒg‚Ì’¸“_İ’è
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®é ‚ç‚¹è¨­å®š
 	std::vector<Vector3> vertices;
 	vertices.resize(4);
 	vertices[0] = Vector3( -0.5f, 0.0f, +0.5f);
@@ -48,26 +48,26 @@ MeshPolygonRenderer::MeshPolygonRenderer( GameObject *pGameObject)
 	m_pVtxBuff = NULL;
 	SetVertices( vertices);
 	
-	//ƒ}ƒeƒŠƒAƒ‹
+	//ãƒãƒ†ãƒªã‚¢ãƒ«
 	m_pMaterial = new Material();
 
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void MeshPolygonRenderer::Uninit( void)
 {
 	Manager::GetRenderManager()->ReleaseRenderer( this);
 
-	//’¸“_ƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	if( m_pVtxBuff != NULL)
 	{
 		m_pVtxBuff->Release();
 		m_pVtxBuff = NULL;
 	}
 
-	//ƒ}ƒeƒŠƒAƒ‹‚Ì‰ğ•ú
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ã®è§£æ”¾
 	if (m_pMaterial != NULL)
 	{
 		delete m_pMaterial;
@@ -79,7 +79,7 @@ void MeshPolygonRenderer::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	XV
+	æ›´æ–°
 ------------------------------------------------------------------------------*/
 void MeshPolygonRenderer::Update( void)
 {
@@ -87,42 +87,42 @@ void MeshPolygonRenderer::Update( void)
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æ
+	æç”»
 ------------------------------------------------------------------------------*/
 void MeshPolygonRenderer::Draw( Camera* pCamera)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//ƒ}ƒeƒŠƒAƒ‹iƒVƒF[ƒ_[j‚ğƒZƒbƒg
+	//ãƒãƒ†ãƒªã‚¢ãƒ«ï¼ˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ï¼‰ã‚’ã‚»ãƒƒãƒˆ
 	m_pMaterial->Set( pCamera, this);
 
-	//’¸“_î•ñİ’è
+	//é ‚ç‚¹æƒ…å ±è¨­å®š
 	pDevice-> SetStreamSource( 0, m_pVtxBuff, 0, sizeof( VERTEX_3D));
 
-	//ƒeƒNƒjƒbƒNŠJn
+	//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯é–‹å§‹
 	m_pMaterial->Begin( m_nPass);
 
-	//ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+	//ãƒãƒªã‚´ãƒ³ã®æç”»
 	pDevice->DrawPrimitive( D3DPT_TRIANGLEFAN, 0, m_Vertices.size() - 2);
 
-	//ƒeƒNƒjƒbƒNI—¹
+	//ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯çµ‚äº†
 	m_pMaterial->End();
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_‚ğİ’è
+	é ‚ç‚¹ã‚’è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshPolygonRenderer::SetVertices( const std::vector<Vector3>& vertices)
 {
-	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ƒfƒoƒCƒXæ“¾
+	LPDIRECT3DDEVICE9 pDevice = Manager::GetDevice();		//ãƒ‡ãƒã‚¤ã‚¹å–å¾—
 
-	//’¸“_ƒoƒbƒtƒ@‚Ì‰ğ•ú
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è§£æ”¾
 	SAFE_RELEASE( m_pVtxBuff);
 	
-	//’¸“_”‚Ìæ“¾
+	//é ‚ç‚¹æ•°ã®å–å¾—
 	int size = vertices.size();
 
-	//’¸“_ƒf[ƒ^‚Ìæ“¾
+	//é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 	m_Vertices.resize( size);
 	m_Vertices.shrink_to_fit();
 	for (int nCnt = 0; nCnt < size; nCnt++)
@@ -130,10 +130,10 @@ void MeshPolygonRenderer::SetVertices( const std::vector<Vector3>& vertices)
 		m_Vertices[ nCnt] = vertices[ nCnt].ConvertToDX();
 	}
 	
-	//’¸“_ƒoƒbƒtƒ@¶¬
+	//é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	if( FAILED( pDevice->CreateVertexBuffer( sizeof( VERTEX_3D) * size, D3DUSAGE_WRITEONLY, 0, D3DPOOL_MANAGED, &m_pVtxBuff, NULL)))
 	{
-		//ƒGƒ‰[
+		//ã‚¨ãƒ©ãƒ¼
 		assert( false);
 		return;
 	}
@@ -142,14 +142,14 @@ void MeshPolygonRenderer::SetVertices( const std::vector<Vector3>& vertices)
 }
 
 /*------------------------------------------------------------------------------
-	’¸“_ƒoƒbƒtƒ@İ’è
+	é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshPolygonRenderer::SetVtxBuffer( void)
 {
 	int size = m_Vertices.size();
 
-	//ƒƒbƒN
-	VERTEX_3D* pVtx;		//‰¼‘zƒAƒhƒŒƒX—pƒ|ƒCƒ“ƒ^
+	//ãƒ­ãƒƒã‚¯
+	VERTEX_3D* pVtx;		//ä»®æƒ³ã‚¢ãƒ‰ãƒ¬ã‚¹ç”¨ãƒã‚¤ãƒ³ã‚¿
 	m_pVtxBuff->Lock( 0, 0, (void**)&pVtx, 0);
 
 	for (int nCnt = 0; nCnt < size; nCnt++)
@@ -168,12 +168,12 @@ void MeshPolygonRenderer::SetVtxBuffer( void)
 		pVtx[3].Tex = D3DXVECTOR2( 1.0f, 0.0f);
 	}
 
-	//ƒAƒ“ƒƒbƒN
+	//ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
 	m_pVtxBuff->Unlock();
 }
 
 /*------------------------------------------------------------------------------
-	ƒeƒNƒXƒ`ƒƒİ’è
+	ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshPolygonRenderer::LoadTexture(std::string FileName)
 {
@@ -181,7 +181,7 @@ void MeshPolygonRenderer::LoadTexture(std::string FileName)
 }
 
 /*------------------------------------------------------------------------------
-	ƒVƒF[ƒ_[İ’è
+	ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è¨­å®š
 ------------------------------------------------------------------------------*/
 void MeshPolygonRenderer::SetShader(EShaderType Type)
 {
@@ -189,11 +189,11 @@ void MeshPolygonRenderer::SetShader(EShaderType Type)
 }
 
 /*------------------------------------------------------------------------------
-	ƒ[ƒh
+	ãƒ­ãƒ¼ãƒ‰
 ------------------------------------------------------------------------------*/
 void MeshPolygonRenderer::Load(Text& text)
 {
-	//text‚ğ“Ç‚İi‚ß‚é
+	//textã‚’èª­ã¿é€²ã‚ã‚‹
 	if (text.ForwardPositionToNextWord() == Text::EoF)
 	{
 		return;
@@ -242,7 +242,7 @@ void MeshPolygonRenderer::Load(Text& text)
 			}
 		}
 
-		//text‚ğ“Ç‚İi‚ß‚é
+		//textã‚’èª­ã¿é€²ã‚ã‚‹
 		if (text.ForwardPositionToNextWord() == Text::EoF)
 		{
 			return;
@@ -252,7 +252,7 @@ void MeshPolygonRenderer::Load(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	ƒZ[ƒu
+	ã‚»ãƒ¼ãƒ–
 ------------------------------------------------------------------------------*/
 void MeshPolygonRenderer::Save(Text& text)
 {
@@ -279,7 +279,7 @@ void MeshPolygonRenderer::Save(Text& text)
 }
 
 /*------------------------------------------------------------------------------
-	‹‘äƒJƒŠƒ“ƒO”»’è
+	è¦–éŒå°ã‚«ãƒªãƒ³ã‚°åˆ¤å®š
 ------------------------------------------------------------------------------*/
 bool MeshPolygonRenderer::CheckFrustumCulling(Camera* pCamera)
 {

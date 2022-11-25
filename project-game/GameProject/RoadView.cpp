@@ -1,12 +1,12 @@
 /*==============================================================================
 
-    RoadView.cpp - ’¬‚Ì©“®¶¬[“¹˜Hƒrƒ…[
+    RoadView.cpp - ç”ºã®è‡ªå‹•ç”Ÿæˆãƒ¼é“è·¯ãƒ“ãƒ¥ãƒ¼
                                                        Author : Yutaka Suganuma
                                                        Date   : 2017/12/1
 ==============================================================================*/
 
 /*------------------------------------------------------------------------------
-	ƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+	ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 ------------------------------------------------------------------------------*/
 #include "RoadView.h"
 #include "GameObject.h"
@@ -19,7 +19,7 @@
 using namespace HalfEdgeDataStructure;
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒ|[ƒlƒ“ƒg¶¬
+	ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆç”Ÿæˆ
 ------------------------------------------------------------------------------*/
 Component* RoadView::Create(GameObject* gameObject)
 {
@@ -27,7 +27,7 @@ Component* RoadView::Create(GameObject* gameObject)
 }
 
 /*------------------------------------------------------------------------------
-	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ------------------------------------------------------------------------------*/
 RoadView::RoadView( GameObject* pGameObject)
 {
@@ -37,7 +37,7 @@ RoadView::RoadView( GameObject* pGameObject)
 	m_Attribute = NULL;
 	m_IsUpdatedAttribute = false;
 
-	//ƒŒƒ“ƒ_ƒ‰[‚Ìİ’è
+	//ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼ã®è¨­å®š
 	m_GrayRenderer = m_pGameObject->AddComponent<MeshPolygonRenderer>();
 	m_GrayRenderer->LoadTexture( "data/TEXTURE/gray.jpg");
 	m_GrayRenderer->GetMaterial()->SetSpecular( 0.2f, 0.2f, 0.2f, 1.0f);
@@ -49,7 +49,7 @@ RoadView::RoadView( GameObject* pGameObject)
 }
 
 /*------------------------------------------------------------------------------
-	I—¹ˆ—
+	çµ‚äº†å‡¦ç†
 ------------------------------------------------------------------------------*/
 void RoadView::Uninit( void)
 {
@@ -57,7 +57,7 @@ void RoadView::Uninit( void)
 }
 
 /*------------------------------------------------------------------------------
-	XVˆ—
+	æ›´æ–°å‡¦ç†
 ------------------------------------------------------------------------------*/
 void RoadView::Update( void)
 {
@@ -68,12 +68,12 @@ void RoadView::Update( void)
 
 	m_IsUpdatedAttribute = false;
 
-	//•`‰æî•ñ‚ÌXV
+	//æç”»æƒ…å ±ã®æ›´æ–°
 	UpdateRenderer();
 }
 
 /*------------------------------------------------------------------------------
-	‘®«î•ñ‚Ìİ’è
+	å±æ€§æƒ…å ±ã®è¨­å®š
 ------------------------------------------------------------------------------*/
 void RoadView::SetAttribute( RoadAttribute* attribute)
 { 
@@ -84,19 +84,19 @@ void RoadView::SetAttribute( RoadAttribute* attribute)
 	
 	m_Attribute = attribute;
 
-	//•`‰æî•ñ‚ÌXV
+	//æç”»æƒ…å ±ã®æ›´æ–°
 	UpdateRenderer();
 }
 
 /*------------------------------------------------------------------------------
-	•`‰æî•ñ‚ÌXV
+	æç”»æƒ…å ±ã®æ›´æ–°
 ------------------------------------------------------------------------------*/
 void RoadView::UpdateRenderer(void)
 {
-	//“¹˜H‚Ì’¸“_‚ğæ“¾
+	//é“è·¯ã®é ‚ç‚¹ã‚’å–å¾—
 	auto& vertices = m_Attribute->GetVertices();
 	
-	//Œğ·“_•ª’Z‚­‚·‚é
+	//äº¤å·®ç‚¹åˆ†çŸ­ãã™ã‚‹
 	float width = m_Attribute->GetWidth();
 	Vector3 vector = m_Attribute->GetVector().Normalize();
 	vertices[0] += vector * width * ( 0.5f - 0.03f);
@@ -104,10 +104,10 @@ void RoadView::UpdateRenderer(void)
 	vertices[2] -= vector * width * ( 0.5f - 0.03f);
 	vertices[3] += vector * width * ( 0.5f - 0.03f);
 
-	//ƒAƒXƒtƒ@ƒ‹ƒg
+	//ã‚¢ã‚¹ãƒ•ã‚¡ãƒ«ãƒˆ
 	m_GrayRenderer->SetVertices( vertices);
 
-	//”’ü
+	//ç™½ç·š
 	for (auto& vertex : vertices)
 	{
 		vertex.y += 0.01f;
