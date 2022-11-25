@@ -20,7 +20,9 @@ Texture::Texture( std::string fileName)
 	if( FAILED( D3DXCreateTextureFromFile( Manager::GetDevice(), fileName.c_str(), &m_pTexture)))
 	{
 		//エラー
-		MessageBox( NULL, "テクスチャを読み込めません\n", "エラー", MB_OK);
+		CHAR str[128];
+		wsprintf(str, "テクスチャを読み込めません\n%s", fileName.c_str());
+		MessageBox( NULL, str, "エラー", MB_OK);
 		return;
 	}
 	FileName = fileName;
